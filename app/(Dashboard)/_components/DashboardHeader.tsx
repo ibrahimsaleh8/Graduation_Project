@@ -6,7 +6,7 @@ import { Message01Icon, Settings02Icon } from "@hugeicons/core-free-icons";
 
 export default function DashboardHeader() {
   return (
-    <header className="p-4 flex items-center justify-between w-full sticky top-0 left-0 bg-white">
+    <header className="p-4 flex items-center justify-between w-full sticky top-0 left-0 bg-white z-40 border-b">
       <SidebarTrigger />
       <div className="flex items-center md:gap-4 gap-3">
         <Link

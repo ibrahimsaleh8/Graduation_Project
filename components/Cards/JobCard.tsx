@@ -2,12 +2,17 @@ import microsoft from "@images/Icons/google.svg";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Bookmark01Icon } from "@hugeicons/core-free-icons";
+import {
+  Bookmark01Icon,
+  CheckmarkCircle01Icon,
+} from "@hugeicons/core-free-icons";
 import JobDetailsSheet from "./JobDetailsSheet";
-
-export default function JobCard() {
+type Props = {
+  isApplied: boolean;
+};
+export default function JobCard({ isApplied }: Props) {
   return (
-    <div className="bg-white w-full rounded-2xl flex flex-col gap-5 p-8 border border-black/5 text-black">
+    <div className="bg-white shadow w-full rounded-2xl flex flex-col gap-5 p-8 border border-black/5 text-black">
       {/* Top */}
       <div className="flex items-center justify-between gap-5">
         <div className="p-2 rounded-md flex gap-3">
@@ -41,8 +46,20 @@ export default function JobCard() {
 
       {/* Bottom */}
       <div className="flex justify-between border-t pt-5 items-center gap-4 flex-wrap">
-        <JobDetailsSheet />
-        <p className="text-sm text-low-color">3 day ago</p>
+        {isApplied ? (
+          <p className="flex items-center gap-1">
+            <HugeiconsIcon
+              icon={CheckmarkCircle01Icon}
+              className="fill-green-600 text-white size-5"
+            />
+            Applied at 12-3-2026
+          </p>
+        ) : (
+          <>
+            <JobDetailsSheet />
+            <p className="text-sm text-low-color">3 day ago</p>
+          </>
+        )}
       </div>
     </div>
   );

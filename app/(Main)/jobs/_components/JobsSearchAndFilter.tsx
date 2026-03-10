@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 
 export default function JobsSearchAndFilter() {
   return (
-    <div className="w-full md:p-10 p-4 border-b">
+    <div className="w-full md:p-8 p-4 border-b">
       <div className="flex items-center gap-3 container mx-auto flex-col md:flex-row">
         <SearchBar />
         <JobLocationSearch />

@@ -1,3 +1,4 @@
+"use client";
 import {
   Sidebar,
   SidebarHeader,
@@ -21,6 +22,7 @@ import {
   Settings02Icon,
 } from "@hugeicons/core-free-icons";
 import LogoutButton from "./LogoutButton";
+import { usePathname } from "next/navigation";
 
 const employeeLinks = [
   {
@@ -60,6 +62,7 @@ const employeeLinks = [
   },
 ];
 export default function DashboardSidebar() {
+  const currentPath = usePathname();
   return (
     <Sidebar>
       <SidebarHeader className="pt-4">
@@ -69,12 +72,14 @@ export default function DashboardSidebar() {
       </SidebarHeader>
       <SidebarContent className="mt-4">
         <SidebarGroup>
-          <SidebarMenu className="space-y-2.5">
+          <SidebarMenu className="space-y-2">
             {employeeLinks.map((link) => (
               <SidebarMenuItem key={link.label} className="flex">
                 <Link
-                  href={"/dashboard"}
-                  className="w-full flex items-center gap-3 font-medium py-3 rounded-md px-4 text-sm">
+                  href={link.link}
+                  className={`w-full flex items-center gap-3 font-medium p-4 rounded-md text-sm hover:bg-white duration-300
+                  ${currentPath == link.link ? "bg-white" : ""}
+                  `}>
                   <HugeiconsIcon icon={link.icon} className="size-5" />
                   {link.label}
                 </Link>
