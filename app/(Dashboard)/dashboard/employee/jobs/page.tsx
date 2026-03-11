@@ -3,7 +3,7 @@ import JobCard from "@/components/Cards/JobCard";
 
 export default function ShowJobs() {
   return (
-    <div className="space-y-2.5">
+    <div className="space-y-6">
       {/* Top */}
       <JobsSearchAndFilter />
       <p className="font-medium ml-auto w-fit my-4">6 jobs Found</p>

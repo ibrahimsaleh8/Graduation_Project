@@ -53,6 +53,7 @@
   --color-main-bg: var(--main-bg);
   --color-border-color: var(--border-color);
   --color-input-bg: var(--input-bg);
+  --color-card-bg: var(--card-bg);
 
   /* ---------- */
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
@@ -110,6 +111,7 @@
   --main-bg: #ffffff;
   --border-color: #e5e7eb;
   --input-bg: #f1f1f1;
+  --card-bg: #fafafb;
 }
 
 @layer base {

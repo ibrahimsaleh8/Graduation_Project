@@ -20,6 +20,7 @@ import {
   Message01Icon,
   UserCircleIcon,
   Settings02Icon,
+  Calendar03Icon,
 } from "@hugeicons/core-free-icons";
 import LogoutButton from "./LogoutButton";
 import { usePathname } from "next/navigation";
@@ -44,6 +45,11 @@ const employeeLinks = [
     link: "/dashboard/employee/applied-jobs",
     label: "Job Applications",
     icon: TaskDone01Icon,
+  },
+  {
+    link: "/dashboard/employee/interviews",
+    label: "Interviews",
+    icon: Calendar03Icon,
   },
   {
     link: "/dashboard/employee/messages",

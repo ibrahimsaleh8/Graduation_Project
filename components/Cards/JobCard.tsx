@@ -15,11 +15,15 @@ export default function JobCard({ isApplied }: Props) {
     <div className="bg-white shadow w-full rounded-2xl flex flex-col gap-5 p-8 border border-black/5 text-black">
       {/* Top */}
       <div className="flex items-center justify-between gap-5">
-        <div className="p-2 rounded-md flex gap-3">
-          <Image src={microsoft} alt="microsoft" className="w-10" />
-          <div className="text-sm">
-            <p className="font-medium text-low-color">Google</p>
-            <p className="text-low-color">Cairo, Egypt</p>
+        <div className="p-2 rounded-md flex gap-3 items-center">
+          <Image
+            src={microsoft}
+            alt="microsoft"
+            className="size-10 object-cover object-center"
+          />
+          <div>
+            <p className="font-medium text-low-color text-base">Google</p>
+            <p className="text-low-color text-sm">Cairo, Egypt</p>
           </div>
         </div>
 
