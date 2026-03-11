@@ -52,8 +52,8 @@ const employeeLinks = [
     icon: Calendar03Icon,
   },
   {
-    link: "/dashboard/employee/messages",
-    label: "Messages",
+    link: "/dashboard/employee/mails",
+    label: "Mails",
     icon: Message01Icon,
   },
   {
