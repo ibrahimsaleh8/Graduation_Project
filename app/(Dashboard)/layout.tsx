@@ -9,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <DashboardSidebar />
       <main className="w-full">
         <DashboardHeader />
-        <div className="p-4 min-h-screen overflow-x-hidden">{children}</div>
+        <div className="md:p-4 p-2 min-h-screen overflow-x-hidden">
+          {children}
+        </div>
       </main>
     </SidebarProvider>
   );

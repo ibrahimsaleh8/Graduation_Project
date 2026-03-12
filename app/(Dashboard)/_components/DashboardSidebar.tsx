@@ -8,6 +8,7 @@ import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/animate-ui/components/radix/sidebar";
 import Logo from "@/components/Logo";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -62,13 +63,15 @@ const employeeLinks = [
     icon: UserCircleIcon,
   },
   {
-    link: "/dashboard/employee/profile",
+    link: "/dashboard/employee/setting",
     label: "Settings",
     icon: Settings02Icon,
   },
 ];
 export default function DashboardSidebar() {
   const currentPath = usePathname();
+  const { setOpenMobile } = useSidebar();
+
   return (
     <Sidebar>
       <SidebarHeader className="pt-4">
@@ -82,6 +85,7 @@ export default function DashboardSidebar() {
             {employeeLinks.map((link) => (
               <SidebarMenuItem key={link.label} className="flex">
                 <Link
+                  onClick={() => setOpenMobile(false)}
                   href={link.link}
                   className={`w-full flex items-center gap-3 font-medium p-4 rounded-md text-sm hover:bg-white duration-300
                   ${currentPath == link.link ? "bg-white" : ""}
