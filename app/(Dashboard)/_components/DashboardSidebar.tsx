@@ -87,9 +87,11 @@ export default function DashboardSidebar() {
                 <Link
                   onClick={() => setOpenMobile(false)}
                   href={link.link}
-                  className={`w-full flex items-center gap-3 font-medium p-4 rounded-md text-sm hover:bg-white duration-300
-                  ${currentPath == link.link ? "bg-white" : ""}
+                  className={`w-full relative flex items-center gap-3 font-medium p-4 rounded-md text-sm hover:bg-main-color/10 hover:text-main-color duration-300
+                  ${currentPath == link.link ? "bg-main-color/10 text-main-color" : ""}
                   `}>
+                  <span
+                    className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.75 h-1/2 bg-main-color duration-500 ${currentPath == link.link ? "opacity-100" : "opacity-0"}`}></span>
                   <HugeiconsIcon icon={link.icon} className="size-5" />
                   {link.label}
                 </Link>

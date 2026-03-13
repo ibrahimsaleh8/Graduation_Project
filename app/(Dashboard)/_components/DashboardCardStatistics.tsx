@@ -4,20 +4,16 @@ type Props = {
   title: string;
   value: number;
   icon: IconSvgElement;
-  background: string;
   iconColor: string;
 };
 export default function DashboardCardStatistics({
   icon,
   title,
   value,
-  background,
   iconColor,
 }: Props) {
   return (
-    <div
-      style={{ background }}
-      className="w-full p-5 rounded-2xl flex flex-col items-center gap-5">
+    <div className="w-full p-5 rounded-2xl flex flex-col items-center gap-5 bg-white border">
       <HugeiconsIcon
         style={{ color: iconColor }}
         icon={icon}

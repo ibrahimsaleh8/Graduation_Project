@@ -24,19 +24,24 @@ export default function JobLocationSearch() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="md:w-1/2 w-full flex flex-col gap-1">
-          <p>Location</p>
+        <div className="md:w-1/2 w-full flex flex-col gap-1 border-y md:border-y-0 py-2 md:py-0">
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full flex items-center! rounded-full h-12 text-sm gap-2 bg-white font-normal border hover:text-black hover:bg-white/90 justify-start text-black">
+            className="w-full flex items-center! rounded-full h-12 text-sm gap-2 bg-white font-normal border-0 shadow-none hover:text-black hover:bg-white/90 justify-start text-black">
             <HugeiconsIcon
               icon={Location01Icon}
-              className="w-5! h-5! text-low-color"
+              className="w-6! h-6! text-black/50"
             />
             <span className={cn("truncate")}>
-              {value ? value : "Select city..."}
+              {value ? (
+                value
+              ) : (
+                <span className="text-black/50 font-medium">
+                  Set your country...
+                </span>
+              )}
             </span>
           </Button>
         </div>

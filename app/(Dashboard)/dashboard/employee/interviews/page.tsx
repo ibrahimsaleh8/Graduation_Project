@@ -12,28 +12,24 @@ export const interviewsStats = [
     title: "Total Interviews",
     value: 24,
     icon: Calendar03Icon,
-    background: "#EEF2FF",
     iconColor: "#4F46E5",
   },
   {
     title: "Upcoming",
     value: 12,
     icon: Clock01Icon,
-    background: "#ECFEFF",
     iconColor: "#0891B2",
   },
   {
     title: "Completed",
     value: 5,
     icon: CheckmarkCircle02Icon,
-    background: "#ECFDF5",
     iconColor: "#059669",
   },
   {
     title: "Cancelled",
     value: 7,
     icon: Cancel01Icon,
-    background: "#FEF2F2",
     iconColor: "#DC2626",
   },
 ];
