@@ -19,7 +19,7 @@ const employeeLinks = [
   },
   {
     label: "Settings",
-    link: "/dashboard/employee/settings",
+    link: "/dashboard/employee/setting",
   },
   {
     label: "Mails",

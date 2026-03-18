@@ -1,0 +1,88 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function ContactData() {
+  return (
+    <form onSubmit={(e) => e.preventDefault()} className="w-full px-4">
+      {/* Contact */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
+          <div className="space-y-1 w-full">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="Email"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              type="text"
+              id="phone"
+              placeholder="Phone"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="address">Address</Label>
+            <Input
+              type="text"
+              id="address"
+              placeholder="Address"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="linkedin">Linkedin</Label>
+            <Input
+              type="text"
+              id="linkedin"
+              placeholder="https://www.linkedin.com/in/...."
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="github">Github</Label>
+            <Input
+              type="text"
+              id="github"
+              placeholder="Github"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="facebook">Facebook</Label>
+            <Input
+              type="text"
+              id="facebook"
+              placeholder="Facebook"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="portfolio">Portfolio</Label>
+            <Input
+              type="text"
+              id="portfolio"
+              placeholder="Portfolio"
+              className="bg-white border border-border-color"
+            />
+          </div>
+        </div>
+        <Button type="submit" className="min-w-32 h-9.5 text-sm w-fit mt-2">
+          Save
+        </Button>
+      </div>
+    </form>
+  );
+}
