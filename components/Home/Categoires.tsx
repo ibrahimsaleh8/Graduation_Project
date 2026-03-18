@@ -4,28 +4,48 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   BrushIcon,
   CodeIcon,
-  BriefcaseIcon,
-  AnalyticsIcon,
   SmartPhone01Icon,
+  AnalyticsIcon,
   DatabaseIcon,
   MarketingIcon,
-  CustomerSupportIcon,
-  TeacherIcon,
-  CameraIcon,
   PlusSignIcon,
 } from "@hugeicons/core-free-icons";
 
 const categories = [
-  { category: "UI/UX Design", icon: BrushIcon, jobs: "12K Jobs" },
-  { category: "Web Development", icon: CodeIcon, jobs: "18K Jobs" },
-  { category: "Mobile Development", icon: SmartPhone01Icon, jobs: "9K Jobs" },
-  { category: "Data & Analytics", icon: AnalyticsIcon, jobs: "7K Jobs" },
-  { category: "Backend Development", icon: DatabaseIcon, jobs: "11K Jobs" },
-  { category: "Digital Marketing", icon: MarketingIcon, jobs: "6K Jobs" },
-  { category: "Business & Management", icon: BriefcaseIcon, jobs: "10K Jobs" },
-  { category: "Customer Support", icon: CustomerSupportIcon, jobs: "8K Jobs" },
-  { category: "Education & Training", icon: TeacherIcon, jobs: "5K Jobs" },
-  { category: "Media & Photography", icon: CameraIcon, jobs: "4K Jobs" },
+  {
+    title: "UI / UX Design",
+    description:
+      "Design user interfaces and create engaging digital experiences.",
+    icon: BrushIcon,
+  },
+  {
+    title: "Web Development",
+    description:
+      "Build modern websites and web applications using latest technologies.",
+    icon: CodeIcon,
+  },
+  {
+    title: "Mobile Development",
+    description:
+      "Create powerful mobile applications for iOS and Android platforms.",
+    icon: SmartPhone01Icon,
+  },
+  {
+    title: "Data & Analytics",
+    description:
+      "Analyze data to uncover insights and support business decisions.",
+    icon: AnalyticsIcon,
+  },
+  {
+    title: "Backend Development",
+    description: "Develop scalable APIs, servers, and cloud-based systems.",
+    icon: DatabaseIcon,
+  },
+  {
+    title: "Digital Marketing",
+    description: "Grow brands using SEO, social media, and digital campaigns.",
+    icon: MarketingIcon,
+  },
 ];
 
 export default function Categories() {
@@ -38,39 +58,57 @@ export default function Categories() {
           classes="lg:text-5xl md:text-3xl text-xl font-semibold text-main-dark"
         />
         <p className="text-low-color max-w-xl">
-          Find the job that suits your passion and expertise
+          Discover jobs across different industries and find the role that
+          matches your skills.
         </p>
       </div>
 
       {/* Grid */}
-      <div className="grid sm:grid-cols-[repeat(auto-fill,minmax(26rem,1fr))] gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((item, index) => (
           <div
             key={index}
-            className="group bg-white border border-border-color rounded-xl p-6
-            flex flex-col items-center text-center gap-4
-            hover:border-main-color hover:shadow-md transition">
-            <span className="text-main-color">
-              <HugeiconsIcon icon={item.icon} className="size-10" />
-            </span>
+            className="
+            group relative bg-white border border-border-color
+            rounded-2xl p-6 transition-all duration-300
+            hover:shadow-lg hover:border-main-color
+            flex flex-col gap-4">
+            {/* Icon */}
+            <div
+              className="
+              w-14 h-14 flex items-center justify-center
+              rounded-xl bg-main-color/10 text-main-color
+              group-hover:bg-main-color group-hover:text-white
+              transition">
+              <HugeiconsIcon icon={item.icon} className="size-7" />
+            </div>
 
-            <div>
-              <p className="font-medium text-main-dark">{item.category}</p>
-              <p className="text-sm text-low-color">{item.jobs}</p>
+            {/* Content */}
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-main-dark">
+                {item.title}
+              </h3>
+              <p className="text-sm text-low-color leading-relaxed">
+                {item.description}
+              </p>
             </div>
           </div>
         ))}
 
-        {/* More Categories Card */}
+        {/* More Categories */}
         <div
-          className="bg-main-color/10 border border-main-color/30 rounded-xl p-6
-          flex flex-col items-center justify-center text-center gap-4
-          hover:bg-main-color/15 transition cursor-pointer">
-          <span className="text-main-color">
-            <HugeiconsIcon icon={PlusSignIcon} className="size-10" />
-          </span>
-          <p className="font-medium text-main-dark">+25 Categories</p>
-          <p className="text-sm text-low-color">Browse all categories</p>
+          className="
+          flex flex-col justify-center items-center text-center
+          border border-dashed border-main-color/40
+          rounded-2xl p-6 gap-3
+          bg-main-color/5 hover:bg-main-color/10
+          transition">
+          <HugeiconsIcon
+            icon={PlusSignIcon}
+            className="size-8 text-main-color"
+          />
+          <p className="font-semibold text-main-dark">More Categories</p>
+          <p className="text-sm text-low-color">25+ more job fields</p>
         </div>
       </div>
     </section>

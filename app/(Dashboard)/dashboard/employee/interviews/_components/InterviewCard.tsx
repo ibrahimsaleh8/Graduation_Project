@@ -11,84 +11,94 @@ import Image from "next/image";
 
 export default function InterviewCard() {
   return (
-    <div className="w-full bg-white rounded-2xl border p-4">
+    <div
+      className="group w-full bg-white rounded-2xl border border-black/5 p-5 
+    shadow-sm hover:shadow-md transition-all duration-300">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3 flex-wrap border-b border-border-color/50 pb-3">
-        <div className="p-2 rounded-md flex gap-3 items-center">
-          <Image
-            src={microsoft}
-            alt="microsoft"
-            className="size-10 object-cover object-center"
-          />
+      <div className="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-black/5">
+        {/* Company + Role */}
+        <div className="flex items-center gap-4">
+          <div className="p-2 rounded-xl bg-black/5">
+            <Image
+              src={microsoft}
+              alt="company"
+              className="size-10 object-contain"
+            />
+          </div>
+
           <div>
-            <p className="font-medium text-low-color text-base">
+            <p className="font-semibold text-base text-black">
               Senior Frontend Engineer
             </p>
-            <p className="font-medium text-low-color text-base">Google</p>
+            <p className="text-sm text-black/60">Google</p>
           </div>
         </div>
 
-        <p className="text-xs px-2 py-1.5 rounded-md font-medium bg-blue-100 text-blue-600">
+        {/* Status */}
+        <span
+          className="text-xs font-medium px-3 py-1 rounded-full 
+        bg-blue-50 text-blue-600 border border-blue-100">
           Upcoming
-        </p>
+        </span>
       </div>
 
-      {/* body */}
-      <div className="flex justify-between items-center gap-4 flex-wrap p-4 pb-5 border-b border-border-color/50">
-        {/* Date */}
-        <div>
-          <p className="text-black/70">Date</p>
-          <p className="flex items-center gap-1 text-sm">
+      {/* Body */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-5">
+        {/* Item */}
+        <div className="flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-black/5">
             <HugeiconsIcon
               icon={Calendar02Icon}
-              className="size-4.5 text-black/70"
+              className="size-4 text-black/70"
             />
-            Oct 24, 2023
-          </p>
+          </div>
+          <div>
+            <p className="text-xs text-black/50">Date</p>
+            <p className="text-sm font-medium">Oct 24, 2023</p>
+          </div>
         </div>
 
-        {/* Time */}
-        <div>
-          <p className="text-black/70">Time</p>
-          <p className="flex items-center gap-1 text-sm">
+        <div className="flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-black/5">
             <HugeiconsIcon
               icon={AlarmClockIcon}
-              className="size-4.5 text-black/70"
+              className="size-4 text-black/70"
             />
-            2:00 PM EST
-          </p>
+          </div>
+          <div>
+            <p className="text-xs text-black/50">Time</p>
+            <p className="text-sm font-medium">2:00 PM EST</p>
+          </div>
         </div>
 
-        {/* Type */}
-        <div>
-          <p className="text-black/70">Type</p>
-          <p className="flex items-center gap-1 text-sm">
-            <HugeiconsIcon
-              icon={File02Icon}
-              className="size-4.5 text-black/70"
-            />
-            Technical
-          </p>
+        <div className="flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-black/5">
+            <HugeiconsIcon icon={File02Icon} className="size-4 text-black/70" />
+          </div>
+          <div>
+            <p className="text-xs text-black/50">Type</p>
+            <p className="text-sm font-medium">Technical</p>
+          </div>
         </div>
 
-        {/* Interviewer */}
-        <div>
-          <p className="text-black/70">Interviewer</p>
-          <p className="flex items-center gap-1 text-sm">
-            <HugeiconsIcon icon={UserIcon} className="size-4.5 text-black/70" />
-            Sarah Jenkins
-          </p>
+        <div className="flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-black/5">
+            <HugeiconsIcon icon={UserIcon} className="size-4 text-black/70" />
+          </div>
+          <div>
+            <p className="text-xs text-black/50">Interviewer</p>
+            <p className="text-sm font-medium">Sarah Jenkins</p>
+          </div>
         </div>
       </div>
 
-      {/* bottom */}
-      <div className="flex items-center gap-4 flex-wrap p-4 justify-end">
-        <Button
-          className="text-sm bg-white border text-black hover:bg-black/5"
-          size={"sm"}>
+      {/* Footer */}
+      <div className="flex items-center justify-end gap-3 pt-3 border-t border-black/5">
+        <Button className="bg-main-color text-white text-sm h-10 hover:bg-main-color/90 hover:text-white">
           View Details
         </Button>
-        <Button className="text-sm border hover:opacity-80" size={"sm"}>
+
+        <Button className="text-sm h-10 bg-main-dark hover:bg-main-dark/80">
           Join Meeting
         </Button>
       </div>

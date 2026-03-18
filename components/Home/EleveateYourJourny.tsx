@@ -39,7 +39,7 @@ export default function EleveateYourJourny() {
           </Link>
         </div>
 
-        <div className="relative clip-path-lefy-card w-130 lg:flex hidden justify-end items-center h-120 -ml-19.25 rounded-tr-2xl rounded-br-2xl bg-[#1b1b1b]">
+        <div className="relative clip-path-lefy-card w-130 lg:flex hidden justify-end items-center h-120 -ml-19.25 rounded-tr-2xl rounded-br-2xl bg-main-dark">
           <Image
             src={upperImage}
             alt="upperImage"

@@ -53,7 +53,7 @@ export default function Testimonials() {
           inspiring success stories and join the community!{" "}
         </p>
       </div>
-      <div className="grid sm:grid-cols-[repeat(auto-fit,minmax(25rem,1fr))] gap-10">
+      <div className="grid md:grid-cols-2 gap-10">
         {TestimonialsRates.map((test) => (
           <TestimonialsCard {...test} key={test.name} />
         ))}

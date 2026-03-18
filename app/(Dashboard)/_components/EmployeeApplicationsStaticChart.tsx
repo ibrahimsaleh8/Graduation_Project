@@ -1,6 +1,7 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import React from "react";
 
 import {
   Card,
@@ -17,6 +18,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+/* ---------------- DATA ---------------- */
+
 const chartData = [
   { month: "January", applications: 186, interviews: 65 },
   { month: "February", applications: 305, interviews: 120 },
@@ -25,6 +28,8 @@ const chartData = [
   { month: "May", applications: 209, interviews: 95 },
   { month: "June", applications: 214, interviews: 110 },
 ];
+
+/* ---------------- CONFIG ---------------- */
 
 const chartConfig = {
   applications: {
@@ -37,28 +42,51 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+type ActiveProperty = keyof typeof chartConfig | "all";
+
+/* ---------------- COMPONENT ---------------- */
+
 export function EmployeeApplicationsStaticChart() {
   return (
-    <Card className="bg-white text-black h-150">
-      <CardHeader>
-        <CardTitle>Applications vs Interviews</CardTitle>
-        <CardDescription>January - June 2026</CardDescription>
+    <Card className="bg-transparent h-100 text-black shadow-none border-0">
+      <CardHeader className="p-0">
+        <div className="flex justify-between">
+          <CardTitle className="p-0">
+            Applications and Interviews Statistics
+          </CardTitle>
+        </div>
+
+        <CardDescription className="text-black/70">
+          January - June 2026
+        </CardDescription>
       </CardHeader>
 
-      <CardContent className="h-150">
-        <ChartContainer className="h-120 w-full" config={chartConfig}>
-          <LineChart
+      <CardContent className="h-100 p-0">
+        <ChartContainer config={chartConfig} className="h-70 w-full">
+          <BarChart
             accessibilityLayer
             data={chartData}
-            margin={{ left: 12, right: 12 }}>
-            <CartesianGrid vertical={false} />
-
-            <XAxis
+            layout="vertical"
+            margin={{ left: -15 }}>
+            <YAxis
+              type="category"
               dataKey="month"
               tickLine={false}
+              tickMargin={10}
               axisLine={false}
-              tickMargin={8}
+              tick={{
+                fill: "#4F46E5",
+                fontSize: 13,
+              }}
               tickFormatter={(value) => value.slice(0, 3)}
+            />
+
+            <XAxis
+              type="number"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              hide
             />
 
             <ChartTooltip
@@ -67,50 +95,73 @@ export function EmployeeApplicationsStaticChart() {
             />
 
             {/* Applications */}
-            <Line
+            <Bar
+              stackId="a"
+              barSize={10}
               dataKey="applications"
-              type="linear"
-              stroke="var(--color-applications)"
-              strokeDasharray="4 4"
-              dot={<CustomizedDot />}
-              activeDot={false}
+              fill="var(--color-applications)"
+              radius={4}
+              shape={<CustomGradientBar />}
+              overflow="visible"
+              background={{ fill: "#e0e0e0ee", radius: 10 }}
             />
 
             {/* Interviews */}
-            <Line
+            <Bar
+              stackId="a"
+              barSize={10}
               dataKey="interviews"
-              type="linear"
-              stroke="var(--color-interviews)"
-              dot={<CustomizedDot />}
-              activeDot={false}
+              fill="var(--color-interviews)"
+              radius={4}
+              shape={<CustomGradientBar />}
+              overflow="visible"
             />
-          </LineChart>
+          </BarChart>
         </ChartContainer>
       </CardContent>
     </Card>
   );
 }
 
-const CustomizedDot = (
-  props: React.SVGProps<SVGCircleElement> & { value?: number },
+/* ---------------- BAR SHAPE ---------------- */
+
+const CustomGradientBar = (
+  props: React.SVGProps<SVGRectElement> & {
+    dataKey?: string;
+    activeProperty?: ActiveProperty | null;
+  },
 ) => {
-  const { cx, cy, stroke, value } = props;
+  const { fill, x, y, width, height, dataKey, activeProperty, radius } = props;
+
+  const isActive = activeProperty === "all" || activeProperty === dataKey;
 
   return (
-    <g>
-      <circle cx={cx} cy={cy} r={9} fill={stroke} />
+    <>
+      <rect
+        x={x}
+        y={y}
+        rx={radius}
+        width={width}
+        height={height}
+        fill={fill}
+        filter={
+          isActive && activeProperty !== "all"
+            ? `url(#glow-chart-${dataKey})`
+            : undefined
+        }
+      />
 
-      <text
-        x={cx}
-        y={cy}
-        textAnchor="middle"
-        dy={8}
-        fontSize={8}
-        fontWeight={600}
-        fill="white"
-        transform="translate(0, -5)">
-        {value}
-      </text>
-    </g>
+      <defs>
+        <filter
+          id={`glow-chart-${dataKey}`}
+          x="-200%"
+          y="-200%"
+          width="600%"
+          height="600%">
+          <feGaussianBlur stdDeviation="10" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+    </>
   );
 };

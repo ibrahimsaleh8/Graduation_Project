@@ -1,8 +1,10 @@
 "use client";
+
 import Image, { StaticImageData } from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
 import { motion } from "motion/react";
+
 export type TestimonialsCardDataType = {
   image: StaticImageData;
   name: string;
@@ -11,6 +13,7 @@ export type TestimonialsCardDataType = {
   status: "new member" | "Pro member";
   index: number;
 };
+
 export default function TestimonialsCard({
   image,
   job,
@@ -21,59 +24,59 @@ export default function TestimonialsCard({
 }: TestimonialsCardDataType) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.2 * index }}
       viewport={{ once: true }}
-      className="w-full rounded-2xl flex flex-col gap-3 items-center">
-      {/* Image */}
-      <div className="w-full h-100 bg-second-dark rounded-xl overflow-hidden relative">
-        <Image
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover object-center"
-        />
+      whileHover={{ y: -6 }}
+      className="
+      group
+      w-full
+      rounded-2xl
+      border border-border-color
+      bg-white
+      p-6
+      flex flex-col gap-5
+      shadow-sm
+      hover:shadow-xl
+      transition-all">
+      {/* Quote */}
+      <p className="text-sm text-low-color leading-relaxed">“{rate}”</p>
 
-        <div className="absolute bottom-0 left-0 w-full bg-black/5 text-white p-5 backdrop-blur-sm">
-          <p className="text-xs">
-            {'"'}
-            {rate} {'"'}
-          </p>
-        </div>
+      {/* Stars */}
+      <div className="flex items-center gap-1">
+        {[...Array(5)].map((_, i) => (
+          <HugeiconsIcon
+            key={i}
+            icon={StarIcon}
+            className="fill-amber-400 text-amber-400 size-4"
+          />
+        ))}
       </div>
 
-      {/* Text */}
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex items-center justify-between gap-1 flex-wrap">
-          <p className="text-xl">{name}</p>
-          <p className="text-xs px-3 py-1 bg-main-color text-white rounded-full capitalize">
-            {status}{" "}
-          </p>
+      {/* User */}
+      <div className="flex items-center gap-4 mt-2">
+        <div className="relative w-12 h-12 rounded-full overflow-hidden">
+          <Image src={image} alt={name} fill className="object-cover" />
         </div>
 
-        <p className="text-sm text-low-color">{job}</p>
-        <div className="flex items-center gap-1">
-          <HugeiconsIcon
-            icon={StarIcon}
-            className="fill-amber-400 text-amber-400 size-5"
-          />
-          <HugeiconsIcon
-            icon={StarIcon}
-            className="fill-amber-400 text-amber-400 size-5"
-          />
-          <HugeiconsIcon
-            icon={StarIcon}
-            className="fill-amber-400 text-amber-400 size-5"
-          />
-          <HugeiconsIcon
-            icon={StarIcon}
-            className="fill-amber-400 text-amber-400 size-5"
-          />
-          <HugeiconsIcon
-            icon={StarIcon}
-            className="fill-amber-400 text-amber-400 size-5"
-          />
+        <div className="flex flex-col flex-1">
+          <p className="font-semibold text-main-dark">{name}</p>
+          <p className="text-xs text-low-color">{job}</p>
         </div>
+
+        {/* Status */}
+        <span
+          className="
+          text-[11px]
+          px-3 py-1
+          rounded-full
+          bg-main-color/10
+          text-main-color
+          font-medium
+          capitalize">
+          {status}
+        </span>
       </div>
     </motion.div>
   );

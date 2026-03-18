@@ -4,11 +4,11 @@ import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 export default function Footer() {
   return (
-    <footer className="w-full bg-second-dark text-white md:p-15 p-5 md:pt-20 pt-10">
+    <footer className="w-full bg-main-dark text-white md:p-15 p-5 md:pt-20 pt-10">
       <div className="flex flex-col gap-10 container mx-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 items-start justify-between">
           <div className="flex flex-col gap-3">
-            <Logo size="large" classes="invert" />
+            <Logo size="large" />
             <p className="text-sm text-white/80 md:w-3/4">
               Jobify is a smart job-matching platform that connects talented
               professionals with the right opportunities faster.

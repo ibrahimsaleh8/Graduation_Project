@@ -3,7 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 export default function MyExperienceCard() {
   return (
-    <div className="space-y-3 border-b pb-3">
+    <div className="space-y-3 border-b pb-3 p-4">
       {/* Top */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>

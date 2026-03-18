@@ -3,8 +3,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 export default function ProjectCard() {
   return (
-    <div className="w-100 space-y-2.5">
-      <div className="w-full bg-input-bg h-50 rounded-md"></div>
+    <div className="w-full space-y-2.5">
+      <div className="w-full bg-white h-50 rounded-md"></div>
       <div>
         <p className="font-medium text-xl">Project 1</p>
         <p className="text-sm">
@@ -17,13 +17,13 @@ export default function ProjectCard() {
         <div className="flex items-center gap-4 flex-wrap mt-4">
           <a
             href="#"
-            className="flex items-center gap-1 text-sm bg-sky-600 text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
+            className="flex items-center gap-1 text-sm bg-sky-600 text-white px-4 py-1.5 rounded-md hover:opacity-80 duration-300">
             <HugeiconsIcon icon={Saturn02Icon} className="size-4.5" /> Live
             Preview
           </a>
           <a
             href="#"
-            className="flex items-center gap-1 text-sm bg-black text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
+            className="flex items-center gap-1 text-sm bg-black text-white px-4 py-1.5 rounded-md hover:opacity-80 duration-300">
             <HugeiconsIcon icon={GithubIcon} className="size-4.5" />
             GitHub Repo
           </a>

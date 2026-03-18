@@ -33,7 +33,7 @@ export default function MySkills() {
       {skills.map((skill) => (
         <p
           key={skill}
-          className="py-2 px-4 bg-input-bg text-black text-sm rounded-sm">
+          className="py-2 px-4 bg-input-bg text-black text-xs rounded-sm">
           {skill}
         </p>
       ))}

@@ -1,6 +1,5 @@
 import Categoires from "@/components/Home/Categoires";
 import EleveateYourJourny from "@/components/Home/EleveateYourJourny";
-import Footer from "@/components/Home/Footer";
 import Hero from "@/components/Home/Hero";
 import HowItWork from "@/components/Home/HowItWork";
 import Testimonials from "@/components/Home/Testimonials";
@@ -16,7 +15,6 @@ export default function Home() {
           <EleveateYourJourny />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function MailsPage() {
         </div>
 
         {/* Desktop */}
-        <div className="w-full h-220 bg-white shadow border rounded-2xl hidden md:flex overflow-hidden">
+        <div className="w-full h-200 bg-white shadow border rounded-2xl hidden md:flex overflow-hidden">
           <ShowAllMessages
             toggleShowEmailContentForPC={setShowMessageContentDesktop}
             toggleShowEmailContent={setShowMessageListMobile}

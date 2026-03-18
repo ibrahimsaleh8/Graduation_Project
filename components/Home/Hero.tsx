@@ -1,12 +1,6 @@
 "use client";
-import {
-  ArrowRightDoubleIcon,
-  ChampionIcon,
-  JobLinkIcon,
-  Search02Icon,
-} from "@hugeicons/core-free-icons";
+import { ChampionIcon, Search02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import Link from "next/link";
 import { motion } from "motion/react";
 
 // Import all icons
@@ -28,6 +22,51 @@ export default function Hero() {
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-[#DCECF9] via-[#eef8ff] to-[#f9fafb]" />
 
+      {/* Topographic background */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-60"
+        viewBox="0 0 400 600"
+        preserveAspectRatio="xMidYMid slice">
+        <path
+          d="M-50,100 Q100,50 200,150 T450,100"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <path
+          d="M-50,200 Q150,150 250,250 T450,200"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <path
+          d="M-50,300 Q120,280 220,350 T450,320"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <path
+          d="M-50,400 Q180,350 280,450 T450,420"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <path
+          d="M-50,500 Q100,480 200,550 T450,520"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <circle
+          cx="100"
+          cy="200"
+          r="40"
+          fill="none"
+          className="stroke-black/5"
+        />
+        <circle
+          cx="300"
+          cy="400"
+          r="60"
+          fill="none"
+          className="stroke-black/5"
+        />
+      </svg>
       {/* Your Content/Components */}
       <div className="w-full flex flex-col relative gap-10 md:py-30 py-20 h-full min-h-[calc(100vh-8rem)] rounded-2xl px-1">
         {/* Stars */}
