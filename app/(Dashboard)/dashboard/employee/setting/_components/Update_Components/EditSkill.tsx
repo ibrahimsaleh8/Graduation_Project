@@ -13,6 +13,7 @@ export default function EditSkill({ skillTitle }: Props) {
         <Input
           defaultValue={skillTitle}
           id="skill-title"
+          className="border-border-color"
           type="text"
           placeholder="Skill Title"
         />

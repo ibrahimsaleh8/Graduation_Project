@@ -19,19 +19,34 @@ export default function AddExperienceForm() {
       {/* Job Title */}
       <div className="space-y-1.5">
         <Label htmlFor="job-title">Job Title</Label>
-        <Input id="job-title" type="text" placeholder="e.g Software Engineer" />
+        <Input
+          id="job-title"
+          type="text"
+          placeholder="e.g Software Engineer"
+          className="border-border-color"
+        />
       </div>
 
       {/* Company Name */}
       <div className="space-y-1.5">
         <Label htmlFor="company-name">Company Name</Label>
-        <Input id="company-name" type="text" placeholder="e.g Google" />
+        <Input
+          id="company-name"
+          type="text"
+          placeholder="e.g Google"
+          className="border-border-color"
+        />
       </div>
 
       {/* Location */}
       <div className="space-y-1.5">
         <Label htmlFor="location">Location</Label>
-        <Input id="location" type="text" placeholder="e.g Egypt,Cairo" />
+        <Input
+          id="location"
+          type="text"
+          placeholder="e.g Egypt,Cairo"
+          className="border-border-color"
+        />
       </div>
 
       {/* Location Type */}
@@ -40,7 +55,7 @@ export default function AddExperienceForm() {
         <Select>
           <SelectTrigger
             id="location-type"
-            className="w-full bg-input-bg h-11!">
+            className="w-full bg-input-bg h-11! border-border-color">
             <SelectValue placeholder="Location Type" />
           </SelectTrigger>
           <SelectContent className="bg-white text-black">
@@ -71,7 +86,7 @@ export default function AddExperienceForm() {
         <Textarea
           id="description"
           placeholder="Description"
-          className="bg-input-bg h-20"
+          className="bg-input-bg h-20 border-border-color"
         />
       </div>
 

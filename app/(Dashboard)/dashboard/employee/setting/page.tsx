@@ -18,11 +18,12 @@ import {
 } from "@hugeicons/core-free-icons";
 import ExperienceData from "./_components/ExperienceData";
 import SkillsData from "./_components/SkillsData";
+import ProfileProjects from "./_components/ProfileProjects";
 
 export default function SettingPage() {
   return (
     <div className="space-y-6">
-      <div>
+      <div className="pl-8">
         <p className="font-medium text-xl">Settings</p>
         <p className="text-sm">Update your Profile Data in one place.</p>
       </div>
@@ -80,6 +81,9 @@ export default function SettingPage() {
           </TabsContent>
           <TabsContent value="skills">
             <SkillsData />
+          </TabsContent>
+          <TabsContent value="projects">
+            <ProfileProjects />
           </TabsContent>
         </TabsContents>
       </Tabs>

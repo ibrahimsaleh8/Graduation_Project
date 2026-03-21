@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Settings2, Trash2 } from "lucide-react";
 import EditSkill from "./Update_Components/EditSkill";
 import AlertModel from "@/components/main-layout/AlertModel";
 import DeleteSkill from "./Delete_Components/DeleteSkill";
@@ -18,10 +18,8 @@ export default function SkillCard({ title }: Props) {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="outline"
-            className="bg-input-bg w-7 h-8 hover:bg-white hover:text-black">
-            <EllipsisVertical className="size-4!" />
+          <Button className="h-8 w-8 bg-white text-black border hover:bg-input-bg ml-auto">
+            <Settings2 />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white text-black p-2 flex flex-col gap-2">
