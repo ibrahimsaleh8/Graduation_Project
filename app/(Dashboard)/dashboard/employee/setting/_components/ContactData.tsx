@@ -5,7 +5,9 @@ import { Label } from "@/components/ui/label";
 
 export default function ContactData() {
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="w-full px-4">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="w-full px-4 py-4 md:py-0">
       {/* Contact */}
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-4 w-full">
@@ -54,7 +56,7 @@ export default function ContactData() {
             <Input
               type="text"
               id="github"
-              placeholder="Github"
+              placeholder="https://github.com/...."
               className="bg-white border border-border-color"
             />
           </div>
@@ -64,7 +66,7 @@ export default function ContactData() {
             <Input
               type="text"
               id="facebook"
-              placeholder="Facebook"
+              placeholder="https://www.facebook.com/..."
               className="bg-white border border-border-color"
             />
           </div>
@@ -74,7 +76,7 @@ export default function ContactData() {
             <Input
               type="text"
               id="portfolio"
-              placeholder="Portfolio"
+              placeholder="https://www.portfolio.com"
               className="bg-white border border-border-color"
             />
           </div>

@@ -16,6 +16,8 @@ import {
   Folder02Icon,
   LockPasswordIcon,
 } from "@hugeicons/core-free-icons";
+import ExperienceData from "./_components/ExperienceData";
+import SkillsData from "./_components/SkillsData";
 
 export default function SettingPage() {
   return (
@@ -72,6 +74,12 @@ export default function SettingPage() {
           </TabsContent>
           <TabsContent value="contact">
             <ContactData />
+          </TabsContent>
+          <TabsContent value="experience">
+            <ExperienceData />
+          </TabsContent>
+          <TabsContent value="skills">
+            <SkillsData />
           </TabsContent>
         </TabsContents>
       </Tabs>

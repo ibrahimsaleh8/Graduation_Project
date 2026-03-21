@@ -116,7 +116,7 @@ export default function DashboardHeader() {
           <Link
             title="Settings"
             href={"/dashboard/employee/setting"}
-            className="size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300">
+            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Settings02Icon}
               className="size-5.5"
