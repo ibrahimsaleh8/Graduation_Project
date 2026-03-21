@@ -1,8 +1,8 @@
 import AlertModel from "@/components/main-layout/AlertModel";
-import MyExperienceCard from "../../profile/_components/MyExperienceCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import AddExperienceForm from "./Add_Components/AddExperienceForm";
+import ExperienceCardWithOperations from "./ExperienceCardWithOperations";
 
 export default function ExperienceData() {
   return (
@@ -19,7 +19,7 @@ export default function ExperienceData() {
           contentClassname="md:min-w-150"
         />
       </div>
-      <MyExperienceCard />
+      <ExperienceCardWithOperations />
     </div>
   );
 }

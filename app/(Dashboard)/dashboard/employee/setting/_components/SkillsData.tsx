@@ -37,13 +37,13 @@ export default function SkillsData() {
     <div className="w-full px-4 py-4 md:py-0">
       <div className="w-full flex justify-end pb-4">
         <AlertModel
-          title="Add Experience"
+          title="Add Skill"
           trigger={
             <Button className="text-sm h-9.5 min-w-40 bg-main-color text-white hover:bg-main-color/90 gap-1 ml-3">
               <Plus className="size-4.5" /> Add Skill
             </Button>
           }
-          content={<AddSkillForm />}
+          content={<AddSkillForm skills={skills} />}
           contentClassname="md:min-w-150"
         />
       </div>

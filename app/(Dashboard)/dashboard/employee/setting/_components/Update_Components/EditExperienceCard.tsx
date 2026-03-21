@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import SelectExperienceDate from "../SelectDate";
 
-export default function AddExperienceForm() {
+export default function EditExperienceCard() {
   return (
     <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
       {/* Job Title */}
@@ -91,7 +91,7 @@ export default function AddExperienceForm() {
       </div>
 
       <Button className="w-full bg-main-color hover:bg-main-color/90 text-white h-10 text-sm">
-        Add
+        Save
       </Button>
     </form>
   );
