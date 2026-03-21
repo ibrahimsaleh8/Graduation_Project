@@ -81,7 +81,9 @@ export default function ContactData() {
             />
           </div>
         </div>
-        <Button type="submit" className="min-w-32 h-9.5 text-sm w-fit mt-2">
+        <Button
+          type="submit"
+          className="w-45 bg-main-color hover:bg-main-color/90 text-white h-10 text-sm">
           Save
         </Button>
       </div>

@@ -24,7 +24,7 @@ export default function ProfileProjects() {
         <ProjectCardWithOperations />
         <ProjectCardWithOperations />
         <ProjectCardWithOperations />
-      </div>{" "}
+      </div>
     </div>
   );
 }

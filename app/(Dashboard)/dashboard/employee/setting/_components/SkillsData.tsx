@@ -39,7 +39,7 @@ export default function SkillsData() {
         <AlertModel
           title="Add Experience"
           trigger={
-            <Button className="text-sm h-9.5 bg-main-color text-white hover:bg-main-color/90 gap-1 ml-3">
+            <Button className="text-sm h-9.5 min-w-40 bg-main-color text-white hover:bg-main-color/90 gap-1 ml-3">
               <Plus className="size-4.5" /> Add Skill
             </Button>
           }

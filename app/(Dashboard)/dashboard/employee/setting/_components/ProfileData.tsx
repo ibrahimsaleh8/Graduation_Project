@@ -50,7 +50,7 @@ export default function ProfileData() {
 
         <Button
           type="submit"
-          className="min-w-32 h-9.5 text-sm w-fit mt-5 ml-4">
+          className="w-45 bg-main-color hover:bg-main-color/90 text-white h-10 text-sm">
           Save
         </Button>
       </div>

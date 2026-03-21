@@ -19,6 +19,7 @@ import {
 import ExperienceData from "./_components/ExperienceData";
 import SkillsData from "./_components/SkillsData";
 import ProfileProjects from "./_components/ProfileProjects";
+import SecuritySettings from "./_components/SecuritySettings";
 
 export default function SettingPage() {
   return (
@@ -84,6 +85,9 @@ export default function SettingPage() {
           </TabsContent>
           <TabsContent value="projects">
             <ProfileProjects />
+          </TabsContent>
+          <TabsContent value="security">
+            <SecuritySettings />
           </TabsContent>
         </TabsContents>
       </Tabs>
