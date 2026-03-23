@@ -15,8 +15,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
-import { TrendingDown } from "lucide-react";
 
 const chartData = [
   { month: "January", desktop: 342, mobile: 245 },
@@ -48,16 +46,7 @@ export function GradientRoundedAreaChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          Rounded Area Chart
-          <Badge
-            variant="outline"
-            className="text-red-500 bg-red-500/10 border-none ml-2"
-          >
-            <TrendingDown className="h-4 w-4" />
-            <span>-5.2%</span>
-          </Badge>
-        </CardTitle>
+        <CardTitle></CardTitle>
         <CardDescription>
           Showing total visitors for the last 6 months
         </CardDescription>
@@ -80,8 +69,7 @@ export function GradientRoundedAreaChart() {
                 x1="0"
                 y1="0"
                 x2="0"
-                y2="1"
-              >
+                y2="1">
                 <stop
                   offset="5%"
                   stopColor="var(--color-desktop)"
@@ -98,8 +86,7 @@ export function GradientRoundedAreaChart() {
                 x1="0"
                 y1="0"
                 x2="0"
-                y2="1"
-              >
+                y2="1">
                 <stop
                   offset="5%"
                   stopColor="var(--color-mobile)"

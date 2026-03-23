@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingDown } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 import {
@@ -16,7 +15,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
 import React from "react";
 import {
   Select,
@@ -66,22 +64,12 @@ export function GlowingBarVerticalChart() {
     <Card>
       <CardHeader>
         <div className="flex flex-row justify-between">
-          <CardTitle>
-            Vertical Bar Chart
-            <Badge
-              variant="outline"
-              className="text-red-500 bg-red-500/10 border-none ml-2"
-            >
-              <TrendingDown className="h-4 w-4" />
-              <span>-5.2%</span>
-            </Badge>
-          </CardTitle>
+          <CardTitle>Vertical Bar Chart</CardTitle>
           <Select
             value={activeProperty}
             onValueChange={(value: ActiveProperty) => {
               setActiveProperty(value);
-            }}
-          >
+            }}>
             <SelectTrigger className="text-xs !h-6 !px-1.5">
               <SelectValue placeholder="Select a property" />
             </SelectTrigger>
@@ -114,8 +102,7 @@ export function GlowingBarVerticalChart() {
             layout="vertical"
             margin={{
               left: -15,
-            }}
-          >
+            }}>
             <YAxis
               type="category"
               dataKey="month"
@@ -176,7 +163,7 @@ const CustomGradientBar = (
     dataKey?: string;
     activeProperty?: ActiveProperty | null;
     glowOpacity?: number;
-  }
+  },
 ) => {
   const { fill, x, y, width, height, dataKey, activeProperty, radius } = props;
 
@@ -205,8 +192,7 @@ const CustomGradientBar = (
           x="-200%"
           y="-200%"
           width="600%"
-          height="600%"
-        >
+          height="600%">
           <feGaussianBlur stdDeviation="10" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>

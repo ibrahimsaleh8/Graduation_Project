@@ -15,8 +15,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
-import { TrendingDown } from "lucide-react";
 
 const chartData = [
   { month: "January", desktop: 186 },
@@ -38,16 +36,7 @@ export function NumberDotLineChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          Number Dot Chart
-          <Badge
-            variant="outline"
-            className="text-red-500 bg-red-500/10 border-none ml-2"
-          >
-            <TrendingDown className="h-4 w-4" />
-            <span>-5.2%</span>
-          </Badge>
-        </CardTitle>
+        <CardTitle>Number Dot Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
@@ -58,8 +47,7 @@ export function NumberDotLineChart() {
             margin={{
               left: 12,
               right: 12,
-            }}
-          >
+            }}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="month"
@@ -89,7 +77,7 @@ export function NumberDotLineChart() {
 }
 
 const CustomizedDot = (
-  props: React.SVGProps<SVGCircleElement> & { value?: number }
+  props: React.SVGProps<SVGCircleElement> & { value?: number },
 ) => {
   const { cx, cy, stroke, value } = props;
 
@@ -106,8 +94,7 @@ const CustomizedDot = (
         fontSize={8}
         fontWeight={600}
         fill="currentColor"
-        transform="translate(0, -5)"
-      >
+        transform="translate(0, -5)">
         {value?.toString()}
       </text>
     </g>

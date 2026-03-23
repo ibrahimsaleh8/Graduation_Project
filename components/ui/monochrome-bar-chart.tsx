@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, XAxis } from "recharts";
 import React, { SVGProps } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -12,7 +11,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { JetBrains_Mono } from "next/font/google";
 
@@ -49,7 +47,7 @@ const chartConfig = {
 
 export function MonochromeBarChart() {
   const [activeIndex, setActiveIndex] = React.useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   const activeData = React.useMemo(() => {
@@ -62,14 +60,12 @@ export function MonochromeBarChart() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span
-            className={cn(jetBrainsMono.className, "text-2xl tracking-tighter")}
-          >
+            className={cn(
+              jetBrainsMono.className,
+              "text-2xl tracking-tighter",
+            )}>
             ${activeData ? activeData.desktop : "123"}
           </span>
-          <Badge variant="secondary">
-            <TrendingUp className="h-4 w-4" />
-            <span>5.2%</span>
-          </Badge>
         </CardTitle>
         <CardDescription>vs. last quarter</CardDescription>
       </CardHeader>
@@ -79,8 +75,7 @@ export function MonochromeBarChart() {
             <BarChart
               accessibilityLayer
               data={chartData}
-              onMouseLeave={() => setActiveIndex(undefined)}
-            >
+              onMouseLeave={() => setActiveIndex(undefined)}>
               <XAxis
                 dataKey="month"
                 tickLine={false}
@@ -96,8 +91,7 @@ export function MonochromeBarChart() {
                     setActiveIndex={setActiveIndex}
                     activeIndex={activeIndex}
                   />
-                }
-              ></Bar>
+                }></Bar>
             </BarChart>
           </ChartContainer>
         </AnimatePresence>
@@ -158,8 +152,7 @@ const CustomBar = (props: CustomBarProps) => {
           x={textX}
           y={Number(y) - 5}
           textAnchor="middle"
-          fill={fill}
-        >
+          fill={fill}>
           {value}
         </motion.text>
       )}
