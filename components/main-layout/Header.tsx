@@ -60,7 +60,7 @@ export default function Header() {
             {mainLinks.map((lin) => (
               <li key={lin.title}>
                 <Link
-                  className={`hover:bg-black hover:text-white px-4 py-2 duration-300 text-sm rounded-sm ${pathname == lin.link ? "bg-black text-white" : ""}`}
+                  className={`hover:bg-black hover:text-white px-5 py-2 duration-300 text-sm rounded-sm ${pathname == lin.link ? "bg-black text-white" : ""}`}
                   href={lin.link}>
                   {lin.title}
                 </Link>
@@ -69,14 +69,14 @@ export default function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-10">
-          <div className="md:flex hidden items-center gap-3 text-sm">
+          <div className="hidden md:flex w-full text-sm items-center gap-0">
             <Link
-              className="px-4 py-2 hover:opacity-75 duration-300 bg-black text-white rounded-md font-medium"
+              className="clip-path-right hover:opacity-75 duration-300 -mr-5.5 px-10 py-2 pl-6 w-full text-center bg-black text-white rounded-md font-medium"
               href={"/login"}>
               Login
             </Link>
             <Link
-              className="px-4 py-2 hover:opacity-75 duration-300 bg-main-color text-white rounded-md font-medium"
+              className="clip-path-left px-10 pr-6 w-full hover:opacity-75 duration-300 py-2 text-center bg-main-color text-white rounded-md font-medium"
               href={"/register"}>
               Register
             </Link>

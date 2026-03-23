@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sileo";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -22,6 +23,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${font.className} antialiased`}>
         <NextTopLoader color="#2563eb" />
+        <div className="fixed top-0 z-1000">
+          <Toaster
+            position="top-center"
+            theme="light"
+            options={{
+              styles: {
+                description: "text-white/75!",
+              },
+            }}
+          />
+        </div>
+
         {children}
       </body>
     </html>

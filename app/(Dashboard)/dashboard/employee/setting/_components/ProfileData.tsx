@@ -1,10 +1,16 @@
 "use client";
+import AlertModel from "@/components/main-layout/AlertModel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { CloudUploadIcon } from "@hugeicons/core-free-icons";
+import {
+  CloudUploadIcon,
+  File02Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import UpdateMyCv from "./Update_Components/UpdateMyCv";
 
 export default function ProfileData() {
   return (
@@ -59,6 +65,48 @@ export default function ProfileData() {
               placeholder="About Me"
               className="bg-white border border-border-color h-30"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label>My CV</Label>
+            <div className="flex items-start flex-col w-fit">
+              <div className="w-fit px-5 pt-4 pb-4 bg-white rounded-md border flex flex-col gap-2 items-center">
+                <HugeiconsIcon
+                  icon={File02Icon}
+                  className="size-10 text-black/70"
+                />
+
+                <div>
+                  <p className="text-xs font-medium">My_Cv.pdf</p>
+                </div>
+              </div>
+              <div className="flex gap-1 items-center pt-1 w-full">
+                <a
+                  href="#"
+                  className="h-8 text-sm bg-main-color text-white flex items-center justify-center gap-2 px-3 py-2 rounded-md w-1/2">
+                  <HugeiconsIcon
+                    icon={ViewIcon}
+                    className="size-4.5"
+                    strokeWidth={2}
+                  />
+                </a>
+
+                <AlertModel
+                  title="Update My CV"
+                  trigger={
+                    <Button className="h-8 text-sm w-1/2">
+                      <HugeiconsIcon
+                        icon={CloudUploadIcon}
+                        className="size-4.5"
+                        strokeWidth={2}
+                      />
+                    </Button>
+                  }
+                  content={<UpdateMyCv />}
+                  contentClassname="md:min-w-150"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
