@@ -46,7 +46,7 @@ export default function ChatWithOurAiCard() {
         whileTap={{ scale: 0.95 }}
         className="relative z-10">
         <Link
-          href="/"
+          href="/dashboard/employee/ai-chat"
           className="flex items-center gap-2 px-6 py-2 bg-main-color text-white font-semibold
                      rounded-full text-sm hover:bg-blue-700 transition-colors duration-400 shadow-lg">
           <HugeiconsIcon icon={AiAudioIcon} className="w-5 h-5" />

@@ -12,6 +12,7 @@ import userImage from "@images/dashboard-user-image.png";
 import Image from "next/image";
 import LogoutButton from "./LogoutButton";
 import Link from "next/link";
+import { useState } from "react";
 const employeeLinks = [
   {
     label: "Profile",
@@ -27,8 +28,9 @@ const employeeLinks = [
   },
 ];
 export default function UserDropDown() {
+  const [open, setOpen] = useState(false);
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={setOpen} defaultOpen={open}>
       <DropdownMenuTrigger asChild>
         <Button className="bg-transparent hover:bg-transparent focus-visible:ring-0 ">
           <Image
@@ -45,7 +47,10 @@ export default function UserDropDown() {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           {employeeLinks.map((link) => (
             <DropdownMenuItem key={link.label}>
-              <Link className="w-full" href={link.link}>
+              <Link
+                className="w-full"
+                href={link.link}
+                onClick={() => setOpen(false)}>
                 {link.label}
               </Link>
             </DropdownMenuItem>

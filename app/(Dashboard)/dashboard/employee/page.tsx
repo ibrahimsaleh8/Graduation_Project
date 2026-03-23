@@ -77,7 +77,7 @@ export default function Dashboard() {
           <div className="w-full flex justify-between items-center gap-5 flex-wrap">
             <p className="text-2xl font-medium">Statistics</p>
             <Link
-              className="px-8 py-2 bg-main-color text-white rounded-md text-sm flex items-center gap-2 w-fit"
+              className="px-8 py-2.5 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit"
               href={"/jobs"}>
               <HugeiconsIcon icon={Search01Icon} className="size-5" />
               Search For Job

@@ -87,7 +87,7 @@ export default function DashboardHeader() {
         <Image src={logoImage} alt="Logo" className="md:w-30 w-26" />
       </Link>
       <nav className="p-1 bg-[#F6F6F6] text-black rounded-md lg:flex hidden">
-        <ul className="flex items-center gap-3">
+        <ul className="flex items-center xl:gap-3 gap-1">
           {employeeLinks.map((link) => (
             <Link
               href={link.link}
@@ -119,6 +119,16 @@ export default function DashboardHeader() {
             className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Settings02Icon}
+              className="size-5.5"
+              strokeWidth={2}
+            />
+          </Link>
+          <Link
+            title="Profile"
+            href={"/dashboard/employee/profile"}
+            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/profile" ? "bg-white text-black" : ""}`}>
+            <HugeiconsIcon
+              icon={UserCircleIcon}
               className="size-5.5"
               strokeWidth={2}
             />
