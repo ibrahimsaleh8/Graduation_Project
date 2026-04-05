@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import authImage from "@images/Contemplative Young Man at Work.png";
+import authImage from "@images/loginImage.jpg";
 import { motion } from "framer-motion";
 import LoginUserForm from "@/components/forms/LoginUserForm";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div className="w-full min-h-screen flex">
       {/* Image */}
       <div className="lg:w-[43%] h-screen">
-        <div className="lg:w-[43%] h-screen fixed left-0 top-0 lg:flex overflow-hidden items-center justify-center rounded-tr-md rounded-br-md hidden bg-second-dark">
+        <div className="lg:w-[43%] h-screen fixed left-0 top-0 lg:flex overflow-hidden items-center justify-center hidden bg-second-dark">
           <span className="absolute left-0 top-0 w-full h-full bg-black/50"></span>
           <div className="w-full h-full object-cover object-center">
             <Image
@@ -21,7 +21,7 @@ export default function LoginPage() {
               alt="auth Image"
               width={1000}
               height={1000}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-bottom"
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ import {
 } from "@/components/animate-ui/primitives/radix/tabs";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import registerImage from "@images/Man Working on Laptop.png";
+import registerImage from "@images/RegisterImage.png";
 import Link from "next/link";
 import RegisterUserForm from "@/components/forms/RegisterUserForm";
 import RegisterCompaniesForm from "@/components/forms/RegisterCompaniesForm";
@@ -22,7 +22,7 @@ export default function RegisterPage() {
     <div className="w-full min-h-screen flex relative">
       {/* Image */}
       <div className="lg:w-[43%] h-screen">
-        <div className="lg:w-[43%] h-screen fixed left-0 top-0 lg:flex overflow-hidden items-center justify-center rounded-tr-md rounded-br-md hidden bg-second-dark">
+        <div className="lg:w-[43%] h-screen fixed left-0 top-0 lg:flex overflow-hidden items-center justify-center hidden bg-second-dark">
           <span className="absolute left-0 top-0 w-full h-full bg-black/50"></span>
           <div className="w-full h-full object-cover object-center">
             <Image
@@ -30,11 +30,12 @@ export default function RegisterPage() {
               alt="auth Image"
               width={1000}
               height={1000}
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover object-bottom"
             />
           </div>
         </div>
       </div>
+
       <div className="flex-1 rounded-md p-5 md:pt-36 py-20 flex flex-col gap-8 relative">
         <motion.div
           initial={{ opacity: 0 }}
