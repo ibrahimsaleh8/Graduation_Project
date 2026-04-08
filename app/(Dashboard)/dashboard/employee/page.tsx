@@ -58,6 +58,7 @@ export const employeeDashboardStats = [
     descriptionColor: "#2e2e2e",
   },
 ];
+
 export default function Dashboard() {
   return (
     <div className="space-y-6">
