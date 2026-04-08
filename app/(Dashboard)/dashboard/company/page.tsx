@@ -4,10 +4,13 @@ import {
   UserGroupIcon,
   Calendar03Icon,
   CheckmarkCircle02Icon,
+  Add01Icon,
 } from "@hugeicons/core-free-icons";
 import { CompanyDashboardAnalytics } from "./_components/CompanyDashboardAnalytics";
 import LatestJobPostes from "./_components/LatestJobPostes";
 import RecentEmployeesApplied from "./_components/RecentEmployeesApplied";
+import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export const companyDashboardStats = [
   {
@@ -77,6 +80,16 @@ export default function CompanyDashboard() {
           <div className="lg:w-1/2 w-full flex flex-col gap-4">
             <div className="w-full flex justify-between items-center gap-5 flex-wrap">
               <p className="text-2xl font-medium">Statistics</p>
+              <Link
+                href={"/"}
+                className="px-6 py-2 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit">
+                <HugeiconsIcon
+                  icon={Add01Icon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+                Create Job Post
+              </Link>
             </div>
             {/* Cards */}
             <div className="grid md:grid-cols-2 gap-4 ">

@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardHeader from "./_components/NewHeader";
+import DashboardHeader from "./_components/DashboardHeader";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

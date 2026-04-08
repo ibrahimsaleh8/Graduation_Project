@@ -18,6 +18,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import UserDropDown from "./UserDropDown";
 import SmallHeader from "./SmallHeader";
 import Image from "next/image";
+import DashboardHeaderIcons from "./DashboardHeaderIcons";
 
 const employeeLinks = [
   {
@@ -78,8 +79,72 @@ const smallEmployeeLinks = [
     icon: Settings02Icon,
   },
 ];
+
+const companyLinks = [
+  {
+    link: "/dashboard/company",
+    label: "Dashboard",
+    icon: Home03Icon,
+  },
+  {
+    link: "/dashboard/company/job-posts",
+    label: "Job Posts",
+    icon: TaskDone01Icon,
+  },
+  {
+    link: "/dashboard/company/interviews",
+    label: "Interviews",
+    icon: Calendar03Icon,
+  },
+  {
+    link: "/dashboard/company/mails",
+    label: "Mails",
+    icon: Mail01Icon,
+  },
+];
+
+const smallCompanyLinks = [
+  {
+    link: "/dashboard/company",
+    label: "Dashboard",
+    icon: Home03Icon,
+  },
+  {
+    link: "/dashboard/company/job-posts",
+    label: "Job Posts",
+    icon: TaskDone01Icon,
+  },
+  {
+    link: "/dashboard/company/interviews",
+    label: "Interviews",
+    icon: Calendar03Icon,
+  },
+  {
+    link: "/dashboard/company/mails",
+    label: "Mails",
+    icon: Mail01Icon,
+  },
+  {
+    link: "/dashboard/company/profile",
+    label: "Public Profile",
+    icon: UserCircleIcon,
+  },
+  {
+    link: "/dashboard/company/setting",
+    label: "Settings",
+    icon: Settings02Icon,
+  },
+];
+
 export default function DashboardHeader() {
   const currentPath = usePathname();
+  console.log(currentPath.split("/")[2]);
+  const activeLinks =
+    currentPath.split("/")[2] === "employee" ? employeeLinks : companyLinks;
+  const activeSmallLinks =
+    currentPath.split("/")[2] === "employee"
+      ? smallEmployeeLinks
+      : smallCompanyLinks;
 
   return (
     <header className="w-full flex items-center justify-between gap-4 bg-main-dark text-white p-4">
@@ -88,7 +153,7 @@ export default function DashboardHeader() {
       </Link>
       <nav className="p-1 bg-[#F6F6F6] text-black rounded-md lg:flex hidden">
         <ul className="flex items-center xl:gap-3 gap-1">
-          {employeeLinks.map((link) => (
+          {activeLinks.map((link) => (
             <Link
               href={link.link}
               key={link.label}
@@ -101,39 +166,8 @@ export default function DashboardHeader() {
       </nav>
 
       <div className="flex items-center gap-3">
-        <SmallHeader links={smallEmployeeLinks} currentPath={currentPath} />
-        <div className="items-center gap-2 lg:flex hidden">
-          <Link
-            title="Mail"
-            href={"/dashboard/employee/mails"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/mails" ? "bg-white text-black" : ""}`}>
-            <HugeiconsIcon
-              icon={Mail01Icon}
-              className="size-5.5"
-              strokeWidth={2}
-            />
-          </Link>
-          <Link
-            title="Settings"
-            href={"/dashboard/employee/setting"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>
-            <HugeiconsIcon
-              icon={Settings02Icon}
-              className="size-5.5"
-              strokeWidth={2}
-            />
-          </Link>
-          <Link
-            title="Profile"
-            href={"/dashboard/employee/profile"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/profile" ? "bg-white text-black" : ""}`}>
-            <HugeiconsIcon
-              icon={UserCircleIcon}
-              className="size-5.5"
-              strokeWidth={2}
-            />
-          </Link>
-        </div>
+        <SmallHeader links={activeSmallLinks} currentPath={currentPath} />
+        <DashboardHeaderIcons currentPath={currentPath} />
         <UserDropDown />
       </div>
     </header>
