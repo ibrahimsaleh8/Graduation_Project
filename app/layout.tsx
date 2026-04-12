@@ -31,6 +31,7 @@ export default function RootLayout({
               styles: {
                 description: "text-white/75!",
               },
+              roundness: 12,
             }}
           />
         </div>

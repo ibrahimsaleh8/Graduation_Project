@@ -12,6 +12,7 @@ import {
   Calendar03Icon,
   Home03Icon,
   Mail01Icon,
+  WorkIcon,
 } from "@hugeicons/core-free-icons";
 import { usePathname } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -92,14 +93,14 @@ const companyLinks = [
     icon: TaskDone01Icon,
   },
   {
+    link: "/dashboard/company/create-job",
+    label: "Create Job Post",
+    icon: WorkIcon,
+  },
+  {
     link: "/dashboard/company/interviews",
     label: "Interviews",
     icon: Calendar03Icon,
-  },
-  {
-    link: "/dashboard/company/mails",
-    label: "Mails",
-    icon: Mail01Icon,
   },
 ];
 

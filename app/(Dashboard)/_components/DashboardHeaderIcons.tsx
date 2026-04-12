@@ -52,6 +52,16 @@ export default function DashboardHeaderIcons({
       ) : (
         <>
           <Link
+            title="Mail"
+            href={"/dashboard/company/mails"}
+            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/mails" ? "bg-white text-black" : ""}`}>
+            <HugeiconsIcon
+              icon={Mail01Icon}
+              className="size-5.5"
+              strokeWidth={2}
+            />
+          </Link>
+          <Link
             title="Settings"
             href={"/dashboard/company/setting"}
             className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/setting" ? "bg-white text-black" : ""}`}>
