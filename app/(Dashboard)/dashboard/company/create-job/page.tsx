@@ -1,4 +1,4 @@
-import CreateJobForm from "./_components/CreateJobForm";
+import HandleJobPostCreation from "./_components/HandleJobPostCreation";
 
 export default function CreateJobPost() {
   return (
@@ -10,7 +10,7 @@ export default function CreateJobPost() {
         </p>
       </div>
 
-      <CreateJobForm />
+      <HandleJobPostCreation />
     </div>
   );
 }

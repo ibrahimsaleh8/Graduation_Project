@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { countries } from "@/lib/Countries";
 import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
 import { jobCategories } from "@/lib/JobCategories";
@@ -20,17 +19,36 @@ import {
   CheckmarkCircle02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { sileo } from "sileo";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  jobPostBasicInfoSchema,
+  JobPostBasicInfoType,
+} from "@/validations/JobPostValidation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
 
-export default function CreateJobForm() {
-  const [employmentType, setEmploymentType] = useState<string[]>([]);
-  const [selectedWorkApproach, setWorkApproach] = useState<string[]>([]);
-  const [skills, setSkills] = useState<string[]>([]);
+export default function JobPostBasicInfo() {
   const skillInput = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+    watch,
+  } = useForm<JobPostBasicInfoType>({
+    resolver: zodResolver(jobPostBasicInfoSchema),
+    mode: "onChange",
+  });
+  const onSubmit: SubmitHandler<JobPostBasicInfoType> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="space-y-6 max-w-7xl">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
       {/* Job Title */}
       <div className="space-y-1">
         <Label htmlFor="job-title">Job Title</Label>
@@ -38,9 +56,13 @@ export default function CreateJobForm() {
           type="text"
           placeholder="Job Title"
           className="w-full bg-white border-border-color"
-          required
           id="job-title"
+          {...register("jobTitle")}
+          aria-invalid={errors.jobTitle ? "true" : "false"}
         />
+        {errors.jobTitle && (
+          <ErrorValidationMessage message={errors.jobTitle.message as string} />
+        )}
       </div>
 
       {/* Category & Location */}
@@ -48,8 +70,9 @@ export default function CreateJobForm() {
         {/* Job Category */}
         <div className="space-y-1 w-full">
           <Label htmlFor="job-category">Job Category</Label>
-          <Select>
+          <Select onValueChange={(e) => setValue("jobCategory", e)}>
             <SelectTrigger
+              aria-invalid={errors.jobCategory ? "true" : "false"}
               id="job-category"
               className="w-full bg-white h-11! border border-border-color ">
               <SelectValue placeholder="Job Category" />
@@ -67,13 +90,19 @@ export default function CreateJobForm() {
               </SelectGroup>
             </SelectContent>
           </Select>
+          {errors.jobCategory && (
+            <ErrorValidationMessage
+              message={errors.jobCategory.message as string}
+            />
+          )}
         </div>
 
         {/* Location */}
         <div className="space-y-1 w-full">
           <Label htmlFor="job-location">Location</Label>
-          <Select>
+          <Select onValueChange={(e) => setValue("location", e)}>
             <SelectTrigger
+              aria-invalid={errors.location ? "true" : "false"}
               id="job-location"
               className="w-full bg-white h-11! border border-border-color ">
               <SelectValue placeholder="Location" />
@@ -91,6 +120,11 @@ export default function CreateJobForm() {
               </SelectGroup>
             </SelectContent>
           </Select>
+          {errors.location && (
+            <ErrorValidationMessage
+              message={errors.location.message as string}
+            />
+          )}
         </div>
       </div>
 
@@ -102,19 +136,29 @@ export default function CreateJobForm() {
             <Label
               key={emType}
               onClick={() => {
-                if (!employmentType.includes(emType)) {
-                  setEmploymentType((prev) => [...prev, emType]);
+                if (getValues("employmentType")) {
+                  if (!getValues("employmentType").includes(emType)) {
+                    setValue("employmentType", [
+                      ...getValues("employmentType"),
+                      emType,
+                    ]);
+                  } else {
+                    setValue("employmentType", [
+                      ...getValues("employmentType").filter(
+                        (type) => type !== emType,
+                      ),
+                    ]);
+                  }
                 } else {
-                  setEmploymentType((prev) =>
-                    prev.filter((type) => type !== emType),
-                  );
+                  setValue("employmentType", [emType]);
                 }
               }}
-              className={`flex items-center gap-1 px-4 py-2 text-[0.8rem] font-medium ${employmentType.includes(emType) ? "bg-blue-100 text-blue-600" : "bg-white text-black"} cursor-pointer border w-fit rounded-full`}>
+              // eslint-disable-next-line react-hooks/incompatible-library
+              className={`flex items-center gap-1 px-4 py-2 text-[0.8rem] font-medium ${watch("employmentType")?.includes(emType) ? "bg-blue-100 text-blue-600" : "bg-white text-black"} cursor-pointer border w-fit rounded-full`}>
               <HugeiconsIcon
                 strokeWidth={2}
                 icon={
-                  employmentType.includes(emType)
+                  getValues("employmentType")?.includes(emType)
                     ? CheckmarkCircle02Icon
                     : Add01Icon
                 }
@@ -124,6 +168,11 @@ export default function CreateJobForm() {
             </Label>
           ))}
         </div>
+        {errors.employmentType && (
+          <ErrorValidationMessage
+            message={errors.employmentType.message as string}
+          />
+        )}
       </div>
 
       {/* Work Approach */}
@@ -134,19 +183,29 @@ export default function CreateJobForm() {
             <Label
               key={workApproach}
               onClick={() => {
-                if (!selectedWorkApproach.includes(workApproach)) {
-                  setWorkApproach((prev) => [...prev, workApproach]);
+                if (getValues("workApproach")) {
+                  if (!getValues("workApproach").includes(workApproach)) {
+                    setValue("workApproach", [
+                      ...getValues("workApproach"),
+                      workApproach,
+                    ]);
+                  } else {
+                    setValue(
+                      "workApproach",
+                      getValues("workApproach").filter(
+                        (type) => type !== workApproach,
+                      ),
+                    );
+                  }
                 } else {
-                  setWorkApproach((prev) =>
-                    prev.filter((type) => type !== workApproach),
-                  );
+                  setValue("workApproach", [workApproach]);
                 }
               }}
-              className={`flex items-center gap-1 px-4 py-2 text-[0.8rem] font-medium ${selectedWorkApproach.includes(workApproach) ? "bg-blue-100 text-blue-600" : "bg-white text-black"} cursor-pointer border w-fit rounded-full`}>
+              className={`flex items-center gap-1 px-4 py-2 text-[0.8rem] font-medium ${watch("workApproach")?.includes(workApproach) ? "bg-blue-100 text-blue-600" : "bg-white text-black"} cursor-pointer border w-fit rounded-full`}>
               <HugeiconsIcon
                 strokeWidth={2}
                 icon={
-                  selectedWorkApproach.includes(workApproach)
+                  watch("workApproach")?.includes(workApproach)
                     ? CheckmarkCircle02Icon
                     : Add01Icon
                 }
@@ -156,6 +215,11 @@ export default function CreateJobForm() {
             </Label>
           ))}
         </div>
+        {errors.workApproach && (
+          <ErrorValidationMessage
+            message={errors.workApproach.message as string}
+          />
+        )}
       </div>
 
       {/* Salary Range */}
@@ -167,17 +231,35 @@ export default function CreateJobForm() {
             type="number"
             placeholder="Minimum Salary"
             className="w-fit bg-white border-border-color"
-            required
+            min={0}
+            {...register("salaryMin", { valueAsNumber: true })}
+            aria-invalid={errors.salaryMin ? "true" : "false"}
           />
           -
           <Input
             type="number"
             placeholder="Maximum Salary"
             className="w-fit bg-white border-border-color"
-            required
+            min={0}
+            {...register("salaryMax", { valueAsNumber: true })}
+            aria-invalid={errors.salaryMax ? "true" : "false"}
           />
         </div>
       </div>
+      {(errors.salaryMin || errors.salaryMax) && (
+        <div className="flex items-center gap-3 flex-wrap">
+          {errors.salaryMin && (
+            <ErrorValidationMessage
+              message={errors.salaryMin.message as string}
+            />
+          )}
+          {errors.salaryMax && (
+            <ErrorValidationMessage
+              message={errors.salaryMax.message as string}
+            />
+          )}
+        </div>
+      )}
 
       {/* Skills */}
       <div className="space-y-1">
@@ -189,22 +271,32 @@ export default function CreateJobForm() {
             type="text"
             placeholder="Required Skills"
             className="w-fit bg-white border-border-color"
+            aria-invalid={errors.skills ? "true" : "false"}
           />
           <Button
             onClick={() => {
               if (!skillInput.current) return;
               if (skillInput.current.value.trim() != "") {
-                if (!skills.includes(skillInput.current.value.trim())) {
-                  setSkills((prev) => [
-                    ...prev,
-                    skillInput.current!.value.trim(),
-                  ]);
-                  skillInput.current.value = "";
+                if (getValues("skills")) {
+                  if (
+                    !getValues("skills")?.includes(
+                      skillInput.current.value.trim(),
+                    )
+                  ) {
+                    setValue("skills", [
+                      ...getValues("skills"),
+                      skillInput.current!.value.trim(),
+                    ]);
+                    skillInput.current.value = "";
+                  } else {
+                    sileo.warning({
+                      title: "This skill is already added",
+                      description: "Please add a different skill.",
+                    });
+                  }
                 } else {
-                  sileo.warning({
-                    title: "This skill is already added",
-                    description: "Please add a different skill.",
-                  });
+                  setValue("skills", [skillInput.current.value.trim()]);
+                  skillInput.current.value = "";
                 }
               }
             }}
@@ -221,7 +313,7 @@ export default function CreateJobForm() {
         {/* Show Skills */}
         <div className="flex items-center gap-2 flex-wrap mt-2 min-h-10">
           <AnimatePresence>
-            {skills.map((skill, i) => (
+            {watch("skills")?.map((skill, i) => (
               <motion.p
                 key={skill + i}
                 initial={{ opacity: 0, scale: 0.8, y: 10 }}
@@ -234,7 +326,10 @@ export default function CreateJobForm() {
                   icon={CancelCircleIcon}
                   className="size-4"
                   onClick={() =>
-                    setSkills((prev) => prev.filter((sk) => sk !== skill))
+                    setValue(
+                      "skills",
+                      getValues("skills").filter((sk) => sk !== skill),
+                    )
                   }
                 />
                 {skill}
@@ -243,18 +338,9 @@ export default function CreateJobForm() {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Job Description */}
-      <div className="space-y-1">
-        <Label htmlFor="job-description">Job Description</Label>
-        <Textarea
-          placeholder="Job Description"
-          className="w-full bg-white border-border-color h-45"
-          required
-          id="job-description"
-        />
-      </div>
-
+      {errors.skills && (
+        <ErrorValidationMessage message={errors.skills.message as string} />
+      )}
       <Button
         type="submit"
         className="bg-main-color hover:bg-main-color/90 duration-300 text-white w-32 text-sm">
