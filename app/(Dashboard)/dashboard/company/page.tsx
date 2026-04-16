@@ -81,7 +81,7 @@ export default function CompanyDashboard() {
             <div className="w-full flex justify-between items-center gap-5 flex-wrap">
               <p className="text-2xl font-medium">Statistics</p>
               <Link
-                href={"/"}
+                href={"/dashboard/company/create-job"}
                 className="px-6 py-2 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit">
                 <HugeiconsIcon
                   icon={Add01Icon}

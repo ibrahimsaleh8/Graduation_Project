@@ -42,12 +42,6 @@ export const jobPostBasicInfoSchema = z
         error: "Maximum salary is required",
       })
       .min(0, "Maximum salary must be >= 0"),
-
-    skills: z
-      .array(z.string().min(1), {
-        error: "Add at least one skill",
-      })
-      .min(1, "Add at least one skill"),
   })
   .refine((data) => data.salaryMax >= data.salaryMin, {
     message: "Max salary must be greater than or equal to min salary",
@@ -55,3 +49,23 @@ export const jobPostBasicInfoSchema = z
   });
 
 export type JobPostBasicInfoType = z.infer<typeof jobPostBasicInfoSchema>;
+
+export const jobDetailsSchema = z.object({
+  jobDescription: z
+    .string()
+    .min(20, "Job description must be at least 20 characters")
+    .max(2000, "Job description is too long"),
+
+  responsibilities: z
+    .string()
+    .min(20, "Responsibilities must be at least 20 characters")
+    .max(2000, "Responsibilities are too long"),
+
+  skills: z
+    .array(z.string().min(1), {
+      error: "Add at least one skill",
+    })
+    .min(1, "Add at least one skill"),
+});
+
+export type JobDetailsType = z.infer<typeof jobDetailsSchema>;

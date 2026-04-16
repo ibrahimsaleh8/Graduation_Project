@@ -42,7 +42,9 @@ export default function LatestJobPostes() {
     <div className="lg:mt-8 mt-30 lg:w-1/2 w-full">
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="font-medium">Latest Job Posts</p>
-        <Link className="flex items-center gap-1 font-medium" href={"/"}>
+        <Link
+          className="flex items-center gap-1 font-medium"
+          href={"/dashboard/company/job-posts"}>
           See All
           <HugeiconsIcon icon={CircleArrowRight01Icon} className="size-5" />
         </Link>
