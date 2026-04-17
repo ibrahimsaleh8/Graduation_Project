@@ -102,13 +102,18 @@ export default function JobPostBasicInfo({
           <Select
             defaultValue={getValues("jobCategory")}
             onValueChange={(e) => setValue("jobCategory", e)}>
-            <SelectTrigger className="w-full bg-white h-11! border border-border-color">
+            <SelectTrigger
+              id="job-category"
+              className="w-full bg-white h-11! border border-border-color">
               <SelectValue placeholder="Job Category" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white text-black border border-border-color">
               <SelectGroup>
                 {jobCategories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
+                  <SelectItem
+                    className="hover:bg-input-bg! hover:text-black!"
+                    key={cat}
+                    value={cat}>
                     {cat}
                   </SelectItem>
                 ))}
@@ -123,13 +128,18 @@ export default function JobPostBasicInfo({
           <Select
             defaultValue={getValues("location")}
             onValueChange={(e) => setValue("location", e)}>
-            <SelectTrigger className="w-full bg-white h-11! border border-border-color">
+            <SelectTrigger
+              id="job-location"
+              className="w-full bg-white h-11! border border-border-color">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white text-black border border-border-color">
               <SelectGroup>
                 {countries.map((country) => (
-                  <SelectItem key={country} value={country}>
+                  <SelectItem
+                    className="hover:bg-input-bg! hover:text-black!"
+                    key={country}
+                    value={country}>
                     {country}
                   </SelectItem>
                 ))}

@@ -58,7 +58,6 @@ export function NumberDotLineChart() {
             />
             <ChartTooltip
               cursor={false}
-              cursorStyle={{}}
               content={<ChartTooltipContent hideLabel />}
             />
             <Line

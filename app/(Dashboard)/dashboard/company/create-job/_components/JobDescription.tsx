@@ -77,6 +77,7 @@ export default function JobDescription({
         <Label htmlFor="job-description">Job Description</Label>
         <Textarea
           id="job-description"
+          placeholder="Describe the job description"
           className="w-full bg-white border-border-color h-45"
           {...register("jobDescription")}
         />
@@ -92,6 +93,7 @@ export default function JobDescription({
         <Label htmlFor="job-responsibilities">Responsibilities</Label>
         <Textarea
           id="job-responsibilities"
+          placeholder="Describe the job responsibilities"
           className="w-full bg-white border-border-color h-45"
           {...register("responsibilities")}
         />

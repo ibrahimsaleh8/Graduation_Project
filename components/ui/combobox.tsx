@@ -77,14 +77,12 @@ export function ComboboxInput({
   return (
     <ComboboxPrimitive.InputGroup
       className="relative not-has-[>*.w-full]:w-fit w-full text-foreground has-disabled:opacity-64"
-      data-slot="combobox-input-group"
-    >
+      data-slot="combobox-input-group">
       {startAddon && (
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 start-px z-10 flex items-center ps-[calc(--spacing(3)-1px)] opacity-80 has-[+[data-size=sm]]:ps-[calc(--spacing(2.5)-1px)] [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:-mx-0.5"
-          data-slot="combobox-start-addon"
-        >
+          data-slot="combobox-start-addon">
           {startAddon}
         </div>
       )}
@@ -98,13 +96,7 @@ export function ComboboxInput({
           className,
         )}
         data-slot="combobox-input"
-        render={
-          <Input
-            className="has-disabled:opacity-100"
-            nativeInput
-            size={sizeValue}
-          />
-        }
+        render={<Input className="has-disabled:opacity-100" />}
         {...props}
       />
       {showTrigger && (
@@ -113,8 +105,7 @@ export function ComboboxInput({
             "absolute top-1/2 inline-flex size-8 shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md border border-transparent opacity-80 outline-none transition-opacity pointer-coarse:after:absolute pointer-coarse:after:min-h-11 pointer-coarse:after:min-w-11 hover:opacity-100 has-[+[data-slot=combobox-clear]]:hidden sm:size-7 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
             sizeValue === "sm" ? "end-0" : "end-0.5",
           )}
-          {...triggerProps}
-        >
+          {...triggerProps}>
           <ComboboxPrimitive.Icon data-slot="combobox-icon">
             <ChevronsUpDownIcon />
           </ComboboxPrimitive.Icon>
@@ -126,8 +117,7 @@ export function ComboboxInput({
             "absolute top-1/2 inline-flex size-8 shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md border border-transparent opacity-80 outline-none transition-opacity pointer-coarse:after:absolute pointer-coarse:after:min-h-11 pointer-coarse:after:min-w-11 hover:opacity-100 has-[+[data-slot=combobox-clear]]:hidden sm:size-7 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
             sizeValue === "sm" ? "end-0" : "end-0.5",
           )}
-          {...clearProps}
-        >
+          {...clearProps}>
           <XIcon />
         </ComboboxClear>
       )}
@@ -144,8 +134,7 @@ export function ComboboxTrigger({
     <ComboboxPrimitive.Trigger
       className={className}
       data-slot="combobox-trigger"
-      {...props}
-    >
+      {...props}>
       {children}
     </ComboboxPrimitive.Trigger>
   );
@@ -181,19 +170,16 @@ export function ComboboxPopup({
         className="z-50 select-none"
         data-slot="combobox-positioner"
         side={side}
-        sideOffset={sideOffset}
-      >
+        sideOffset={sideOffset}>
         <span
           className={cn(
             "relative flex max-h-full min-w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) rounded-lg border bg-popover not-dark:bg-clip-padding shadow-lg/5 transition-[scale,opacity] before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:before:shadow-[0_-1px_--theme(--color-white/6%)]",
             className,
-          )}
-        >
+          )}>
           <ComboboxPrimitive.Popup
             className="flex max-h-[min(var(--available-height),23rem)] flex-1 flex-col text-foreground"
             data-slot="combobox-popup"
-            {...props}
-          >
+            {...props}>
             {children}
           </ComboboxPrimitive.Popup>
         </span>
@@ -214,8 +200,7 @@ export function ComboboxItem({
         className,
       )}
       data-slot="combobox-item"
-      {...props}
-    >
+      {...props}>
       <ComboboxPrimitive.ItemIndicator className="col-start-1">
         <svg
           aria-hidden="true"
@@ -227,8 +212,7 @@ export function ComboboxItem({
           strokeWidth="2"
           viewBox="0 0 24 24"
           width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path d="M5.252 12.7 10.2 18.63 18.748 5.37" />
         </svg>
       </ComboboxPrimitive.ItemIndicator>
@@ -387,14 +371,12 @@ export function ComboboxChips({
       )}
       data-slot="combobox-chips"
       ref={chipsRef as React.Ref<HTMLDivElement> | null}
-      {...props}
-    >
+      {...props}>
       {startAddon && (
         <div
           aria-hidden="true"
           className="flex shrink-0 items-center ps-2 opacity-80 has-[~[data-size=sm]]:has-[+[data-slot=combobox-chip]]:pe-1.5 has-[~[data-size=sm]]:ps-1.5 has-[+[data-slot=combobox-chip]]:pe-2 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:-ms-0.5 [&_svg]:-me-1.5"
-          data-slot="combobox-start-addon"
-        >
+          data-slot="combobox-start-addon">
           {startAddon}
         </div>
       )}
@@ -414,8 +396,7 @@ export function ComboboxChip({
     <ComboboxPrimitive.Chip
       className="flex items-center rounded-[calc(var(--radius-md)-1px)] bg-accent ps-2 font-medium text-accent-foreground text-sm outline-none sm:text-xs/(--text-xs--line-height) [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5"
       data-slot="combobox-chip"
-      {...props}
-    >
+      {...props}>
       {children}
       <ComboboxChipRemove {...removeProps} />
     </ComboboxPrimitive.Chip>
@@ -430,8 +411,7 @@ export function ComboboxChipRemove(
       aria-label="Remove"
       className="h-full shrink-0 cursor-pointer px-1.5 opacity-80 hover:opacity-100 [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5"
       data-slot="combobox-chip-remove"
-      {...props}
-    >
+      {...props}>
       <XIcon />
     </ComboboxPrimitive.ChipRemove>
   );

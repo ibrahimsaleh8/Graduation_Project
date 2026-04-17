@@ -40,13 +40,7 @@ export default function JobPostStepper({ currentStep }: Props) {
 
           return (
             <div key={step.stepNumber}>
-              <button
-                disabled={!isActive && !canClick}
-                className={`text-left ${
-                  !isActive && !canClick
-                    ? "cursor-not-allowed opacity-50"
-                    : "cursor-pointer"
-                }`}>
+              <button disabled={!isActive && !canClick} className={`text-left`}>
                 <div className="flex items-center gap-2">
                   <div
                     className={`size-7 text-xs border font-medium rounded-full flex items-center justify-center

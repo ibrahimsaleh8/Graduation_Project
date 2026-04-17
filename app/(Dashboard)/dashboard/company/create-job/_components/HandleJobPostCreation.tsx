@@ -8,6 +8,7 @@ import {
   JobDetailsType,
   JobPostBasicInfoType,
 } from "@/validations/JobPostValidation";
+import JobPostPreview from "./JobPostPreview";
 
 export type JobPostFullInfoType = {
   jobBasicData: JobPostBasicInfoType;
@@ -57,7 +58,7 @@ export default function HandleJobPostCreation() {
   };
 
   return (
-    <div className="flex gap-8 md:flex-row flex-col">
+    <div className="flex gap-8 md:flex-row flex-col md:pr-10">
       <JobPostStepper currentStep={currentStep} />
 
       {/* Step 1 */}
@@ -71,19 +72,21 @@ export default function HandleJobPostCreation() {
 
       {/* Step 2 */}
       <Activity mode={activeStep === 2 ? "visible" : "hidden"}>
-        <div className="w-full">
-          <JobDescription
-            setCurrentStep={setCurrentStep}
-            currentStep={currentStep}
-            UpdateJobDetails={UpdateJobDetails}
-            defaultValues={jobData.jobDetails}
-          />
-        </div>
+        <JobDescription
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
+          UpdateJobDetails={UpdateJobDetails}
+          defaultValues={jobData.jobDetails}
+        />
       </Activity>
 
       {/* Step 3 */}
       <Activity mode={activeStep === 3 ? "visible" : "hidden"}>
-        <div className="w-full">HELLO</div>
+        <JobPostPreview
+          JobData={jobData}
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
+        />
       </Activity>
     </div>
   );

@@ -16,7 +16,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
 
 const chartData = [
   { month: "January", desktop: 342 },
@@ -44,16 +43,7 @@ export function DefaultBarChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          Bar Chart
-          <Badge
-            variant="outline"
-            className="text-green-500 bg-green-500/10 border-none ml-2"
-          >
-            <TrendingUp className="h-4 w-4" />
-            <span>5.2%</span>
-          </Badge>
-        </CardTitle>
+        <CardTitle>Bar Chart</CardTitle>
         <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
       <CardContent>
@@ -96,8 +86,7 @@ const DottedBackgroundPattern = () => {
       y="0"
       width="10"
       height="10"
-      patternUnits="userSpaceOnUse"
-    >
+      patternUnits="userSpaceOnUse">
       <circle
         className="dark:text-muted/40 text-muted"
         cx="2"
