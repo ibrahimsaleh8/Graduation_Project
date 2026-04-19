@@ -31,7 +31,11 @@ export default function InterviewDetails() {
           <SheetDescription></SheetDescription>
         </SheetHeader>
 
-        {showInterviewData ? <ShowInterviewDetails /> : <EditInterviewData />}
+        {showInterviewData ? (
+          <ShowInterviewDetails />
+        ) : (
+          <EditInterviewData setShowInterviewData={setShowInterviewData} />
+        )}
 
         {/* Button Actions */}
         <div className="sticky mt-auto bottom-0 left-0 w-full bg-input-bg p-4 pt-6 flex flex-col gap-3">

@@ -2,10 +2,6 @@ import { z } from "zod";
 
 export const editInterviewSchema = z
   .object({
-    candidateName: z.string().min(3, "Name must be at least 3 characters"),
-    position: z.string().min(2, "Position is required"),
-    email: z.string().email("Invalid email"),
-
     date: z.string().min(1, "Date is required"),
     startTime: z.string().min(1, "Start time is required"),
     endTime: z.string().min(1, "End time is required"),

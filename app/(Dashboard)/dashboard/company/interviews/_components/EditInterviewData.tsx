@@ -11,20 +11,21 @@ import {
 } from "@/validations/EditInterviewDataSchema";
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
+import { Dispatch, SetStateAction } from "react";
 
 function ErrorValidationMessage({ message }: { message: string }) {
   return <p className="text-red-500 text-xs">{message}</p>;
 }
 
-type InterviewStatusType = Pick<editInterviewFormData, "status">;
-export default function EditInterviewData() {
+type InterviewStatusType = "pending" | "cancelled" | "completed";
+type Props = {
+  setShowInterviewData: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function EditInterviewData({ setShowInterviewData }: Props) {
   const {
     register,
     handleSubmit,
@@ -34,9 +35,6 @@ export default function EditInterviewData() {
   } = useForm<editInterviewFormData>({
     resolver: zodResolver(editInterviewSchema),
     defaultValues: {
-      candidateName: "Ibrahim Saleh",
-      position: "Frontend Developer",
-      email: "ebrihm576@gmail.com",
       date: "2026-05-24",
       startTime: "10:30",
       endTime: "11:30",
@@ -49,6 +47,7 @@ export default function EditInterviewData() {
 
   const onSubmit = (data: editInterviewFormData) => {
     console.log(data);
+    setShowInterviewData(true);
   };
 
   return (
@@ -62,19 +61,17 @@ export default function EditInterviewData() {
         {/* Date */}
         <div className="space-y-1 w-full">
           <Label htmlFor="status">Status</Label>
-
-          <select
+          <NativeSelect
+            className="w-full! border border-black/10 flex"
             id="status"
-            {...register("status")}
-            className="w-full bg-white h-11 border border-border-color rounded-md px-3">
-            <option value="" disabled>
-              Select Status
-            </option>
-
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="rejected">Rejected</option>
-          </select>
+            defaultValue={getValues("status")}
+            onChange={(e) =>
+              setValue("status", e.target.value as InterviewStatusType)
+            }>
+            <NativeSelectOption value="pending">Pending</NativeSelectOption>
+            <NativeSelectOption value="completed">Completed</NativeSelectOption>
+            <NativeSelectOption value="rejected">Rejected</NativeSelectOption>
+          </NativeSelect>
 
           {errors.status && (
             <ErrorValidationMessage message={errors.status.message as string} />
@@ -181,7 +178,7 @@ export default function EditInterviewData() {
         {/* Submit */}
         <Button
           type="submit"
-          className="w-40 bg-green-700 hover:bg-green-800 text-sm h-9.5 text-white py-2 rounded-md hover:opacity-90 transition">
+          className="w-fit bg-black hover:bg-black/80 text-xs h-9 text-white py-2 rounded-md hover:opacity-90 transition">
           Save Changes
         </Button>
       </form>

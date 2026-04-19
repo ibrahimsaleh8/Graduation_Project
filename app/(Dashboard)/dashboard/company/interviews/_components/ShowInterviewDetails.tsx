@@ -20,7 +20,7 @@ export default function ShowInterviewDetails() {
     <motion.div
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 50 }} // 👈 exit animation
+      exit={{ opacity: 0, x: 50 }}
       transition={{ duration: 0.3 }}
       className="space-y-4 border-t py-4 px-2 pr-3 w-full overflow-y-auto">
       {/* User Data */}
