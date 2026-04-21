@@ -8,21 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import {
-  Delete02Icon,
-  Eye,
-  Location01Icon,
-  PencilEdit02Icon,
-} from "@hugeicons/core-free-icons";
-import { Settings2 } from "lucide-react";
-import AlertModel from "@/components/main-layout/AlertModel";
+import { Location01Icon, ViewIcon } from "@hugeicons/core-free-icons";
+import Link from "next/link";
 const jobPostsData = [
   {
     id: 1,
@@ -58,7 +45,7 @@ export default function ShowAllJobPosts() {
             <TableHead className="text-black py-4">Details</TableHead>
             <TableHead className="text-black py-4">Applications</TableHead>
             <TableHead className="text-black py-4">Status</TableHead>
-            <TableHead className="text-black py-4">Actions</TableHead>
+            <TableHead className="text-black py-4 w-40">Show</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -91,61 +78,16 @@ export default function ShowAllJobPosts() {
               </TableCell>
 
               <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button className="h-8 w-13 bg-white text-black border hover:bg-white/40 ml-auto">
-                      <Settings2 />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-white text-black flex flex-col gap-1 mr-6!">
-                    <AlertModel
-                      title="View Applicants"
-                      trigger={
-                        <Button className="text-[0.77rem] h-9 w-full bg-blue-500 text-white justify-start hover:bg-blue-600 gap-1.5">
-                          <HugeiconsIcon
-                            icon={Eye}
-                            className="size-4.5"
-                            strokeWidth={2}
-                          />
-                          Applicants
-                        </Button>
-                      }
-                      content={<></>}
-                      contentClassname="md:min-w-150"
-                    />
-                    <AlertModel
-                      title="Edit Project"
-                      trigger={
-                        <Button className="text-[0.77rem] h-9 w-full bg-green-600 text-white justify-start hover:bg-green-700 gap-1.5">
-                          <HugeiconsIcon
-                            icon={PencilEdit02Icon}
-                            className="size-4.5"
-                            strokeWidth={2}
-                          />
-                          Edit
-                        </Button>
-                      }
-                      content={<></>}
-                      contentClassname="md:min-w-150"
-                    />
-
-                    <AlertModel
-                      title="Delete Project"
-                      trigger={
-                        <Button className="text-[0.77rem] h-9 w-full bg-red-600 text-white justify-start hover:bg-red-700 gap-1.5">
-                          <HugeiconsIcon
-                            icon={Delete02Icon}
-                            className="size-4.5"
-                            strokeWidth={2}
-                          />
-                          Delete
-                        </Button>
-                      }
-                      content={<></>}
-                      contentClassname="md:min-w-150 pb-3"
-                    />
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Link
+                  href={`/dashboard/company/job-posts/${job.id}`}
+                  className="flex items-center gap-1.5 px-3.5 py-2 bg-main-color rounded-sm text-xs w-fit text-white hover:bg-main-color/85 duration-300">
+                  <HugeiconsIcon
+                    icon={ViewIcon}
+                    className="size-4.5"
+                    strokeWidth={2}
+                  />
+                  Show Details
+                </Link>
               </TableCell>
             </TableRow>
           ))}

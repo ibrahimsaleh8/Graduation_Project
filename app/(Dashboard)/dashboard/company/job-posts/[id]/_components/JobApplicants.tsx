@@ -1,4 +1,5 @@
-import InterviewsFilteration from "./InterviewsFilteration";
+import AlertModel from "@/components/main-layout/AlertModel";
+import JobApplicantsFilter from "./JobApplicantsFilter";
 import {
   Table,
   TableBody,
@@ -9,22 +10,25 @@ import {
 } from "@/components/ui/table";
 import userImage from "@images/user-image.png";
 import Image from "next/image";
-import InterviewDetails from "./InterviewDetails";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
+import ApplicantsDetails from "./ApplicantsDetails";
 
-export default function ShowAllInterviews() {
+export default function JobApplicants() {
   return (
-    <div className="space-y-2">
-      <InterviewsFilteration />
+    <div className="w-full space-y-3">
+      <JobApplicantsFilter />
+
       <Table className="bg-white border">
         <TableHeader>
           <TableRow>
             <TableHead className="text-black py-4 pl-4">
               Candidate Name
             </TableHead>
-            <TableHead className="text-black py-4">Job Position</TableHead>
-            <TableHead className="text-black py-4">Date & Time</TableHead>
+            <TableHead className="text-black py-4">Match</TableHead>
+            <TableHead className="text-black py-4">Applied At</TableHead>
             <TableHead className="text-black py-4">Status</TableHead>
-            <TableHead className="text-black py-4 w-30">Actions</TableHead>
+            <TableHead className="text-black py-4 w-40">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -46,7 +50,11 @@ export default function ShowAllInterviews() {
                 </div>
               </div>
             </TableCell>
-            <TableCell className="font-medium">Frontend Developer</TableCell>
+            <TableCell>
+              <p className="px-3 py-1.5 text-xs font-medium bg-[#E8F5E9] w-fit rounded-sm text-[#236426] border border-[#d8eed9] ">
+                90%
+              </p>
+            </TableCell>
             <TableCell>
               <div>
                 <p>24 May 2026</p>
@@ -59,7 +67,16 @@ export default function ShowAllInterviews() {
               </p>
             </TableCell>
             <TableCell>
-              <InterviewDetails />
+              <AlertModel
+                title="Ibrahim Saleh Application"
+                trigger={
+                  <Button className="text-xs h-9.5 bg-main-color text-white justify-start hover:bg-main-color/80 hover:text-white gap-1.5">
+                    <Eye className="sie-5" /> View Details
+                  </Button>
+                }
+                content={<ApplicantsDetails />}
+                contentClassname="md:min-w-180 pb-3"
+              />
             </TableCell>
           </TableRow>
         </TableBody>
