@@ -61,8 +61,8 @@ export default function MatchCircle({
 
       {/* Text */}
       <div className="absolute text-center">
-        <p className="text-sm font-bold text-gray-900">{percentage}%</p>
-        <p className="text-xs text-gray-500">Match</p>
+        <p className="text-[0.85rem] font-bold text-gray-900">{percentage}%</p>
+        <p className="text-[0.70rem] text-gray-500">Match</p>
       </div>
     </div>
   );

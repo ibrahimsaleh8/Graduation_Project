@@ -54,8 +54,13 @@ export default function JobApplicantsFilter() {
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="accepted">
-                Accepted
+                value="pending">
+                Pending
+              </SelectItem>
+              <SelectItem
+                className="hover:bg-input-bg! hover:text-black!"
+                value="interviewed">
+                Interviewed
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"

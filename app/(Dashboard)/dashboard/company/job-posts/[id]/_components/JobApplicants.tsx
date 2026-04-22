@@ -75,7 +75,7 @@ export default function JobApplicants() {
                   </Button>
                 }
                 content={<ApplicantsDetails />}
-                contentClassname="md:min-w-180 pb-3"
+                contentClassname="md:min-w-150 pb-3"
               />
             </TableCell>
           </TableRow>
