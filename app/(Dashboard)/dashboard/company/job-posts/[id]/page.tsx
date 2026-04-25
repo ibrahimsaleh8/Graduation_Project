@@ -5,6 +5,8 @@ import {
   Calendar02Icon,
   Calendar03Icon,
   Delete02Icon,
+  Location01Icon,
+  MoneyBag02Icon,
   Setting07Icon,
   Time04Icon,
   UserGroupIcon,
@@ -25,6 +27,7 @@ import Image from "next/image";
 import google from "@images/Icons/google.svg";
 import JobPostStaticsCard from "./_components/JobPostStaticsCard";
 import JobInterviews from "./_components/JobInterviews";
+import EditJobPost from "./_components/EditJobPost";
 
 const jobPostStatics = [
   {
@@ -110,7 +113,7 @@ export default async function JobPostDetails({
                   Edit Job Post
                 </Button>
               }
-              content={<>Edit Job Post</>}
+              content={<EditJobPost />}
               contentClassname="md:min-w-150 pb-3"
             />
             <AlertModel
@@ -176,7 +179,7 @@ export default async function JobPostDetails({
                 {/* Job Location */}
                 <div className="flex items-center justify-between text-sm pb-4 border-b">
                   <p className="flex items-center gap-1 text-black/80">
-                    <HugeiconsIcon icon={Calendar02Icon} className="size-4" />
+                    <HugeiconsIcon icon={Location01Icon} className="size-4" />
                     Location
                   </p>
                   <p>Cairo, Egypt</p>
@@ -185,7 +188,7 @@ export default async function JobPostDetails({
                 {/* Salary */}
                 <div className="flex items-center justify-between text-sm pb-4 border-b">
                   <p className="flex items-center gap-1 text-black/80">
-                    <HugeiconsIcon icon={Calendar02Icon} className="size-4" />
+                    <HugeiconsIcon icon={MoneyBag02Icon} className="size-4" />
                     Salary
                   </p>
                   <p>$1k – $2k</p>
@@ -194,7 +197,7 @@ export default async function JobPostDetails({
                 {/* Category */}
                 <div className="flex items-center justify-between text-sm pb-4 border-b">
                   <p className="flex items-center gap-1 text-black/80">
-                    <HugeiconsIcon icon={Calendar02Icon} className="size-4" />
+                    <HugeiconsIcon icon={Briefcase01Icon} className="size-4" />
                     Category
                   </p>
                   <p>Web Development</p>

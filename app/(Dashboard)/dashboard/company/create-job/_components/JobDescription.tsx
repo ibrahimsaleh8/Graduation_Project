@@ -17,8 +17,8 @@ import {
   JobDetailsType,
 } from "@/validations/JobPostValidation";
 import { StepState } from "./JobPostStepper";
-import PrevStepperBtn from "../PrevStepperBtn";
 import { ChevronRight } from "lucide-react";
+import PrevStepperBtn from "./PrevStepperBtn";
 
 type Props = {
   setCurrentStep: Dispatch<SetStateAction<StepState[]>>;

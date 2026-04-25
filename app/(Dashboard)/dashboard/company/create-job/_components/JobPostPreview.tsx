@@ -7,11 +7,11 @@ import {
   Location01Icon,
   MoneyBag02Icon,
 } from "@hugeicons/core-free-icons";
-import PrevStepperBtn from "../PrevStepperBtn";
 import { Dispatch, SetStateAction } from "react";
 import { StepState } from "./JobPostStepper";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import PrevStepperBtn from "./PrevStepperBtn";
 
 type Props = {
   JobData: JobPostFullInfoType;

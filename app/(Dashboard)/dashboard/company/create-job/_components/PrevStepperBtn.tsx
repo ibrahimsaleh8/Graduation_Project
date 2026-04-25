@@ -1,9 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { StepState } from "./_components/JobPostStepper";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { StepState } from "./JobPostStepper";
 
 type Props = {
   currentStep: StepState[];
