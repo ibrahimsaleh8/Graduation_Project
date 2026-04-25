@@ -13,7 +13,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 export default function JobApplicantsFilter() {
   return (
-    <div className="w-full flex items-center gap-3 justify-between">
+    <div className="w-full flex items-center gap-3 justify-between flex-col md:flex-row">
       {/* Search By Candidate name */}
       <div className="space-y-1 w-full">
         <Label htmlFor="search-name" className="text-sm">

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function JobDetailsBreadcrumb() {
   return (
-    <div className="flex items-center text-sm gap-1">
+    <div className="flex items-center sm:text-sm text-xs gap-1">
       <Link
         href={"/dashboard/company"}
         className="text-black/70 hover:text-black">
@@ -25,7 +25,9 @@ export default function JobDetailsBreadcrumb() {
         className="size-3.5"
         strokeWidth={2}
       />
-      <Link href={"/dashboard/company/job-posts/1"} className="font-medium">
+      <Link
+        href={"/dashboard/company/job-posts/1"}
+        className="font-medium line-clamp-1 overflow-hidden text-ellipsis w-32 md:w-60">
         Frontend Developer
       </Link>
     </div>

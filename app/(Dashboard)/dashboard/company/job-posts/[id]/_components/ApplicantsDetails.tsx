@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import ShowApplicantsDetails from "./ShowApplicantsDetails";
 import ScheduleInterview from "./ScheduleInterview";
 
@@ -7,11 +7,12 @@ export default function ApplicantsDetails() {
   const [showDetails, setShowDetails] = useState(true);
   return (
     <div>
-      {showDetails ? (
+      <Activity mode={showDetails ? "visible" : "hidden"}>
         <ShowApplicantsDetails setShowDetails={setShowDetails} />
-      ) : (
-        <ScheduleInterview />
-      )}
+      </Activity>
+      <Activity mode={!showDetails ? "visible" : "hidden"}>
+        <ScheduleInterview setShowDetails={setShowDetails} />
+      </Activity>
     </div>
   );
 }

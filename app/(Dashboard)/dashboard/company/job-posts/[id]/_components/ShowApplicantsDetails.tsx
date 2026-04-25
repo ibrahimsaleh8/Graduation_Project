@@ -12,12 +12,22 @@ import {
 } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
+import { motion } from "framer-motion";
+
 type Props = {
   setShowDetails: Dispatch<SetStateAction<boolean>>;
 };
 export default function ShowApplicantsDetails({ setShowDetails }: Props) {
   return (
-    <div className="space-y-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        duration: 0.35,
+        ease: "easeOut",
+      }}
+      className="space-y-2">
       {/* Top */}
       <div className="w-full flex items-center justify-between gap-4">
         {/* User Image & Name */}
@@ -114,6 +124,6 @@ export default function ShowApplicantsDetails({ setShowDetails }: Props) {
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
