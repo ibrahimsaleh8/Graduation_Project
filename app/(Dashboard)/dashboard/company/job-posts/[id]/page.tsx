@@ -24,6 +24,7 @@ import JobApplicants from "./_components/JobApplicants";
 import Image from "next/image";
 import google from "@images/Icons/google.svg";
 import JobPostStaticsCard from "./_components/JobPostStaticsCard";
+import JobInterviews from "./_components/JobInterviews";
 
 const jobPostStatics = [
   {
@@ -163,6 +164,9 @@ export default async function JobPostDetails({
               </TabsContent>
               <TabsContent value="applicants" className="w-full">
                 <JobApplicants />
+              </TabsContent>
+              <TabsContent value="interviews" className="w-full">
+                <JobInterviews />
               </TabsContent>
             </TabsContents>
 

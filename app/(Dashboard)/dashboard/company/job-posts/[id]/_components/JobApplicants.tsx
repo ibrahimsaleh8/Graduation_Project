@@ -33,7 +33,7 @@ export default function JobApplicants() {
         </TableHeader>
         <TableBody>
           {Array.from({ length: 4 }).map((_e, i) => (
-            <TableRow key={i} className="border-b">
+            <TableRow key={i} className="border-b hover:bg-black/5">
               <TableCell>
                 <div className="flex items-start gap-3">
                   {/* User Image */}

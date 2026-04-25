@@ -107,7 +107,11 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
         {/* Link */}
         <div className="space-y-1">
           <Label>Interview Link</Label>
-          <Input {...register("interviewLink")} />
+          <Input
+            className="placeholder:text-[0.83rem]"
+            placeholder="Interview Link"
+            {...register("interviewLink")}
+          />
           {errors.interviewLink && (
             <p className="text-red-500 text-xs">
               {errors.interviewLink.message}
@@ -118,7 +122,11 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
         {/* Name */}
         <div className="space-y-1">
           <Label>Interviewer Name</Label>
-          <Input {...register("interviewerName")} />
+          <Input
+            className="placeholder:text-[0.83rem]"
+            placeholder="Interviewer Name"
+            {...register("interviewerName")}
+          />
           {errors.interviewerName && (
             <p className="text-red-500 text-xs">
               {errors.interviewerName.message}
@@ -129,7 +137,11 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
         {/* Type */}
         <div className="space-y-1">
           <Label>Interview Type</Label>
-          <Input {...register("interviewType")} />
+          <Input
+            className="placeholder:text-[0.83rem]"
+            placeholder="Interview Type"
+            {...register("interviewType")}
+          />
           {errors.interviewType && (
             <p className="text-red-500 text-xs">
               {errors.interviewType.message}
