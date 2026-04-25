@@ -38,19 +38,19 @@ export default function ShowAllJobPosts() {
       <JobPostsFilteration />
 
       {/* Show All Job Posts */}
-      <Table className="bg-white border">
+      <Table className="bg-white rounded-md overflow-hidden pb-2 inline-table">
         <TableHeader className="px-2">
-          <TableRow className="hover:bg-black/4">
-            <TableHead className="text-black py-4 pl-4">Job Title</TableHead>
-            <TableHead className="text-black py-4">Details</TableHead>
-            <TableHead className="text-black py-4">Applications</TableHead>
-            <TableHead className="text-black py-4">Status</TableHead>
-            <TableHead className="text-black py-4 w-40">Show</TableHead>
+          <TableRow className="bg-main-dark hover:bg-main-dark/90 rounded-t-md ">
+            <TableHead className="py-4 pl-4">Job Title</TableHead>
+            <TableHead className="py-4">Details</TableHead>
+            <TableHead className="py-4">Applications</TableHead>
+            <TableHead className="py-4">Status</TableHead>
+            <TableHead className="py-4 w-40">Show</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {jobPostsData.map((job) => (
-            <TableRow key={job.id} className="hover:bg-black/4">
+            <TableRow key={job.id} className="hover:bg-black/10">
               <TableCell className="pl-4">
                 <div>
                   <p className="font-medium">{job.title}</p>

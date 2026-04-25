@@ -39,7 +39,7 @@ const recentJobs = [
 
 export default function LatestJobPostes() {
   return (
-    <div className="lg:mt-8 mt-30 lg:w-1/2 w-full">
+    <div className="lg:mt-8 mt-30 lg:w-1/2 w-full space-y-3">
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="font-medium">Latest Job Posts</p>
         <Link
@@ -50,15 +50,15 @@ export default function LatestJobPostes() {
         </Link>
       </div>
 
-      <Table>
+      <Table className=" rounded-md overflow-hidden pb-2 inline-table">
         <TableHeader>
-          <TableRow>
-            <TableHead className="text-black py-4">#</TableHead>
-            <TableHead className="text-black py-4">Job Title</TableHead>
-            <TableHead className="text-black py-4">
+          <TableRow className="bg-main-dark hover:bg-main-dark/90 rounded-t-md">
+            <TableHead className="text-white py-4">#</TableHead>
+            <TableHead className="text-white py-4">Job Title</TableHead>
+            <TableHead className="text-white py-4">
               Total Applications
             </TableHead>
-            <TableHead className="text-black py-4">Posted At</TableHead>
+            <TableHead className="text-white py-4">Posted At</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

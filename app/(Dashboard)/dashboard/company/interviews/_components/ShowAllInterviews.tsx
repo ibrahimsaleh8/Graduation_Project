@@ -15,16 +15,16 @@ export default function ShowAllInterviews() {
   return (
     <div className="space-y-2">
       <InterviewsFilteration />
-      <Table className="bg-white border">
+      <Table className="bg-white rounded-md overflow-hidden pb-2 inline-table">
         <TableHeader>
-          <TableRow>
-            <TableHead className="text-black py-4 pl-4">
+          <TableRow className="bg-main-dark hover:bg-main-dark/90 rounded-t-md">
+            <TableHead className="text-white py-4 pl-4">
               Candidate Name
             </TableHead>
-            <TableHead className="text-black py-4">Job Position</TableHead>
-            <TableHead className="text-black py-4">Date & Time</TableHead>
-            <TableHead className="text-black py-4">Status</TableHead>
-            <TableHead className="text-black py-4 w-30">Actions</TableHead>
+            <TableHead className="text-white py-4">Job Position</TableHead>
+            <TableHead className="text-white py-4">Date & Time</TableHead>
+            <TableHead className="text-white py-4">Status</TableHead>
+            <TableHead className="text-white py-4 w-30">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
