@@ -72,12 +72,12 @@ export default function CompanyProfileSettings() {
 
           {/* Location */}
           <div className="space-y-1 w-full">
-            <Label htmlFor="job-location">Location</Label>
-            <Select onValueChange={(e) => setValue("location", e)}>
+            <Label htmlFor="company-country">Country</Label>
+            <Select onValueChange={(e) => setValue("country", e)}>
               <SelectTrigger
-                id="job-location"
+                id="company-country"
                 className="w-full bg-white h-11! border border-border-color">
-                <SelectValue placeholder="Location" />
+                <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent className="bg-white text-black border border-border-color">
                 <SelectGroup>
@@ -95,17 +95,15 @@ export default function CompanyProfileSettings() {
           </div>
         </div>
 
-        {(errors.companyName || errors.location) && (
+        {(errors.companyName || errors.country) && (
           <div className="flex items-center flex-wrap gap-5">
             {errors.companyName && (
               <p className="text-sm text-red-500">
                 * {errors.companyName.message}
               </p>
             )}
-            {errors.location && (
-              <p className="text-sm text-red-500">
-                * {errors.location.message}
-              </p>
+            {errors.country && (
+              <p className="text-sm text-red-500">* {errors.country.message}</p>
             )}
           </div>
         )}
@@ -234,19 +232,58 @@ export default function CompanyProfileSettings() {
           </div>
         )}
 
-        {/* Company Website */}
+        {/* Founded Yeaer & Website URL */}
+        <div className="flex items-center gap-5 flex-col md:flex-row w-full">
+          <div className="space-y-1 w-full">
+            <Label htmlFor="website-url">Website URL</Label>
+            <Input
+              {...register("websiteUrl")}
+              type="text"
+              id="website-url"
+              placeholder="https://www.example.com"
+              className="bg-white border border-border-color"
+            />
+          </div>
+
+          <div className="space-y-1 w-full">
+            <Label htmlFor="founded-year">Founded Year</Label>
+            <Input
+              {...register("founded_year")}
+              type="number"
+              id="founded-year"
+              placeholder="2020"
+              className="bg-white border border-border-color"
+            />
+          </div>
+        </div>
+        {(errors.websiteUrl || errors.founded_year) && (
+          <div className="flex items-center flex-wrap gap-5">
+            {errors.websiteUrl && (
+              <p className="text-sm text-red-500">
+                *{errors.websiteUrl.message}
+              </p>
+            )}
+            {errors.founded_year && (
+              <p className="text-sm text-red-500">
+                * {errors.founded_year.message}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Profile Bio */}
         <div className="space-y-1 w-full">
-          <Label htmlFor="website-url">Website URL</Label>
+          <Label htmlFor="profile-bio">Profile Bio</Label>
           <Input
-            {...register("websiteUrl")}
+            {...register("bio")}
             type="text"
-            id="website-url"
-            placeholder="https://www.example.com"
+            id="profile-bio"
+            placeholder="Enter your profile bio"
             className="bg-white border border-border-color"
           />
         </div>
-        {errors.websiteUrl && (
-          <p className="text-sm text-red-500">{errors.websiteUrl.message}</p>
+        {errors.bio && (
+          <p className="text-sm text-red-500">{errors.bio.message}</p>
         )}
 
         {/* Company Description */}

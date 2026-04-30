@@ -5,12 +5,25 @@ export const CompanyProfileSettingsSchema = z.object({
     .string()
     .min(2, "Company name is required")
     .max(100, "Company name is too long"),
-
-  location: z
-    .string({
-      error: "Location is required",
+  founded_year: z
+    .number({
+      error: "Founded year is required",
     })
-    .min(2, "Please select a valid location"),
+    .min(1700, "Founded year must be after 1800")
+    .max(new Date().getFullYear(), "Founded year cannot be in the future"),
+
+  bio: z
+    .string({
+      error: "Bio is required",
+    })
+    .min(10, "Bio must be at least 10 characters")
+    .max(500, "Bio must not exceed 500 characters"),
+
+  country: z
+    .string({
+      error: "Country is required",
+    })
+    .min(2, "Please select a valid country"),
   industry: z
     .string({
       error: "industry is required",

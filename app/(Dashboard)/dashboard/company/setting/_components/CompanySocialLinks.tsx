@@ -20,11 +20,13 @@ export default function CompanySocialLinks() {
           </div>
 
           <div className="space-y-1 w-full">
-            <Label htmlFor="address">Address</Label>
+            <Label htmlFor="address">
+              Address <span className="text-xs">(City , Country)</span>
+            </Label>
             <Input
               type="text"
               id="address"
-              placeholder="Address"
+              placeholder="Cairo, Egypt"
               className="bg-white border border-border-color"
             />
           </div>
@@ -55,6 +57,15 @@ export default function CompanySocialLinks() {
               type="text"
               id="facebook"
               placeholder="https://www.facebook.com/..."
+              className="bg-white border border-border-color"
+            />
+          </div>
+          <div className="space-y-1 w-full">
+            <Label htmlFor="twitter">Twitter (x)</Label>
+            <Input
+              type="text"
+              id="twitter"
+              placeholder="https://x.com/..."
               className="bg-white border border-border-color"
             />
           </div>
