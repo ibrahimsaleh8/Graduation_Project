@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ProfileAbout() {
   return (
     <div className="w-full bg-white border p-4 rounded-md space-y-4">
