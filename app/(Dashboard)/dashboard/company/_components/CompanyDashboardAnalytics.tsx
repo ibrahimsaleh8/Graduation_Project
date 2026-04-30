@@ -48,7 +48,7 @@ export function CompanyDashboardAnalytics() {
     <Card className="bg-transparent h-100 text-black shadow-none border-0">
       <CardHeader className="p-0">
         <CardTitle>Jobs Posted vs Applicants</CardTitle>
-        <CardDescription>
+        <CardDescription className="text-black/70">
           Showing monthly comparison of created job posts and applicants
         </CardDescription>
       </CardHeader>
@@ -57,7 +57,7 @@ export function CompanyDashboardAnalytics() {
           <AreaChart accessibilityLayer data={chartData}>
             <CartesianGrid
               vertical={false}
-              stroke="#d9d9d9"
+              stroke="#dfdfdf"
               strokeDasharray="3 3"
             />
             <XAxis

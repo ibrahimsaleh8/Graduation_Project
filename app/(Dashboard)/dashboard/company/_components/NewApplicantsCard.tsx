@@ -3,7 +3,7 @@ import userImage from "@images/user-image.png";
 import Image from "next/image";
 export default function NewApplicantsCard() {
   return (
-    <div className="flex md:items-center md:flex-row flex-col justify-between gap-5 pb-3 md:pb-0 border-b md:border-0">
+    <div className="flex md:items-center md:flex-row flex-col justify-between gap-5 pb-3 md:pb-1 border-b  ">
       {/* Left */}
       <div className="flex items-start gap-3">
         {/* User Image */}
