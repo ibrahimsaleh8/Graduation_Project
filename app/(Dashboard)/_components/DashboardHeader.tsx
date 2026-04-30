@@ -12,7 +12,7 @@ import {
   Calendar03Icon,
   Home03Icon,
   Mail01Icon,
-  WorkIcon,
+  Briefcase01Icon,
 } from "@hugeicons/core-free-icons";
 import { usePathname } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -95,7 +95,7 @@ const companyLinks = [
   {
     link: "/dashboard/company/create-job",
     label: "Create Job Post",
-    icon: WorkIcon,
+    icon: Briefcase01Icon,
   },
   {
     link: "/dashboard/company/interviews",
@@ -159,7 +159,11 @@ export default function DashboardHeader() {
               href={link.link}
               key={link.label}
               className={`flex items-center gap-1 text-sm px-4 rounded-md font-medium py-3 hover:bg-black hover:text-white duration-300 ${currentPath == link.link ? "bg-main-dark text-white" : ""}`}>
-              <HugeiconsIcon icon={link.icon} className="size-4.5" />
+              <HugeiconsIcon
+                icon={link.icon}
+                className="size-4.5"
+                strokeWidth={2}
+              />
               {link.label}
             </Link>
           ))}
