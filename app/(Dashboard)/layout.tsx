@@ -1,5 +1,6 @@
 import React from "react";
 import DashboardHeader from "./_components/DashboardHeader";
+import AiChatFloatedIcon from "./dashboard/company/_components/AiChatFloatedIcon";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,6 +11,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </div>
+
+      <AiChatFloatedIcon />
     </main>
   );
 }

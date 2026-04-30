@@ -67,7 +67,6 @@ export default function CompanyDashboard() {
       <p className="font-medium md:text-3xl text-2xl">
         Welcome to Microsoft Company Dashboard &#128075;
       </p>
-
       <div className="flex flex-col gap-5">
         {/* Top */}
         <div className="flex flex-col-reverse lg:flex-row gap-4 w-full items-start">
