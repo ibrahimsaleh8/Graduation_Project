@@ -8,10 +8,11 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   UserCircleIcon,
-  Mail01Icon,
   LockPasswordIcon,
+  Share02Icon,
 } from "@hugeicons/core-free-icons";
 import CompanyProfileSettings from "./_components/CompanyProfileSettings";
+import CompanySocialLinks from "./_components/CompanySocialLinks";
 
 export default function CompanySettingsPage() {
   return (
@@ -33,8 +34,8 @@ export default function CompanySettingsPage() {
 
           <TabsTrigger
             className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
-            value="contact">
-            <HugeiconsIcon icon={Mail01Icon} className="size-5" /> Contact Info
+            value="Socials">
+            <HugeiconsIcon icon={Share02Icon} className="size-5" /> Socials
           </TabsTrigger>
 
           <TabsTrigger
@@ -48,17 +49,8 @@ export default function CompanySettingsPage() {
           <TabsContent value="profile">
             <CompanyProfileSettings />
           </TabsContent>
-          <TabsContent value="contact">
-            <></>
-          </TabsContent>
-          <TabsContent value="experience">
-            <></>
-          </TabsContent>
-          <TabsContent value="skills">
-            <></>
-          </TabsContent>
-          <TabsContent value="projects">
-            <></>
+          <TabsContent value="Socials">
+            <CompanySocialLinks />
           </TabsContent>
           <TabsContent value="security">
             <></>
