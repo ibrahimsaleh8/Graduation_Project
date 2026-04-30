@@ -13,6 +13,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import CompanyProfileSettings from "./_components/CompanyProfileSettings";
 import CompanySocialLinks from "./_components/CompanySocialLinks";
+import CompanySecuritySettings from "./_components/CompanySecuritySettings";
 
 export default function CompanySettingsPage() {
   return (
@@ -53,7 +54,7 @@ export default function CompanySettingsPage() {
             <CompanySocialLinks />
           </TabsContent>
           <TabsContent value="security">
-            <></>
+            <CompanySecuritySettings />
           </TabsContent>
         </TabsContents>
       </Tabs>
