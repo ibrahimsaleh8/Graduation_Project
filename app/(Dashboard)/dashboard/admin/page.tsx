@@ -4,10 +4,13 @@ import {
   Building01Icon,
   Briefcase01Icon,
   Clock01Icon,
+  ChartHistogramIcon,
 } from "@hugeicons/core-free-icons";
 import LatestJobPostes from "../company/_components/LatestJobPostes";
 import { AdminDashboardJobsAnalytics } from "./_components/AdminDashboardJobsAnalytics";
 import AdminDashboardPendingApproval from "./_components/AdminDashboardPendingApproval";
+import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export const adminDashboardStats = [
   {
@@ -73,6 +76,16 @@ export default function AdmindDashboard() {
           <div className="lg:w-1/2 w-full flex flex-col gap-4">
             <div className="w-full flex justify-between items-center gap-5 flex-wrap">
               <p className="text-2xl font-medium">Statistics</p>
+              <Link
+                href={"/dashboard/admin/reports"}
+                className="px-6 py-2 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-sm text-sm flex items-center gap-2 w-fit">
+                <HugeiconsIcon
+                  icon={ChartHistogramIcon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+                Show Reports
+              </Link>
             </div>
             {/* Cards */}
             <div className="grid md:grid-cols-2 gap-4 ">
