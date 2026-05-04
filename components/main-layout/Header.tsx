@@ -49,7 +49,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-100 bg-main-bg px-1 border-b md:px-8 py-2 ${scrolled ? "border-border" : "border-transparent"} duration-300`}>
+      className={`fixed w-full top-0 z-100 lg:bg-white/10 bg-white backdrop-blur-md px-1 border-b md:px-8 py-2 ${scrolled ? "border-border" : "border-transparent"} duration-300`}>
       <div className="container mx-auto flex items-center gap-3 justify-between p-3">
         {/* Logo */}
         <div className="flex items-center gap-1">
