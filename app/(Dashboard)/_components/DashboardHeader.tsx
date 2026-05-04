@@ -13,6 +13,8 @@ import {
   Home03Icon,
   Mail01Icon,
   Briefcase01Icon,
+  Building01Icon,
+  ChartHistogramIcon,
 } from "@hugeicons/core-free-icons";
 import { usePathname } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -137,15 +139,82 @@ const smallCompanyLinks = [
   },
 ];
 
+const adminLinks = [
+  {
+    link: "/dashboard/admin",
+    label: "Overview",
+    icon: Home03Icon,
+  },
+  {
+    link: "/dashboard/admin/jobs",
+    label: "Jobs",
+    icon: Briefcase01Icon,
+  },
+  {
+    link: "/dashboard/admin/users",
+    label: "Users",
+    icon: UserCircleIcon,
+  },
+  {
+    link: "/dashboard/admin/companies",
+    label: "Companies",
+    icon: Building01Icon,
+  },
+];
+
+const adminSmallLinks = [
+  {
+    link: "/dashboard/admin",
+    label: "Overview",
+    icon: Home03Icon,
+  },
+  {
+    link: "/dashboard/admin/users",
+    label: "Users",
+    icon: UserCircleIcon,
+  },
+  {
+    link: "/dashboard/admin/companies",
+    label: "Companies",
+    icon: Building01Icon,
+  },
+  {
+    link: "/dashboard/admin/jobs",
+    label: "Jobs",
+    icon: Briefcase01Icon,
+  },
+  {
+    link: "/dashboard/admin/reports",
+    label: "Reports",
+    icon: ChartHistogramIcon,
+  },
+  {
+    link: "/dashboard/admin/mails",
+    label: "Mails",
+    icon: Mail01Icon,
+  },
+  {
+    link: "/dashboard/company/setting",
+    label: "Settings",
+    icon: Settings02Icon,
+  },
+];
+
 export default function DashboardHeader() {
   const currentPath = usePathname();
   console.log(currentPath.split("/")[2]);
   const activeLinks =
-    currentPath.split("/")[2] === "employee" ? employeeLinks : companyLinks;
+    currentPath.split("/")[2] === "employee"
+      ? employeeLinks
+      : currentPath.split("/")[2] === "admin"
+        ? adminLinks
+        : companyLinks;
   const activeSmallLinks =
     currentPath.split("/")[2] === "employee"
       ? smallEmployeeLinks
-      : smallCompanyLinks;
+      : currentPath.split("/")[2] === "admin"
+        ? adminSmallLinks
+        : smallCompanyLinks;
 
   return (
     <header className="w-full flex items-center justify-between gap-4 bg-main-dark text-white p-4">
