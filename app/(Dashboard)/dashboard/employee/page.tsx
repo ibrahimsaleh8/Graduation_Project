@@ -87,7 +87,11 @@ export default function Dashboard() {
           {/* Cards */}
           <div className="grid md:grid-cols-2 gap-4 ">
             {employeeDashboardStats.map((statistic) => (
-              <DashboardCardStatistics {...statistic} key={statistic.title} />
+              <DashboardCardStatistics
+                size="large"
+                {...statistic}
+                key={statistic.title}
+              />
             ))}
           </div>
           {/* AI Chatbot */}

@@ -90,7 +90,11 @@ export default function AdmindDashboard() {
             {/* Cards */}
             <div className="grid md:grid-cols-2 gap-4 ">
               {adminDashboardStats.map((statistic) => (
-                <DashboardCardStatistics {...statistic} key={statistic.title} />
+                <DashboardCardStatistics
+                  size="large"
+                  {...statistic}
+                  key={statistic.title}
+                />
               ))}
             </div>
             {/* AI Chatbot */}
