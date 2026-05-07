@@ -10,14 +10,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/animate-ui/components/radix/sheet";
-import {
-  CancelCircleIcon,
-  CheckmarkCircle03Icon,
-  Settings01Icon,
-} from "@hugeicons/core-free-icons";
+import { Settings01Icon } from "@hugeicons/core-free-icons";
 import JobDetailsForCheetContent from "./JobDetailsForCheetContent";
+import AdminJobAction from "./AdminJobAction";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import JobCandidates from "./JobCandidates";
 
 export default function AllJobsActions() {
+  const [currentTab, setCurrentTab] = useState<"Details" | "Candidates">(
+    "Details",
+  );
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -25,35 +29,66 @@ export default function AllJobsActions() {
           <HugeiconsIcon icon={Settings01Icon} strokeWidth={2} /> Details
         </Button>
       </SheetTrigger>
+
       <SheetContent className="border-black bg-white text-black! md:w-124 w-[90%] relative h-screen">
         <SheetHeader>
           <SheetTitle className="pt-2 text-lg text-black">
             Job Details
           </SheetTitle>
-          <SheetDescription></SheetDescription>
+          <SheetDescription />
         </SheetHeader>
 
         {/* Job Details */}
-        <div className="w-full relative h-full flex flex-col overflow-y-auto overflow-x-hidden">
-          <JobDetailsForCheetContent />
-          <div className="sticky mt-auto left-0 bottom-0 w-full bg-input-bg border-t p-10 pt-6 pb-4 flex items-center md:flex-row flex-col  gap-4">
-            <Button className="md:flex-1 md:w-fit w-full bg-green-600 text-white hover:bg-green-700 text-sm">
-              <HugeiconsIcon
-                icon={CheckmarkCircle03Icon}
-                strokeWidth={2}
-                className="size-5"
-              />
-              Approve & Publish
-            </Button>
+        <div className="w-full relative h-full flex flex-col overflow-hidden gap-3">
+          {/* Tabs */}
+          <div className="w-full flex items-center pb-4 relative">
+            <button
+              onClick={() => setCurrentTab("Details")}
+              className={`w-full py-3 px-2 border-r border-black/5 md:text-sm text-xs cursor-pointer transition-colors duration-300 ${
+                currentTab == "Details"
+                  ? "bg-main-dark text-white"
+                  : "bg-input-bg text-black"
+              }`}>
+              Details
+            </button>
 
-            <Button className="md:flex-1 md:w-fit w-full bg-red-600 text-white hover:bg-red-700 text-sm">
-              <HugeiconsIcon
-                icon={CancelCircleIcon}
-                strokeWidth={2}
-                className="size-5"
-              />
-              Reject Job
-            </Button>
+            <button
+              onClick={() => setCurrentTab("Candidates")}
+              className={`w-full py-3 px-2 md:text-sm text-xs cursor-pointer transition-colors duration-300 ${
+                currentTab == "Candidates"
+                  ? "bg-main-dark text-white"
+                  : "bg-input-bg text-black"
+              }`}>
+              Candidates (30)
+            </button>
+          </div>
+
+          {/* Tabs Content */}
+          <div className="relative flex-1 overflow-hidden">
+            <AnimatePresence mode="wait">
+              {currentTab === "Details" ? (
+                <motion.div
+                  key="details"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full h-full flex flex-col overflow-y-auto overflow-x-hidden gap-3 absolute inset-0">
+                  <JobDetailsForCheetContent />
+                  <AdminJobAction />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="candidates"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 overflow-y-auto">
+                  <JobCandidates />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </SheetContent>
