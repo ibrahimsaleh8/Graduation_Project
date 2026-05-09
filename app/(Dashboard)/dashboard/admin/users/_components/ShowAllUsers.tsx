@@ -11,14 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { MoreHorizontalIcon } from "@hugeicons/core-free-icons";
-
-import { HugeiconsIcon } from "@hugeicons/react";
 import TableReSortData from "@/components/buttons/TableReSortData";
 
 import companyImage from "@images/HR.png";
 import UsersFilter from "./UsersFilter";
+import ShowUserDetails from "./ShowUserDetails";
 
 const initialUsersData = [
   {
@@ -131,7 +128,7 @@ export default function ShowAllUsers() {
               />
             </TableHead>
 
-            <TableHead className="py-4 w-24">Action</TableHead>
+            <TableHead className="py-4 w-40">Action</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -202,9 +199,7 @@ export default function ShowAllUsers() {
 
               {/* Action */}
               <TableCell>
-                <button className="size-10 rounded-lg border border-black/10 flex items-center justify-center hover:bg-input-bg transition-colors">
-                  <HugeiconsIcon icon={MoreHorizontalIcon} size={18} />
-                </button>
+                <ShowUserDetails />
               </TableCell>
             </TableRow>
           ))}
