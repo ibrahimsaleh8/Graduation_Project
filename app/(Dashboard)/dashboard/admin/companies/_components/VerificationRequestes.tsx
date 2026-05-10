@@ -140,6 +140,7 @@ export default function VerificationRequestes() {
                 />
               </TableHead>
 
+              <TableHead className="py-4 text-white">Email</TableHead>
               <TableHead className="py-4 text-white">Industry</TableHead>
 
               <TableHead className="py-4 text-white">
@@ -185,15 +186,11 @@ export default function VerificationRequestes() {
                         {company.companyName}
                       </p>
 
-                      <p className="text-xs text-black/50 mt-1">
-                        {company.email}
-                      </p>
-
                       <div className="flex items-center gap-1 mt-1">
                         <HugeiconsIcon
                           icon={Location01Icon}
                           size={13}
-                          className="text-black/40"
+                          className="text-black/60"
                         />
 
                         <p className="text-xs text-black/50">
@@ -202,6 +199,10 @@ export default function VerificationRequestes() {
                       </div>
                     </div>
                   </div>
+                </TableCell>
+                {/* Email */}
+                <TableCell>
+                  <p className="text-sm ">{company.email}</p>
                 </TableCell>
 
                 {/* Industry */}

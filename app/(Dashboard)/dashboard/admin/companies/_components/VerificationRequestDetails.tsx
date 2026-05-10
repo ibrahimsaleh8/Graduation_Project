@@ -16,11 +16,11 @@ import {
   Settings01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import VerificationDocumentCard from "./VerificationDocumentCard";
 import { Activity, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AskMoreDetails from "./AskMoreDetails";
 import Link from "next/link";
+import ShowVerificationDocuments from "./ShowVerificationDocuments";
 
 export default function VerificationRequestDetails() {
   const [askMoreDetails, setAskMoreDetails] = useState(false);
@@ -82,8 +82,9 @@ export default function VerificationRequestDetails() {
             </div>
 
             <AnimatePresence mode="wait">
-              <Activity mode={askMoreDetails ? "visible" : "hidden"}>
-                {" "}
+              <Activity
+                key="textarea"
+                mode={askMoreDetails ? "visible" : "hidden"}>
                 <motion.div
                   key="textarea"
                   initial={{ opacity: 0, x: 30 }}
@@ -93,31 +94,16 @@ export default function VerificationRequestDetails() {
                   <AskMoreDetails />
                 </motion.div>
               </Activity>
-              <Activity mode={!askMoreDetails ? "visible" : "hidden"}>
+              <Activity
+                key="documents"
+                mode={!askMoreDetails ? "visible" : "hidden"}>
                 <motion.div
                   key="documents"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 30 }}
-                  transition={{ duration: 0.25 }}
-                  className="space-y-3">
-                  {/* Header */}
-                  <div className="flex items-center justify-between flex-wrap gap-4 text-sm">
-                    <p className="font-medium">Verification Documents</p>
-                    <p className="flex items-center gap-1">
-                      <HugeiconsIcon
-                        icon={File02Icon}
-                        className="size-4"
-                        strokeWidth={2}
-                      />
-                      3 Files
-                    </p>
-                  </div>
-                  {/* Documents */}
-                  <div className="space-y-2">
-                    <VerificationDocumentCard /> <VerificationDocumentCard />
-                    <VerificationDocumentCard />
-                  </div>
+                  transition={{ duration: 0.25 }}>
+                  <ShowVerificationDocuments />
                 </motion.div>
               </Activity>
             </AnimatePresence>
