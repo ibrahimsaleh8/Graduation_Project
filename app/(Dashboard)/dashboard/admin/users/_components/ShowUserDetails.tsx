@@ -23,11 +23,34 @@ import {
 import Image from "next/image";
 
 import userImage from "@images/HR.png";
-import UserProfileStatistics from "./UserProfileStatistics";
 import Link from "next/link";
-import DeleteUserBtn from "./DeleteUserBtn";
 import { FaFacebook, FaLinkedin, FaGithub, FaFileAlt } from "react-icons/fa";
 import { RiGlobalLine } from "react-icons/ri";
+import SmallDetailsCard from "../../_components/SmallDetailsCard";
+import SmallStatisticCardForDetails from "../../_components/SmallStatisticCardForDetails";
+import DeleteBtnWithVerfication from "../../_components/DeleteBtnWithVerfication";
+const details = [
+  {
+    title: "Email Address",
+    value: "contact@techify.com",
+    icon: Mail01Icon,
+  },
+  {
+    title: "Phone Number",
+    value: "+20 100 123 4567",
+    icon: CallIcon,
+  },
+  {
+    title: "Location",
+    value: "Egypt",
+    icon: Location01Icon,
+  },
+  {
+    title: "Job Title",
+    value: "Frontend Developer",
+    icon: Briefcase08Icon,
+  },
+];
 
 const userStatistics = [
   {
@@ -112,63 +135,14 @@ export default function ShowUserDetails() {
 
             {/* Contact Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Email */}
-              <div className="w-full p-3 bg-input-bg rounded-md border">
-                <p className="font-medium flex items-center gap-1 text-sm">
-                  <HugeiconsIcon
-                    icon={Mail01Icon}
-                    className="size-4"
-                    strokeWidth={2}
-                  />
-                  Email Address
-                </p>
-
-                <p className="text-sm text-black/70 mt-1">
-                  ibrahim@example.com
-                </p>
-              </div>
-
-              {/* Phone */}
-              <div className="w-full p-3 bg-input-bg rounded-md border">
-                <p className="font-medium flex items-center gap-1 text-sm">
-                  <HugeiconsIcon
-                    icon={CallIcon}
-                    className="size-4"
-                    strokeWidth={2}
-                  />
-                  Phone Number
-                </p>
-
-                <p className="text-sm text-black/70 mt-1">+20 100 123 4567</p>
-              </div>
-
-              {/* Location */}
-              <div className="w-full p-3 bg-input-bg rounded-md border">
-                <p className="font-medium flex items-center gap-1 text-sm">
-                  <HugeiconsIcon
-                    icon={Location01Icon}
-                    className="size-4"
-                    strokeWidth={2}
-                  />
-                  Location
-                </p>
-
-                <p className="text-sm text-black/70 mt-1">Egypt</p>
-              </div>
-
-              {/* Role */}
-              <div className="w-full p-3 bg-input-bg rounded-md border">
-                <p className="font-medium flex items-center gap-1 text-sm">
-                  <HugeiconsIcon
-                    icon={Briefcase08Icon}
-                    className="size-4"
-                    strokeWidth={2}
-                  />
-                  Job Title
-                </p>
-
-                <p className="text-sm text-black/70 mt-1">Frontend Developer</p>
-              </div>
+              {details.map((detail) => (
+                <SmallDetailsCard
+                  icon={detail.icon}
+                  title={detail.title}
+                  value={detail.value}
+                  key={detail.title}
+                />
+              ))}
             </div>
 
             {/* Statistics */}
@@ -177,7 +151,7 @@ export default function ShowUserDetails() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {userStatistics.map((statistic) => (
-                  <UserProfileStatistics
+                  <SmallStatisticCardForDetails
                     label={statistic.label}
                     value={statistic.value}
                     key={statistic.label}
@@ -258,7 +232,11 @@ export default function ShowUserDetails() {
               <Button className="text-sm h-10 flex-1 bg-yellow-400 hover:bg-yellow-500 text-black">
                 <HugeiconsIcon icon={UserBlock02Icon} /> Block User
               </Button>
-              <DeleteUserBtn />
+              <DeleteBtnWithVerfication
+                deleteFn={() => {
+                  console.log("Delete User");
+                }}
+              />
             </div>
 
             <Link
