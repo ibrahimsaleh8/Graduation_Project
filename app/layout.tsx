@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${font.className} antialiased`}>
         <NextTopLoader color="#2563eb" />
-        <div className="fixed top-0 z-1000">
+        <div className="fixed top-0 z-10000000">
           <Toaster
             position="top-center"
             theme="light"

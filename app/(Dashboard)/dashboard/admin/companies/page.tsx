@@ -14,6 +14,7 @@ import {
   TabsTrigger,
 } from "@/components/animate-ui/primitives/radix/tabs";
 import ShowAllCompanies from "./_components/ShowAllCompanies";
+import VerificationRequestes from "./_components/VerificationRequestes";
 
 const companiesStats = [
   {
@@ -86,7 +87,7 @@ export default function CompaniesPage() {
             <ShowAllCompanies />
           </TabsContent>
           <TabsContent value="verifi-req">
-            Change your password here.
+            <VerificationRequestes />
           </TabsContent>
         </TabsContents>
       </Tabs>
