@@ -1,5 +1,6 @@
 import {
   BarChartHorizontalIcon,
+  CreditCardIcon,
   Mail01Icon,
   Settings02Icon,
   UserCircleIcon,
@@ -90,6 +91,17 @@ export default function DashboardHeaderIcons({
       ) : (
         <>
           <Link
+            title="Subscriptions"
+            href={"/dashboard/admin/subscriptions"}
+            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/subscriptions" ? "bg-white text-black" : ""}`}>
+            <HugeiconsIcon
+              icon={CreditCardIcon}
+              className="size-5.5"
+              strokeWidth={2}
+            />
+          </Link>
+
+          <Link
             title="Reports"
             href={"/dashboard/admin/reports"}
             className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/reports" ? "bg-white text-black" : ""}`}>
@@ -99,16 +111,7 @@ export default function DashboardHeaderIcons({
               strokeWidth={2}
             />
           </Link>
-          <Link
-            title="Mail"
-            href={"/dashboard/admin/mails"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/mails" ? "bg-white text-black" : ""}`}>
-            <HugeiconsIcon
-              icon={Mail01Icon}
-              className="size-5.5"
-              strokeWidth={2}
-            />
-          </Link>
+
           <Link
             title="Settings"
             href={"/dashboard/admin/setting"}

@@ -72,12 +72,12 @@ export default function CompaniesPage() {
       <Tabs defaultValue="companies">
         <TabsList className="md:w-100 w-full flex flex-col md:flex-row gap-4 items-center text-white">
           <TabsTrigger
-            className="cursor-pointer w-full font-medium text-black/50 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
+            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
             value="companies">
             Companies
           </TabsTrigger>
           <TabsTrigger
-            className="cursor-pointer w-full font-medium text-black/50 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
+            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
             value="verifi-req">
             Verification Requestes
           </TabsTrigger>

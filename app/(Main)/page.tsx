@@ -5,6 +5,7 @@ import HowItWork from "@/components/Home/HowItWork";
 import Intro from "@/components/Home/Intro";
 import ShowAllJobsCategories from "@/components/Home/Jobs_Categories/ShowAllJobsCategories";
 import Testimonials from "@/components/Home/Testimonials";
+import NewHeroSection from "@/components/NewHeroSection";
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
       {/* <Intro /> */}
 
       <div>
-        <Hero />
+        <NewHeroSection />
+        {/* <Hero /> */}
 
         {/* <ShowAllJobsCategories /> */}
 
