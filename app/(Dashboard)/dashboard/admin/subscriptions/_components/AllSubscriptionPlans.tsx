@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Add01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
-import CreateSubscriptionPlanForm from "./CreateSubscriptionPlanForm";
+import SubscriptionPlanCardWithOperations from "./SubscriptionPlanCardWithOperations";
+import SubscriptionPlanForm from "./SubscriptionPlanForm";
 
 export default function AllSubscriptionPlans() {
   return (
     <div>
       {/* Top */}
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+      <div className="flex items-center justify-between gap-4 flex-wrap px-5">
         <p className="font-medium">Subscription Plans</p>
         <AlertModel
           title="Create New Plan"
@@ -23,13 +24,17 @@ export default function AllSubscriptionPlans() {
               Create New Plan
             </Button>
           }
-          content={<CreateSubscriptionPlanForm />}
+          content={<SubscriptionPlanForm operation="create" />}
           contentClassname="md:min-w-150 pb-3"
         />
       </div>
 
       {/* All Plans */}
-      <div>Plans</div>
+      <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 mt-6 gap-4">
+        <SubscriptionPlanCardWithOperations />
+        <SubscriptionPlanCardWithOperations />
+        <SubscriptionPlanCardWithOperations />
+      </div>
     </div>
   );
 }

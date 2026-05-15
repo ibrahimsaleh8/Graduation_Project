@@ -27,8 +27,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
-
-export default function CreateSubscriptionPlanForm() {
+type Props = {
+  operation: "edit" | "create";
+};
+export default function SubscriptionPlanForm({ operation }: Props) {
   const {
     register,
     handleSubmit,
@@ -54,16 +56,26 @@ export default function CreateSubscriptionPlanForm() {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      {/*Plan Name */}
-      <div className="space-y-1">
-        <Label htmlFor="plan-name">Plan Name</Label>
-        <Input
-          {...register("planName")}
-          id="plan-name"
-          type="text"
-          placeholder="e.g. Professional"
-        />
+      <div className="flex items-end gap-3 flex-wrap w-full">
+        {/*Plan Name */}
+        <div className="space-y-1 flex-1">
+          <Label htmlFor="plan-name">Plan Name</Label>
+          <Input
+            {...register("planName")}
+            id="plan-name"
+            type="text"
+            placeholder="e.g. Professional"
+          />
+        </div>
+        {operation == "edit" && (
+          <div className="flex items-center justify-end">
+            <p className="text-xs px-4 h-10.5 flex items-center justify-center font-medium bg-black rounded-md text-white">
+              1,204 Active
+            </p>
+          </div>
+        )}
       </div>
+
       {errors.planName && (
         <ErrorValidationMessage message={errors.planName.message as string} />
       )}
@@ -318,7 +330,7 @@ export default function CreateSubscriptionPlanForm() {
       <Button
         type="submit"
         className="text-sm bg-main-color hover:bg-main-color/70 h-10 w-32">
-        Publish Plan
+        {operation == "create" ? "Publish Plan" : "Save Changes"}
       </Button>
     </form>
   );
