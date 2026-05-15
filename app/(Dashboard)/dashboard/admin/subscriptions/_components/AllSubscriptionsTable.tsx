@@ -21,6 +21,7 @@ import TableReSortData from "@/components/buttons/TableReSortData";
 
 import companyImage from "@images/HR.png";
 import Link from "next/link";
+import SubscriptionFilteration from "./SubscriptionFilteration";
 
 const initialSubscriptionsData = [
   {
@@ -138,6 +139,8 @@ export default function AllSubscriptionsTable() {
 
   return (
     <div className="space-y-3">
+      <SubscriptionFilteration />
+
       <Table className="bg-white rounded-xl overflow-hidden inline-table">
         <TableHeader>
           <TableRow className="bg-main-dark hover:bg-main-dark">
