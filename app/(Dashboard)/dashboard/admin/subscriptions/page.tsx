@@ -15,6 +15,7 @@ import {
 } from "@/components/animate-ui/primitives/radix/tabs";
 import AllSubscriptionPlans from "./_components/AllSubscriptionPlans";
 import AllSubscriptionsTable from "./_components/AllSubscriptionsTable";
+import ShowCupons from "./_components/ShowCupons";
 
 const subscriptionsStats = [
   {
@@ -107,7 +108,7 @@ export default function SubscriptionsPage() {
             <AllSubscriptionsTable />
           </TabsContent>
           <TabsContent value="coupons">
-            <>coupons</>
+            <ShowCupons />
           </TabsContent>
         </TabsContents>
       </Tabs>
