@@ -72,13 +72,11 @@ export default function Header() {
 
         <div className="flex items-center gap-10">
           <div className="hidden md:flex w-full text-sm items-center gap-0">
-            <Link
-              className="px-10 py-2 pl-6 text-center font-semibold"
-              href={"/login"}>
+            <Link className="pr-6 text-center font-semibold" href={"/login"}>
               Login
             </Link>
             <Link className="flex items-end group" href={"/register"}>
-              <span className="px-10 w-full duration-300 group-hover:bg-main-color/80 py-2 text-center bg-main-color text-white rounded-2xl font-medium">
+              <span className="px-8 w-full duration-300 group-hover:bg-main-color/80 py-2 text-center bg-main-color text-white rounded-2xl font-medium">
                 Register
               </span>
               <span className="w-12 flex items-center duration-300 group-hover:bg-main-color/80 justify-center text-main-color bg-main-color rounded-full">

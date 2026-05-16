@@ -4,7 +4,7 @@ import {
   Building01Icon,
   Briefcase01Icon,
   Clock01Icon,
-  ChartHistogramIcon,
+  CreditCardPosIcon,
 } from "@hugeicons/core-free-icons";
 import LatestJobPostes from "../company/_components/LatestJobPostes";
 import { AdminDashboardJobsAnalytics } from "./_components/AdminDashboardJobsAnalytics";
@@ -77,14 +77,14 @@ export default function AdmindDashboard() {
             <div className="w-full flex justify-between items-center gap-5 flex-wrap">
               <p className="text-2xl font-medium">Statistics</p>
               <Link
-                href={"/dashboard/admin/reports"}
+                href={"/dashboard/admin/subscriptions"}
                 className="px-6 py-2 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-sm text-sm flex items-center gap-2 w-fit">
                 <HugeiconsIcon
-                  icon={ChartHistogramIcon}
+                  icon={CreditCardPosIcon}
                   className="size-5"
                   strokeWidth={2}
                 />
-                Show Reports
+                Manage Subscriptions
               </Link>
             </div>
             {/* Cards */}

@@ -16,7 +16,6 @@ import moreCatsImage from "@images/Categories_illustrations/more_categories.svg"
 
 import { useRef } from "react";
 import FirstCategoryCard from "./FirstCategoryCard";
-import { clashDisplay } from "@/app/fonts";
 const categories = [
   {
     title: "UI / UX Design",
@@ -107,7 +106,7 @@ export default function ShowAllJobsCategories() {
   );
 
   return (
-    <section className={`w-full overflow-hidden ${clashDisplay.className}`}>
+    <section className={`w-full overflow-hidden`}>
       <div
         ref={sectionRef}
         className="min-w-fit w-full flex h-screen flex-nowrap">

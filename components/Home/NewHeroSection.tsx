@@ -1,4 +1,4 @@
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
@@ -15,12 +15,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { countries } from "@/lib/Countries";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { jobCategories } from "@/lib/JobCategories";
 import heroImage from "@images/new-hero.webp";
 import userImage from "@images/employee.png";
 import Image from "next/image";
-import StarsRates from "./Home/StarsRates";
+import StarsRates from "./StarsRates";
 
 export default function NewHeroSection() {
   return (
