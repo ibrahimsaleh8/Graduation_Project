@@ -23,7 +23,7 @@ export default function CompanyMainInfo() {
   return (
     <div className="bg-white p-5 w-full rounded-md border space-y-6">
       {/* Image & Title */}
-      <div className="flex items-center gap-3">
+      <div className="flex md:items-center items-start flex-col md:flex-row gap-3">
         <div className="size-15 bg-amber-300 rounded-sm"></div>
         <div className="space-y-1">
           <p className="font-medium">Techify Solutions</p>
@@ -34,7 +34,7 @@ export default function CompanyMainInfo() {
       </div>
 
       {/* Details */}
-      <div className="space-y-4 text-sm pl-3">
+      <div className="space-y-4 text-sm md:pl-3">
         {companyInfo.map((info) => (
           <p key={info.value} className="flex items-center gap-3">
             <HugeiconsIcon

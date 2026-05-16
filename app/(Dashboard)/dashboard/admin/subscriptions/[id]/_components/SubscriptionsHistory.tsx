@@ -34,7 +34,7 @@ const subscriptions = [
 export default function SubscriptionsHistory() {
   return (
     <div className="bg-white p-5 w-full rounded-xl border space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex md:items-center justify-between flex-col md:flex-row">
         <p className="font-semibold text-lg">Subscriptions History</p>
 
         <p className="text-sm text-muted-foreground">

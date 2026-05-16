@@ -15,7 +15,7 @@ export default function AllSubscriptionPlans() {
         <AlertModel
           title="Create New Plan"
           trigger={
-            <Button className="text-xs h-9.5 bg-main-color text-white justify-start hover:bg-main-color/80 hover:text-white gap-1.5">
+            <Button className="text-xs h-9.5 md:w-fit w-full bg-main-color text-white justify-center md:justify-start hover:bg-main-color/80 hover:text-white gap-1.5">
               <HugeiconsIcon
                 icon={Add01Icon}
                 className="size-4.5"

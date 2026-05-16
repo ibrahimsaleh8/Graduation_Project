@@ -56,7 +56,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <div className="flex items-end gap-3 flex-wrap w-full">
+      <div className="flex md:items-end gap-3 flex-wrap w-full flex-col-reverse md:flex-row">
         {/*Plan Name */}
         <div className="space-y-1 flex-1">
           <Label htmlFor="plan-name">Plan Name</Label>
@@ -69,7 +69,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         </div>
         {operation == "edit" && (
           <div className="flex items-center justify-end">
-            <p className="text-xs px-4 h-10.5 flex items-center justify-center font-medium bg-black rounded-md text-white">
+            <p className="text-xs px-4 w-full md:w-fit h-10.5 flex items-center justify-center font-medium bg-black rounded-md text-white">
               1,204 Active
             </p>
           </div>
