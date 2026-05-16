@@ -14,7 +14,6 @@ import {
   Mail01Icon,
   Briefcase01Icon,
   Building01Icon,
-  ChartHistogramIcon,
   CreditCardIcon,
 } from "@hugeicons/core-free-icons";
 import { usePathname } from "next/navigation";
@@ -190,9 +189,9 @@ const adminSmallLinks = [
     icon: CreditCardIcon,
   },
   {
-    link: "/dashboard/admin/reports",
-    label: "Reports",
-    icon: ChartHistogramIcon,
+    link: "/dashboard/admin/mails",
+    label: "Mails",
+    icon: Mail01Icon,
   },
   {
     link: "/dashboard/company/setting",

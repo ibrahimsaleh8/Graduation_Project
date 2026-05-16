@@ -1,5 +1,4 @@
 import {
-  BarChartHorizontalIcon,
   CreditCardIcon,
   Mail01Icon,
   Settings02Icon,
@@ -102,11 +101,11 @@ export default function DashboardHeaderIcons({
           </Link>
 
           <Link
-            title="Reports"
-            href={"/dashboard/admin/reports"}
+            title="Mails"
+            href={"/dashboard/admin/mails"}
             className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/reports" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
-              icon={BarChartHorizontalIcon}
+              icon={Mail01Icon}
               className="size-5.5"
               strokeWidth={2}
             />
