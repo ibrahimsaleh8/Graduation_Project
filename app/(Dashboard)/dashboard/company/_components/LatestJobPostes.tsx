@@ -39,7 +39,7 @@ const recentJobs = [
 
 export default function LatestJobPostes() {
   return (
-    <div className="lg:mt-8 mt-30 lg:w-1/2 w-full space-y-3">
+    <div className="lg:mt-11 md:mt-30 lg:w-1/2 w-full space-y-3">
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="font-medium">Latest Job Posts</p>
         <Link

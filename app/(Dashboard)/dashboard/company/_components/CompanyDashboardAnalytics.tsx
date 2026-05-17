@@ -1,6 +1,6 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import {
   ChartConfig,
   ChartContainer,
@@ -45,29 +46,54 @@ const chartConfig = {
 
 export function CompanyDashboardAnalytics() {
   return (
-    <Card className="bg-transparent h-100 text-black shadow-none border-0">
-      <CardHeader className="p-0">
-        <CardTitle>Jobs Posted vs Applicants</CardTitle>
+    <Card className="bg-transparent h-120 text-black shadow-none border-0">
+      <CardHeader className="p-0 mb-6">
+        <CardTitle className="text-xl font-semibold">
+          Jobs Posted vs Applicants
+        </CardTitle>
+
         <CardDescription className="text-black/70">
           Showing monthly comparison of created job posts and applicants
         </CardDescription>
       </CardHeader>
-      <CardContent className="h-140 p-0">
-        <ChartContainer config={chartConfig} className="h-100 w-full">
-          <AreaChart accessibilityLayer data={chartData}>
+
+      <CardContent className="h-100 p-0 -ml-4">
+        <ChartContainer
+          config={chartConfig}
+          className="h-full p-0! m-0! w-full">
+          <AreaChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            }}>
             <CartesianGrid
               vertical={false}
               stroke="#dfdfdf"
               strokeDasharray="3 3"
             />
+
             <XAxis
               dataKey="month"
               tickLine={false}
               axisLine={false}
-              tickMargin={8}
+              tickMargin={10}
               tickFormatter={(value) => value.slice(0, 3)}
+              tick={{ fontSize: 12, fill: "#6b7280" }}
             />
+
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+              tick={{ fontSize: 12, fill: "#6b7280" }}
+            />
+
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+
             <defs>
               <linearGradient
                 id="gradient-applications"
@@ -80,12 +106,14 @@ export function CompanyDashboardAnalytics() {
                   stopColor="var(--color-applications)"
                   stopOpacity={0.5}
                 />
+
                 <stop
                   offset="95%"
                   stopColor="var(--color-applications)"
-                  stopOpacity={0.1}
+                  stopOpacity={0.05}
                 />
               </linearGradient>
+
               <linearGradient
                 id="gradient-applicants"
                 x1="0"
@@ -97,32 +125,31 @@ export function CompanyDashboardAnalytics() {
                   stopColor="var(--color-applicants)"
                   stopOpacity={0.5}
                 />
+
                 <stop
                   offset="95%"
                   stopColor="var(--color-applicants)"
-                  stopOpacity={0.1}
+                  stopOpacity={0.05}
                 />
               </linearGradient>
             </defs>
+
             <Area
               dataKey="applicants"
               type="natural"
               fill="url(#gradient-applicants)"
-              fillOpacity={0.4}
+              fillOpacity={1}
               stroke="var(--color-applicants)"
-              stackId="a"
-              strokeWidth={0.8}
-              strokeDasharray="3 3"
+              strokeWidth={2}
             />
+
             <Area
               dataKey="applications"
               type="natural"
               fill="url(#gradient-applications)"
-              fillOpacity={0.4}
+              fillOpacity={1}
               stroke="var(--color-applications)"
-              stackId="a"
-              strokeWidth={0.8}
-              strokeDasharray="3 3"
+              strokeWidth={2}
             />
           </AreaChart>
         </ChartContainer>
