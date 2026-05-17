@@ -1,10 +1,12 @@
 "use client";
 import { Cancel01Icon, Menu11Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { motion } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { mainLinksType } from "./Header";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 export default function SmallNavbar({
   links,
   pathname,
@@ -12,9 +14,26 @@ export default function SmallNavbar({
   links: mainLinksType;
   pathname: string;
 }) {
+  const tl = useRef<gsap.core.Timeline>(null);
   const [open, setOpen] = useState(false);
+  useGSAP(() => {
+    tl.current = gsap.timeline({ paused: true });
+
+    tl.current.to(".small-navbar", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 0.6,
+      ease: "power2.inOut",
+    });
+  });
+  useEffect(() => {
+    if (open) {
+      tl.current?.play();
+    } else {
+      tl.current?.reverse();
+    }
+  }, [open]);
   return (
-    <div className="md:hidden flex">
+    <div className="lg:hidden flex">
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="px-4 py-1.5 border border-border-color rounded-full cursor-pointer">
@@ -25,17 +44,11 @@ export default function SmallNavbar({
         {/* <HugeiconsIcon icon={Cancel01Icon} className="w-5 h-5 text-black"/> */}
       </button>
 
-      <motion.div
-        initial={false}
-        animate={{
-          height: open ? "100%" : 0,
-          opacity: open ? 1 : 0,
+      <div
+        style={{
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
         }}
-        transition={{
-          opacity: { delay: open ? 0 : 0.5, duration: 0.3 },
-          height: { duration: 0.5 },
-        }}
-        className="fixed z-1000 w-full bg-main-bg/40 left-0 top-17.75 border-t border-border-color overflow-hidden backdrop-blur-2xl">
+        className="fixed z-100000 w-screen h-screen bg-main-bg left-0 top-17.75 border-t border-border-color overflow-hidden backdrop-blur-2xl small-navbar">
         <ul className="flex flex-col items-start gap-10 py-10 px-6 w-full">
           {links.map((lin) => (
             <li key={lin.title} className="w-full">
@@ -64,7 +77,7 @@ export default function SmallNavbar({
             </Link>
           </div>
         </ul>
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -57,7 +57,7 @@ export default function Header() {
         <div className="flex items-center gap-1">
           <Logo size="small" />
         </div>
-        <nav className="md:flex hidden">
+        <nav className="lg:flex hidden">
           <ul className="flex items-center gap-2 font-semibold pl-10">
             {mainLinks.map((lin) => (
               <li key={lin.title}>
@@ -72,7 +72,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-10">
-          <div className="hidden md:flex w-full text-sm items-center gap-0">
+          <div className="hidden lg:flex w-full text-sm items-center gap-0">
             <Link className="pr-6 text-center font-semibold" href={"/login"}>
               Login
             </Link>
