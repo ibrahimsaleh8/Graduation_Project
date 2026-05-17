@@ -10,8 +10,6 @@ import {
   Mail01Icon,
 } from "@hugeicons/core-free-icons";
 import { useEffect, useState } from "react";
-import flesher from "@images/fleche.svg";
-import Image from "next/image";
 const mainLinks = [
   {
     title: "Home",
@@ -62,7 +60,7 @@ export default function Header() {
             {mainLinks.map((lin) => (
               <li key={lin.title}>
                 <Link
-                  className={`hover:text-black px-5 py-2 duration-300 text-sm ${pathname == lin.link ? "text-black" : "text-black/60"}`}
+                  className={`hover:text-black px-5 py-2 duration-300 ${pathname == lin.link ? "text-black" : "text-black/60"}`}
                   href={lin.link}>
                   {lin.title}
                 </Link>
@@ -72,7 +70,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-10">
-          <div className="hidden lg:flex w-full text-sm items-center gap-0">
+          <div className="hidden lg:flex w-full items-center gap-0">
             <Link className="pr-6 text-center font-semibold" href={"/login"}>
               Login
             </Link>

@@ -87,7 +87,7 @@ export default function FrequentQuestions() {
     });
   });
   return (
-    <div ref={container} className="w-full py-32 md:px-10 px-3 space-y-5">
+    <div ref={container} className="w-full py-32 md:px-10 px-3 space-y-8">
       <div className="space-y-3">
         <div className="overflow-y-hidden">
           <p className="md:text-5xl text-3xl font-medium capitalize questions-header">
@@ -112,10 +112,10 @@ export default function FrequentQuestions() {
             className="w-full"
             key={quest.question}
             value={quest.question}>
-            <AccordionTrigger className="w-full text-2xl cursor-pointer">
+            <AccordionTrigger className="w-full md:text-2xl cursor-pointer">
               {quest.question}
             </AccordionTrigger>
-            <AccordionContent className="text-base">
+            <AccordionContent className="md:text-base">
               {quest.answer}
             </AccordionContent>
           </AccordionItem>

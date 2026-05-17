@@ -88,7 +88,7 @@ export default function NewHowItWork() {
     { scope: container },
   );
   return (
-    <div ref={container} className="w-full py-32 pt-50 md:px-10 px-3 space-y-5">
+    <div ref={container} className="w-full py-32 pt-50 md:px-10 px-3 space-y-9">
       {/* top */}
       <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-10">
         {/* Header */}
