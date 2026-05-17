@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 export default function EleveateYourJourny() {
   return (
     <div className="py-20">
-      <div className="w-full text-black flex border rounded-2xl">
+      <div className="w-full text-black flex border rounded-2xl max-w-[90%] mx-auto">
         <div className="overflow-hidden lg:clip-path-right-card flex rounded-tl-2xl lg:h-120 lg:rounded-tr-none lg:rounded-br-none rounded-br-2xl rounded-tr-2xl rounded-bl-2xl bg-input-bg flex-1 md:p-10 sm:p-5 p-3 flex-col items-center justify-between lg:items-start text-center lg:text-left xl:gap-3 gap-2.5 pt-5">
           <motion.p
             initial={{ opacity: 0, y: 20 }}

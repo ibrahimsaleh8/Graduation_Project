@@ -1,85 +1,102 @@
-import Logo from "@/components/Logo";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 export default function Footer() {
   return (
-    <footer className="w-full bg-main-dark text-white md:p-15 p-5 md:pt-20 pt-10">
-      <div className="flex flex-col gap-10 container mx-auto">
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 items-start justify-between">
-          <div className="flex flex-col gap-3">
-            <Logo size="large" />
-            <p className="text-sm text-white/80 md:w-3/4">
-              Jobify is a smart job-matching platform that connects talented
-              professionals with the right opportunities faster.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <p className="font-medium text-white">Main Links:</p>
-            <ul className="flex text-white/80 flex-col gap-2">
-              <li>
-                <Link href={"/"}>Home</Link>
-              </li>
-              <li>
-                <Link href={"/"}>Jobs</Link>
-              </li>
-              <li>
-                <Link href={"/"}>About</Link>
-              </li>
-              <li>
-                <Link href={"/"}>Contact</Link>
-              </li>
-            </ul>
+    <footer className="w-full bg-main-dark text-white md:p-15 p-5 md:pt-20 pt-10 md:px-10 px-3">
+      <div className="flex flex-col gap-10">
+        <div className="flex items-end gap-10 md:flex-row flex-col">
+          <div className="flex items-start flex-col w-full gap-8">
+            <div className="flex flex-col gap-3 w-fit">
+              <p className="xl:text-[10rem] lg:text-8xl md:text-7xl text-4xl font-medium">
+                Jobify
+              </p>
+              <p className="text-white/80 max-w-2xl">
+                Jobify is a smart job-matching platform that connects talented
+                professionals with the right opportunities faster.
+              </p>
+            </div>
+
+            {/* Socials */}
+            <div className="flex flex-col items-start gap-4 text-xl">
+              <a
+                href="#"
+                target="_blank"
+                className="flex items-center gap-1 underline">
+                Facebook
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                className="flex items-center gap-1 underline">
+                Twitter
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                className="flex items-center gap-1 underline">
+                Instagram
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                className="flex items-center gap-1 underline">
+                Linkedin
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  className="size-5"
+                  strokeWidth={2}
+                />
+              </a>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <p className="font-medium text-white">Auth Links:</p>
-            <ul className="flex flex-col gap-2 text-white/80">
-              <li>
-                <Link href={"/"}>Login</Link>
-              </li>
-              <li>
-                <Link href={"/"}>Register</Link>
-              </li>
-            </ul>
-          </div>
+          <div className="flex items-start w-full gap-10 md:flex-row flex-col">
+            <div className="flex flex-col gap-4 w-full">
+              <p className="font-medium text-xl text-white">Main Links:</p>
+              <ul className="flex text-white/80 flex-col gap-4 text-xl">
+                <li>
+                  <Link href={"/"}>Home</Link>
+                </li>
+                <li>
+                  <Link href={"/"}>Jobs</Link>
+                </li>
+                <li>
+                  <Link href={"/"}>About</Link>
+                </li>
+                <li>
+                  <Link href={"/"}>Contact</Link>
+                </li>
+              </ul>
+            </div>
 
-          <div className="flex flex-col gap-4">
-            <p className="font-medium text-white">Socials:</p>
-            <ul className="flex flex-wrap gap-3">
-              <li>
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="flex p-2 rounded-md text-white bg-[#1877f2]">
-                  <FaFacebook className="size-6" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  aria-label="Linkedin"
-                  className="flex p-2 rounded-md text-white bg-[#0a66c2]">
-                  <FaLinkedin className="size-6 " />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="flex p-2 rounded-md text-white bg-[#c13584]">
-                  <FaInstagram className="size-6 " />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  aria-label="Youtube"
-                  className="flex p-2 rounded-md text-white bg-[#ff0000]">
-                  <FaYoutube className="size-6" />
-                </a>
-              </li>
-            </ul>
+            <div className="flex flex-col gap-4 w-full">
+              <p className="font-medium text-white text-xl">Auth Links:</p>
+              <ul className="flex flex-col gap-4 text-xl text-white/80">
+                <li>
+                  <Link href={"/"}>Login</Link>
+                </li>
+                <li>
+                  <Link href={"/"}>Register</Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className="pt-8 border-t border-white/40 flex items-center sm:justify-between flex-wrap justify-center">

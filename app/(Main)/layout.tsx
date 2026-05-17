@@ -23,7 +23,7 @@ export default function RootLayout({
   });
   return (
     <div id="smooth-wrapper" className="">
-      <Intro />
+      {/* <Intro /> */}
 
       <Header />
 

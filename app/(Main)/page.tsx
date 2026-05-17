@@ -8,23 +8,19 @@ import Testimonials from "@/components/Home/Testimonials";
 import NewHeroSection from "@/components/Home/NewHeroSection";
 import ShowJobsCats from "@/components/Home/New_Jobs_Categories/ShowJobsCats";
 import NewHowItWork from "@/components/Home/NewHowItWork";
+import FrequentQuestions from "@/components/Home/FrequentQuestions";
+import CourageCard from "@/components/Home/CourageCard";
 
 export default function Home() {
   return (
     <div className={`w-full`}>
       {/* <Intro /> */}
       <div>
-        {/* <NewHeroSection /> */}
         <Hero />
         <NewHowItWork />
-        {/* <ShowAllJobsCategories /> */}
         <ShowJobsCats />
-        <div className="container mx-auto">
-          {/* <Categoires /> */}
-          {/* <HowItWork /> */}
-          <Testimonials />
-          <EleveateYourJourny />
-        </div>
+        <CourageCard />
+        <FrequentQuestions />
       </div>
     </div>
   );
