@@ -6,6 +6,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Intro from "@/components/Home/Intro";
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 export default function RootLayout({
@@ -22,6 +23,8 @@ export default function RootLayout({
   });
   return (
     <div id="smooth-wrapper" className="">
+      <Intro />
+
       <Header />
 
       <div id="smooth-content" className="pb-19 min-h-screen">

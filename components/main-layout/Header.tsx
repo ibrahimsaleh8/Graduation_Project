@@ -35,6 +35,7 @@ const mainLinks = [
   },
 ];
 export type mainLinksType = typeof mainLinks;
+
 export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
