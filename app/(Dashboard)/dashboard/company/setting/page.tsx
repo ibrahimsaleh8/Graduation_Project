@@ -10,10 +10,12 @@ import {
   UserCircleIcon,
   LockPasswordIcon,
   Share02Icon,
+  CreditCardIcon,
 } from "@hugeicons/core-free-icons";
 import CompanyProfileSettings from "./_components/CompanyProfileSettings";
 import CompanySocialLinks from "./_components/CompanySocialLinks";
 import CompanySecuritySettings from "./_components/CompanySecuritySettings";
+import CompanySubscription from "./_components/CompanySubscription";
 
 export default function CompanySettingsPage() {
   return (
@@ -38,6 +40,12 @@ export default function CompanySettingsPage() {
             value="Socials">
             <HugeiconsIcon icon={Share02Icon} className="size-5" /> Socials
           </TabsTrigger>
+          <TabsTrigger
+            className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+            value="Subscription">
+            <HugeiconsIcon icon={CreditCardIcon} className="size-5" />
+            Subscription
+          </TabsTrigger>
 
           <TabsTrigger
             className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
@@ -52,6 +60,9 @@ export default function CompanySettingsPage() {
           </TabsContent>
           <TabsContent value="Socials">
             <CompanySocialLinks />
+          </TabsContent>
+          <TabsContent value="Subscription">
+            <CompanySubscription />
           </TabsContent>
           <TabsContent value="security">
             <CompanySecuritySettings />
