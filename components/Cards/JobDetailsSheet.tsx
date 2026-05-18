@@ -9,6 +9,7 @@ import {
 } from "@/components/animate-ui/components/radix/sheet";
 import { Button } from "../ui/button";
 import JobDetails from "./JobDetails";
+import SimilarJobs from "./SimilarJobs";
 
 export default function JobDetailsSheet() {
   return (
@@ -24,7 +25,10 @@ export default function JobDetailsSheet() {
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <JobDetails />
+          <div className="flex items-start gap-10 flex-col lg:flex-row">
+            <JobDetails />
+            <SimilarJobs />
+          </div>
         </SheetHeader>
 
         <SheetFooter></SheetFooter>

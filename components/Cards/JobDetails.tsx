@@ -21,7 +21,7 @@ export default function JobDetails() {
   const [showDescription, setShowDescription] = useState(true);
 
   return (
-    <div className="md:p-7 p-2 flex flex-col gap-6 container mx-auto">
+    <div className="md:p-7 p-2 flex flex-col gap-6 pt-7 w-full">
       {/* Header */}
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
