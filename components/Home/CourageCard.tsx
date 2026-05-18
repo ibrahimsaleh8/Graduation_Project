@@ -41,7 +41,6 @@ export default function CourageCard() {
       ease: "power3.out",
       duration: 0.8,
       scrollTrigger: defaultScrollTrigger,
-      stagger: 0.2,
     });
     gsap.from(".courage-social a", {
       y: 50,
