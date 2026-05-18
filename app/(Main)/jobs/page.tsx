@@ -7,7 +7,7 @@ export default function JobsPage() {
     <div className="space-y-6 px-1 pb-8">
       {/* Top */}
       <JobsSearchAndFilter />
-      <div className="container mx-auto">
+      <div className="md:px-10 px-3">
         <p className="font-medium ml-auto w-fit my-4">6 jobs Found</p>
         <div className="flex gap-3 flex-col md:flex-row">
           <JobFilteration />

@@ -25,7 +25,7 @@ export default function JobDetailsSheet() {
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <div className="flex items-start gap-10 flex-col lg:flex-row">
+          <div className="flex items-start gap-10 flex-col lg:flex-row lg:px-10">
             <JobDetails />
             <SimilarJobs />
           </div>

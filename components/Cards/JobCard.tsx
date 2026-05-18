@@ -37,7 +37,7 @@ export default function JobCard({ isApplied }: Props) {
           </div>
         </div>
 
-        <button className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600 flex-shrink-0">
+        <button className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600 shrink-0">
           <HugeiconsIcon icon={Bookmark01Icon} className="size-4" />
         </button>
       </div>
