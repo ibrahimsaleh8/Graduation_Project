@@ -7,6 +7,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "../ui/input-group";
+
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import {
@@ -16,17 +17,33 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
 import { SubmitHandler, useForm } from "react-hook-form";
+import CountrySelect from "./CountrySelect";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { jobCategories } from "@/lib/JobCategories";
 
 export default function RegisterCompaniesForm() {
   const [showPass, setShowPass] = useState(false);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<CreateCompanyInput>({
     resolver: zodResolver(createCompanySchema),
     mode: "onSubmit",
   });
+
+  const UpdateCountry = (country: string) => {
+    setValue("country", country);
+  };
+
   const submitRegisterUser: SubmitHandler<CreateCompanyInput> = (data) =>
     console.log(data);
   return (
@@ -95,59 +112,48 @@ export default function RegisterCompaniesForm() {
         )}
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="website-url" className="text-sm">
-          Website URL
-        </Label>
-        <Input
-          {...register("websiteURL")}
-          type="text"
-          id="website-url"
-          placeholder="Website URL"
-        />
-        {errors.websiteURL && (
-          <ErrorValidationMessage
-            message={errors.websiteURL.message as string}
-          />
-        )}
-      </div>
-
       <div className="flex items-center gap-5 flex-col sm:flex-row">
         <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="industry" className="text-sm">
-            Industry
+            Main Industry
           </Label>
-          <Input
-            type="text"
-            id="industry"
-            {...register("industry")}
-            placeholder="Industry"
-          />
+          <Select onValueChange={(e) => setValue("industry", e)}>
+            <SelectTrigger
+              id="industry"
+              className="w-full bg-input-bg h-11! border-0">
+              <SelectValue placeholder="Indusrty" />
+            </SelectTrigger>
+            <SelectContent className="bg-white text-black border border-border-color">
+              <SelectGroup>
+                {jobCategories.map((cat) => (
+                  <SelectItem
+                    className="hover:bg-input-bg! hover:text-black!"
+                    key={cat}
+                    value={cat}>
+                    {cat}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className="flex flex-col gap-2 w-full">
-          <Label htmlFor="address" className="text-sm">
-            Address
-          </Label>
-          <Input
-            type="text"
-            id="address"
-            {...register("headquarterAddress")}
-            placeholder="Address"
-          />
+        <div className="flex flex-col gap-1 w-full">
+          <Label className="text-sm">Country</Label>
+          <CountrySelect UpdateCountry={UpdateCountry} />
         </div>
       </div>
 
-      {(errors.industry || errors.headquarterAddress) && (
+      {(errors.industry || errors.country) && (
         <div className="flex items-center gap-4">
           {errors.industry && (
             <ErrorValidationMessage
               message={errors.industry.message as string}
             />
           )}{" "}
-          {errors.headquarterAddress && (
+          {errors.country && (
             <ErrorValidationMessage
-              message={errors.headquarterAddress.message as string}
+              message={errors.country.message as string}
             />
           )}
         </div>

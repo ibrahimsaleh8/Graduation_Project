@@ -12,9 +12,9 @@ export const userRegisterValidatioSchema = z.object({
       message:
         "Password must include uppercase, lowercase, number and special character",
     }),
-  location: z
-    .string({ message: "Location is required" })
-    .min(3, { message: "Location is required" }),
+  country: z
+    .string({ message: "country is required" })
+    .min(3, { message: "country is required" }),
 });
 
 export const createCompanySchema = z.object({
@@ -36,20 +36,16 @@ export const createCompanySchema = z.object({
         "Password must include uppercase, lowercase, number and special character",
     }),
 
-  websiteURL: z
-    .string()
-    .min(1, { message: "Website URL is required" })
-    .url({ message: "Invalid URL" }),
-
   industry: z
-    .string()
+    .string({
+      error: "Industry is required",
+    })
     .min(1, { message: "Industry is required" })
     .max(100, { message: "Industry value is too long" }),
 
-  headquarterAddress: z
-    .string()
-    .min(1, { message: "Headquarter address is required" })
-    .max(300, { message: "Address is too long" }),
+  country: z
+    .string({ message: "country is required" })
+    .min(3, { message: "country is required" }),
 });
 
 export type CreateCompanyInput = z.infer<typeof createCompanySchema>;

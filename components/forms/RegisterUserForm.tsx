@@ -30,6 +30,11 @@ export default function RegisterUserForm() {
     resolver: zodResolver(userRegisterValidatioSchema),
     mode: "onSubmit",
   });
+
+  const UpdateCountry = (country: string) => {
+    setValue("country", country);
+  };
+
   const submitRegisterUser: SubmitHandler<UserRegisterDataType> = (data) =>
     console.log(data);
 
@@ -129,9 +134,9 @@ export default function RegisterUserForm() {
       {/* Country */}
       <div className="flex flex-col gap-1">
         <Label className="text-sm">Country</Label>
-        <CountrySelect setCountryValue={setValue} />
-        {errors.location && (
-          <ErrorValidationMessage message={errors.location.message as string} />
+        <CountrySelect UpdateCountry={UpdateCountry} />
+        {errors.country && (
+          <ErrorValidationMessage message={errors.country.message as string} />
         )}
       </div>
 
