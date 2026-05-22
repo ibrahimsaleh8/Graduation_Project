@@ -15,7 +15,6 @@ export const userRegisterValidatioSchema = z.object({
   location: z
     .string({ message: "Location is required" })
     .min(3, { message: "Location is required" }),
-  phoneNumber: z.string({ message: "phone Number is required" }),
 });
 
 export const createCompanySchema = z.object({

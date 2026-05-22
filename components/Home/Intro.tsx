@@ -50,7 +50,7 @@ export default function Intro() {
     tl.to("#main-loader", {
       delay: 0.1,
       clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-      ease: "sine.inOut",
+      ease: "cubic-bezier(0.87, 0, 0.13, 1)",
     });
     tl.to("#main-loader", {
       opacity: 0,
@@ -73,7 +73,7 @@ export default function Intro() {
 
       <div
         ref={loader}
-        className="absolute left-0 bottom-0 w-0 h-10 bg-black"></div>
+        className="absolute left-0 top-0 w-0 h-5 bg-black"></div>
     </div>
   );
 }

@@ -13,6 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <div>
+      <Intro />
       <Header />
       <div>
         {children}

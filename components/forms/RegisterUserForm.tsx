@@ -8,7 +8,7 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 
-import { Eye, EyeOff, Phone } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
@@ -135,38 +135,6 @@ export default function RegisterUserForm() {
         )}
       </div>
 
-      {/* Phone Number */}
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="phone-number" className="text-sm">
-          Phone Number
-        </Label>
-        <InputGroup>
-          <InputGroupInput
-            placeholder="Phone Number"
-            type="text"
-            id="phone-number"
-            onChange={(e) => {
-              const onlyNums = e.target.value.replace(/\D/g, "");
-              e.target.value = onlyNums;
-              setValue("phoneNumber", e.target.value);
-            }}
-          />
-
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              aria-label="Phone Number"
-              title="Phone Number"
-              size="sm">
-              <Phone />
-            </InputGroupButton>
-          </InputGroupAddon>
-        </InputGroup>
-        {errors.phoneNumber && (
-          <ErrorValidationMessage
-            message={errors.phoneNumber.message as string}
-          />
-        )}
-      </div>
       <Button className="text-sm my-2">Create Employee Account</Button>
     </form>
   );
