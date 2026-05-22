@@ -8,6 +8,7 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 gsap.registerPlugin(SplitText);
 
 export default function Intro() {
+  const mainLoader = useRef(null);
   const loader = useRef(null);
   const [isFirst, setIsFirst] = useState(true);
   const UpdateIsFirst = useEffectEvent((value: boolean) => {
@@ -52,23 +53,25 @@ export default function Intro() {
         delay: 0.4,
       });
 
-      tl.to(
-        loader.current,
-        {
-          width: "100%",
-          duration: isFirst ? 2 : 1.5,
-          ease: "none",
-        },
-        0,
-      );
+      if (loader.current) {
+        tl.to(
+          loader.current,
+          {
+            width: "100%",
+            duration: isFirst ? 2 : 1.5,
+            ease: "none",
+          },
+          0,
+        );
+      }
 
-      tl.to("#main-loader", {
+      tl.to(mainLoader.current, {
         delay: isFirst ? 0.1 : 0.05,
         clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
         ease: "cubic-bezier(0.87, 0, 0.13, 1)",
       });
 
-      tl.to("#main-loader", {
+      tl.to(mainLoader.current, {
         opacity: 0,
         duration: isFirst ? 0.8 : 0.4,
         pointerEvents: "none",
@@ -77,11 +80,13 @@ export default function Intro() {
     },
     {
       dependencies: [isFirst],
+      scope: mainLoader,
     },
   );
 
   return (
     <div
+      ref={mainLoader}
       style={{
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       }}
