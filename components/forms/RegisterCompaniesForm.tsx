@@ -8,15 +8,8 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 
-import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import {
-  CreateCompanyInput,
-  createCompanySchema,
-} from "@/validations/RegisterValidationSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
-import { SubmitHandler, useForm } from "react-hook-form";
 import CountrySelect from "./CountrySelect";
 import {
   Select,
@@ -27,54 +20,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { jobCategories } from "@/lib/JobCategories";
-import axios, { AxiosError } from "axios";
-import { useMutation } from "@tanstack/react-query";
-import { sileo } from "sileo";
 import { Spinner } from "../ui/spinner";
-import { AuthResponseDataType } from "./RegisterUserForm";
-async function RegisterCompanyFn(
-  userData: CreateCompanyInput,
-): Promise<AuthResponseDataType> {
-  const res = await axios.post("/api/register/company", userData);
-  return res.data;
-}
+import { useRegisterCompany } from "./hooks/useRegisterCompany";
+
 export default function RegisterCompaniesForm() {
-  const [showPass, setShowPass] = useState(false);
   const {
+    submitRegisterUser,
+    UpdateCountry,
+    isPending,
     register,
     handleSubmit,
+    errors,
+    showPass,
+    setShowPass,
     setValue,
-    formState: { errors },
-  } = useForm<CreateCompanyInput>({
-    resolver: zodResolver(createCompanySchema),
-    mode: "onSubmit",
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: (userData: CreateCompanyInput) => RegisterCompanyFn(userData),
-    onSuccess: (data) => {
-      console.log(data);
-      sileo.success({
-        title: "Register has been Successful",
-      });
-    },
-
-    onError: (err: AxiosError<{ message: string }>) => {
-      sileo.error({
-        title: "Error",
-        description: err.response?.data.message,
-      });
-    },
-  });
-
-  const UpdateCountry = (country: string) => {
-    setValue("location", country);
-  };
-
-  const submitRegisterUser: SubmitHandler<CreateCompanyInput> = (data) => {
-    console.log(data);
-    mutate(data);
-  };
+  } = useRegisterCompany();
   return (
     <form
       onSubmit={handleSubmit(submitRegisterUser)}

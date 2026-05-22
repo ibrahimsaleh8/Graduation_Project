@@ -8,7 +8,6 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "../ui/input-group";
-import { useState } from "react";
 import { AtSign, Eye, EyeOff } from "lucide-react";
 import {
   Checkbox,
@@ -16,56 +15,20 @@ import {
 } from "@/components/animate-ui/primitives/radix/checkbox";
 
 import { motion } from "framer-motion";
-import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  loginDataType,
-  loginValidatioSchema,
-} from "@/validations/loginValidatioSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
-import axios, { AxiosError } from "axios";
-import { sileo } from "sileo";
-import { AuthResponseDataType } from "./RegisterUserForm";
-import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../ui/spinner";
-async function loginFn(
-  logingBody: loginDataType,
-): Promise<AuthResponseDataType> {
-  const res = await axios.post(`/api/login`, logingBody);
-  return res.data;
-}
+import { useLogin } from "./hooks/useLogin";
 
 export default function LoginUserForm() {
   const {
+    submitLogin,
+    isPending,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<loginDataType>({
-    resolver: zodResolver(loginValidatioSchema),
-    mode: "onSubmit",
-  });
-  const { mutate, isPending } = useMutation({
-    mutationFn: (userData: loginDataType) => loginFn(userData),
-    onSuccess: (data) => {
-      console.log(data);
-      sileo.success({
-        title: "Login has been Successful",
-      });
-    },
-
-    onError: (err: AxiosError<{ message: string }>) => {
-      sileo.error({
-        title: "Error",
-        description: err.response?.data.message,
-      });
-    },
-  });
-
-  const submitLogin: SubmitHandler<loginDataType> = async (data) => {
-    mutate(data);
-  };
-
-  const [showPass, setShowPass] = useState(false);
+    errors,
+    showPass,
+    setShowPass,
+  } = useLogin();
 
   return (
     <motion.form

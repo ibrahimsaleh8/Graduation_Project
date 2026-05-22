@@ -9,68 +9,28 @@ import {
 } from "../ui/input-group";
 
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  UserRegisterDataType,
-  userRegisterValidatioSchema,
-} from "@/validations/RegisterValidationSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
 import CountrySelect from "./CountrySelect";
-import axios, { AxiosError } from "axios";
-import { sileo } from "sileo";
-import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../ui/spinner";
+import { useRegisterUser } from "./hooks/useRegisterUser";
+
 export type AuthResponseDataType = {
   userId: string;
   email: string;
   role: string;
 };
 
-async function RegisterUserFn(
-  userData: UserRegisterDataType,
-): Promise<AuthResponseDataType> {
-  const res = await axios.post("/api/register/employee", userData);
-  return res.data;
-}
 export default function RegisterUserForm() {
-  const [showPass, setShowPass] = useState(false);
   const {
+    submitRegisterUser,
+    UpdateCountry,
+    isPending,
+    errors,
     register,
     handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<UserRegisterDataType>({
-    resolver: zodResolver(userRegisterValidatioSchema),
-    mode: "onSubmit",
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: (userData: UserRegisterDataType) => RegisterUserFn(userData),
-    onSuccess: (data) => {
-      console.log(data);
-      sileo.success({
-        title: "Register has been Successful",
-      });
-    },
-
-    onError: (err: AxiosError<{ message: string }>) => {
-      sileo.error({
-        title: "Error",
-        description: err.response?.data.message,
-      });
-    },
-  });
-
-  const UpdateCountry = (country: string) => {
-    setValue("location", country);
-  };
-
-  const submitRegisterUser: SubmitHandler<UserRegisterDataType> = (data) => {
-    mutate(data);
-  };
-
+    showPass,
+    setShowPass,
+  } = useRegisterUser();
   return (
     <form
       onSubmit={handleSubmit(submitRegisterUser)}
