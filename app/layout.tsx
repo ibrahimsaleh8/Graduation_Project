@@ -3,6 +3,7 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sileo";
+import QueryClientHandler from "@/components/QueryClientHandler";
 
 const font = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -35,8 +36,7 @@ export default function RootLayout({
             }}
           />
         </div>
-
-        {children}
+        <QueryClientHandler>{children}</QueryClientHandler>
       </body>
     </html>
   );

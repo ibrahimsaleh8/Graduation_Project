@@ -23,6 +23,17 @@ import {
 } from "@/validations/loginValidatioSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
+import axios, { AxiosError } from "axios";
+import { sileo } from "sileo";
+import { AuthResponseDataType } from "./RegisterUserForm";
+import { useMutation } from "@tanstack/react-query";
+import { Spinner } from "../ui/spinner";
+async function loginFn(
+  logingBody: loginDataType,
+): Promise<AuthResponseDataType> {
+  const res = await axios.post(`/api/login`, logingBody);
+  return res.data;
+}
 
 export default function LoginUserForm() {
   const {
@@ -33,7 +44,26 @@ export default function LoginUserForm() {
     resolver: zodResolver(loginValidatioSchema),
     mode: "onSubmit",
   });
-  const submitLogin: SubmitHandler<loginDataType> = (data) => console.log(data);
+  const { mutate, isPending } = useMutation({
+    mutationFn: (userData: loginDataType) => loginFn(userData),
+    onSuccess: (data) => {
+      console.log(data);
+      sileo.success({
+        title: "Login has been Successful",
+      });
+    },
+
+    onError: (err: AxiosError<{ message: string }>) => {
+      sileo.error({
+        title: "Error",
+        description: err.response?.data.message,
+      });
+    },
+  });
+
+  const submitLogin: SubmitHandler<loginDataType> = async (data) => {
+    mutate(data);
+  };
 
   const [showPass, setShowPass] = useState(false);
 
@@ -118,7 +148,15 @@ export default function LoginUserForm() {
         </Link>
       </div>
 
-      <Button className="font-medium">Login</Button>
+      <Button disabled={isPending} className="font-medium">
+        {isPending ? (
+          <>
+            Loading... <Spinner />
+          </>
+        ) : (
+          "Login"
+        )}
+      </Button>
 
       <p className="flex items-center gap-1 text-sm">
         {"Don't have an account yet ?"}

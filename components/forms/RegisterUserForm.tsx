@@ -18,7 +18,22 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "./ErrorValidationMessage";
 import CountrySelect from "./CountrySelect";
+import axios, { AxiosError } from "axios";
+import { sileo } from "sileo";
+import { useMutation } from "@tanstack/react-query";
+import { Spinner } from "../ui/spinner";
+export type AuthResponseDataType = {
+  userId: string;
+  email: string;
+  role: string;
+};
 
+async function RegisterUserFn(
+  userData: UserRegisterDataType,
+): Promise<AuthResponseDataType> {
+  const res = await axios.post("/api/register/employee", userData);
+  return res.data;
+}
 export default function RegisterUserForm() {
   const [showPass, setShowPass] = useState(false);
   const {
@@ -31,12 +46,30 @@ export default function RegisterUserForm() {
     mode: "onSubmit",
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (userData: UserRegisterDataType) => RegisterUserFn(userData),
+    onSuccess: (data) => {
+      console.log(data);
+      sileo.success({
+        title: "Register has been Successful",
+      });
+    },
+
+    onError: (err: AxiosError<{ message: string }>) => {
+      sileo.error({
+        title: "Error",
+        description: err.response?.data.message,
+      });
+    },
+  });
+
   const UpdateCountry = (country: string) => {
-    setValue("country", country);
+    setValue("location", country);
   };
 
-  const submitRegisterUser: SubmitHandler<UserRegisterDataType> = (data) =>
-    console.log(data);
+  const submitRegisterUser: SubmitHandler<UserRegisterDataType> = (data) => {
+    mutate(data);
+  };
 
   return (
     <form
@@ -135,12 +168,20 @@ export default function RegisterUserForm() {
       <div className="flex flex-col gap-1">
         <Label className="text-sm">Country</Label>
         <CountrySelect UpdateCountry={UpdateCountry} />
-        {errors.country && (
-          <ErrorValidationMessage message={errors.country.message as string} />
+        {errors.location && (
+          <ErrorValidationMessage message={errors.location.message as string} />
         )}
       </div>
 
-      <Button className="text-sm my-2">Create Employee Account</Button>
+      <Button disabled={isPending} className="text-sm my-2">
+        {isPending ? (
+          <>
+            Loading... <Spinner />
+          </>
+        ) : (
+          "Create Employee Account"
+        )}
+      </Button>
     </form>
   );
 }

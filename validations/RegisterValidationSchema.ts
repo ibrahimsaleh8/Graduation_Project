@@ -12,7 +12,7 @@ export const userRegisterValidatioSchema = z.object({
       message:
         "Password must include uppercase, lowercase, number and special character",
     }),
-  country: z
+  location: z
     .string({ message: "country is required" })
     .min(3, { message: "country is required" }),
 });
@@ -43,7 +43,7 @@ export const createCompanySchema = z.object({
     .min(1, { message: "Industry is required" })
     .max(100, { message: "Industry value is too long" }),
 
-  country: z
+  location: z
     .string({ message: "country is required" })
     .min(3, { message: "country is required" }),
 });

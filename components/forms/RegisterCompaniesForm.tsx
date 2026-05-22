@@ -27,7 +27,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { jobCategories } from "@/lib/JobCategories";
-
+import axios, { AxiosError } from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { sileo } from "sileo";
+import { Spinner } from "../ui/spinner";
+import { AuthResponseDataType } from "./RegisterUserForm";
+async function RegisterCompanyFn(
+  userData: CreateCompanyInput,
+): Promise<AuthResponseDataType> {
+  const res = await axios.post("/api/register/company", userData);
+  return res.data;
+}
 export default function RegisterCompaniesForm() {
   const [showPass, setShowPass] = useState(false);
   const {
@@ -40,12 +50,31 @@ export default function RegisterCompaniesForm() {
     mode: "onSubmit",
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (userData: CreateCompanyInput) => RegisterCompanyFn(userData),
+    onSuccess: (data) => {
+      console.log(data);
+      sileo.success({
+        title: "Register has been Successful",
+      });
+    },
+
+    onError: (err: AxiosError<{ message: string }>) => {
+      sileo.error({
+        title: "Error",
+        description: err.response?.data.message,
+      });
+    },
+  });
+
   const UpdateCountry = (country: string) => {
-    setValue("country", country);
+    setValue("location", country);
   };
 
-  const submitRegisterUser: SubmitHandler<CreateCompanyInput> = (data) =>
+  const submitRegisterUser: SubmitHandler<CreateCompanyInput> = (data) => {
     console.log(data);
+    mutate(data);
+  };
   return (
     <form
       onSubmit={handleSubmit(submitRegisterUser)}
@@ -144,22 +173,30 @@ export default function RegisterCompaniesForm() {
         </div>
       </div>
 
-      {(errors.industry || errors.country) && (
+      {(errors.industry || errors.location) && (
         <div className="flex items-center gap-4">
           {errors.industry && (
             <ErrorValidationMessage
               message={errors.industry.message as string}
             />
           )}{" "}
-          {errors.country && (
+          {errors.location && (
             <ErrorValidationMessage
-              message={errors.country.message as string}
+              message={errors.location.message as string}
             />
           )}
         </div>
       )}
 
-      <Button className="text-sm my-2">Create Company Account</Button>
+      <Button disabled={isPending} className="text-sm my-2">
+        {isPending ? (
+          <>
+            Loading... <Spinner />
+          </>
+        ) : (
+          "Create Company Account"
+        )}
+      </Button>
     </form>
   );
 }
