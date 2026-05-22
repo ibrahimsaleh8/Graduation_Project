@@ -3,62 +3,82 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { useRef } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 gsap.registerPlugin(SplitText);
 
 export default function Intro() {
   const loader = useRef(null);
-  useGSAP(() => {
-    const tl = gsap.timeline();
-
-    const headingTexts = SplitText.create(".jobify-heading p", {
-      type: "chars",
-    });
-
-    tl.to(".jobify-heading p", {
-      opacity: 1,
-      duration: 0.2,
-    });
-
-    tl.from(headingTexts.chars, {
-      y: 100,
-      opacity: 0,
-      stagger: 0.06,
-      duration: 0.8,
-      ease: "power3.out",
-    });
-    tl.to(headingTexts.chars, {
-      y: -100,
-      opacity: 0,
-      stagger: 0.06,
-      duration: 0.8,
-      ease: "power3.out",
-      delay: 0.4,
-    });
-
-    tl.to(
-      loader.current,
-      {
-        width: "100%",
-        duration: 2,
-        ease: "none",
-      },
-      0,
-    );
-
-    tl.to("#main-loader", {
-      delay: 0.1,
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-      ease: "cubic-bezier(0.87, 0, 0.13, 1)",
-    });
-    tl.to("#main-loader", {
-      opacity: 0,
-      duration: 0.8,
-      pointerEvents: "none",
-      display: "none",
-    });
+  const [isFirst, setIsFirst] = useState(true);
+  const UpdateIsFirst = useEffectEvent((value: boolean) => {
+    setIsFirst(value);
   });
+
+  useEffect(() => {
+    const isExist = sessionStorage.getItem("showIntro");
+    if (isExist) {
+      UpdateIsFirst(false);
+    } else {
+      sessionStorage.setItem("showIntro", "true");
+    }
+  }, []);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline();
+
+      const headingTexts = SplitText.create(".jobify-heading p", {
+        type: "chars",
+      });
+
+      tl.to(".jobify-heading p", {
+        opacity: 1,
+        duration: 0.1,
+      });
+
+      tl.from(headingTexts.chars, {
+        y: 100,
+        opacity: 0,
+        stagger: isFirst ? 0.06 : 0.03,
+        duration: isFirst ? 0.8 : 0.4,
+        ease: "power3.out",
+      });
+      tl.to(headingTexts.chars, {
+        y: -100,
+        opacity: 0,
+        stagger: 0.06,
+        duration: isFirst ? 0.8 : 0.4,
+        ease: "power3.out",
+        delay: 0.4,
+      });
+
+      tl.to(
+        loader.current,
+        {
+          width: "100%",
+          duration: isFirst ? 2 : 1.5,
+          ease: "none",
+        },
+        0,
+      );
+
+      tl.to("#main-loader", {
+        delay: isFirst ? 0.1 : 0.05,
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        ease: "cubic-bezier(0.87, 0, 0.13, 1)",
+      });
+
+      tl.to("#main-loader", {
+        opacity: 0,
+        duration: isFirst ? 0.8 : 0.4,
+        pointerEvents: "none",
+        display: "none",
+      });
+    },
+    {
+      dependencies: [isFirst],
+    },
+  );
 
   return (
     <div
@@ -70,10 +90,11 @@ export default function Intro() {
       <div className="jobify-heading overflow-hidden">
         <p className="opacity-0">Jobify</p>
       </div>
-
-      <div
-        ref={loader}
-        className="absolute left-0 top-0 w-0 h-5 bg-black"></div>
+      {isFirst && (
+        <div
+          ref={loader}
+          className="absolute left-0 top-0 w-0 h-5 bg-black"></div>
+      )}
     </div>
   );
 }

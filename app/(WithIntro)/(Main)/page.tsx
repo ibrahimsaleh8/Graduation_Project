@@ -14,7 +14,6 @@ import CourageCard from "@/components/Home/CourageCard";
 export default function Home() {
   return (
     <div className={`w-full`}>
-      {/* <Intro /> */}
       <div>
         <Hero />
         <NewHowItWork />
