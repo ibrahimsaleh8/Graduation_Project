@@ -35,14 +35,11 @@ export default function LoginPage() {
             duration: 0.4,
             delay: 0.5,
           }}
-          className="bg-main-color text-white hover:bg-transparent hover:text-main-color border-2 hover:border-main-color duration-300 md:w-13 md:h-13 w-9 h-9 flex items-center justify-center rounded-full absolute right-7 top-7">
+          className="bg-main-color text-white hover:bg-transparent hover:text-main-color border-2 hover:border-main-color duration-300 size-13 flex items-center justify-center rounded-full absolute right-7 top-7">
           <Link
             className="w-full h-full flex items-center justify-center"
             href={"/"}>
-            <HugeiconsIcon
-              icon={Home03Icon}
-              className="md:w-6 md:h-6 w-4 h-4"
-            />
+            <HugeiconsIcon icon={Home03Icon} className="size-6" />
           </Link>
         </motion.div>
 

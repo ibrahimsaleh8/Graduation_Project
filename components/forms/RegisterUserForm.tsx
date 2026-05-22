@@ -43,7 +43,7 @@ export default function RegisterUserForm() {
       onSubmit={handleSubmit(submitRegisterUser)}
       className="flex flex-col gap-5 w-full">
       {/* Name */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4 flex-col md:flex-row">
         <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="first-name" className="text-sm">
             First name
