@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/lib/UserStore";
 import { UserRoleDashboardLink } from "@/lib/UserRoleDashboardLink";
+import { useLogoutHandler } from "@/lib/useLogoutHandler";
 const mainLinks = [
   {
     title: "Home",
@@ -40,7 +41,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { userData } = useUserStore();
-  console.log(userData);
+  const { logoutFn } = useLogoutHandler();
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -81,7 +82,9 @@ export default function Header() {
                   href={`${UserRoleDashboardLink(userData.role)}`}>
                   Dashboard
                 </Link>
-                <button className="px-8 w-full duration-300 group-hover:bg-red-700 py-2 text-center bg-red-600 text-white rounded-2xl font-medium cursor-pointer">
+                <button
+                  onClick={logoutFn}
+                  className="px-8 w-full duration-300 group-hover:bg-red-700 py-2 text-center bg-red-600 text-white rounded-2xl font-medium cursor-pointer">
                   Logout
                 </button>
               </>
