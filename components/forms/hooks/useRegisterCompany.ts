@@ -10,10 +10,11 @@ import {
 } from "@/validations/RegisterValidationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useRoleRedirect } from "@/lib/useRoleRedirect";
 
 async function RegisterCompanyFn(
   userData: CreateCompanyInput,
-): Promise<AuthResponseDataType> {
+): Promise<{ message: string; data: AuthResponseDataType }> {
   const res = await axios.post("/api/register/company", userData);
   return res.data;
 }
@@ -21,6 +22,7 @@ async function RegisterCompanyFn(
 export const useRegisterCompany = () => {
   const [showPass, setShowPass] = useState(false);
   const { setUserData } = useUserStore();
+  const { redirectRole } = useRoleRedirect();
 
   const {
     register,
@@ -35,10 +37,12 @@ export const useRegisterCompany = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (userData: CreateCompanyInput) => RegisterCompanyFn(userData),
     onSuccess: (data) => {
-      setUserData(data);
+      setUserData(data.data);
       sileo.success({
         title: "Register has been Successful",
       });
+
+      redirectRole(data.data.role);
     },
 
     onError: (err: AxiosError<{ message: string }>) => {

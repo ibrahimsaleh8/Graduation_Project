@@ -10,16 +10,18 @@ import {
 } from "@/validations/loginValidatioSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useRoleRedirect } from "@/lib/useRoleRedirect";
 
 async function loginFn(
   logingBody: loginDataType,
-): Promise<AuthResponseDataType> {
+): Promise<{ message: string; data: AuthResponseDataType }> {
   const res = await axios.post(`/api/login`, logingBody);
   return res.data;
 }
 export const useLogin = () => {
   const [showPass, setShowPass] = useState(false);
   const { setUserData } = useUserStore();
+  const { redirectRole } = useRoleRedirect();
 
   const {
     register,
@@ -33,10 +35,12 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (userData: loginDataType) => loginFn(userData),
     onSuccess: (data) => {
-      setUserData(data);
+      setUserData(data.data);
       sileo.success({
         title: "Login has been Successful",
       });
+
+      redirectRole(data.data.role);
     },
 
     onError: (err: AxiosError<{ message: string }>) => {
