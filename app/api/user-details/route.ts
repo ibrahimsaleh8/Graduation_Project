@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
     if (token) {
       const res = await fetch(
-        `${process.env.BACKEND_URL}/api/Auth/user-details`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Auth/user-details`,
         {
           headers: {
             Authorization: `Bearer ${token.value}`,

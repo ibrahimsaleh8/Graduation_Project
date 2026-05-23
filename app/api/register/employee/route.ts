@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const registerBody = (await request.json()) as UserRegisterDataType;
 
     const registerReq = await fetch(
-      `${process.env.BACKEND_URL}/api/Auth/register/applicant`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Auth/register/applicant`,
       {
         body: JSON.stringify(registerBody),
         method: "POST",

@@ -18,24 +18,30 @@ import { ChartTooltip } from "@/components/charts/tooltip/chart-tooltip";
 
 /* ---------------- DATA ---------------- */
 
-const chartData = [
-  { month: "Jan", applications: 186, interviews: 65 },
-  { month: "Feb", applications: 305, interviews: 120 },
-  { month: "Mar", applications: 237, interviews: 90 },
-  { month: "Apr", applications: 73, interviews: 35 },
-  { month: "May", applications: 209, interviews: 95 },
-  { month: "Jun", applications: 214, interviews: 110 },
-  { month: "Jul", applications: 214, interviews: 110 },
-  { month: "Aug", applications: 214, interviews: 110 },
-  { month: "Sep", applications: 214, interviews: 110 },
-  { month: "Oct", applications: 214, interviews: 110 },
-  { month: "Nov", applications: 214, interviews: 110 },
-  { month: "Dec", applications: 214, interviews: 110 },
-];
+// const chartData = [
+//   { month: "Jan", applications: 186, interviews: 65 },
+//   { month: "Feb", applications: 305, interviews: 120 },
+//   { month: "Mar", applications: 237, interviews: 90 },
+//   { month: "Apr", applications: 73, interviews: 35 },
+//   { month: "May", applications: 209, interviews: 95 },
+//   { month: "Jun", applications: 214, interviews: 110 },
+//   { month: "Jul", applications: 214, interviews: 110 },
+//   { month: "Aug", applications: 214, interviews: 110 },
+//   { month: "Sep", applications: 214, interviews: 110 },
+//   { month: "Oct", applications: 214, interviews: 110 },
+//   { month: "Nov", applications: 214, interviews: 110 },
+//   { month: "Dec", applications: 214, interviews: 110 },
+// ];
 
-/* ---------------- COMPONENT ---------------- */
+type Props = {
+  chartData: {
+    month: string;
+    applicationsCount: number;
+    interviewsCount: number;
+  }[];
+};
 
-export function EmployeeApplicationsStaticChart() {
+export function EmployeeApplicationsStaticChart({ chartData }: Props) {
   return (
     <Card className="bg-transparent h-100 text-black shadow-none border-0">
       <CardHeader className="p-0">
@@ -68,7 +74,7 @@ export function EmployeeApplicationsStaticChart() {
 
             {/* Applications */}
             <Bar
-              dataKey="applications"
+              dataKey="applicationsCount"
               fill="var(--main-color)"
               lineCap="butt"
               stackGap={3}
@@ -76,7 +82,7 @@ export function EmployeeApplicationsStaticChart() {
 
             {/* Interviews */}
             <Bar
-              dataKey="interviews"
+              dataKey="interviewsCount"
               fill="var(--chart-2)"
               lineCap="butt"
               stackGap={3}

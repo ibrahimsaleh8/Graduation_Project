@@ -11,11 +11,14 @@ export const DashboardAuthGuard = async () => {
     redirect("/");
   }
 
-  const res = await fetch(`${process.env.BACKEND_URL}/api/Auth/user-details`, {
-    headers: {
-      Authorization: `Bearer ${token.value}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Auth/user-details`,
+    {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     redirect("/");
@@ -27,5 +30,6 @@ export const DashboardAuthGuard = async () => {
   }
   return {
     role: userData.roles[0],
+    token: token.value,
   };
 };

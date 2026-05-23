@@ -44,7 +44,9 @@ export default function RecentlyAppliedJobs() {
       {/* Top */}
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="text-lg font-medium">Recently Applied Jobs</p>
-        <Link className="flex items-center gap-1 font-medium" href={"/"}>
+        <Link
+          className="flex items-center gap-1 font-medium"
+          href={"/dashboard/employee/applied-jobs"}>
           See All
           <HugeiconsIcon icon={CircleArrowRight01Icon} className="size-5" />
         </Link>

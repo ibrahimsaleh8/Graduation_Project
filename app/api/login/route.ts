@@ -8,13 +8,16 @@ export async function POST(request: NextRequest) {
       password: string;
     };
 
-    const loginReq = await fetch(`${process.env.BACKEND_URL}/api/Auth/login`, {
-      body: JSON.stringify(requBody),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const loginReq = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Auth/login`,
+      {
+        body: JSON.stringify(requBody),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     const data = await loginReq.json();
 
