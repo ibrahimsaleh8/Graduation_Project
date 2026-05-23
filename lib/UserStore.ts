@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-type User = {
+export type AuthUserDataType = {
   userId: string;
   email: string;
   role: string;
 };
 
 type UserStore = {
-  userData: User | null;
+  userData: AuthUserDataType | null;
 
-  setUserData: (user: User) => void;
+  setUserData: (user: AuthUserDataType) => void;
 
   clearUserData: () => void;
 };

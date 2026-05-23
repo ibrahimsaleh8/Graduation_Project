@@ -18,6 +18,7 @@ async function loginFn(
   const res = await axios.post(`/api/login`, logingBody);
   return res.data;
 }
+
 export const useLogin = () => {
   const [showPass, setShowPass] = useState(false);
   const { setUserData } = useUserStore();
