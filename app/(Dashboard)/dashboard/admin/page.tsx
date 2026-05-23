@@ -11,6 +11,8 @@ import { AdminDashboardJobsAnalytics } from "./_components/AdminDashboardJobsAna
 import AdminDashboardPendingApproval from "./_components/AdminDashboardPendingApproval";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { DashboardAuthGuard } from "@/lib/DashboardAuthGuard";
+import { redirect } from "next/navigation";
 
 export const adminDashboardStats = [
   {
@@ -58,7 +60,15 @@ export const adminDashboardStats = [
     descriptionColor: "#64748b",
   },
 ];
-export default function AdmindDashboard() {
+export default async function AdmindDashboard() {
+  const { role } = await DashboardAuthGuard();
+  if (role != "ADMIN") {
+    if (role == "COMPANY") {
+      redirect(`/dashboard/company`);
+    } else if (role == "APPLICANT") {
+      redirect(`/dashboard/employee`);
+    }
+  }
   return (
     <div className="space-y-6">
       <p className="font-medium md:text-3xl text-2xl">

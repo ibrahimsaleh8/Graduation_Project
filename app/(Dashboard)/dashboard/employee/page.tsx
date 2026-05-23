@@ -11,6 +11,8 @@ import {
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import ChatWithOurAiCard from "../../_components/ChatWithOurAiCard";
+import { DashboardAuthGuard } from "@/lib/DashboardAuthGuard";
+import { redirect } from "next/navigation";
 
 export const employeeDashboardStats = [
   {
@@ -59,7 +61,15 @@ export const employeeDashboardStats = [
   },
 ];
 
-export default function Dashboard() {
+export default async function EmployeeDashboard() {
+  const { role } = await DashboardAuthGuard();
+  if (role != "APPLICANT") {
+    if (role == "COMPANY") {
+      redirect(`/dashboard/company`);
+    } else if (role == "ADMIN") {
+      redirect(`/dashboard/admin`);
+    }
+  }
   return (
     <div className="space-y-6">
       <p className="font-medium md:text-4xl text-2xl">

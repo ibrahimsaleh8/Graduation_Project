@@ -40,7 +40,6 @@ export default async function RootLayout({
 
         <QueryClientHandler>
           <InitilaizeAuthedUser />
-
           {children}
         </QueryClientHandler>
       </body>

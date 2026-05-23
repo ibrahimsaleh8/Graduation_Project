@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import DashboardHeader from "./_components/DashboardHeader";
 import AiChatFloatedIcon from "./dashboard/company/_components/AiChatFloatedIcon";
 import { Poppins } from "next/font/google";
@@ -8,7 +8,7 @@ const font = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <main className={`w-full bg-main-dark min-h-screen ${font.className}`}>
       <DashboardHeader />

@@ -7,7 +7,6 @@ export async function GET(request: NextRequest) {
 
     const token = request.cookies.get("token");
 
-    console.log("token", token);
     if (token) {
       const res = await fetch(
         `${process.env.BACKEND_URL}/api/Auth/user-details`,
@@ -17,7 +16,6 @@ export async function GET(request: NextRequest) {
           },
         },
       );
-      console.log("res", res);
       if (!res.ok) {
         const response = NextResponse.json(
           {

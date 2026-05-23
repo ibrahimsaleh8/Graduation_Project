@@ -11,6 +11,8 @@ import LatestJobPostes from "./_components/LatestJobPostes";
 import RecentEmployeesApplied from "./_components/RecentEmployeesApplied";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { DashboardAuthGuard } from "@/lib/DashboardAuthGuard";
+import { redirect } from "next/navigation";
 
 export const companyDashboardStats = [
   {
@@ -61,7 +63,15 @@ export const companyDashboardStats = [
   },
 ];
 
-export default function CompanyDashboard() {
+export default async function CompanyDashboard() {
+  const { role } = await DashboardAuthGuard();
+  if (role != "COMPANY") {
+    if (role == "ADMIN") {
+      redirect(`/dashboard/admin`);
+    } else if (role == "APPLICANT") {
+      redirect(`/dashboard/employee`);
+    }
+  }
   return (
     <div className="space-y-6">
       <p className="font-medium md:text-3xl text-2xl">
