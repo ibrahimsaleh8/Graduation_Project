@@ -53,10 +53,8 @@ export default function CourageCard() {
   });
 
   return (
-    <div
-      ref={container}
-      className="w-full xl:px-10 md:px-3 px-1 pt-10 md:pt-4 ">
-      <div className="w-full lg:h-150 bg-main-dark rounded-2xl flex flex-col lg:flex-row items-stretch overflow-hidden">
+    <div ref={container} className="w-full pt-10 md:pt-4 ">
+      <div className="w-full lg:h-170 bg-main-dark flex flex-col lg:flex-row items-stretch overflow-hidden">
         <div className="w-full">
           <Image
             src={courageImage}
@@ -67,7 +65,7 @@ export default function CourageCard() {
 
         <div className="w-full md:px-10 p-5 md:py-16 py-10 text-white flex flex-col md:gap-6 gap-2 items-center text-center lg:items-start lg:text-left">
           <div className="overflow-y-hidden">
-            <p className="md:text-4xl text-2xl font-medium start-career-header">
+            <p className="md:text-5xl text-2xl font-medium start-career-header">
               Start Your Career Journey Today
             </p>
           </div>

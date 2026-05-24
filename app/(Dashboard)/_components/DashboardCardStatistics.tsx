@@ -55,7 +55,7 @@ export default function DashboardCardStatistics({
       <div className="flex flex-col gap-1">
         <SlidingNumber
           className={`${size == "large" ? "text-5xl" : "text-3xl"} font-medium`}
-          number={value}
+          number={value ?? 0}
         />
         {description && (
           <p

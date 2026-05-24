@@ -62,10 +62,16 @@ export default function Intro() {
         force3D: true,
         transformOrigin: "center center",
         willChange: "transform",
-
         duration: 0.5,
         ease: "power4.inOut",
       });
+      tl.to(
+        ".intro-phrase",
+        {
+          opacity: 0,
+        },
+        "<=0",
+      );
 
       tl.to(mainLoader.current, {
         delay: 0.5,
@@ -97,7 +103,7 @@ export default function Intro() {
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       }}
       id="main-loader"
-      className="font-bold h-screen w-screen fixed left-0 top-0 bg-white bg-linear-to-b from-[#E2F0FF] to-[#FFFFFF] lg:text-9xl md:text-5xl text-2xl flex items-center justify-center z-99999 flex-col text-main-dark">
+      className="font-bold h-screen w-screen fixed left-0 top-0 bg-white bg-linear-to-b from-[#E2F0FF] to-[#FFFFFF] lg:text-9xl text-6xl flex items-center justify-center z-99999 flex-col text-black">
       <div className="relative text-center">
         <div className="jobify-heading overflow-hidden">
           <p className="opacity-0 translate-y-full">Jobify</p>
