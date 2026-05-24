@@ -59,7 +59,7 @@ export default function CourageCard() {
           <Image
             src={courageImage}
             alt="Courage image"
-            className="w-full object-cover object-center h-full rounded-tr-2xl rounded-br-2xl"
+            className="w-full object-cover object-center h-full "
           />
         </div>
 

@@ -87,7 +87,9 @@ export default function FrequentQuestions() {
     });
   });
   return (
-    <div ref={container} className="w-full py-32 md:px-10 px-3 space-y-8">
+    <div
+      ref={container}
+      className="w-full py-32 md:px-10 px-3 space-y-8 bg-white bg-linear-to-b from-[#ffffff] to-[#eaf3fc]">
       <div className="space-y-3">
         <div className="overflow-y-hidden">
           <p className="md:text-5xl text-3xl font-medium capitalize questions-header">

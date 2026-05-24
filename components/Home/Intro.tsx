@@ -2,10 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
-
-gsap.registerPlugin(SplitText);
 
 export default function Intro() {
   const mainLoader = useRef(null);
@@ -27,52 +24,60 @@ export default function Intro() {
   useGSAP(
     () => {
       const tl = gsap.timeline();
-
-      const headingTexts = SplitText.create(".jobify-heading p", {
-        type: "chars",
-      });
-
       tl.to(".jobify-heading p", {
-        opacity: 1,
-        duration: 0.1,
+        opacity: 100,
+        y: 0,
+        duration: isFirst ? 0.8 : 0.5,
+        ease: "power4.inOut",
       });
 
-      tl.from(headingTexts.chars, {
-        y: 100,
-        opacity: 0,
-        stagger: isFirst ? 0.06 : 0.03,
+      tl.to(".intro-phrase p", {
+        opacity: 100,
+        x: 0,
         duration: isFirst ? 0.8 : 0.4,
-        ease: "power3.out",
+        ease: "power4.inOut",
       });
-      tl.to(headingTexts.chars, {
-        y: -100,
-        opacity: 0,
-        stagger: 0.06,
+
+      tl.to(
+        ".jobify-heading",
+        {
+          overflow: "visible",
+        },
+        "<=0",
+      );
+      tl.to(loader.current, {
+        width: "100%",
         duration: isFirst ? 0.8 : 0.4,
-        ease: "power3.out",
+        ease: "power1.inOut",
+      });
+      // tl.to(loader.current, {
+      //   delay: 0.4,
+      //   height: "100%",
+      //   duration: 0.8,
+      //   ease: "power1.inOut",
+      // });
+      tl.to(".jobify-heading p", {
         delay: 0.4,
-      });
+        scale: 1000,
+        force3D: true,
+        transformOrigin: "center center",
+        willChange: "transform",
 
-      if (loader.current) {
-        tl.to(
-          loader.current,
-          {
-            width: "100%",
-            duration: isFirst ? 2 : 1.5,
-            ease: "none",
-          },
-          0,
-        );
-      }
+        duration: 0.5,
+        ease: "power4.inOut",
+      });
 
       tl.to(mainLoader.current, {
-        delay: isFirst ? 0.1 : 0.05,
+        delay: 0.5,
+        opacity: 0,
+      });
+      tl.to(mainLoader.current, {
+        delay: 0.5,
         clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
         ease: "cubic-bezier(0.87, 0, 0.13, 1)",
       });
 
       tl.to(mainLoader.current, {
-        opacity: 0,
         duration: isFirst ? 0.8 : 0.4,
         pointerEvents: "none",
         display: "none",
@@ -81,6 +86,7 @@ export default function Intro() {
     {
       dependencies: [isFirst],
       scope: mainLoader,
+      revertOnUpdate: true,
     },
   );
 
@@ -91,15 +97,18 @@ export default function Intro() {
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       }}
       id="main-loader"
-      className="font-bold h-screen w-screen fixed left-0 top-0 bg-linear-to-b from-[#E2F0FF]  to-[#FFFFFF] lg:text-8xl md:text-5xl text-2xl flex items-center justify-center z-99999 flex-col">
-      <div className="jobify-heading overflow-hidden">
-        <p className="opacity-0">Jobify</p>
+      className="font-bold h-screen w-screen fixed left-0 top-0 bg-white bg-linear-to-b from-[#E2F0FF] to-[#FFFFFF] lg:text-9xl md:text-5xl text-2xl flex items-center justify-center z-99999 flex-col text-main-dark">
+      <div className="relative text-center">
+        <div className="jobify-heading overflow-hidden">
+          <p className="opacity-0 translate-y-full">Jobify</p>
+        </div>
+        <div className="overflow-x-hidden intro-phrase w-fit mx-auto">
+          <p className="md:text-xl text-sm mt-3 opacity-0 translate-x-full">
+            Find Your Dream Career
+          </p>
+          <div ref={loader} className="h-px bg-main-dark w-0"></div>
+        </div>
       </div>
-      {isFirst && (
-        <div
-          ref={loader}
-          className="absolute left-0 top-0 w-0 h-5 bg-black"></div>
-      )}
     </div>
   );
 }
