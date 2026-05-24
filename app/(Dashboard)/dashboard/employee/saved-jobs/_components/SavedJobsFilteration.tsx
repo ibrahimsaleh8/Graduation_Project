@@ -9,14 +9,22 @@ import {
 } from "@/components/ui/select";
 
 import { Label } from "@/components/ui/label";
+type Props = {
+  UpdateSearchTxt: (text: string) => void;
+  UpdateSearchType: (type: string) => void;
+};
 
-export default function SavedJobsFilteration() {
+export default function SavedJobsFilteration({
+  UpdateSearchTxt,
+  UpdateSearchType,
+}: Props) {
   return (
     <div className="flex items-center gap-3 md:flex-row flex-col">
       {/* Search */}
       <div className="w-full space-y-1">
         <Label htmlFor="search">Search</Label>
         <Input
+          onChange={(e) => UpdateSearchTxt(e.target.value)}
           id="search"
           type="text"
           placeholder="Search By job title or company..."
@@ -27,7 +35,7 @@ export default function SavedJobsFilteration() {
       {/* Job Type */}
       <div className="w-full space-y-1">
         <Label htmlFor="Type">Type</Label>
-        <Select defaultValue="all">
+        <Select onValueChange={(e) => UpdateSearchType(e)} defaultValue="all">
           <SelectTrigger
             id="Type"
             className="w-full bg-white h-11! border border-border-color">

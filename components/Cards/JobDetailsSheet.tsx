@@ -10,8 +10,15 @@ import {
 import { Button } from "../ui/button";
 import JobDetails from "./JobDetails";
 import SimilarJobs from "./SimilarJobs";
-
-export default function JobDetailsSheet() {
+import { JobsCardDataType } from "./JobCard";
+type Props = {
+  jobDetails: JobsCardDataType;
+  withSimilarJobs: boolean;
+};
+export default function JobDetailsSheet({
+  withSimilarJobs,
+  jobDetails,
+}: Props) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -25,9 +32,10 @@ export default function JobDetailsSheet() {
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <div className="flex items-start gap-10 flex-col lg:flex-row lg:px-10">
-            <JobDetails />
-            <SimilarJobs />
+          <div
+            className={`${withSimilarJobs ? "flex items-start gap-10 flex-col lg:flex-row lg:px-10" : "container mx-auto"}`}>
+            <JobDetails jobDetails={jobDetails} />
+            {withSimilarJobs && <SimilarJobs />}
           </div>
         </SheetHeader>
 

@@ -4,20 +4,26 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "../ui/button";
 import {
   Bookmark01Icon,
+  Building03Icon,
   Calendar02Icon,
   Location01Icon,
   MoneyBag02Icon,
   Share08Icon,
 } from "@hugeicons/core-free-icons";
 import Image from "next/image";
-import logo from "@images/Icons/microsoft-6.svg";
 import { useState } from "react";
 import JobDescription from "./JobDescription";
 import ApplicationForm from "./ApplicationForm";
-
+import logo from "@images/company-icon.png";
 import { motion, AnimatePresence } from "framer-motion";
+import { JobsCardDataType } from "./JobCard";
+import { formatDate } from "@/lib/FormatDate";
 
-export default function JobDetails() {
+type Props = {
+  jobDetails: JobsCardDataType;
+};
+
+export default function JobDetails({ jobDetails }: Props) {
   const [showDescription, setShowDescription] = useState(true);
 
   return (
@@ -26,15 +32,17 @@ export default function JobDetails() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <p className="md:text-3xl text-2xl font-medium">
-            Fronted Developer React.js
+            {jobDetails.jobTitle}
           </p>
 
           <div className="flex items-center gap-2">
-            <Button
-              onClick={() => setShowDescription((prev) => !prev)}
-              className="bg-main-color text-white hover:bg-main-color/90 rounded-full text-sm">
-              {showDescription ? "Apply Now" : "Show Description"}
-            </Button>
+            {!jobDetails.isApplied && (
+              <Button
+                onClick={() => setShowDescription((prev) => !prev)}
+                className="bg-main-color text-white hover:bg-main-color/90 rounded-full text-sm">
+                {showDescription ? "Apply Now" : "Show Description"}
+              </Button>
+            )}
 
             <Button className="bg-transparent hover:bg-black/5 text-black border border-border-color">
               <HugeiconsIcon icon={Bookmark01Icon} className="size-5!" />
@@ -47,40 +55,44 @@ export default function JobDetails() {
         </div>
 
         <div className="flex gap-7 items-start flex-wrap">
-          <div className="flex flex-col gap-3">
-            <Image
-              src={logo}
-              alt="logo"
-              width={1000}
-              height={1000}
-              className="w-30"
-            />
-            <p className="font-medium text-main-color">Microsoft</p>
-          </div>
+          <Image
+            src={logo}
+            alt={jobDetails.companyName}
+            width={1000}
+            height={1000}
+            className="w-20"
+          />
 
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 flex-wrap">
+              <p className="flex items-center gap-1 text-sm text-low-color font-medium">
+                <HugeiconsIcon icon={Building03Icon} className="size-5" />
+                {jobDetails.companyName}
+              </p>
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
                 <HugeiconsIcon icon={Location01Icon} className="size-5" />
-                Cairo, Egypt
+                {jobDetails.companyLocation}
               </p>
+
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
                 <HugeiconsIcon icon={MoneyBag02Icon} className="size-5" />
-                240$/hr
+                {jobDetails.minSalary}$ - {jobDetails.maxSalary}$
               </p>
+
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
-                <HugeiconsIcon icon={Calendar02Icon} className="size-5" />3 day
-                ago
+                <HugeiconsIcon icon={Calendar02Icon} className="size-5" />
+                {formatDate(jobDetails.timeAgo.toString())}
               </p>
             </div>
 
             <div className="flex gap-3 flex-wrap">
-              <p className="px-3 py-1.5 bg-input-bg rounded-md text-sm font-medium">
-                Part-time
-              </p>
-              <p className="px-3 py-1.5 bg-input-bg rounded-md text-sm font-medium">
-                Remote
-              </p>
+              {jobDetails.jobType.map((type) => (
+                <p
+                  key={type}
+                  className="px-3 py-1.5 bg-input-bg rounded-md text-sm font-medium">
+                  {type}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -95,7 +107,10 @@ export default function JobDetails() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}>
-            <JobDescription />
+            <JobDescription
+              jobdesc={jobDetails.jobDescription}
+              responsibility={jobDetails.jobRequirement}
+            />
           </motion.div>
         ) : (
           <motion.div
