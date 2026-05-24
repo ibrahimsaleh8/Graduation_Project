@@ -43,7 +43,7 @@ type Props = {
 
 export function EmployeeApplicationsStaticChart({ chartData }: Props) {
   return (
-    <Card className="bg-transparent h-100 text-black shadow-none border-0">
+    <Card className="bg-transparent h-100 text-black shadow-none border-0 lg:w-1/2 w-full">
       <CardHeader className="p-0">
         <div className="flex justify-between">
           <CardTitle className="p-0">

@@ -13,9 +13,9 @@ export default function ChatWithOurAiCard() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative w-full rounded-md overflow-hidden p-6 flex flex-col items-center border gap-6
+      className="relative lg:w-1/2 w-full rounded-md overflow-hidden p-6 flex flex-col items-center border gap-6
                  bg-linear-to-br from-[#2563eb]/20 via-[#93c5fd]/10 to-[#e0f2fe]/10
-                 transition-shadow duration-300 ">
+                 transition-shadow duration-300 lg:mt-10">
       {/* Background Glow Circles */}
       <div className="absolute -top-20 -left-20 w-56 h-56 bg-main-color/30 blur-[120px] rounded-full animate-pulse-slow"></div>
       <div className="absolute -bottom-16 -right-16 w-44 h-44 bg-blue-400/20 blur-[100px] rounded-full animate-pulse-slow"></div>

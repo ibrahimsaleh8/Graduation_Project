@@ -33,7 +33,7 @@ export default function EmployeeMainDashboardSkeleton() {
           </div>
           <Skeleton className="h-80 w-full rounded-md" />
         </div>
-        <Skeleton className="h-80 w-full rounded-md" />
+        <Skeleton className="h-80 w-full rounded-md lg:mt-10" />
       </div>
     </div>
   );

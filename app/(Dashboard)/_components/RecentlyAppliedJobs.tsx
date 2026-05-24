@@ -40,7 +40,7 @@ const recentJobs = [
 
 export default function RecentlyAppliedJobs() {
   return (
-    <div className="space-y-5 mt-10">
+    <div className="space-y-5 mt-10 lg:w-1/2 w-full">
       {/* Top */}
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="text-lg font-medium">Recently Applied Jobs</p>

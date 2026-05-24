@@ -177,35 +177,38 @@ export default function DisplayEmployeeMainData({ token }: Props) {
           Welcome , Ibrahim &#128075;
         </p>
 
-        <div className="flex flex-col-reverse lg:flex-row gap-4 w-full items-start">
+        <div className="space-y-4 w-full">
           {/* Left */}
-          <div className="flex flex-col gap-5 lg:w-1/2 w-full">
+          <div className="flex flex-col-reverse lg:flex-row gap-5 w-full">
             <EmployeeApplicationsStaticChart chartData={data.monthlyStats} />
-            <RecentlyAppliedJobs />
+
+            <div className="lg:w-1/2 w-full space-y-2">
+              <div className="w-full flex justify-between items-center gap-5 flex-wrap">
+                <p className="text-2xl font-medium">Statistics</p>
+                <Link
+                  className="px-8 py-2.5 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit"
+                  href={"/jobs"}>
+                  <HugeiconsIcon icon={Search01Icon} className="size-5" />
+                  Search For Job
+                </Link>
+              </div>
+              {/* Cards */}
+              <div className="grid md:grid-cols-2 gap-4">
+                {employeeDashboardStats &&
+                  employeeDashboardStats.map((statistic) => (
+                    <DashboardCardStatistics
+                      size="large"
+                      {...statistic}
+                      key={statistic.title}
+                    />
+                  ))}
+              </div>
+            </div>
           </div>
 
           {/* Right */}
-          <div className="lg:w-1/2 w-full flex flex-col gap-4">
-            <div className="w-full flex justify-between items-center gap-5 flex-wrap">
-              <p className="text-2xl font-medium">Statistics</p>
-              <Link
-                className="px-8 py-2.5 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit"
-                href={"/jobs"}>
-                <HugeiconsIcon icon={Search01Icon} className="size-5" />
-                Search For Job
-              </Link>
-            </div>
-            {/* Cards */}
-            <div className="grid md:grid-cols-2 gap-4">
-              {employeeDashboardStats &&
-                employeeDashboardStats.map((statistic) => (
-                  <DashboardCardStatistics
-                    size="large"
-                    {...statistic}
-                    key={statistic.title}
-                  />
-                ))}
-            </div>
+          <div className="flex flex-col items-start lg:flex-row gap-5 w-full">
+            <RecentlyAppliedJobs />
             {/* AI Chatbot */}
             <ChatWithOurAiCard />
           </div>
