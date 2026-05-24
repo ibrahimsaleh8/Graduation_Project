@@ -23,6 +23,7 @@ type Props = {
 };
 
 type GetEmployeeDashboardDataType = {
+  firstName: string;
   statistics: {
     appliedJobsCount: number;
     savedJobsCount: number;
@@ -34,7 +35,13 @@ type GetEmployeeDashboardDataType = {
     applicationsCount: number;
     interviewsCount: number;
   }[];
-  recentApplications: [];
+  recentApplications: {
+    id: string;
+    companyName: string;
+    companyLogoUrl: string;
+    jobTitle: string;
+    appliedAt: Date;
+  }[];
 };
 // export const employeeDashboardStats = [
 //   {
@@ -173,8 +180,8 @@ export default function DisplayEmployeeMainData({ token }: Props) {
   ) : (
     !isLoading && data && (
       <div className="space-y-6">
-        <p className="font-medium md:text-4xl text-2xl">
-          Welcome , Ibrahim &#128075;
+        <p className="font-medium md:text-4xl text-2xl capitalize">
+          Welcome , {data.firstName} &#128075;
         </p>
 
         <div className="space-y-4 w-full">
@@ -182,7 +189,7 @@ export default function DisplayEmployeeMainData({ token }: Props) {
           <div className="flex flex-col-reverse lg:flex-row gap-5 w-full">
             <EmployeeApplicationsStaticChart chartData={data.monthlyStats} />
 
-            <div className="lg:w-1/2 w-full space-y-2">
+            <div className="lg:w-1/2 w-full space-y-3">
               <div className="w-full flex justify-between items-center gap-5 flex-wrap">
                 <p className="text-2xl font-medium">Statistics</p>
                 <Link
@@ -208,7 +215,7 @@ export default function DisplayEmployeeMainData({ token }: Props) {
 
           {/* Right */}
           <div className="flex flex-col items-start lg:flex-row gap-5 w-full">
-            <RecentlyAppliedJobs />
+            <RecentlyAppliedJobs recentApplications={data.recentApplications} />
             {/* AI Chatbot */}
             <ChatWithOurAiCard />
           </div>
