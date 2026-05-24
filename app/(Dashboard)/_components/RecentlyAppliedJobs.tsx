@@ -51,7 +51,7 @@ type Props = {
 
 export default function RecentlyAppliedJobs({ recentApplications }: Props) {
   return (
-    <div className="space-y-5 mt-2 lg:w-1/2 w-full">
+    <div className="space-y-5 lg:w-1/2 w-full mt-10 lg:mt-0">
       {/* Top */}
       <div className="flex flex-col md:flex-row justify-between md:gap-4 flex-wrap md:items-center pr-3">
         <p className="text-lg font-medium">Recently Applied Jobs</p>

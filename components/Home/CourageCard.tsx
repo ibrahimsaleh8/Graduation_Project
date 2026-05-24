@@ -53,7 +53,9 @@ export default function CourageCard() {
   });
 
   return (
-    <div ref={container} className="w-full xl:px-10 md:px-3 px-1">
+    <div
+      ref={container}
+      className="w-full xl:px-10 md:px-3 px-1 pt-10 md:pt-4 ">
       <div className="w-full lg:h-150 bg-main-dark rounded-2xl flex flex-col lg:flex-row items-stretch overflow-hidden">
         <div className="w-full">
           <Image

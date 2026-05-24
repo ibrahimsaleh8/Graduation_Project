@@ -190,12 +190,16 @@ export default function DisplayEmployeeMainData({ token }: Props) {
             <EmployeeApplicationsStaticChart chartData={data.monthlyStats} />
 
             <div className="lg:w-1/2 w-full space-y-3">
-              <div className="w-full flex justify-between items-center gap-5 flex-wrap">
+              <div className="w-full flex flex-col md:flex-row justify-between md:items-center gap-5 flex-wrap">
                 <p className="text-2xl font-medium">Statistics</p>
                 <Link
-                  className="px-8 py-2.5 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 w-fit"
+                  className="px-8 py-2.5 bg-main-color hover:bg-main-color/90 duration-300 text-white rounded-md text-sm flex items-center gap-2 justify-center md:justify-start md:w-fit w-full"
                   href={"/jobs"}>
-                  <HugeiconsIcon icon={Search01Icon} className="size-5" />
+                  <HugeiconsIcon
+                    icon={Search01Icon}
+                    className="size-5"
+                    strokeWidth={2}
+                  />
                   Search For Job
                 </Link>
               </div>
