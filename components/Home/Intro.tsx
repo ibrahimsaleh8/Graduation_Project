@@ -50,12 +50,6 @@ export default function Intro() {
         duration: isFirst ? 0.8 : 0.4,
         ease: "power1.inOut",
       });
-      // tl.to(loader.current, {
-      //   delay: 0.4,
-      //   height: "100%",
-      //   duration: 0.8,
-      //   ease: "power1.inOut",
-      // });
       tl.to(".jobify-heading p", {
         delay: 0.4,
         scale: 1000,

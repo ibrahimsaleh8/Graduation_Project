@@ -9,14 +9,24 @@ import {
 } from "@/components/ui/select";
 
 import { Label } from "@/components/ui/label";
-
-export default function AppliedJobFilteration() {
+import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+type Props = {
+  UpdateSearchTxt: (text: string) => void;
+  UpdateSearchType: (type: string) => void;
+  UpdateSearchStatus: (status: string) => void;
+};
+export default function AppliedJobFilteration({
+  UpdateSearchTxt,
+  UpdateSearchStatus,
+  UpdateSearchType,
+}: Props) {
   return (
     <div className="flex items-center gap-3 md:flex-row flex-col">
       {/* Search */}
       <div className="w-full space-y-1">
         <Label htmlFor="search">Search</Label>
         <Input
+          onChange={(e) => UpdateSearchTxt(e.target.value)}
           id="search"
           type="text"
           placeholder="Search By job title or company..."
@@ -27,7 +37,7 @@ export default function AppliedJobFilteration() {
       {/* Status */}
       <div className="w-full space-y-1">
         <Label htmlFor="status">Status</Label>
-        <Select defaultValue="all">
+        <Select onValueChange={(e) => UpdateSearchStatus(e)} defaultValue="all">
           <SelectTrigger
             id="status"
             className="w-full bg-white h-11! border border-border-color">
@@ -42,17 +52,22 @@ export default function AppliedJobFilteration() {
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="pending">
+                value="Accepted">
+                Accepted
+              </SelectItem>
+              <SelectItem
+                className="hover:bg-input-bg! hover:text-black!"
+                value="Pending">
                 Pending
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="scheduled">
-                Scheduled
+                value="Reviewed">
+                Reviewed
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="rejected">
+                value="Rejected">
                 Rejected
               </SelectItem>
             </SelectGroup>
@@ -63,7 +78,7 @@ export default function AppliedJobFilteration() {
       {/* Job Type */}
       <div className="w-full space-y-1">
         <Label htmlFor="Type">Type</Label>
-        <Select defaultValue="all">
+        <Select onValueChange={(e) => UpdateSearchType(e)} defaultValue="all">
           <SelectTrigger
             id="Type"
             className="w-full bg-white h-11! border border-border-color">
@@ -76,26 +91,23 @@ export default function AppliedJobFilteration() {
                 value="all">
                 All
               </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="remote">
-                Remote
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="onsite">
-                Onsite
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="hybrid">
-                Hybrid
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="flexible">
-                Flexible
-              </SelectItem>
+
+              {employmentTypes.map((empType) => (
+                <SelectItem
+                  key={empType}
+                  className="hover:bg-input-bg! hover:text-black! capitalize"
+                  value={empType}>
+                  {empType}
+                </SelectItem>
+              ))}
+              {workApproaches.map((workAppro) => (
+                <SelectItem
+                  key={workAppro}
+                  className="hover:bg-input-bg! hover:text-black! capitalize"
+                  value={workAppro}>
+                  {workAppro}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>

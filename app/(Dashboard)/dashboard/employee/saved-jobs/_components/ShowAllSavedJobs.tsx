@@ -39,15 +39,22 @@ export default function ShowAllSavedJobs({ token }: Props) {
   const jobs = useMemo(() => {
     if (!data) return undefined;
 
-    return serachedTxt.trim().length > 0
-      ? data.filter((job) =>
-          job.jobTitle.toLowerCase().includes(serachedTxt.trim().toLowerCase()),
-        )
-      : serachedType != "all"
-        ? data.filter((job) => job.jobType.includes(serachedType))
-        : data;
-  }, [data, serachedTxt, serachedType]);
+    let filteredJobs = data;
 
+    if (serachedTxt.trim().length > 0) {
+      filteredJobs = filteredJobs.filter((job) =>
+        job.jobTitle.toLowerCase().includes(serachedTxt.trim().toLowerCase()),
+      );
+    }
+
+    if (serachedType !== "all") {
+      filteredJobs = filteredJobs.filter((job) =>
+        job.jobType.includes(serachedType),
+      );
+    }
+
+    return filteredJobs;
+  }, [data, serachedTxt, serachedType]);
   if (error) {
     console.log("error", error.response);
     const errorMessage =
@@ -92,8 +99,12 @@ export default function ShowAllSavedJobs({ token }: Props) {
 
         {jobs.length > 0 ? (
           <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
-            {jobs.map((job) => (
-              <JobCard key={job.jobTitle} {...job} withSimilarJobs={false} />
+            {jobs.map((job, i) => (
+              <JobCard
+                key={`${job.jobId} ${i}`}
+                {...job}
+                withSimilarJobs={false}
+              />
             ))}
           </div>
         ) : (
