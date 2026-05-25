@@ -76,6 +76,7 @@ export default function Intro() {
       tl.to(mainLoader.current, {
         delay: 0.5,
         opacity: 0,
+        pointerEvents: "none",
       });
       tl.to(mainLoader.current, {
         delay: 0.5,
@@ -85,7 +86,6 @@ export default function Intro() {
 
       tl.to(mainLoader.current, {
         duration: isFirst ? 0.8 : 0.4,
-        pointerEvents: "none",
         display: "none",
       });
     },
