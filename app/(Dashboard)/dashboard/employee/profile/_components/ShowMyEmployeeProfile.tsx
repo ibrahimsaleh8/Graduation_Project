@@ -108,11 +108,27 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
         <div className="flex items-start gap-5 flex-col xl:flex-row">
           {/* Top */}
           <div className="flex flex-col w-full">
-            <div className="w-full h-60 rounded-2xl bg-amber-400"></div>
+            <div className="w-full h-60 rounded-2xl bg-white overflow-hidden">
+              {data.coverPhotoUrl && (
+                <img
+                  src={data.coverPhotoUrl}
+                  alt={`${data.fullName} Cover Image`}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
+            </div>
             <div className="flex items-start xl:justify-between flex-wrap w-full">
               {/* Image & Names */}
               <div className="flex items-center flex-col lg:flex-row text-center lg:text-left w-full lg:w-fit">
-                <div className="size-38 flex shrink-0 items-center justify-center bg-main-color rounded-full ml-3 -mt-20"></div>
+                <div className="size-38 flex shrink-0 items-center justify-center overflow-hidden bg-white rounded-full ml-3 -mt-20">
+                  {data.profilePicUrl && (
+                    <img
+                      src={data.profilePicUrl}
+                      alt={`${data.fullName} profile image`}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  )}
+                </div>
                 <div className="space-y-1 pl-7 mt-4">
                   <p className="text-4xl font-medium">{data.fullName}</p>
                   <p className="font-medium text-black/70">{data.jobTitle}</p>
