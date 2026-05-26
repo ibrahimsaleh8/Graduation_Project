@@ -40,7 +40,6 @@ type Props = {
     interviewsCount: number;
   }[];
 };
-console.log(new Date().getFullYear());
 export function EmployeeApplicationsStaticChart({ chartData }: Props) {
   return (
     <Card className="bg-transparent h-100 text-black shadow-none border-0 lg:w-1/2 w-full">
