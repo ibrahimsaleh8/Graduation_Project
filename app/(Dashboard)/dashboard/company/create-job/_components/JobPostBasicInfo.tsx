@@ -260,7 +260,7 @@ export default function JobPostBasicInfo({
       {/* Experience */}
       <div className="space-y-4">
         <p className="font-medium text-sm">Experience Required</p>
-        <div className="flex md:items-end gap-3 flex-col md:flex-row">
+        <div className="flex md:items-end gap-3 flex-col md:flex-row pl-2">
           <div className="space-y-1">
             <Label htmlFor="min-years">Minimum years of experience</Label>
             <Select
@@ -333,7 +333,7 @@ export default function JobPostBasicInfo({
       {/* Salary */}
       <div className="space-y-4">
         <p className="font-medium text-sm">Salary Range (USD)$</p>
-        <div className="flex md:items-end gap-3 flex-col md:flex-row">
+        <div className="flex md:items-end gap-3 flex-col md:flex-row pl-2">
           <div className="space-y-1">
             <Label htmlFor="min-salary">Min Salary</Label>
             <Input

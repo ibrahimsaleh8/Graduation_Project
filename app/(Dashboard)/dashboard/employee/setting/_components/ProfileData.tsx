@@ -11,8 +11,13 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import UpdateMyCv from "./Update_Components/UpdateMyCv";
+import CountrySelect from "@/components/forms/CountrySelect";
+import TextEditor from "@/app/(Dashboard)/_components/TextEditor";
 
 export default function ProfileData() {
+  const UpdateCountry = (country: string) => {
+    console.log(country);
+  };
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -37,14 +42,14 @@ export default function ProfileData() {
 
         {/* Text */}
         <div className="flex gap-5 flex-col w-full mt-5 px-3">
-          <div className="flex items-center gap-4 w-full flex-col md:flex-row">
+          <div className="flex items-center gap-4 w-full flex-col lg:flex-row">
             <div className="space-y-1 w-full">
               <Label htmlFor="full-name">Full Name</Label>
               <Input
                 type="text"
                 id="full-name"
                 placeholder="Full Name"
-                className="bg-white border border-border-color"
+                className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
               />
             </div>
             <div className="space-y-1 w-full">
@@ -53,17 +58,26 @@ export default function ProfileData() {
                 type="text"
                 id="job-title"
                 placeholder="Job Title"
-                className="bg-white border border-border-color"
+                className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
+              />
+            </div>
+            <div className="space-y-1 w-full">
+              <Label className="text-sm">Country</Label>
+              <CountrySelect
+                classes="h-11 text-low-color border border-border-color hover:bg-white/80! w-full flex justify-start hover:bg-input-bg/80 duration-300 bg-white"
+                deafultCountry=""
+                UpdateCountry={UpdateCountry}
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="about-me">About Me</Label>
-            <Textarea
-              id="about-me"
-              placeholder="About Me"
-              className="bg-white border border-border-color h-30"
+            <TextEditor
+              deafultValue={""}
+              label="About Me"
+              updateFn={(value: string) => {
+                console.log(value);
+              }}
             />
           </div>
 

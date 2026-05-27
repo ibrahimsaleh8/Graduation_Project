@@ -127,7 +127,7 @@ export default function RegisterUserForm() {
       {/* Country */}
       <div className="flex flex-col gap-1">
         <Label className="text-sm">Country</Label>
-        <CountrySelect UpdateCountry={UpdateCountry} />
+        <CountrySelect deafultCountry="" UpdateCountry={UpdateCountry} />
         {errors.location && (
           <ErrorValidationMessage message={errors.location.message as string} />
         )}

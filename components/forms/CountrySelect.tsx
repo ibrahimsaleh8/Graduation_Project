@@ -18,16 +18,23 @@ import { countries } from "@/lib/Countries";
 
 type Props = {
   UpdateCountry: (country: string) => void;
+  deafultCountry: string;
+  classes?: string;
 };
 
-export default function CountrySelect({ UpdateCountry }: Props) {
-  const [value, setValue] = useState("");
+export default function CountrySelect({
+  UpdateCountry,
+  deafultCountry,
+  classes,
+}: Props) {
+  const [value, setValue] = useState(deafultCountry);
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button className="h-11 text-low-color border-0 flex justify-start hover:bg-input-bg/80 duration-300 bg-input-bg">
+        <Button
+          className={`${classes ? classes : "h-11 text-low-color border-0 flex justify-start hover:bg-input-bg/80 duration-300 bg-input-bg"}`}>
           <span className="text-left text-black w-full text-sm font-normal">
             {value ? (
               countries.find((country) => country === value)
