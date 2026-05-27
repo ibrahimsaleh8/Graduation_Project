@@ -69,7 +69,7 @@ export default function CompanyProfile() {
 
       <div className="space-y-3 md:pl-7">
         <div className="flex gap-5 items-start flex-col lg:flex-row">
-          <ProfileAbout />
+          <ProfileAbout aboutMe="" />
           <CompanyProfileSocialLinks />
         </div>
         <div className="flex gap-5 items-start flex-col lg:flex-row">
