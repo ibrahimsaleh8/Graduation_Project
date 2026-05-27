@@ -85,6 +85,7 @@ export default function JobPostBasicInfo({
         <Label htmlFor="job-title">Job Title</Label>
         <Input
           type="text"
+          aria-invalid={errors.jobTitle ? "true" : "false"}
           placeholder="Job Title"
           className="w-full bg-white border-border-color"
           id="job-title"
@@ -104,6 +105,7 @@ export default function JobPostBasicInfo({
             defaultValue={getValues("jobCategory")}
             onValueChange={(e) => setValue("jobCategory", e)}>
             <SelectTrigger
+              aria-invalid={errors.jobCategory ? "true" : "false"}
               id="job-category"
               className="w-full bg-white h-11! border border-border-color">
               <SelectValue placeholder="Job Category" />
@@ -130,6 +132,7 @@ export default function JobPostBasicInfo({
             defaultValue={getValues("location")}
             onValueChange={(e) => setValue("location", e)}>
             <SelectTrigger
+              aria-invalid={errors.location ? "true" : "false"}
               id="job-location"
               className="w-full bg-white h-11! border border-border-color">
               <SelectValue placeholder="Location" />
@@ -265,6 +268,7 @@ export default function JobPostBasicInfo({
               onValueChange={(e) => setValue("minYearsExperience", +e)}>
               <SelectTrigger
                 id="min-years"
+                aria-invalid={errors.minYearsExperience ? "true" : "false"}
                 className="w-full min-w-60 bg-white h-11! border border-border-color">
                 <SelectValue placeholder="Minimum years of experience" />
               </SelectTrigger>
@@ -289,6 +293,7 @@ export default function JobPostBasicInfo({
               defaultValue={"0"}
               onValueChange={(e) => setValue("maxYearsExperience", +e)}>
               <SelectTrigger
+                aria-invalid={errors.maxYearsExperience ? "true" : "false"}
                 id="max-years"
                 className="w-full min-w-60 bg-white h-11! border border-border-color">
                 <SelectValue placeholder="Maximum years of experience" />
