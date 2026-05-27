@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Add01Icon, CancelCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,6 +18,7 @@ import {
 import { StepState } from "./JobPostStepper";
 import { ChevronRight } from "lucide-react";
 import PrevStepperBtn from "./PrevStepperBtn";
+import TextEditor from "@/app/(Dashboard)/_components/TextEditor";
 
 type Props = {
   setCurrentStep: Dispatch<SetStateAction<StepState[]>>;
@@ -36,10 +36,10 @@ export default function JobDescription({
   const skillInput = useRef<HTMLInputElement>(null);
 
   const {
-    register,
     handleSubmit,
     setValue,
     watch,
+    getValues,
     formState: { errors },
   } = useForm<JobDetailsType>({
     resolver: zodResolver(jobDetailsSchema),
@@ -49,12 +49,14 @@ export default function JobDescription({
   const onSubmit = (data: JobDetailsType) => {
     setCurrentStep((prev) =>
       prev.map((p) => {
-        if (p.stepNumber == 2) {
-          p.isCompleted = true;
-          p.isCurrent = false;
-        } else if (p.stepNumber == 3) {
-          p.isCurrent = true;
+        if (p.stepNumber === 2) {
+          return { ...p, isCompleted: true, isCurrent: false };
         }
+
+        if (p.stepNumber === 3) {
+          return { ...p, isCurrent: true };
+        }
+
         return p;
       }),
     );
@@ -62,7 +64,7 @@ export default function JobDescription({
     UpdateJobDetails(data);
   };
 
-  const skills = watch("skills");
+  const skills = getValues("skills") || [];
 
   return (
     <motion.form
@@ -74,12 +76,12 @@ export default function JobDescription({
       transition={{ duration: 0.35, ease: "easeOut" }}>
       {/* Job Description */}
       <div className="space-y-1">
-        <Label htmlFor="job-description">Job Description</Label>
-        <Textarea
-          id="job-description"
-          placeholder="Describe the job description"
-          className="w-full bg-white border-border-color h-45"
-          {...register("jobDescription")}
+        <TextEditor
+          deafultValue={getValues("jobDescription")}
+          label="Job Description"
+          updateFn={(value: string) => {
+            setValue("jobDescription", value);
+          }}
         />
         {errors.jobDescription && (
           <p className="text-red-500 text-sm">
@@ -90,12 +92,12 @@ export default function JobDescription({
 
       {/* Responsibilities */}
       <div className="space-y-1">
-        <Label htmlFor="job-responsibilities">Responsibilities</Label>
-        <Textarea
-          id="job-responsibilities"
-          placeholder="Describe the job responsibilities"
-          className="w-full bg-white border-border-color h-45"
-          {...register("responsibilities")}
+        <TextEditor
+          deafultValue={getValues("responsibilities")}
+          label="Responsibilities"
+          updateFn={(value: string) => {
+            setValue("responsibilities", value);
+          }}
         />
         {errors.responsibilities && (
           <p className="text-red-500 text-sm">

@@ -51,32 +51,32 @@ export default function JobPostPreview({
 
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-6 flex-wrap">
-            <p className="flex items-center gap-1 text-sm text-low-color font-medium">
+            <p className="flex items-center gap-1 text-sm font-medium">
               <HugeiconsIcon icon={Location01Icon} className="size-5" />
               {JobData.jobBasicData.location}
             </p>
-            <p className="flex items-center gap-1 text-sm text-low-color font-medium">
+            <p className="flex items-center gap-1 text-sm font-medium">
               <HugeiconsIcon icon={MoneyBag02Icon} className="size-5" />
               {`${JobData.jobBasicData.salaryMin}$ - ${JobData.jobBasicData.salaryMax}$`}
             </p>
-            <p className="flex items-center gap-1 text-sm text-low-color font-medium">
+            <p className="flex items-center gap-1 text-sm font-medium">
               <HugeiconsIcon icon={Briefcase01Icon} className="size-5" />
               {JobData.jobBasicData.jobCategory}
             </p>
           </div>
 
-          <div className="flex gap-6 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {JobData.jobBasicData.employmentType.map((type) => (
               <p
                 key={type}
-                className="px-3 py-1.5 bg-input-bg border rounded-md text-xs font-medium">
+                className="px-3 py-1.5 bg-white border rounded-md text-xs font-medium">
                 {type}
               </p>
             ))}
             {JobData.jobBasicData.workApproach.map((approach) => (
               <p
                 key={approach}
-                className="px-3 py-1.5 bg-input-bg border rounded-md text-xs font-medium">
+                className="px-3 py-1.5 bg-white border rounded-md text-xs font-medium">
                 {approach}
               </p>
             ))}
@@ -86,14 +86,30 @@ export default function JobPostPreview({
 
       {/* Describtion */}
       <div className="space-y-2">
-        <p className="text-lg font-medium">Description</p>
-        <p>{JobData.jobDetails.jobDescription}</p>
+        <p className="font-medium flex items-center gap-1">
+          <span className="size-1 bg-black rounded-full"></span>
+          Description
+        </p>
+        <div
+          className="text-sm pl-2 ProseMirror"
+          dangerouslySetInnerHTML={{
+            __html: JobData.jobDetails.jobDescription,
+          }}
+        />
       </div>
 
       {/* Responsibilities */}
       <div className="space-y-2">
-        <p className="text-lg font-medium">Responsibilities</p>
-        <p>{JobData.jobDetails.responsibilities}</p>
+        <p className="font-medium flex items-center gap-1 ">
+          <span className="size-1 bg-black rounded-full"></span>
+          Responsibilities
+        </p>
+        <div
+          className="text-sm pl-2"
+          dangerouslySetInnerHTML={{
+            __html: JobData.jobDetails.responsibilities,
+          }}
+        />
       </div>
 
       {/* Skills */}
@@ -103,7 +119,7 @@ export default function JobPostPreview({
           {JobData.jobDetails.skills.map((skill) => (
             <p
               key={skill}
-              className="px-3 py-1.5 bg-input-bg border rounded-md text-xs font-medium">
+              className="px-3 py-1.5 bg-white border rounded-md text-xs font-medium">
               {skill}
             </p>
           ))}
