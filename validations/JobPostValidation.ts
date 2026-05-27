@@ -35,17 +35,34 @@ export const jobPostBasicInfoSchema = z
       .number({
         error: "Minimum salary is required",
       })
-      .min(0, "Minimum salary must be >= 0"),
+      .gt(0, "Minimum salary must be greater than 0"),
 
     salaryMax: z
       .number({
         error: "Maximum salary is required",
       })
-      .min(0, "Maximum salary must be >= 0"),
+      .gt(0, "Maximum salary must be greater than 0"),
+
+    minYearsExperience: z
+      .number({
+        error: "Minimum years of experience is required",
+      })
+      .min(0, "Minimum years of experience must be >= 0"),
+
+    maxYearsExperience: z
+      .number({
+        error: "Maximum years of experience is required",
+      })
+      .min(0, "Maximum years of experience must be >= 0"),
   })
   .refine((data) => data.salaryMax >= data.salaryMin, {
     message: "Max salary must be greater than or equal to min salary",
     path: ["salaryMax"],
+  })
+  .refine((data) => data.maxYearsExperience >= data.minYearsExperience, {
+    message:
+      "Max years of experience must be greater than or equal to min years of experience",
+    path: ["maxYearsExperience"],
   });
 
 export type JobPostBasicInfoType = z.infer<typeof jobPostBasicInfoSchema>;

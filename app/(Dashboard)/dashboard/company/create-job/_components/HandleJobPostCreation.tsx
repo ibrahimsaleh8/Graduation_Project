@@ -24,6 +24,8 @@ const initialData: JobPostFullInfoType = {
     salaryMax: 0,
     salaryMin: 0,
     workApproach: [],
+    maxYearsExperience: 0,
+    minYearsExperience: 0,
   },
   jobDetails: {
     jobDescription: "",

@@ -27,6 +27,7 @@ import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
 import { StepState } from "./JobPostStepper";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ExperienceYears } from "@/lib/ExperienceYears";
 
 type Props = {
   setCurrentStep: Dispatch<SetStateAction<StepState[]>>;
@@ -149,6 +150,21 @@ export default function JobPostBasicInfo({
         </div>
       </div>
 
+      {(errors.jobCategory || errors.location) && (
+        <div className="w-full flex items-center gap-6 flex-wrap">
+          {errors.jobCategory && (
+            <ErrorValidationMessage
+              message={errors.jobCategory.message as string}
+            />
+          )}
+          {errors.location && (
+            <ErrorValidationMessage
+              message={errors.location.message as string}
+            />
+          )}
+        </div>
+      )}
+
       {/* Employment Type */}
       <div className="space-y-3">
         <Label>Employment Type</Label>
@@ -188,6 +204,11 @@ export default function JobPostBasicInfo({
           ))}
         </div>
       </div>
+      {errors.employmentType && (
+        <ErrorValidationMessage
+          message={errors.employmentType.message as string}
+        />
+      )}
 
       {/* Work Approach */}
       <div className="space-y-3">
@@ -227,33 +248,129 @@ export default function JobPostBasicInfo({
           ))}
         </div>
       </div>
+      {errors.workApproach && (
+        <ErrorValidationMessage
+          message={errors.workApproach.message as string}
+        />
+      )}
 
-      {/* Salary */}
-      <div className="space-y-1">
-        <Label>Salary Range (USD)$</Label>
-        <div className="flex items-center gap-3">
-          <Input
-            id="salary-range"
-            type="number"
-            placeholder="Minimum Salary"
-            className="w-fit bg-white border-border-color"
-            min={0}
-            {...register("salaryMin", { valueAsNumber: true })}
-            aria-invalid={errors.salaryMin ? "true" : "false"}
-          />
-          -
-          <Input
-            type="number"
-            placeholder="Maximum Salary"
-            className="w-fit bg-white border-border-color"
-            min={0}
-            {...register("salaryMax", { valueAsNumber: true })}
-            aria-invalid={errors.salaryMax ? "true" : "false"}
-          />
+      {/* Experience */}
+      <div className="space-y-4">
+        <p className="font-medium text-sm">Experience Required</p>
+        <div className="flex md:items-end gap-3 flex-col md:flex-row">
+          <div className="space-y-1">
+            <Label htmlFor="min-years">Minimum years of experience</Label>
+            <Select
+              defaultValue={"0"}
+              onValueChange={(e) => setValue("minYearsExperience", +e)}>
+              <SelectTrigger
+                id="min-years"
+                className="w-full min-w-60 bg-white h-11! border border-border-color">
+                <SelectValue placeholder="Minimum years of experience" />
+              </SelectTrigger>
+              <SelectContent className="bg-white text-black border border-border-color">
+                <SelectGroup>
+                  {ExperienceYears.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={`${year}`}
+                      className="hover:bg-input-bg! hover:text-black!">
+                      {year} Years
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <span className="mb-2 hidden md:block">-</span>
+          <div className="space-y-1">
+            <Label htmlFor="max-years">Maximum years of experience</Label>
+            <Select
+              defaultValue={"0"}
+              onValueChange={(e) => setValue("maxYearsExperience", +e)}>
+              <SelectTrigger
+                id="max-years"
+                className="w-full min-w-60 bg-white h-11! border border-border-color">
+                <SelectValue placeholder="Maximum years of experience" />
+              </SelectTrigger>
+              <SelectContent className="bg-white text-black border border-border-color">
+                <SelectGroup>
+                  {ExperienceYears.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={`${year}`}
+                      className="hover:bg-input-bg! hover:text-black!">
+                      {year} Years
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
 
-      {/* Submit */}
+      {(errors.minYearsExperience || errors.maxYearsExperience) && (
+        <div className="w-full flex items-center gap-6 flex-wrap">
+          {errors.minYearsExperience && (
+            <ErrorValidationMessage
+              message={errors.minYearsExperience.message as string}
+            />
+          )}
+          {errors.maxYearsExperience && (
+            <ErrorValidationMessage
+              message={errors.maxYearsExperience.message as string}
+            />
+          )}
+        </div>
+      )}
+
+      {/* Salary */}
+      <div className="space-y-4">
+        <p className="font-medium text-sm">Salary Range (USD)$</p>
+        <div className="flex md:items-end gap-3 flex-col md:flex-row">
+          <div className="space-y-1">
+            <Label htmlFor="min-salary">Min Salary</Label>
+            <Input
+              id="min-salary"
+              type="number"
+              placeholder="Minimum Salary"
+              className="md:w-fit w-full bg-white border-border-color"
+              min={0}
+              {...register("salaryMin", { valueAsNumber: true })}
+              aria-invalid={errors.salaryMin ? "true" : "false"}
+            />
+          </div>
+          <span className="mb-2 hidden md:block">-</span>
+          <div className="space-y-1">
+            <Label htmlFor="max-salary">Max Salary</Label>
+            <Input
+              id="max-salary"
+              type="number"
+              placeholder="Maximum Salary"
+              className="md:w-fit w-full bg-white border-border-color"
+              min={0}
+              {...register("salaryMax", { valueAsNumber: true })}
+              aria-invalid={errors.salaryMax ? "true" : "false"}
+            />
+          </div>
+        </div>
+      </div>
+      {(errors.salaryMin || errors.salaryMax) && (
+        <div className="w-full flex items-center gap-6 flex-wrap">
+          {errors.salaryMin && (
+            <ErrorValidationMessage
+              message={errors.salaryMin.message as string}
+            />
+          )}
+          {errors.salaryMax && (
+            <ErrorValidationMessage
+              message={errors.salaryMax.message as string}
+            />
+          )}
+        </div>
+      )}
+
       <Button
         type="submit"
         className="bg-main-color hover:bg-main-color/90 text-white w-32 text-sm">
