@@ -1,5 +1,5 @@
+import { ExperienceType } from "@/hooks/useGetEmployeeProfile";
 import MyExperienceCard from "./MyExperienceCard";
-import { ExperienceType } from "./ShowMyEmployeeProfile";
 
 export default function ShowMyExperience({
   experience,

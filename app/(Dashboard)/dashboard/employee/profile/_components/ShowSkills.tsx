@@ -1,4 +1,4 @@
-import { SkillType } from "./ShowMyEmployeeProfile";
+import { SkillType } from "@/hooks/useGetEmployeeProfile";
 
 export default function ShowSkills({ skills }: { skills?: SkillType[] }) {
   return (

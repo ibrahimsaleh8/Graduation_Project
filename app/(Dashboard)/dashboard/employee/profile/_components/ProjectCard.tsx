@@ -1,6 +1,6 @@
+import { ProjectType } from "@/hooks/useGetEmployeeProfile";
 import { GithubIcon, Saturn02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ProjectType } from "./ShowMyEmployeeProfile";
 
 export default function ProjectCard({
   title,

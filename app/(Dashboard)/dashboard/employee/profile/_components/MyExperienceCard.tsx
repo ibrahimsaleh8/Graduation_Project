@@ -1,6 +1,6 @@
+import { ExperienceType } from "@/hooks/useGetEmployeeProfile";
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ExperienceType } from "./ShowMyEmployeeProfile";
 
 export default function MyExperienceCard({
   companyName,

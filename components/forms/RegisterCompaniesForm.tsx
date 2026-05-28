@@ -129,7 +129,7 @@ export default function RegisterCompaniesForm() {
 
         <div className="flex flex-col gap-1 w-full">
           <Label className="text-sm">Country</Label>
-          <CountrySelect UpdateCountry={UpdateCountry} />
+          <CountrySelect deafultCountry="" UpdateCountry={UpdateCountry} />
         </div>
       </div>
 

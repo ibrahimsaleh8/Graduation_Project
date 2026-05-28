@@ -1,5 +1,5 @@
+import { ProjectType } from "@/hooks/useGetEmployeeProfile";
 import ProjectCard from "./ProjectCard";
-import { ProjectType } from "./ShowMyEmployeeProfile";
 
 export default function MyProjects({ projects }: { projects?: ProjectType[] }) {
   return (
