@@ -14,7 +14,6 @@ import InterviewStatusBadge from "./InterviewStatusBadge";
 import AlertModel from "@/components/main-layout/AlertModel";
 import ShowInterviewNotes from "./ShowInterviewNotes";
 export default function InterviewCard({
-  interviewId,
   jobTitle,
   companyName,
   companyLogoUrl,
@@ -26,6 +25,7 @@ export default function InterviewCard({
   interviewerName,
   meetingLink,
   notes,
+  jobId,
 }: InterviewDataType) {
   const interviewDetails = [
     {
@@ -134,7 +134,7 @@ export default function InterviewCard({
       {/* Footer */}
       <div className="flex items-center justify-end gap-3 border-t border-black/5 pt-3">
         <a
-          href={`/employee/interviews/${interviewId}`}
+          href={`/jobs/${jobId}`}
           className="flex items-center gap-2 rounded-md bg-main-color px-6 py-2 text-sm text-white duration-300 hover:bg-main-color/80">
           <HugeiconsIcon icon={Briefcase04Icon} className="size-4" />
           Job Details

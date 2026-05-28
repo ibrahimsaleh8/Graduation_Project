@@ -41,6 +41,7 @@ export type InterviewDataType = {
   interviewerName: string;
   meetingLink: string;
   notes: string | null;
+  jobId: string;
 };
 
 export type InterviewsResponse = {
