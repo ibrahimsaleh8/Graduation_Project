@@ -144,7 +144,7 @@ export default function ProfileData({
             />
           </div>
 
-          <div className="size-36 border shadow rounded-full bg-main-color overflow-hidden -mt-17 flex items-center justify-center relative">
+          <div className="size-36 border-3 border-white shadow rounded-full bg-main-color -mt-17 flex items-center justify-center relative">
             <img
               src={profilePicUrl}
               alt={`${fullName} profile image`}
@@ -156,7 +156,7 @@ export default function ProfileData({
               trigger={
                 <button
                   aria-label="Update Profile Picture"
-                  className="absolute bottom-0 left-0 border border-border-color bg-white text-black w-full h-8 rounded-md flex items-center justify-center cursor-pointer hover:bg-white/80 duration-300">
+                  className="absolute bottom-0 right-0 border border-border-color bg-white text-black w-9 h-8 rounded-md flex items-center justify-center cursor-pointer hover:bg-white/80 duration-300">
                   <HugeiconsIcon icon={Camera03Icon} className="size-6" />
                 </button>
               }
