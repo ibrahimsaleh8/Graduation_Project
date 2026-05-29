@@ -32,7 +32,6 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
       />
     );
   }
-  console.log("data", data);
   return isLoading ? (
     <EmployeeShowProfileSkeleton />
   ) : (

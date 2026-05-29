@@ -1,132 +1,220 @@
 "use client";
-import AlertModel from "@/components/main-layout/AlertModel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  CloudUploadIcon,
-  File02Icon,
-  ViewIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import UpdateMyCv from "./Update_Components/UpdateMyCv";
 import CountrySelect from "@/components/forms/CountrySelect";
 import TextEditor from "@/app/(Dashboard)/_components/TextEditor";
+import ProfileDataCv from "./ProfileDataCv";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  profileDataSchema,
+  ProfileDataSchemaType,
+} from "@/validations/EmployeeProfileDataSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { sileo } from "sileo";
+import { Spinner } from "@/components/ui/spinner";
+type Props = {
+  fullName: string;
+  jobTitle?: string;
+  location: string;
+  aboutMe?: string;
+  profilePicUrl?: string;
+  coverPhotoUrl?: string;
+  cvLink?: string;
+  token: string;
+};
+async function UpdateMainDataProfileData(
+  token: string,
+  data: ProfileDataSchemaType,
+) {
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/profile`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
 
-export default function ProfileData() {
-  const UpdateCountry = (country: string) => {
-    console.log(country);
+  return res.data;
+}
+
+export default function ProfileData({
+  fullName,
+  jobTitle,
+  location,
+  aboutMe,
+  profilePicUrl,
+  coverPhotoUrl,
+  cvLink,
+  token,
+}: Props) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ProfileDataSchemaType>({
+    resolver: zodResolver(profileDataSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      fullName,
+      jobTitle,
+      location,
+      aboutMe,
+    },
+  });
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: ProfileDataSchemaType) =>
+      UpdateMainDataProfileData(token, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["get-my-profile-employee"] });
+      sileo.success({
+        title: "Profile updated successfully!",
+      });
+    },
+    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+      console.log("error ", error.response);
+      sileo.error({
+        title: "Failed to update profile",
+        description:
+          error.response?.data?.errors?.[0] ||
+          "An error occurred. Please try again.",
+      });
+    },
+  });
+
+  const onSubmit: SubmitHandler<ProfileDataSchemaType> = (data) => {
+    if (
+      fullName === data.fullName &&
+      jobTitle === data.jobTitle &&
+      location === data.location &&
+      aboutMe === data.aboutMe
+    ) {
+      sileo.warning({
+        title: "No changes to update!",
+        description: "You haven't made any changes to your profile.",
+      });
+      return;
+    }
+    mutate(data);
   };
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit(onSubmit)}
       className="w-full px-4 py-4 md:py-0">
       {/* Body */}
       <div className="flex flex-col gap-3">
         {/* Image */}
         <div className="flex flex-col w-full">
-          <div className="w-full h-40 bg-amber-400 rounded-2xl flex items-center justify-center">
-            <HugeiconsIcon
-              icon={CloudUploadIcon}
-              className="size-10 text-black"
+          <div className="w-full h-60 overflow-hidden bg-white rounded-2xl flex items-center justify-center">
+            <img
+              src={coverPhotoUrl}
+              alt={`${fullName} Cover Image`}
+              className="w-full h-full object-cover object-center"
             />
           </div>
-          <div className="size-25 rounded-full bg-main-color -mt-10 flex items-center justify-center">
-            <HugeiconsIcon
-              icon={CloudUploadIcon}
-              className="size-10 text-white"
+          <div className="size-30 rounded-full bg-main-color -mt-13 flex items-center justify-center">
+            <img
+              src={profilePicUrl}
+              alt={`${fullName} profile image`}
+              className="w-full h-full object-cover object-center rounded-full"
             />
           </div>
         </div>
 
         {/* Text */}
         <div className="flex gap-5 flex-col w-full mt-5 px-3">
-          <div className="flex items-center gap-4 w-full flex-col lg:flex-row">
+          <div className="flex items-start gap-4 w-full flex-col lg:flex-row">
+            {/* Full Name */}
             <div className="space-y-1 w-full">
-              <Label htmlFor="full-name">Full Name</Label>
-              <Input
-                type="text"
-                id="full-name"
-                placeholder="Full Name"
-                className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
-              />
+              <div className="space-y-1">
+                <Label htmlFor="full-name">Full Name</Label>
+                <Input
+                  type="text"
+                  aria-invalid={!!errors.fullName}
+                  id="full-name"
+                  {...register("fullName")}
+                  placeholder="Full Name"
+                  className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
+                />
+              </div>
+
+              {errors.fullName && (
+                <ErrorValidationMessage
+                  message={errors.fullName.message ?? ""}
+                />
+              )}
             </div>
+
+            {/* Job Title */}
             <div className="space-y-1 w-full">
-              <Label htmlFor="job-title">Job Title</Label>
-              <Input
-                type="text"
-                id="job-title"
-                placeholder="Job Title"
-                className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
-              />
+              <div className="space-y-1 w-full">
+                <Label htmlFor="job-title">Job Title</Label>
+                <Input
+                  type="text"
+                  id="job-title"
+                  aria-invalid={!!errors.jobTitle}
+                  {...register("jobTitle")}
+                  placeholder="Job Title"
+                  className="bg-white border border-border-color placeholder:text-black/30 shadow-none"
+                />
+              </div>
+              {errors.jobTitle && (
+                <ErrorValidationMessage
+                  message={errors.jobTitle.message ?? ""}
+                />
+              )}
             </div>
+
+            {/* Country */}
             <div className="space-y-1 w-full">
-              <Label className="text-sm">Country</Label>
-              <CountrySelect
-                classes="h-11 text-low-color border border-border-color hover:bg-white/80! w-full flex justify-start hover:bg-input-bg/80 duration-300 bg-white"
-                deafultCountry=""
-                UpdateCountry={UpdateCountry}
-              />
+              <div className="space-y-1 w-full">
+                <Label>Country</Label>
+                <CountrySelect
+                  classes="h-11 text-low-color border border-border-color hover:bg-white/80! w-full flex justify-start hover:bg-input-bg/80 duration-300 bg-white"
+                  deafultCountry={location ?? ""}
+                  UpdateCountry={(value: string) => {
+                    setValue("location", value);
+                  }}
+                />
+              </div>
+              {errors.location && (
+                <ErrorValidationMessage
+                  message={errors.location.message ?? ""}
+                />
+              )}
             </div>
           </div>
 
           <div className="space-y-1">
             <TextEditor
-              deafultValue={""}
+              deafultValue={aboutMe ?? ""}
               label="About Me"
               updateFn={(value: string) => {
-                console.log(value);
+                setValue("aboutMe", value);
               }}
             />
+
+            {errors.aboutMe && (
+              <ErrorValidationMessage message={errors.aboutMe.message ?? ""} />
+            )}
           </div>
 
-          <div className="space-y-2">
-            <Label>My CV</Label>
-            <div className="flex items-start flex-col w-fit">
-              <div className="w-fit px-5 pt-4 pb-4 bg-white rounded-md border flex flex-col gap-2 items-center">
-                <HugeiconsIcon
-                  icon={File02Icon}
-                  className="size-10 text-black/70"
-                />
-
-                <div>
-                  <p className="text-xs font-medium">My_Cv.pdf</p>
-                </div>
-              </div>
-              <div className="flex gap-1 items-center pt-1 w-full">
-                <a
-                  href="#"
-                  className="h-8 text-sm bg-main-color text-white flex items-center justify-center gap-2 px-3 py-2 rounded-md w-1/2">
-                  <HugeiconsIcon
-                    icon={ViewIcon}
-                    className="size-4.5"
-                    strokeWidth={2}
-                  />
-                </a>
-
-                <AlertModel
-                  title="Update My CV"
-                  trigger={
-                    <Button className="h-8 text-sm w-1/2">
-                      <HugeiconsIcon
-                        icon={CloudUploadIcon}
-                        className="size-4.5"
-                        strokeWidth={2}
-                      />
-                    </Button>
-                  }
-                  content={<UpdateMyCv />}
-                  contentClassname="md:min-w-150"
-                />
-              </div>
-            </div>
-          </div>
+          <ProfileDataCv cvLink={cvLink} />
         </div>
 
         <Button
           type="submit"
-          className="w-45 bg-main-color hover:bg-main-color/90 text-white h-10 text-sm ml-3">
-          Save
+          className="w-45 bg-main-color hover:bg-main-color/90 text-white h-10 text-sm ml-3"
+          disabled={isPending}>
+          {isPending ? <Spinner /> : "Save"}
         </Button>
       </div>
     </form>
