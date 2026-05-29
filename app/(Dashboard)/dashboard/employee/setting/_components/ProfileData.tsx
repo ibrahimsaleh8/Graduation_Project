@@ -16,6 +16,10 @@ import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sileo } from "sileo";
 import { Spinner } from "@/components/ui/spinner";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Camera03Icon } from "@hugeicons/core-free-icons";
+import AlertModel from "@/components/main-layout/AlertModel";
+import UpdateProfileImage from "./Update_Components/UpdateProfileImage";
 type Props = {
   fullName: string;
   jobTitle?: string;
@@ -113,18 +117,45 @@ export default function ProfileData({
       <div className="flex flex-col gap-3">
         {/* Image */}
         <div className="flex flex-col w-full">
-          <div className="w-full h-60 overflow-hidden bg-white rounded-2xl flex items-center justify-center">
+          <div className="w-full h-60 overflow-hidden bg-white rounded-2xl flex items-center justify-center relative">
             <img
               src={coverPhotoUrl}
               alt={`${fullName} Cover Image`}
               className="w-full h-full object-cover object-center"
             />
+
+            <AlertModel
+              title="Update Cover Picture"
+              trigger={
+                <button
+                  aria-label="Update Cover Picture"
+                  className="absolute top-2 shadow-md right-3 border border-border-color bg-white text-black w-10 h-10 rounded-md flex items-center justify-center cursor-pointer hover:bg-white/80 duration-300">
+                  <HugeiconsIcon icon={Camera03Icon} className="size-6" />
+                </button>
+              }
+              content={<UpdateProfileImage operation="cover" />}
+              contentClassname="md:min-w-150 pb-3"
+            />
           </div>
-          <div className="size-30 rounded-full bg-main-color -mt-13 flex items-center justify-center">
+
+          <div className="size-36 rounded-full bg-main-color overflow-hidden -mt-17 flex items-center justify-center relative">
             <img
               src={profilePicUrl}
               alt={`${fullName} profile image`}
               className="w-full h-full object-cover object-center rounded-full"
+            />
+
+            <AlertModel
+              title="Update Profile Picture"
+              trigger={
+                <button
+                  aria-label="Update Profile Picture"
+                  className="absolute bottom-0 left-0 border border-border-color bg-white text-black w-full h-8 rounded-md flex items-center justify-center cursor-pointer hover:bg-white/80 duration-300">
+                  <HugeiconsIcon icon={Camera03Icon} className="size-6" />
+                </button>
+              }
+              content={<UpdateProfileImage operation="profile" />}
+              contentClassname="md:min-w-150 pb-3"
             />
           </div>
         </div>
