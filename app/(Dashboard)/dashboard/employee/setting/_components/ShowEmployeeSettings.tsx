@@ -110,7 +110,17 @@ export default function ShowEmployeeSettings({ token }: Props) {
               />
             </TabsContent>
             <TabsContent value="contact">
-              <ContactData />
+              <ContactData
+                token={token}
+                phone={data.phoneNumber}
+                address={""}
+                linkedin={data.linkedin}
+                github={data.github}
+                facebook={data.facebook}
+                behance={""}
+                dribbble={""}
+                portfolio={""}
+              />
             </TabsContent>
             <TabsContent value="experience">
               <ExperienceData />
