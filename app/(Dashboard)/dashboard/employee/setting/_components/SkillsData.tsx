@@ -3,39 +3,21 @@ import SkillCard from "./SkillCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import AddSkillForm from "./Add_Components/AddSkillForm";
-const skills = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React.js",
-  "Next.js",
-  "Redux Toolkit",
-  "React Query",
-  "Zustand",
-  "Tailwind CSS",
-  "Shadcn UI",
-  "Framer Motion",
-  "React Hook Form",
-  "Zod",
-  "Axios",
-  "Node.js",
-  "Express.js",
-  "NestJS",
-  "Prisma",
-  "PostgreSQL",
-  "MongoDB",
-  "Firebase",
-  "JWT Authentication",
-  "Stripe Integration",
-  "Cloudinary",
-  "Git",
-  "GitHub",
-];
-export default function SkillsData() {
+import { SkillType } from "@/hooks/useGetEmployeeProfile";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Idea01Icon } from "@hugeicons/core-free-icons";
+
+type Props = {
+  skills?: SkillType[];
+  token: string;
+};
+export default function SkillsData({ skills, token }: Props) {
   return (
-    <div className="w-full px-4 py-4 md:py-0">
-      <div className="w-full flex justify-end pb-4">
+    <div className="w-full px-4 py-4 md:py-0 md:min-h-100">
+      <div className="w-full flex items-center justify-between gap-6 flex-wrap pb-4">
+        <p className="font-medium">
+          Skills <span className="text-sm">({skills?.length || 0})</span>
+        </p>
         <AlertModel
           title="Add Skill"
           trigger={
@@ -43,15 +25,22 @@ export default function SkillsData() {
               <Plus className="size-4.5" /> Add Skill
             </Button>
           }
-          content={<AddSkillForm skills={skills} />}
+          content={<AddSkillForm token={token} />}
           contentClassname="md:min-w-150"
         />
       </div>
       {/* All Skills */}
       <div className="flex items-center gap-4 flex-wrap">
-        {skills.map((skill) => (
-          <SkillCard title={skill} key={skill} />
-        ))}
+        {skills && skills.length > 0 ? (
+          skills.map((skill) => (
+            <SkillCard title={skill.skillName} key={skill.applicantSkillID} />
+          ))
+        ) : (
+          <div className="p-2 flex flex-col items-center gap-2 justify-center text-black/80 font-medium">
+            <HugeiconsIcon icon={Idea01Icon} className="size-6" />
+            <p>No skills found.</p>
+          </div>
+        )}
       </div>
     </div>
   );
