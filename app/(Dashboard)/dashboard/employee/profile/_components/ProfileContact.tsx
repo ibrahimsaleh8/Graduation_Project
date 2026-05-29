@@ -14,7 +14,7 @@ export default function ProfileSocialLinks({
   portfolio,
 }: Props) {
   return (
-    <div className="w-full xl:max-w-120 bg-white p-5 rounded-2xl border border-border-color">
+    <div className="w-full xl:max-w-100 bg-white p-5 rounded-2xl border border-border-color">
       <p className="font-medium pb-2 border-b">Social Links</p>
       <ul className="space-y-6 mt-4">
         {linkedin && (

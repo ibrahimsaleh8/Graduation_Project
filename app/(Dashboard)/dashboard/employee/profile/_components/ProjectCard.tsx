@@ -19,8 +19,12 @@ export default function ProjectCard({
         />
       </div>
       <div>
-        <p className="font-medium text-xl">{title}</p>
-        <p className="text-sm">{description}</p>
+        <p className="font-medium text-xl line-clamp-1" title={title}>
+          {title}
+        </p>
+        <p className="text-sm line-clamp-3" title={description}>
+          {description}
+        </p>
 
         <div className="flex items-center gap-4 flex-wrap mt-4">
           <a

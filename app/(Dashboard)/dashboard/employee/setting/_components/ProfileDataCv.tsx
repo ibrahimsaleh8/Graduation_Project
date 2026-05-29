@@ -11,9 +11,10 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   cvLink?: string;
+  token: string;
 };
 
-export default function ProfileDataCv({ cvLink }: Props) {
+export default function ProfileDataCv({ cvLink, token }: Props) {
   return (
     <div className="space-y-2">
       <Label>My CV</Label>
@@ -50,7 +51,7 @@ export default function ProfileDataCv({ cvLink }: Props) {
                   />
                 </Button>
               }
-              content={<UpdateMyCv />}
+              content={<UpdateMyCv token={token} />}
               contentClassname="md:min-w-150"
             />
           </div>
@@ -69,7 +70,7 @@ export default function ProfileDataCv({ cvLink }: Props) {
                 Upload My Cv
               </Button>
             }
-            content={<UpdateMyCv />}
+            content={<UpdateMyCv token={token} />}
             contentClassname="md:min-w-150"
           />
         </>

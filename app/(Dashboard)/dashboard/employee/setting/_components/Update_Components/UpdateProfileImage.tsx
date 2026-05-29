@@ -10,21 +10,75 @@ import {
   Image02Icon,
   Cancel01Icon,
 } from "@hugeicons/core-free-icons";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { sileo } from "sileo";
+import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
   operation: "profile" | "cover";
+  token: string;
 };
-export default function UpdateProfileImage({ operation }: Props) {
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
+async function uploadImage(
+  file: File,
+  token: string,
+  operation: "profile" | "cover",
+) {
+  const formData = new FormData();
+  if (operation === "profile") {
+    formData.append("photo", file);
+  } else {
+    formData.append("coverPhoto", file);
+  }
+
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/${operation == "profile" ? "update-photo" : "update-cover-photo"}`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+  return res.data;
+}
+export default function UpdateProfileImage({ operation, token }: Props) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
+  const [imageFile, setFileImage] = useState<File | null>(null);
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (file: File) => uploadImage(file, token, operation),
+    onSuccess: () => {
+      sileo.success({
+        title: "Image updated successfully!",
+      });
+      queryClient.refetchQueries({
+        queryKey: ["get-my-profile-employee"],
+      });
+    },
+
+    onError: (
+      err: AxiosError<{
+        errors: string[];
+      }>,
+    ) => {
+      console.log(err.response);
+      sileo.error({
+        title: "Error Happend",
+        description: err.response?.data.errors[0] ?? "Something went wrong",
+      });
+    },
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
-
+    setFileImage(file);
     setFileName(file.name);
 
     const imageUrl = URL.createObjectURL(file);
@@ -38,6 +92,17 @@ export default function UpdateProfileImage({ operation }: Props) {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
+  };
+
+  const HandleSaveImage = () => {
+    if (!imageFile) {
+      sileo.error({
+        title: "No Image Selected",
+        description: "Please select an image to upload",
+      });
+      return;
+    }
+    mutate(imageFile);
   };
 
   return (
@@ -80,12 +145,9 @@ export default function UpdateProfileImage({ operation }: Props) {
                 fill
                 className="object-cover"
               />
-
               <div className="absolute inset-0 bg-black/40" />
-
               <div className="relative z-10 flex flex-col items-center gap-2 text-white">
                 <HugeiconsIcon icon={Image02Icon} className="size-10" />
-
                 <div>
                   <p className="text-sm font-medium">{fileName}</p>
                   <p className="text-xs text-white/80">Click to change image</p>
@@ -156,6 +218,7 @@ export default function UpdateProfileImage({ operation }: Props) {
       </div>
 
       <Button
+        onClick={HandleSaveImage}
         type="submit"
         className="
           h-11
@@ -168,7 +231,7 @@ export default function UpdateProfileImage({ operation }: Props) {
           transition-all
           hover:bg-main-color/90
         ">
-        Save Changes
+        {isPending ? <Spinner /> : "Save Changes"}
       </Button>
     </div>
   );

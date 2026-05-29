@@ -36,7 +36,12 @@ async function UpdateMainDataProfileData(
 ) {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/profile`,
-    data,
+    {
+      country: data.location,
+      jobTitle: data.jobTitle,
+      aboutMe: data.aboutMe,
+      fullName: data.fullName,
+    },
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -133,7 +138,7 @@ export default function ProfileData({
                   <HugeiconsIcon icon={Camera03Icon} className="size-6" />
                 </button>
               }
-              content={<UpdateProfileImage operation="cover" />}
+              content={<UpdateProfileImage token={token} operation="cover" />}
               contentClassname="md:min-w-150 pb-3"
             />
           </div>
@@ -154,7 +159,7 @@ export default function ProfileData({
                   <HugeiconsIcon icon={Camera03Icon} className="size-6" />
                 </button>
               }
-              content={<UpdateProfileImage operation="profile" />}
+              content={<UpdateProfileImage token={token} operation="profile" />}
               contentClassname="md:min-w-150 pb-3"
             />
           </div>
@@ -238,7 +243,7 @@ export default function ProfileData({
             )}
           </div>
 
-          <ProfileDataCv cvLink={cvLink} />
+          <ProfileDataCv token={token} cvLink={cvLink} />
         </div>
 
         <Button
