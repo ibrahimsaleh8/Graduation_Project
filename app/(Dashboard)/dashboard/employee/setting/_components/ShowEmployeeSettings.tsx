@@ -129,7 +129,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
               <SkillsData skills={data.skills} token={token} />
             </TabsContent>
             <TabsContent value="projects">
-              <ProfileProjects />
+              <ProfileProjects token={token} projects={data.projects} />
             </TabsContent>
             <TabsContent value="security">
               <SecuritySettings />

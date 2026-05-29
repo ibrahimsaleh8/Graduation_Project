@@ -1,10 +1,16 @@
 import AlertModel from "@/components/main-layout/AlertModel";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import AddProjectForm from "./Add_Components/AddProjectForm";
 import ProjectCardWithOperations from "./ProjectCardWithOperations";
-
-export default function ProfileProjects() {
+import ProjectForm from "./Add_Components/ProjectForm";
+import { ProjectType } from "@/hooks/useGetEmployeeProfile";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Folder03Icon } from "@hugeicons/core-free-icons";
+type Props = {
+  token: string;
+  projects?: ProjectType[];
+};
+export default function ProfileProjects({ token, projects }: Props) {
   return (
     <div className="w-full px-4 py-4 md:py-0">
       <div className="w-full flex justify-end pb-4">
@@ -15,16 +21,26 @@ export default function ProfileProjects() {
               <Plus className="size-4.5" /> Add Project
             </Button>
           }
-          content={<AddProjectForm />}
+          content={<ProjectForm opearation="add" token={token} />}
           contentClassname="md:min-w-150"
         />
       </div>
-      <div className="grid md:grid-cols-[repeat(auto-fill,minmax(23rem,1fr))] gap-10">
-        <ProjectCardWithOperations />
-        <ProjectCardWithOperations />
-        <ProjectCardWithOperations />
-        <ProjectCardWithOperations />
-      </div>
+      {projects && projects.length > 0 ? (
+        <div className="grid md:grid-cols-[repeat(auto-fill,minmax(23rem,1fr))] gap-10">
+          {projects.map((project) => (
+            <ProjectCardWithOperations
+              projectData={project}
+              token={token}
+              key={project.projectID}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="p-2 flex flex-col items-center gap-2 justify-center text-black/80 font-medium">
+          <HugeiconsIcon icon={Folder03Icon} className="size-6" />
+          <p>No projects found.</p>
+        </div>
+      )}
     </div>
   );
 }
