@@ -1,11 +1,14 @@
 import AlertModel from "@/components/main-layout/AlertModel";
-import { Button } from "@/components/ui/button";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import DeleteSkill from "./Delete_Components/DeleteSkill";
 type Props = {
   title: string;
+  token: string;
+  skillId: string;
 };
-export default function SkillCard({ title }: Props) {
+
+export default function SkillCard({ title, token, skillId }: Props) {
   return (
     <div className="py-2 px-4 bg-white border text-black rounded-sm w-fit flex items-center gap-3">
       <p className="text-sm">{title}</p>
@@ -16,15 +19,8 @@ export default function SkillCard({ title }: Props) {
             <HugeiconsIcon icon={Delete02Icon} className="size-4" />
           </button>
         }
-        content={
-          <div className="p-2 flex flex-col gap-5">
-            <p>Are you sure you want to delete {title} skill?</p>
-            <Button variant="destructive" className="ml-auto w-32">
-              Delete
-            </Button>
-          </div>
-        }
-        contentClassname="md:min-w-150"
+        content={<DeleteSkill title={title} token={token} skillId={skillId} />}
+        contentClassname="md:min-w-150 pb-3"
       />
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -122,7 +123,7 @@ export default function ProfileData({
       <div className="flex flex-col gap-3">
         {/* Image */}
         <div className="flex flex-col w-full">
-          <div className="w-full h-60 overflow-hidden bg-white rounded-2xl flex items-center justify-center relative">
+          <div className="w-full h-70 overflow-hidden bg-white border border-border-color rounded-2xl flex items-center justify-center relative">
             <img
               src={coverPhotoUrl}
               alt={`${fullName} Cover Image`}
@@ -143,7 +144,7 @@ export default function ProfileData({
             />
           </div>
 
-          <div className="size-36 rounded-full bg-main-color overflow-hidden -mt-17 flex items-center justify-center relative">
+          <div className="size-36 border shadow rounded-full bg-main-color overflow-hidden -mt-17 flex items-center justify-center relative">
             <img
               src={profilePicUrl}
               alt={`${fullName} profile image`}

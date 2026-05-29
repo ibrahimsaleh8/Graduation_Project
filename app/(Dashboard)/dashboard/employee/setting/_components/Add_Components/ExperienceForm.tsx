@@ -19,12 +19,71 @@ import {
 } from "@/validations/ExperienceFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { sileo } from "sileo";
+import { Spinner } from "@/components/ui/spinner";
+import { Dispatch, SetStateAction } from "react";
 type Props = {
   opeartion: "add" | "update";
   token: string;
-  dealtValues?: AddExperienceSchemaType;
+  dealtValues?: AddExperienceSchemaType & { id: string };
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
-export default function ExperienceForm({ dealtValues, opeartion }: Props) {
+
+async function ExperienceSubmitApi(
+  token: string,
+  data: AddExperienceSchemaType,
+  id: string,
+  opeartion: "add" | "update",
+) {
+  if (opeartion === "add") {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Experience`,
+      {
+        jobTitle: data.jobTitle,
+        companyName: data.companyName,
+        location: data.location,
+        jobType: data.locationType,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        description: data.description,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  } else {
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Experience/${id}`,
+      {
+        jobTitle: data.jobTitle,
+        companyName: data.companyName,
+        location: data.location,
+        jobType: data.locationType,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        description: data.description,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  }
+}
+
+export default function ExperienceForm({
+  dealtValues,
+  opeartion,
+  token,
+  setOpen,
+}: Props) {
   const {
     register,
     handleSubmit,
@@ -43,8 +102,34 @@ export default function ExperienceForm({ dealtValues, opeartion }: Props) {
       description: dealtValues?.description ?? "",
     },
   });
-  const onSubmit: SubmitHandler<AddExperienceSchemaType> = (data) =>
-    console.log(data);
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: AddExperienceSchemaType) =>
+      ExperienceSubmitApi(token, data, dealtValues?.id ?? "", opeartion),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["get-my-profile-employee"] });
+      sileo.success({
+        title: `Experience ${opeartion === "add" ? "added" : "updated"} successfully!`,
+      });
+      if (setOpen) {
+        setOpen(false);
+      }
+    },
+    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+      console.log("error ", error.response);
+      sileo.error({
+        title: `Failed to ${opeartion === "add" ? "add" : "update"} experience`,
+        description:
+          error.response?.data?.errors?.[0] ||
+          "An error occurred. Please try again.",
+      });
+    },
+  });
+
+  const onSubmit: SubmitHandler<AddExperienceSchemaType> = (data) => {
+    mutate(data);
+  };
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
@@ -195,8 +280,15 @@ export default function ExperienceForm({ dealtValues, opeartion }: Props) {
         )}
       </div>
 
-      <Button className="w-full bg-main-color hover:bg-main-color/90 text-white h-10 text-sm">
-        {opeartion === "add" ? "Add Experience" : "Update Experience"}
+      <Button
+        type="submit"
+        disabled={isPending}
+        className="w-full bg-main-color hover:bg-main-color/90 text-white h-10 text-sm capitalize">
+        {isPending ? (
+          <Spinner />
+        ) : (
+          `${opeartion === "add" ? "Add" : "Update"} Experience`
+        )}
       </Button>
     </form>
   );

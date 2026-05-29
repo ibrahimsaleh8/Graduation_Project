@@ -13,6 +13,9 @@ export type ApplicantProfileResponse = {
   phoneNumber?: string;
   linkedin?: string;
   github?: string;
+  behance?: string;
+  address?: string;
+  dribbble?: string;
   facebook?: string;
   portfolio?: string;
   experiences?: ExperienceType[];

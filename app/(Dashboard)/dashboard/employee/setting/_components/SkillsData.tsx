@@ -25,7 +25,7 @@ export default function SkillsData({ skills, token }: Props) {
               <Plus className="size-4.5" /> Add Skill
             </Button>
           }
-          content={<AddSkillForm token={token} />}
+          content={<AddSkillForm token={token} skills={skills} />}
           contentClassname="md:min-w-150"
         />
       </div>
@@ -33,7 +33,12 @@ export default function SkillsData({ skills, token }: Props) {
       <div className="flex items-center gap-4 flex-wrap">
         {skills && skills.length > 0 ? (
           skills.map((skill) => (
-            <SkillCard title={skill.skillName} key={skill.applicantSkillID} />
+            <SkillCard
+              key={skill.skillID}
+              title={skill.skillName}
+              token={token}
+              skillId={skill.applicantSkillID}
+            />
           ))
         ) : (
           <div className="p-2 flex flex-col items-center gap-2 justify-center text-black/80 font-medium">

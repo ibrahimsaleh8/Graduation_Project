@@ -4,17 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ProjectFormData,
-  projectSchema,
-} from "@/validations/EmployeeProjectSchema";
+import { ProjectFormData } from "@/validations/EmployeeProjectSchema";
 import { CloudUploadIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
 import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
-import { sileo } from "sileo";
+
+import { Spinner } from "@/components/ui/spinner";
+import { useProjectForm } from "../useProjectForm";
+import { Dispatch, SetStateAction } from "react";
 
 const fields = [
   {
@@ -41,57 +38,38 @@ type Props = {
   opearation: "add" | "edit";
   deafaultValues?: ProjectFormData & {
     projectCard?: string;
+    projectId: string;
   };
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
-export default function ProjectForm({ opearation, deafaultValues }: Props) {
+
+export default function ProjectForm({
+  opearation,
+  deafaultValues,
+  token,
+  setOpen,
+}: Props) {
   const {
+    isCreatingProject,
+    isUpdatingProject,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<ProjectFormData>({
-    resolver: zodResolver(projectSchema),
-    defaultValues: {
-      projectTitle: deafaultValues?.projectTitle || "",
-      description: deafaultValues?.description || "",
-      projectUrl: deafaultValues?.projectUrl || "",
-      projectRepo: deafaultValues?.projectRepo || "",
-    },
-  });
-  const [projectCard, setProjectCard] = useState<File | null>(null);
-  const [errorCard, setErrorCard] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | null>(
-    deafaultValues?.projectCard ?? null,
-  );
-
-  const onFileChange = (file?: File) => {
-    if (!file) return;
-
-    setProjectCard(file);
-    const url = URL.createObjectURL(file);
-    setPreview(url);
-  };
-
-  const onSubmit = async (data: ProjectFormData) => {
-    if (!deafaultValues?.projectCard) {
-      if (!projectCard) {
-        setErrorCard("Project card is required");
-        return;
-      }
-      if (projectCard && errorCard) {
-        setErrorCard(null);
-      }
-    }
-    console.log(data);
-  };
-
+    errors,
+    onSubmit,
+    onFileChange,
+    preview,
+    errorCard,
+    projectCard,
+  } = useProjectForm({ token, opearation, deafaultValues, setOpen });
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       {/* Upload */}
       <div className="space-y-2">
         <Label
           htmlFor="project-card"
-          className={`w-full h-40 bg-input-bg border-2 border-dashed ${errorCard ? "border-red-500" : "border-black/10"} rounded-2xl flex flex-col gap-2 items-center justify-center cursor-pointer hover:bg-input-bg/60 transition`}>
+          className={`w-full h-50 bg-input-bg border-2 border-dashed ${errorCard ? "border-red-500" : "border-black/10"} rounded-2xl flex flex-col gap-2 items-center justify-center cursor-pointer hover:bg-input-bg/60 transition`}>
           {preview ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={preview}
               alt="Project preview"
@@ -162,9 +140,16 @@ export default function ProjectForm({ opearation, deafaultValues }: Props) {
 
       {/* Submit */}
       <Button
+        disabled={isCreatingProject || isUpdatingProject}
         type="submit"
         className="w-full bg-main-color hover:bg-main-color/90 text-white h-10 text-sm">
-        {opearation === "add" ? "Add Project" : "Save Changes"}
+        {isCreatingProject || isUpdatingProject ? (
+          <Spinner />
+        ) : opearation === "add" ? (
+          "Add Project"
+        ) : (
+          "Save Changes"
+        )}
       </Button>
     </form>
   );

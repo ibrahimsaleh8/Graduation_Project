@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Delete02Icon,
   PencilEdit02Icon,
@@ -25,7 +26,7 @@ export default function ProjectCardWithOperations({
 }: Props) {
   return (
     <div className="w-full space-y-2.5">
-      <div className="w-full bg-white h-50 rounded-md border overflow-hidden">
+      <div className="w-full bg-white h- rounded-md border overflow-hidden">
         <img
           src={projectData.imageUrl}
           alt={projectData.title}
@@ -90,6 +91,7 @@ export default function ProjectCardWithOperations({
                       projectTitle: projectData.title,
                       description: projectData.description,
                       projectUrl: projectData.projectUrl || "",
+                      projectId: projectData.projectID,
                     }}
                   />
                 }
@@ -116,7 +118,12 @@ export default function ProjectCardWithOperations({
                     Delete
                   </Button>
                 }
-                content={<DeleteProject />}
+                content={
+                  <DeleteProject
+                    projectId={projectData.projectID}
+                    token={token}
+                  />
+                }
                 contentClassname="md:min-w-150 pb-3"
               />
             </DropdownMenuContent>

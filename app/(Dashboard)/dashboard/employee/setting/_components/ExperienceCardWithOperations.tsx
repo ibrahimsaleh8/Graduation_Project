@@ -70,6 +70,7 @@ export default function ExperienceCardWithOperations({
               rounded-xl
               bg-main-color/10
               md:flex
+              shrink-0
             ">
             <HugeiconsIcon
               icon={WorkHistoryIcon}
@@ -180,6 +181,7 @@ export default function ExperienceCardWithOperations({
                       endDate: experience.endDate?.toString(),
                       description: experience.description,
                       locationType: "hybride",
+                      id: experience.experienceID,
                     }}
                   />
                 }
@@ -207,7 +209,12 @@ export default function ExperienceCardWithOperations({
                     Delete
                   </Button>
                 }
-                content={<DeleteExperienceCard />}
+                content={
+                  <DeleteExperienceCard
+                    token={token}
+                    id={experience.experienceID}
+                  />
+                }
                 contentClassname="md:min-w-[500px] pb-3"
               />
             </DropdownMenuContent>
