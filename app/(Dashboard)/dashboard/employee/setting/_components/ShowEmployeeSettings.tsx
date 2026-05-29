@@ -123,7 +123,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
               />
             </TabsContent>
             <TabsContent value="experience">
-              <ExperienceData />
+              <ExperienceData experiences={data.experiences} token={token} />
             </TabsContent>
             <TabsContent value="skills">
               <SkillsData />

@@ -8,15 +8,24 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 type Props = {
   id: string;
+  setValue: (date: Date | undefined) => void;
+  isInvalid: boolean;
+  dealtValues?: Date;
 };
-export default function SelectExperienceDate({ id }: Props) {
+export default function SelectExperienceDate({
+  id,
+  setValue,
+  isInvalid,
+  dealtValues,
+}: Props) {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(dealtValues);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          aria-invalid={isInvalid}
           variant="outline"
           id={id}
           className="justify-start font-normal w-full bg-input-bg text-sm hover:bg-input-bg/80 hover:text-black">
@@ -33,6 +42,7 @@ export default function SelectExperienceDate({ id }: Props) {
           captionLayout="dropdown"
           onSelect={(date) => {
             setDate(date);
+            setValue(date);
             setOpen(false);
           }}
         />
