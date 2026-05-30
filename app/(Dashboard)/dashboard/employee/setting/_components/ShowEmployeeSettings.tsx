@@ -131,7 +131,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
               <ProfileProjects token={token} projects={data.projects} />
             </TabsContent>
             <TabsContent value="security">
-              <SecuritySettings />
+              <SecuritySettings token={token} />
             </TabsContent>
           </TabsContents>
         </Tabs>
