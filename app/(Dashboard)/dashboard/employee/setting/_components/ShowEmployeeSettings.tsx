@@ -23,6 +23,7 @@ import ProfileData from "./ProfileData";
 import ContactData from "./ContactData";
 import { useGetEmployeeProfile } from "@/hooks/useGetEmployeeProfile";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
+import ShowEmployeeSettingsSkeleton from "./ShowEmployeeSettingsSkeleton";
 
 type Props = {
   token: string;
@@ -44,9 +45,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
   }
 
   return isLoading ? (
-    <div className="flex items-center justify-center h-full">
-      <p className="text-lg">Loading...</p>
-    </div>
+    <ShowEmployeeSettingsSkeleton />
   ) : (
     data && (
       <div className="space-y-6">
