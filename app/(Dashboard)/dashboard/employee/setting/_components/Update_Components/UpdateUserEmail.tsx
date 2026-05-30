@@ -14,7 +14,7 @@ type Props = {
   token: string;
 };
 // update-email
-async function UpdateEmployeePasswordApi(token: string, newEmail: string) {
+async function UpdateEmployeeEmailApi(token: string, newEmail: string) {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/update-email`,
     {
@@ -32,8 +32,7 @@ export default function UpdateUserEmail({ token }: Props) {
   const emailInput = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { isPending, mutate } = useMutation({
-    mutationFn: (newEmail: string) =>
-      UpdateEmployeePasswordApi(token, newEmail),
+    mutationFn: (newEmail: string) => UpdateEmployeeEmailApi(token, newEmail),
 
     onSuccess: () => {
       sileo.success({
