@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
       }
 
       userData = await res.json();
+
       return NextResponse.json({
         message: "User Data fetched Suceess",
         data: {

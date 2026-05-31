@@ -18,6 +18,7 @@ export type AuthResponseDataType = {
   userId: string;
   email: string;
   role: string;
+  photoUrl: string;
 };
 
 export default function RegisterUserForm() {

@@ -55,6 +55,7 @@ export async function POST(request: NextRequest) {
       userId: data.userId,
       email: data.email,
       role: data.roles[0],
+      photoUrl: data.photoUrl,
     };
 
     const cookieStore = await cookies();

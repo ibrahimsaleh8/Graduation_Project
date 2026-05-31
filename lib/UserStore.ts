@@ -4,6 +4,7 @@ export type AuthUserDataType = {
   userId: string;
   email: string;
   role: string;
+  photoUrl: string;
 };
 
 type UserStore = {

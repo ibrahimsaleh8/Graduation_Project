@@ -17,6 +17,7 @@ export type InitialUserDetailsDataType = {
   userId: string;
   email: string;
   roles: string[];
+  photoUrl: string;
 };
 
 async function getInitializeUser(): Promise<fetchingResponse> {
@@ -36,6 +37,7 @@ export default function InitilaizeAuthedUser() {
         email: data.data.userData.email,
         role: data.data.userData.roles[0],
         userId: data.data.userData.userId,
+        photoUrl: data.data.userData.photoUrl,
       });
     }
     if (error) {
