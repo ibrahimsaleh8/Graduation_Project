@@ -1,12 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import { ProjectType } from "@/hooks/useGetEmployeeProfile";
-import { GithubIcon, Saturn02Icon } from "@hugeicons/core-free-icons";
+import { Saturn02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 export default function ProjectCard({
   title,
   projectUrl,
   imageUrl,
-  githubRepoUrl,
   description,
 }: ProjectType) {
   return (
@@ -34,15 +34,6 @@ export default function ProjectCard({
             <HugeiconsIcon icon={Saturn02Icon} className="size-4.5" /> Live
             Preview
           </a>
-          {githubRepoUrl && (
-            <a
-              href={githubRepoUrl}
-              target="_blank"
-              className="flex items-center gap-1 text-sm bg-black text-white px-4 py-1.5 rounded-md hover:opacity-80 duration-300">
-              <HugeiconsIcon icon={GithubIcon} className="size-4.5" />
-              GitHub Repo
-            </a>
-          )}
         </div>
       </div>
     </div>

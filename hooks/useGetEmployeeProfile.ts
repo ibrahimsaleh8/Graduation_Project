@@ -47,7 +47,6 @@ export type ProjectType = {
   title: string;
   description: string;
   projectUrl: string;
-  githubRepoUrl?: string;
   imageUrl: string;
   createdAt: string;
 };

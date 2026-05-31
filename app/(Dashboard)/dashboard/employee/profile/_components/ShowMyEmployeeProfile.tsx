@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   File02Icon,
@@ -73,12 +74,12 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
                       {data.email}
                     </p>
                     {data.location && (
-                      <p className="flex items-center gap-2 text-sm">
+                      <p className="flex items-center gap-2 text-sm capitalize">
                         <HugeiconsIcon
                           icon={Location01Icon}
                           className="size-5 text-black/70"
                         />
-                        {data.location}
+                        {data.location}, {data.address ?? ""}
                       </p>
                     )}
 
@@ -98,7 +99,7 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
               <div className="flex items-center justify-center xl:justify-start gap-4 xl:ml-auto ml-0 xl:mx-0 mx-auto mt-4 pr-4 pl-7 w-full lg:w-fit">
                 <a
                   className="px-8 py-2 bg-black hover:bg-black/80 text-white rounded-md text-sm flex items-center justify-center gap-3 transition md:w-fit w-full"
-                  href="#"
+                  href={data.resumes[0].url}
                   target="_blank">
                   <HugeiconsIcon
                     icon={File02Icon}
