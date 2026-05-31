@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 
 export default function StarsRates() {
   return (
-    <div className="px-4 py-1.5 w-fit mx-auto bg-black rounded-sm sm:rounded-full flex items-center sm:flex-row flex-col sm:gap-2 text-black">
+    <div className="px-4 py-1.5 w-fit mx-auto bg-main-dark rounded-sm sm:rounded-full flex items-center sm:flex-row flex-col sm:gap-2 text-black">
       <div className="flex items-center text-yellow-500 gap-1">
         <motion.span
           initial={{ scale: 0 }}

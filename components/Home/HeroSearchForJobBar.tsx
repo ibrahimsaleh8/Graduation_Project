@@ -6,7 +6,7 @@ const popularSearch = ["designer", "web developer", "software engineer"];
 export default function HeroSearchForJobBar() {
   return (
     <div className="flex gap-6 flex-col items-center xl:max-w-5xl max-w-4xl w-full mx-auto">
-      <div className="flex items-center flex-col md:flex-row md:gap-3 px-3 pl-5 w-full bg-white mx-auto md:rounded-full rounded-2xl border overflow-hidden">
+      <div className="flex items-center flex-col md:flex-row md:gap-3 px-3 pl-5 w-full bg-white mx-auto rounded-2xl border border-black/20 overflow-hidden">
         <div className="flex items-center p-2 w-full">
           <HugeiconsIcon
             icon={Search01Icon}
@@ -20,7 +20,7 @@ export default function HeroSearchForJobBar() {
           />
         </div>
 
-        <div className="md:w-px md:h-8 w-full h-px bg-black/10"></div>
+        <div className="md:w-px md:h-8 w-full h-px bg-black/20"></div>
 
         <div className="flex items-center p-2 w-full">
           <HugeiconsIcon
@@ -37,7 +37,7 @@ export default function HeroSearchForJobBar() {
 
         <div className="md:w-px md:h-8 w-full h-px block md:hidden bg-black/10"></div>
 
-        <Button className="xl:px-14! px-10! py-5! rounded-2xl h-13 w-full md:w-45 hover:opacity-80 duration-300 text-sm font-medium mb-3 md:mb-0 mt-2 md:mt-0">
+        <Button className="xl:px-14! px-10! py-5! rounded-2xl h-13 w-full md:w-45 hover:opacity-80 duration-300 text-sm font-medium mb-3 md:mb-0 mt-2 md:mt-0 bg-main-dark">
           <HugeiconsIcon
             icon={Search01Icon}
             className="size-5!"
@@ -48,12 +48,12 @@ export default function HeroSearchForJobBar() {
       </div>
 
       <div className="flex items-center md:gap-3 gap-2 flex-wrap pl-5">
-        <p>Popular Jobs:</p>
+        <p className="font-medium">Popular Jobs:</p>
 
         <div className="flex items-center md:gap-4 gap-2 flex-wrap">
           {popularSearch.map((keyword) => (
             <p
-              className="text-sm capitalize px-3 py-1.5 bg-white border rounded-2xl"
+              className="text-sm capitalize px-3 py-1.5 bg-white border rounded-2xl border-black/10"
               key={keyword}>
               {keyword}
             </p>
