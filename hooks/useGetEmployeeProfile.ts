@@ -21,6 +21,7 @@ export type ApplicantProfileResponse = {
   experiences?: ExperienceType[];
   skills?: SkillType[];
   projects?: ProjectType[];
+  resumes: EmployeeResumeDataType[];
 };
 
 export type ExperienceType = {
@@ -51,6 +52,11 @@ export type ProjectType = {
   createdAt: string;
 };
 
+export type EmployeeResumeDataType = {
+  resumeId: string;
+  name: string;
+  url: string;
+};
 async function GetMyProfileEmployee(
   token: string,
 ): Promise<ApplicantProfileResponse> {

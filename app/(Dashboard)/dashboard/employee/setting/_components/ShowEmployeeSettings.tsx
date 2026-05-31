@@ -106,6 +106,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
                 profilePicUrl={data.profilePicUrl}
                 coverPhotoUrl={data.coverPhotoUrl}
                 token={token}
+                resumes={data.resumes}
               />
             </TabsContent>
             <TabsContent value="contact">

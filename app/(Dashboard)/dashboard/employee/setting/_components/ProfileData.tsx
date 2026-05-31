@@ -21,6 +21,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Camera03Icon } from "@hugeicons/core-free-icons";
 import AlertModel from "@/components/main-layout/AlertModel";
 import UpdateProfileImage from "./Update_Components/UpdateProfileImage";
+import { EmployeeResumeDataType } from "@/hooks/useGetEmployeeProfile";
 type Props = {
   fullName: string;
   jobTitle?: string;
@@ -28,7 +29,7 @@ type Props = {
   aboutMe?: string;
   profilePicUrl?: string;
   coverPhotoUrl?: string;
-  cvLink?: string;
+  resumes: EmployeeResumeDataType[];
   token: string;
 };
 async function UpdateMainDataProfileData(
@@ -60,8 +61,8 @@ export default function ProfileData({
   aboutMe,
   profilePicUrl,
   coverPhotoUrl,
-  cvLink,
   token,
+  resumes,
 }: Props) {
   const {
     register,
@@ -244,7 +245,7 @@ export default function ProfileData({
             )}
           </div>
 
-          <ProfileDataCv token={token} cvLink={cvLink} />
+          <ProfileDataCv token={token} resumes={resumes} />
         </div>
 
         <Button
