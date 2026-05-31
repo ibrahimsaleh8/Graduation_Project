@@ -26,17 +26,17 @@ export default function DashboardHeaderIcons({
           <Link
             title="Mail"
             href={"/dashboard/employee/mails"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/mails" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/mails" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Mail01Icon}
-              className="size-5.5"
+              className="size-5"
               strokeWidth={2}
             />
           </Link>
           <Link
             title="Settings"
             href={"/dashboard/employee/setting"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Settings02Icon}
               className="size-5.5"
@@ -46,7 +46,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Profile"
             href={"/dashboard/employee/profile"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/profile" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/profile" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={UserCircleIcon}
               className="size-5.5"
@@ -59,7 +59,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Mail"
             href={"/dashboard/company/mails"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/mails" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/mails" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Mail01Icon}
               className="size-5.5"
@@ -69,7 +69,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Settings"
             href={"/dashboard/company/setting"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/setting" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/setting" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Settings02Icon}
               className="size-5.5"
@@ -79,7 +79,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Profile"
             href={"/dashboard/company/profile"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/profile" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/company/profile" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={UserCircleIcon}
               className="size-5.5"
@@ -92,7 +92,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Subscriptions"
             href={"/dashboard/admin/subscriptions"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/subscriptions" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/subscriptions" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={CreditCardIcon}
               className="size-5.5"
@@ -103,7 +103,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Mails"
             href={"/dashboard/admin/mails"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/mails" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/mails" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Mail01Icon}
               className="size-5.5"
@@ -114,7 +114,7 @@ export default function DashboardHeaderIcons({
           <Link
             title="Settings"
             href={"/dashboard/admin/setting"}
-            className={`size-10 flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/setting" ? "bg-white text-black" : ""}`}>
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/admin/setting" ? "bg-white text-black" : ""}`}>
             <HugeiconsIcon
               icon={Settings02Icon}
               className="size-5.5"

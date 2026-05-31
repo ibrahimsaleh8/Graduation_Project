@@ -55,6 +55,7 @@
   --color-border-color: var(--border-color);
   --color-input-bg: var(--input-bg);
   --color-card-bg: var(--card-bg);
+  --color-second-black-card: var(--second-black-card);
 
   /* ---------- */
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
@@ -128,6 +129,8 @@
   --border-color: #e5e7eb;
   --input-bg: #f1f1f1;
   --card-bg: #fafafb;
+  --second-black-card: #3b3b3b;
+
   --chart-background: oklch(1 0 0);
   --chart-foreground: oklch(0.145 0.004 285);
   --chart-foreground-muted: oklch(0.55 0.014 260);

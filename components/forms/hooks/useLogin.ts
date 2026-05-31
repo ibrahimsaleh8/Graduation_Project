@@ -36,6 +36,7 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (userData: loginDataType) => loginFn(userData),
     onSuccess: (data) => {
+      console.log("Login", data);
       setUserData(data.data);
       sileo.success({
         title: "Login has been Successful",

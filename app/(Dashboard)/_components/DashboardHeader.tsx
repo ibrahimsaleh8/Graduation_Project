@@ -22,6 +22,7 @@ import UserDropDown from "./UserDropDown";
 import SmallHeader from "./SmallHeader";
 import Image from "next/image";
 import DashboardHeaderIcons from "./DashboardHeaderIcons";
+import { useUserStore } from "@/lib/UserStore";
 
 const employeeLinks = [
   {
@@ -31,12 +32,12 @@ const employeeLinks = [
   },
   {
     link: "/dashboard/employee/saved-jobs",
-    label: "Saved Jobs",
+    label: "Saved",
     icon: Bookmark02Icon,
   },
   {
     link: "/dashboard/employee/applied-jobs",
-    label: "Job Applications",
+    label: "Applications",
     icon: TaskDone01Icon,
   },
   {
@@ -202,7 +203,8 @@ const adminSmallLinks = [
 
 export default function DashboardHeader() {
   const currentPath = usePathname();
-  console.log(currentPath.split("/")[2]);
+  const { userData } = useUserStore();
+
   const activeLinks =
     currentPath.split("/")[2] === "employee"
       ? employeeLinks
@@ -242,7 +244,11 @@ export default function DashboardHeader() {
       <div className="flex items-center gap-3">
         <SmallHeader links={activeSmallLinks} currentPath={currentPath} />
         <DashboardHeaderIcons currentPath={currentPath} />
-        <UserDropDown />
+        <UserDropDown
+          email={userData?.email}
+          photoUrl={userData?.photoUrl}
+          role={userData?.role}
+        />
       </div>
     </header>
   );
