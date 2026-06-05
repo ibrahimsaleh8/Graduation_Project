@@ -4,7 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -53,7 +52,7 @@ export default function UserDropDown({ email, photoUrl, role }: Props) {
   ) : (
     <DropdownMenu onOpenChange={setOpen} defaultOpen={open}>
       <DropdownMenuTrigger asChild>
-        <Button className="bg-second-black-card px-0! pr-3! pl-1! overflow-hidden text-[0.85rem] sm:h-10 h-8 hover:bg-[#3b3b3b] focus-visible:ring-0 ">
+        <Button className="bg-second-black-card rounded-full px-0! pr-3! pl-1! overflow-hidden text-[0.85rem] sm:h-10 h-8 hover:bg-[#3b3b3b] focus-visible:ring-0 ">
           <img
             src={photoUrl ?? userImage}
             alt="User Image"

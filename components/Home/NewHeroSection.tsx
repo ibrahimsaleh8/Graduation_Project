@@ -2,6 +2,7 @@ import { Input } from "../ui/input";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
+  ArrowUpRight01Icon,
   Briefcase08Icon,
   Location01Icon,
   Search01Icon,
@@ -17,14 +18,15 @@ import {
 import { countries } from "@/lib/Countries";
 import { Button } from "../ui/button";
 import { jobCategories } from "@/lib/JobCategories";
-import heroImage from "@images/new-hero.webp";
+import heroImage from "@images/Professional Handshake.png";
 import userImage from "@images/employee.png";
 import Image from "next/image";
 import StarsRates from "./StarsRates";
+import Link from "next/link";
 
 export default function NewHeroSection() {
   return (
-    <div className="w-full min-h-[90vh] md:px-10 px-5 flex items-stretch lg:flex-row flex-col lg:gap-0 gap-5">
+    <div className="w-full min-h-[90vh] md:px-10 px-5 flex items-start lg:flex-row flex-col lg:gap-0 gap-5">
       {/* Left */}
       <div className="w-full pt-6 relative flex flex-col items-center text-center md:text-left md:items-start lg:gap-10 gap-5">
         <div className="w-40 p-4 bg-white rounded-3xl absolute xl:right-[-27%] right-[-40%] top-10 space-y-4 lg:block hidden">
@@ -196,13 +198,19 @@ export default function NewHeroSection() {
       </div>
 
       {/* Image */}
-      <div className="w-full bg-input-bg  rounded-4xl overflow-hidden">
+      <div className="w-full bg-input-bg h-[90vh] rounded-4xl overflow-hidden relative">
+        <Link
+          href={"/register"}
+          className="absolute top-2 right-3 px-8 py-3 bg-white text-black rounded-2xl font-medium flex items-center gap-1">
+          Search Job <HugeiconsIcon icon={Search01Icon} className="size-6" />
+        </Link>
         <Image
           src={heroImage}
           alt="hero image"
           width={1000}
           height={1000}
-          className="w-full h-full object-cover"
+          quality={100}
+          className="w-full h-full object-cover object-center"
         />
       </div>
     </div>
