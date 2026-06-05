@@ -113,7 +113,7 @@ export default async function AdmindDashboard() {
 
         {/* Bottom */}
         <div className="flex flex-col lg:flex-row gap-6 w-full items-start">
-          <LatestJobPostes />
+          {/* <LatestJobPostes /> */}
           <AdminDashboardPendingApproval />
         </div>
       </div>

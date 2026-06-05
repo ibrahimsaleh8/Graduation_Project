@@ -1,3 +1,3 @@
-export const employmentTypes = ["Full-time", "Part-time", "Contract"];
+export const employmentTypes = ["FullTime", "PartTime", "Contract"];
 
-export const workApproaches = ["On-site", "Remote", "Hybrid"];
+export const workApproaches = ["OnSite", "Remote", "Hybrid"];

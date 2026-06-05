@@ -1,8 +1,11 @@
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
-
-export default function JobDetailsBreadcrumb() {
+type Props = {
+  jobTitle: string;
+  jobId: string;
+};
+export default function JobDetailsBreadcrumb({ jobTitle, jobId }: Props) {
   return (
     <div className="flex items-center sm:text-sm text-xs gap-1">
       <Link
@@ -26,9 +29,9 @@ export default function JobDetailsBreadcrumb() {
         strokeWidth={2}
       />
       <Link
-        href={"/dashboard/company/job-posts/1"}
+        href={`/dashboard/company/job-posts/${jobId}`}
         className="font-medium line-clamp-1 overflow-hidden text-ellipsis w-32 md:w-60">
-        Frontend Developer
+        {jobTitle}
       </Link>
     </div>
   );

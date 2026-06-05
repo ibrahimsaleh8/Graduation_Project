@@ -9,10 +9,32 @@ import {
   JobPostBasicInfoType,
 } from "@/validations/JobPostValidation";
 import JobPostPreview from "./JobPostPreview";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { sileo } from "sileo";
+import { useRouter } from "next/navigation";
 
 export type JobPostFullInfoType = {
   jobBasicData: JobPostBasicInfoType;
   jobDetails: JobDetailsType;
+};
+export type CreateJobPostData = {
+  jobBasicData: {
+    employmentType: string[];
+    jobCategory: string;
+    minExperience: number;
+    maxExperience: number;
+    jobTitle: string;
+    location: string;
+    salaryMax: number;
+    salaryMin: number;
+    workApproach: string[];
+  };
+  jobDetails: {
+    jobDescription: string;
+    responsibilities: string;
+    skills: string[];
+  };
 };
 
 const initialData: JobPostFullInfoType = {
@@ -34,13 +56,33 @@ const initialData: JobPostFullInfoType = {
   },
 };
 
-export default function HandleJobPostCreation() {
+async function CreateJobPostApi(params: {
+  token: string;
+  jobData: CreateJobPostData;
+}) {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/JobPosting`,
+    params.jobData,
+    {
+      headers: {
+        Authorization: `Bearer ${params.token}`,
+      },
+    },
+  );
+  return res.data;
+}
+
+type Props = {
+  token: string;
+};
+
+export default function HandleJobPostCreation({ token }: Props) {
   const [currentStep, setCurrentStep] = useState([
     { stepNumber: 1, isCompleted: false, isCurrent: true },
     { stepNumber: 2, isCompleted: false, isCurrent: false },
     { stepNumber: 3, isCompleted: false, isCurrent: false },
   ]);
-
+  const route = useRouter();
   const activeStep = currentStep.find((step) => step.isCurrent)?.stepNumber;
 
   const [jobData, setJobData] = useState(initialData);
@@ -57,6 +99,35 @@ export default function HandleJobPostCreation() {
       jobDetails,
       jobBasicData: jobData.jobBasicData,
     });
+  };
+  const queryClient = useQueryClient();
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: (jobData: CreateJobPostData) =>
+      CreateJobPostApi({ token, jobData }),
+
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
+      queryClient.refetchQueries({ queryKey: ["company-dashboard"] });
+      sileo.success({
+        title: "Job Post created successfully",
+      });
+      route.push("/dashboard/company/job-posts");
+    },
+
+    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+      console.log("error ", error.response);
+      sileo.error({
+        title: "Failed to create job post",
+        description:
+          error.response?.data?.errors?.[0] ||
+          "An error occurred. Please try again.",
+      });
+    },
+  });
+
+  const handlePublish = (jobData: CreateJobPostData) => {
+    mutate(jobData);
   };
 
   return (
@@ -88,6 +159,8 @@ export default function HandleJobPostCreation() {
           JobData={jobData}
           setCurrentStep={setCurrentStep}
           currentStep={currentStep}
+          handlePublish={handlePublish}
+          isPending={isPending}
         />
       </Activity>
     </div>

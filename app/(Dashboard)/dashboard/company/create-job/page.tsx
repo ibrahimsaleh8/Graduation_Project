@@ -1,6 +1,10 @@
+import { cookies } from "next/headers";
 import HandleJobPostCreation from "./_components/HandleJobPostCreation";
 
-export default function CreateJobPost() {
+export default async function CreateJobPost() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+
   return (
     <div className="space-y-6">
       <div>
@@ -10,7 +14,7 @@ export default function CreateJobPost() {
         </p>
       </div>
 
-      <HandleJobPostCreation />
+      <HandleJobPostCreation token={token?.value || ""} />
     </div>
   );
 }

@@ -1,5 +1,8 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import { JobPostFullInfoType } from "./HandleJobPostCreation";
+import {
+  CreateJobPostData,
+  JobPostFullInfoType,
+} from "./HandleJobPostCreation";
 import microsoft from "@images/Icons/microsoft-6.svg";
 import Image from "next/image";
 import {
@@ -12,16 +15,21 @@ import { StepState } from "./JobPostStepper";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import PrevStepperBtn from "./PrevStepperBtn";
+import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
   JobData: JobPostFullInfoType;
   setCurrentStep: Dispatch<SetStateAction<StepState[]>>;
   currentStep: StepState[];
+  handlePublish: (jobData: CreateJobPostData) => void;
+  isPending: boolean;
 };
 export default function JobPostPreview({
   JobData,
   currentStep,
   setCurrentStep,
+  handlePublish,
+  isPending,
 }: Props) {
   console.log("JobData", JobData);
   return (
@@ -134,9 +142,30 @@ export default function JobPostPreview({
         />
 
         <Button
+          onClick={() => {
+            handlePublish({
+              jobBasicData: {
+                employmentType: JobData.jobBasicData.employmentType,
+                jobCategory: JobData.jobBasicData.jobCategory,
+                minExperience: JobData.jobBasicData.minYearsExperience,
+                maxExperience: JobData.jobBasicData.maxYearsExperience,
+                jobTitle: JobData.jobBasicData.jobTitle,
+                location: JobData.jobBasicData.location,
+                salaryMax: JobData.jobBasicData.salaryMax,
+                salaryMin: JobData.jobBasicData.salaryMin,
+                workApproach: JobData.jobBasicData.workApproach,
+              },
+              jobDetails: {
+                jobDescription: JobData.jobDetails.jobDescription,
+                responsibilities: JobData.jobDetails.responsibilities,
+                skills: JobData.jobDetails.skills,
+              },
+            });
+          }}
           type="submit"
-          className="bg-main-color hover:bg-main-color/90 text-white w-32 text-sm">
-          Publish
+          className="bg-main-color hover:bg-main-color/90 text-white w-32 text-sm"
+          disabled={isPending}>
+          {isPending ? <Spinner /> : "Publish"}
         </Button>
       </div>
     </motion.div>

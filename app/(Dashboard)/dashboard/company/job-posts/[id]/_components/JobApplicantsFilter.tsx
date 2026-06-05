@@ -10,8 +10,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-
-export default function JobApplicantsFilter() {
+import { ApplicantStatusDetailsType } from "./ShowJobDetailsById";
+type Props = {
+  UpdateSearchTxt: (txt: string) => void;
+  UpdateFilterStatus: (status: "All" | ApplicantStatusDetailsType) => void;
+};
+export default function JobApplicantsFilter({
+  UpdateSearchTxt,
+  UpdateFilterStatus,
+}: Props) {
   return (
     <div className="w-full flex items-center gap-3 justify-between flex-col md:flex-row">
       {/* Search By Candidate name */}
@@ -30,6 +37,7 @@ export default function JobApplicantsFilter() {
             placeholder="Search by Candidate Name"
             className="border-0 outline-0 focus-visible:ring-0 text-black rounded-md bg-transparent shadow-none"
             id="search-name"
+            onChange={(e) => UpdateSearchTxt(e.target.value)}
           />
         </div>
       </div>
@@ -39,7 +47,11 @@ export default function JobApplicantsFilter() {
         <Label htmlFor="interview-status" className="text-sm">
           Status
         </Label>
-        <Select defaultValue={"all"}>
+        <Select
+          defaultValue={"All"}
+          onValueChange={(value) =>
+            UpdateFilterStatus(value as "All" | ApplicantStatusDetailsType)
+          }>
           <SelectTrigger
             id="interview-status"
             className="w-full bg-white h-11! border border-border-color">
@@ -49,27 +61,27 @@ export default function JobApplicantsFilter() {
             <SelectGroup>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="all">
+                value="All">
                 All
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="pending">
+                value="Pending">
                 Pending
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="interviewed">
-                Interviewed
+                value="Accepted">
+                Accepted
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="reviewed">
+                value="Reviewed">
                 Reviewed
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="rejected">
+                value="Rejected">
                 Rejected
               </SelectItem>
             </SelectGroup>
