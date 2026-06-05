@@ -16,35 +16,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { CompanyDashboardMonthlyStat } from "./hooks/useGetCompanyDashboardData";
 
-// Sample data for job applications vs applicants
-const chartData = [
-  { month: "January", applications: 120, applicants: 85 },
-  { month: "February", applications: 200, applicants: 150 },
-  { month: "March", applications: 170, applicants: 130 },
-  { month: "April", applications: 210, applicants: 180 },
-  { month: "May", applications: 160, applicants: 120 },
-  { month: "June", applications: 230, applicants: 190 },
-  { month: "July", applications: 140, applicants: 100 },
-  { month: "August", applications: 250, applicants: 210 },
-  { month: "September", applications: 180, applicants: 140 },
-  { month: "October", applications: 160, applicants: 130 },
-  { month: "November", applications: 220, applicants: 190 },
-  { month: "December", applications: 130, applicants: 90 },
-];
+type Props = {
+  chartData: CompanyDashboardMonthlyStat[];
+};
 
-const chartConfig = {
-  applications: {
-    label: "Jobs Posted",
-    color: "var(--chart-1)",
-  },
-  applicants: {
-    label: "Applicants",
-    color: "var(--chart-2)",
-  },
-} satisfies ChartConfig;
+export function CompanyDashboardAnalytics({ chartData }: Props) {
+  const chartConfig = {
+    jobPostedCount: {
+      label: "Jobs Posted",
+      color: "var(--chart-1)",
+    },
+    applicantsCount: {
+      label: "Applicants",
+      color: "var(--chart-2)",
+    },
+  } satisfies ChartConfig;
 
-export function CompanyDashboardAnalytics() {
   return (
     <Card className="bg-transparent h-120 text-black shadow-none border-0">
       <CardHeader className="p-0 mb-6">
@@ -86,6 +75,9 @@ export function CompanyDashboardAnalytics() {
             />
 
             <YAxis
+              domain={[0, 2]}
+              allowDecimals={false}
+              tickCount={3}
               tickLine={false}
               axisLine={false}
               tickMargin={10}
@@ -103,13 +95,13 @@ export function CompanyDashboardAnalytics() {
                 y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-applications)"
+                  stopColor="var(--color-jobPostedCount)"
                   stopOpacity={0.5}
                 />
 
                 <stop
                   offset="95%"
-                  stopColor="var(--color-applications)"
+                  stopColor="var(--color-jobPostedCount)"
                   stopOpacity={0.05}
                 />
               </linearGradient>
@@ -122,33 +114,33 @@ export function CompanyDashboardAnalytics() {
                 y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-applicants)"
+                  stopColor="var(--color-applicantsCount)"
                   stopOpacity={0.5}
                 />
 
                 <stop
                   offset="95%"
-                  stopColor="var(--color-applicants)"
+                  stopColor="var(--color-applicantsCount)"
                   stopOpacity={0.05}
                 />
               </linearGradient>
             </defs>
 
             <Area
-              dataKey="applicants"
-              type="natural"
-              fill="url(#gradient-applicants)"
+              dataKey="applicantsCount"
+              type="monotone"
               fillOpacity={1}
-              stroke="var(--color-applicants)"
+              fill="url(#gradient-applicants)"
+              stroke="var(--color-applicantsCount)"
               strokeWidth={2}
             />
 
             <Area
-              dataKey="applications"
-              type="natural"
-              fill="url(#gradient-applications)"
+              dataKey="jobPostedCount"
+              type="monotone"
               fillOpacity={1}
-              stroke="var(--color-applications)"
+              fill="url(#gradient-applications)"
+              stroke="var(--color-jobPostedCount)"
               strokeWidth={2}
             />
           </AreaChart>
