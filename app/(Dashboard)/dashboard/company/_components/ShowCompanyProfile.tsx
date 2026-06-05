@@ -100,14 +100,14 @@ export default function ShowCompanyProfile({ token }: Props) {
         </p>
         <div className="flex flex-col gap-5">
           {/* Top */}
-          <div className="flex flex-col-reverse lg:flex-row gap-4 w-full items-start">
+          <div className="flex flex-col-reverse xl:flex-row gap-4 w-full items-start">
             {/* Left */}
-            <div className="flex flex-col gap-5 lg:w-1/2 w-full">
+            <div className="flex flex-col gap-5 xl:w-1/2 w-full">
               <CompanyDashboardAnalytics chartData={data.monthlyStats} />
             </div>
 
             {/* Right */}
-            <div className="lg:w-1/2 w-full flex flex-col gap-4">
+            <div className="xl:w-1/2 w-full flex flex-col gap-4">
               <div className="w-full flex justify-between items-center gap-5 flex-wrap">
                 <p className="text-2xl font-medium">Statistics</p>
                 <Link
@@ -137,9 +137,9 @@ export default function ShowCompanyProfile({ token }: Props) {
           </div>
 
           {/* Bottom */}
-          <div className="flex flex-col lg:flex-row gap-6 w-full items-start">
-            <LatestJobPostes />
-            <RecentEmployeesApplied />
+          <div className="flex flex-col xl:flex-row gap-6 w-full items-start">
+            <LatestJobPostes recentJobPosting={data.recentJobPosting} />
+            <RecentEmployeesApplied applicants={data.applicants} />
           </div>
         </div>
       </div>

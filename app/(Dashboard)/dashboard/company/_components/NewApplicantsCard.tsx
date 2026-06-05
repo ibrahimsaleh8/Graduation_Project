@@ -1,7 +1,12 @@
 import Link from "next/link";
 import userImage from "@images/user-image.png";
 import Image from "next/image";
-export default function NewApplicantsCard() {
+import { CompanyDashboardApplicant } from "./hooks/useGetCompanyDashboardData";
+import { formatDate } from "@/lib/FormatDate";
+type Props = {
+  applicationData: CompanyDashboardApplicant;
+};
+export default function NewApplicantsCard({ applicationData }: Props) {
   return (
     <div className="flex md:items-center md:flex-row flex-col justify-between gap-5 pb-3 md:pb-1 border-b  ">
       {/* Left */}
@@ -16,12 +21,16 @@ export default function NewApplicantsCard() {
         </div>
         {/* User Info */}
         <div className="text-sm">
-          <p className="font-medium">Ibrahim Saleh</p>
+          <p className="font-medium">{applicationData.applicantName}</p>
           <p className="text-black/70">
             Applied For
-            <span className="font-medium text-black"> Frontend Developer</span>
+            <span className="font-medium text-black">
+              {applicationData.jobAppliedFor}
+            </span>
           </p>
-          <p className="text-xs text-black/70">2 hours ago</p>
+          <p className="text-xs text-black/70">
+            {formatDate(applicationData.appliedAt)}
+          </p>
         </div>
       </div>
 

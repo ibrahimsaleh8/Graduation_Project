@@ -9,37 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { CompanyDashboardRecentJobPosting } from "./hooks/useGetCompanyDashboardData";
+import { formatDate } from "@/lib/FormatDate";
 
-const recentJobs = [
-  {
-    id: 1,
-    company: "Google",
-    jobTitle: "Frontend Developer",
-    appliedAt: "13 May, 2026",
-  },
-  {
-    id: 2,
-    company: "Google",
-    jobTitle: "Frontend Developer",
-    appliedAt: "13 May, 2026",
-  },
-  {
-    id: 3,
-    company: "Google",
-    jobTitle: "Frontend Developer",
-    appliedAt: "13 May, 2026",
-  },
-  {
-    id: 4,
-    company: "Google",
-    jobTitle: "Frontend Developer",
-    appliedAt: "13 May, 2026",
-  },
-];
-
-export default function LatestJobPostes() {
+type Props = {
+  recentJobPosting: CompanyDashboardRecentJobPosting[];
+};
+export default function LatestJobPostes({ recentJobPosting }: Props) {
   return (
-    <div className="lg:mt-11 md:mt-30 lg:w-1/2 w-full space-y-3">
+    <div className="lg:mt-11 md:mt-30 xl:w-1/2 w-full space-y-3">
       <div className="flex justify-between gap-4 flex-wrap items-center pr-3">
         <p className="font-medium">Latest Job Posts</p>
         <Link
@@ -62,16 +40,34 @@ export default function LatestJobPostes() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {recentJobs.map((job) => (
-            <TableRow key={job.id}>
-              <TableCell className="font-medium py-4">{job.id}</TableCell>
-              <TableCell className="flex items-center gap-2 font-medium py-4">
-                Frontend Developer
+          {recentJobPosting.length > 0 ? (
+            recentJobPosting.map((job, i) => (
+              <TableRow key={job.id}>
+                <TableCell className="font-medium py-4">{i + 1}</TableCell>
+                <TableCell className="flex items-center gap-2 font-medium py-4 truncate md:max-w-70">
+                  <Link
+                    href={`/dashboard/company/job-posts/${job.id}`}
+                    className="hover:underline">
+                    {job.jobTitle}
+                  </Link>
+                </TableCell>
+                <TableCell className="font-medium py-4">
+                  {job.totalApplication}
+                </TableCell>
+                <TableCell className="font-medium py-4">
+                  {formatDate(job.postedAt)}
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                colSpan={4}
+                className="text-center font-medium p-5 text-black/70">
+                No Job Posted Found
               </TableCell>
-              <TableCell className="font-medium py-4">30</TableCell>
-              <TableCell className="font-medium py-4">13 May, 2026</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>
