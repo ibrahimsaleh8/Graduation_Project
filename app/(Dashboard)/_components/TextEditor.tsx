@@ -10,9 +10,15 @@ type Props = {
   label: string;
   deafultValue: string;
   updateFn: (value: string) => void;
+  stylingClass?: string;
 };
 
-export default function TextEditor({ label, updateFn, deafultValue }: Props) {
+export default function TextEditor({
+  label,
+  updateFn,
+  deafultValue,
+  stylingClass,
+}: Props) {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -26,9 +32,10 @@ export default function TextEditor({ label, updateFn, deafultValue }: Props) {
   const editor = useEditor({
     extensions: [StarterKit],
     content: deafultValue,
+    immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "h-50 overflow-y-auto p-2 px-3",
+        class: `h-50 overflow-y-auto p-2 px-3 ${stylingClass || ""}`,
       },
     },
 

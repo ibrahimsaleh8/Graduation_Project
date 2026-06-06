@@ -1,11 +1,7 @@
 "use client";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -15,98 +11,77 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Add01Icon,
   CancelCircleIcon,
   CheckmarkCircle02Icon,
 } from "@hugeicons/core-free-icons";
-
-import { useState } from "react";
-import {
-  editJobPostDataType,
-  editJobPostSchema,
-} from "@/validations/EditJobPostSchema";
+import { Dispatch, SetStateAction } from "react";
 import { countries } from "@/lib/Countries";
 import { jobCategories } from "@/lib/JobCategories";
+import { JobDetailsResponse } from "./ShowJobDetailsById";
+import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+import TextEditor from "@/app/(Dashboard)/_components/TextEditor";
+import { Spinner } from "@/components/ui/spinner";
+import { ExperienceYears } from "@/lib/ExperienceYears";
+import { useEditJobPost } from "./hooks/useEditJobPost";
 
-const employmentTypes = ["Full-time", "Part-time", "Contract", "Internship"];
-const workApproaches = ["On-site", "Remote", "Hybrid"];
+type Props = {
+  deafultValues: JobDetailsResponse;
+  token: string;
+  jobId: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+};
 
-export default function EditJobPostForm() {
-  const [skillInput, setSkillInput] = useState("");
-
+export default function EditJobPostForm({
+  deafultValues,
+  token,
+  jobId,
+  setOpen,
+}: Props) {
   const {
+    onSubmit,
+    removeSkill,
+    addSkill,
+    toggleItem,
+    employment,
+    work,
+    errors,
     register,
     handleSubmit,
+    isPending,
     setValue,
-    watch,
-    formState: { errors },
     getValues,
-  } = useForm<editJobPostDataType>({
-    resolver: zodResolver(editJobPostSchema),
-    defaultValues: {
-      jobTitle: "Frontend Developer",
-      jobCategory: "Software Development",
-      location: "Egypt",
-      employmentType: ["Full-time"],
-      workApproach: ["Remote"],
-      salaryMin: 1000,
-      salaryMax: 3000,
-      jobDescription: "We are looking for a skilled frontend developer...",
-      responsibilities: "Build UI components, collaborate with backend team...",
-      skills: ["React", "TypeScript", "Next.js"],
-    },
-    mode: "onChange",
+    skillInput,
+    setSkillInput,
+    skills,
+  } = useEditJobPost({
+    deafultValues,
+    token,
+    jobId,
+    setOpen,
   });
-
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const skills = watch("skills");
-  const employment = watch("employmentType");
-  const work = watch("workApproach");
-
-  const toggleItem = (
-    value: string,
-    field: "employmentType" | "workApproach",
-    current: string[],
-  ) => {
-    const updated = current.includes(value)
-      ? current.filter((i) => i !== value)
-      : [...current, value];
-
-    setValue(field, updated, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  };
-
-  const addSkill = () => {
-    const value = skillInput.trim();
-    if (!value || skills.includes(value)) return;
-
-    setValue("skills", [...skills, value], {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-
-    setSkillInput("");
-  };
-
-  const removeSkill = (skill: string) => {
-    setValue(
-      "skills",
-      skills.filter((s) => s !== skill),
-      { shouldValidate: true, shouldDirty: true },
-    );
-  };
-
-  const onSubmit = (data: editJobPostDataType) => {
-    console.log("Updated Job:", data);
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Is Active */}
+      <div className="flex items-center gap-3 flex-wrap">
+        <Switch
+          defaultChecked={deafultValues.isActive}
+          onCheckedChange={(e) =>
+            setValue("isActive", e, { shouldDirty: true })
+          }
+          id="priority-support"
+          className="size-10 bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
+        />
+        <Label
+          htmlFor="priority-support"
+          className="flex flex-col gap-1 items-start cursor-pointer">
+          Job Is Active
+        </Label>
+      </div>
+
       {/* Job Title */}
       <div className="space-y-1">
         <Label>Job Title</Label>
@@ -278,13 +253,90 @@ export default function EditJobPostForm() {
         )}
       </div>
 
+      {/* Experience */}
+      <div className="space-y-1">
+        <div className="flex md:items-end gap-3 flex-col md:flex-row">
+          <div className="space-y-1">
+            <Label htmlFor="min-years">Minimum years of experience</Label>
+            <Select
+              defaultValue={`${deafultValues.minExper}`}
+              onValueChange={(e) => setValue("minYearsExperience", +e)}>
+              <SelectTrigger
+                id="min-years"
+                aria-invalid={errors.minYearsExperience ? "true" : "false"}
+                className="w-full min-w-60 bg-input-bg h-11! border border-border-color">
+                <SelectValue placeholder="Minimum years of experience" />
+              </SelectTrigger>
+              <SelectContent className="bg-white text-black border border-border-color">
+                <SelectGroup>
+                  {ExperienceYears.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={`${year}`}
+                      className="hover:bg-input-bg! hover:text-black!">
+                      {year} Years
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <span className="mb-2 hidden md:block">-</span>
+          <div className="space-y-1">
+            <Label htmlFor="max-years">Maximum years of experience</Label>
+            <Select
+              defaultValue={`${deafultValues.maxExper}`}
+              onValueChange={(e) => setValue("maxYearsExperience", +e)}>
+              <SelectTrigger
+                aria-invalid={errors.maxYearsExperience ? "true" : "false"}
+                id="max-years"
+                className="w-full min-w-60 bg-input-bg h-11! border border-border-color">
+                <SelectValue placeholder="Maximum years of experience" />
+              </SelectTrigger>
+              <SelectContent className="bg-white text-black border border-border-color">
+                <SelectGroup>
+                  {ExperienceYears.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={`${year}`}
+                      className="hover:bg-input-bg! hover:text-black!">
+                      {year} Years
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {(errors.minYearsExperience || errors.minYearsExperience) && (
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            {errors.minYearsExperience && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.minYearsExperience.message}
+              </p>
+            )}
+            {errors.maxYearsExperience && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.maxYearsExperience.message}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Description */}
       <div className="space-y-1">
-        <Label>Job Description</Label>
-        <Textarea
-          className="h-32 bg-input-bg border-black/5"
-          {...register("jobDescription")}
+        <TextEditor
+          deafultValue={getValues("jobDescription")}
+          label="Job Description"
+          updateFn={(value: string) => {
+            setValue("jobDescription", value);
+          }}
+          stylingClass="bg-input-bg"
         />
+
         {errors.jobDescription && (
           <p className="text-red-500 text-sm mt-1">
             {errors.jobDescription.message}
@@ -294,11 +346,15 @@ export default function EditJobPostForm() {
 
       {/* Responsibilities */}
       <div className="space-y-1">
-        <Label>Responsibilities</Label>
-        <Textarea
-          className="h-32 bg-input-bg border-black/5"
-          {...register("responsibilities")}
+        <TextEditor
+          deafultValue={getValues("responsibilities")}
+          label="Responsibilities"
+          updateFn={(value: string) => {
+            setValue("responsibilities", value);
+          }}
+          stylingClass="bg-input-bg"
         />
+
         {errors.responsibilities && (
           <p className="text-red-500 text-sm mt-1">
             {errors.responsibilities.message}
@@ -347,11 +403,12 @@ export default function EditJobPostForm() {
       </div>
 
       {/* Submit */}
-      <div className="flex justify-end">
+      <div className="flex justify-end w-full p-4 sticky bottom-0 bg-white border-t border-border-color">
         <Button
+          disabled={isPending}
           type="submit"
-          className="bg-main-color text-white text-[0.85rem] h-10 hover:bg-main-color/80">
-          Save Changes
+          className="bg-main-color text-white text-[0.85rem] h-10 hover:bg-main-color/80 w-40">
+          {isPending ? <Spinner /> : "Save Changes"}
         </Button>
       </div>
     </form>

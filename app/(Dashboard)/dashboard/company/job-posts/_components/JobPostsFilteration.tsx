@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+import { JobStatusDataType } from "../[id]/_components/ShowJobDetailsById";
 
 type Props = {
   updateSearchTxt: (txt: string) => void;
-  updateStatusFilter: (status: "All" | "Active" | "Inactive") => void;
+  updateStatusFilter: (status: "All" | JobStatusDataType) => void;
   updateTypeFilter: (type: string) => void;
 };
 
@@ -30,7 +31,7 @@ export default function JobPostsFilteration({
           id="search"
           onChange={(e) => updateSearchTxt(e.target.value)}
           type="text"
-          placeholder="Search By job title or company..."
+          placeholder="Search By job title"
           className="bg-white border border-border-color w-full"
         />
       </div>
@@ -41,7 +42,7 @@ export default function JobPostsFilteration({
         <Select
           defaultValue="All"
           onValueChange={(e) =>
-            updateStatusFilter(e as "All" | "Active" | "Inactive")
+            updateStatusFilter(e as "All" | JobStatusDataType)
           }>
           <SelectTrigger
             id="status"
@@ -58,13 +59,18 @@ export default function JobPostsFilteration({
 
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="Active">
-                Active
+                value="Pending">
+                Pending
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="Inactive">
-                Inactive
+                value="Approved">
+                Approved
+              </SelectItem>
+              <SelectItem
+                className="hover:bg-input-bg! hover:text-black!"
+                value="Rejected">
+                Rejected
               </SelectItem>
             </SelectGroup>
           </SelectContent>

@@ -12,6 +12,9 @@ import { Location01Icon, ViewIcon } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { CompanyJobDetailsType } from "./ShowCompanyAllJobPosts";
 import { useMemo, useState } from "react";
+import JobStatusBadge from "../[id]/_components/JobStatusBadge";
+import { JobStatusDataType } from "../[id]/_components/ShowJobDetailsById";
+import { formatDate } from "@/lib/FormatDate";
 
 type Props = {
   jobPosts: CompanyJobDetailsType[];
@@ -19,9 +22,9 @@ type Props = {
 
 export default function ShowAllJobPosts({ jobPosts }: Props) {
   const [searchTxt, setSearchTxt] = useState("");
-  const [statusFilter, setStatusFilter] = useState<
-    "All" | "Active" | "Inactive"
-  >("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | JobStatusDataType>(
+    "All",
+  );
 
   const [typeFilter, setTypeFilter] = useState<string>("All");
 
@@ -35,13 +38,9 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
     }
 
     if (statusFilter !== "All") {
-      filteredJobs = filteredJobs.filter((job) => {
-        if (statusFilter === "Active") {
-          return job.isActive;
-        } else {
-          return !job.isActive;
-        }
-      });
+      filteredJobs = filteredJobs.filter(
+        (job) => job.jobStatus == statusFilter,
+      );
     }
 
     if (typeFilter !== "All") {
@@ -56,7 +55,7 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
   const updateSearchTxt = (txt: string) => {
     setSearchTxt(txt);
   };
-  const updateStatusFilter = (status: "All" | "Active" | "Inactive") => {
+  const updateStatusFilter = (status: "All" | JobStatusDataType) => {
     setStatusFilter(status);
   };
   const updateTypeFilter = (type: string) => {
@@ -77,8 +76,9 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
         <TableHeader className="px-2">
           <TableRow className="bg-main-dark hover:bg-main-dark/90 rounded-t-md ">
             <TableHead className="py-4 pl-4">Job Title</TableHead>
-            <TableHead className="py-4">Details</TableHead>
+            <TableHead className="py-4">Job Type</TableHead>
             <TableHead className="py-4">Applications</TableHead>
+            <TableHead className="py-4">Posted At</TableHead>
             <TableHead className="py-4">Status</TableHead>
             <TableHead className="py-4 w-40">Show</TableHead>
           </TableRow>
@@ -98,7 +98,7 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
                 </TableCell>
                 <TableCell>
                   <div>
-                    {job.jobType.length > 0 && (
+                    {job.jobType.length > 0 ? (
                       <div className="flex items-center gap-3 flex-wrap max-w-lg">
                         {job.jobType.map((jobT) => (
                           <p
@@ -108,20 +108,19 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
                           </p>
                         ))}
                       </div>
+                    ) : (
+                      <p className="text-xs font-medium text-black/70">
+                        No Type Assigned
+                      </p>
                     )}
-
-                    <p className="text-[0.78rem] mt-2 text-black/70">
-                      Posted {job.postedAt}
-                    </p>
                   </div>
                 </TableCell>
                 <TableCell className="font-medium">
                   {job.applicationCount}
                 </TableCell>
+                <TableCell>{formatDate(job.postedAt)} </TableCell>
                 <TableCell>
-                  <p className="text-xs px-4 py-2 bg-green-100 text-green-600 w-fit rounded-md font-medium">
-                    {job.isActive ? "Active" : "Inactive"}
-                  </p>
+                  <JobStatusBadge jobStatus={job.jobStatus} />
                 </TableCell>
 
                 <TableCell>

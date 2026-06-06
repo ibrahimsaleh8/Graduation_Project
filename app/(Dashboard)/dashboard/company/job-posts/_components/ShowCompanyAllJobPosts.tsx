@@ -11,6 +11,7 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
 import { useMemo } from "react";
+import { JobStatusDataType } from "../[id]/_components/ShowJobDetailsById";
 
 type Props = {
   token: string;
@@ -23,7 +24,7 @@ export type CompanyJobDetailsType = {
   jobType: string[];
   postedAt: string;
   applicationCount: number;
-  isActive: boolean;
+  jobStatus: JobStatusDataType;
 };
 
 export type CompanyJobsStatisticsType = {

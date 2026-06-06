@@ -7,7 +7,7 @@ type Props = {
 };
 export default function JobDetailsBreadcrumb({ jobTitle, jobId }: Props) {
   return (
-    <div className="flex items-center sm:text-sm text-xs gap-1">
+    <div className="flex items-center sm:text-sm text-xs gap-1 sm:pl-2">
       <Link
         href={"/dashboard/company"}
         className="text-black/70 hover:text-black">

@@ -32,6 +32,10 @@ import { useQuery } from "@tanstack/react-query";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
 import { formatDate } from "@/lib/FormatDate";
 import { useMemo } from "react";
+import { getJobActiveDuration } from "@/lib/JobActiveDuration";
+import DeleteJob from "./DeleteJob";
+import ShowJobDetailsSkeleton from "./ShowJobDetailsSkeleton";
+import JobStatusBadge from "./JobStatusBadge";
 
 type Props = {
   jobId: string;
@@ -40,10 +44,15 @@ type Props = {
 
 export type JobDetailsResponse = {
   title: string;
-  jobStatus: string;
+  jobStatus: JobStatusDataType;
   category: string;
   postedDate: string;
   applicantsCount: number;
+  jobTypes: string[];
+  isActive: boolean;
+  minExper: number;
+  maxExper: number;
+  workApproaches: string[];
   interviewCount: number;
   description: string;
   responsibility: string;
@@ -63,7 +72,7 @@ export type JobDetailsApplicantDetailsType = {
   appliedDate: string;
   status: ApplicantStatusDetailsType;
 };
-
+export type JobStatusDataType = "Pending" | "Approved" | "Rejected";
 export type ApplicantStatusDetailsType =
   | "Pending"
   | "Reviewed"
@@ -113,7 +122,7 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
       },
       {
         label: "Days Active",
-        value: "2d",
+        value: getJobActiveDuration(data.postedDate),
         bg: "#fff8e6",
         color: "#b45309",
         icon: Time04Icon,
@@ -133,7 +142,7 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
     );
   }
   return isLoading ? (
-    <>Loading</>
+    <ShowJobDetailsSkeleton />
   ) : (
     data && (
       <div className="space-y-3 container mx-auto">
@@ -149,8 +158,19 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
               <div>
                 <p className="md:text-3xl text-xl font-medium flex items-end gap-3 flex-wrap">
                   {data.title}
-                  <span className="text-xs px-2 py-1 bg-[#ECFDF5] text-[#059669] w-fit rounded-md font-medium border border-green-700/20">
-                    Active
+
+                  <span className="flex items-center gap-1">
+                    <JobStatusBadge jobStatus={data.jobStatus} />
+                    {data.jobStatus == "Approved" &&
+                      (data.isActive ? (
+                        <span className="text-xs px-2 py-1 bg-green-600 text-white w-fit rounded-md font-medium">
+                          Active
+                        </span>
+                      ) : (
+                        <span className="text-xs px-2 py-1 bg-red-600 text-white w-fit rounded-md font-medium">
+                          Not-Active
+                        </span>
+                      ))}
                   </span>
                 </p>
 
@@ -188,8 +208,14 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
                     Edit Job Post
                   </Button>
                 }
-                content={<EditJobPost />}
-                contentClassname="md:min-w-150 pb-3"
+                content={
+                  <EditJobPost
+                    jobId={jobId}
+                    token={token}
+                    deafultValues={data}
+                  />
+                }
+                contentClassname="md:min-w-150 pb-0"
               />
               <AlertModel
                 title="Delete Job Post"
@@ -202,7 +228,7 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
                     />
                   </Button>
                 }
-                content={<>Delete</>}
+                content={<DeleteJob token={token} jobId={jobId} />}
                 contentClassname="md:min-w-150 pb-3"
               />
             </div>

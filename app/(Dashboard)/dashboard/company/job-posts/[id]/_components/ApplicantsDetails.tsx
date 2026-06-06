@@ -6,6 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ApplicantStatusDetailsType } from "./ShowJobDetailsById";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
+import JobApplicantsLoadingSkeleton from "./JobApplicantsLoadingSkeleton";
 type Props = {
   ApplicationId: string;
   token: string;
@@ -56,7 +57,7 @@ export default function ApplicantsDetails({ ApplicationId, token }: Props) {
     );
   }
   return isLoading ? (
-    <div>Loading...</div>
+    <JobApplicantsLoadingSkeleton />
   ) : (
     data && (
       <div>
