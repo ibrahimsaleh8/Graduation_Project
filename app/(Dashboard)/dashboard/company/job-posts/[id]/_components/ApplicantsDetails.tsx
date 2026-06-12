@@ -1,5 +1,5 @@
 "use client";
-import { Activity, useState } from "react";
+import { Activity, Dispatch, SetStateAction, useState } from "react";
 import ShowApplicantsDetails from "./ShowApplicantsDetails";
 import ScheduleInterview from "./ScheduleInterview";
 import axios, { AxiosError } from "axios";
@@ -11,6 +11,7 @@ type Props = {
   ApplicationId: string;
   token: string;
   jobId: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 export type CandidateApplicationDetailsDataType = {
   name: string;
@@ -40,6 +41,7 @@ export default function ApplicantsDetails({
   ApplicationId,
   token,
   jobId,
+  setOpen,
 }: Props) {
   const { data, error, isLoading } = useQuery<
     CandidateApplicationDetailsDataType,
@@ -77,7 +79,14 @@ export default function ApplicantsDetails({
           />
         </Activity>
         <Activity mode={!showDetails ? "visible" : "hidden"}>
-          <ScheduleInterview setShowDetails={setShowDetails} />
+          <ScheduleInterview
+            applicantId={data.applicantId}
+            token={token}
+            jobId={jobId}
+            setShowDetails={setShowDetails}
+            setOpen={setOpen}
+            ApplicationId={ApplicationId}
+          />
         </Activity>
       </div>
     )

@@ -15,12 +15,96 @@ import {
   scheduleInterviewType,
 } from "@/validations/ScheduleInterviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Spinner } from "@/components/ui/spinner";
+import { sileo } from "sileo";
 
 type Props = {
   setShowDetails: Dispatch<SetStateAction<boolean>>;
+  token: string;
+  jobId: string;
+  applicantId: string;
+  ApplicationId: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
+type InterviewDataType = {
+  date: string;
+  startTime: string;
+  endTime: string;
+  interviewLink: string;
+  interviewerName: string;
+  interviewType: string;
+  notes?: string | undefined;
+};
+// CompanyInterviews/schedule
 
-export default function ScheduleInterview({ setShowDetails }: Props) {
+async function SchedualInterviewApi(
+  token: string,
+  jobId: string,
+  applicantId: string,
+  applicationId: string,
+  interviewData: InterviewDataType,
+) {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/CompanyInterviews/schedule`,
+    {
+      ...interviewData,
+      JobPostingId: jobId,
+      applicantId,
+      applicationId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return res.data;
+}
+
+export default function ScheduleInterview({
+  setShowDetails,
+  applicantId,
+  jobId,
+  token,
+  setOpen,
+  ApplicationId,
+}: Props) {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (interviewData: InterviewDataType) =>
+      SchedualInterviewApi(
+        token,
+        jobId,
+        applicantId,
+        ApplicationId,
+        interviewData,
+      ),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["job-post-details", jobId],
+      });
+      if (setOpen) {
+        setOpen(false);
+      }
+      sileo.success({
+        title: "Interview scheduled success",
+      });
+    },
+
+    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+      console.log("error ", error.response);
+      sileo.error({
+        title: "Failed to create job post",
+        description:
+          error.response?.data?.errors?.[0] ||
+          "An error occurred. Please try again.",
+      });
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -40,7 +124,13 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
   const selectedDate = watch("date");
 
   const onSubmit: SubmitHandler<scheduleInterviewType> = (data) => {
-    console.log(data);
+    const SchedualdDay = new Date(data.date).toDateString();
+
+    const InterviewData = {
+      ...data,
+      date: SchedualdDay,
+    };
+    mutate(InterviewData);
   };
 
   return (
@@ -151,8 +241,9 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
       </div>
 
       {/* Buttons */}
-      <div className="flex items-center gap-3 mt-4 justify-between">
+      <div className="flex items-center gap-3 mt-4 justify-between flex-wrap">
         <Button
+          disabled={isPending}
           type="button"
           onClick={() => setShowDetails(true)}
           className="text-xs h-10 bg-black/10 text-black hover:bg-black/80 hover:text-white">
@@ -160,9 +251,18 @@ export default function ScheduleInterview({ setShowDetails }: Props) {
           Back
         </Button>
 
-        <Button type="submit" className="text-xs h-10 bg-main-color text-white">
-          <HugeiconsIcon icon={Calendar02Icon} />
-          Schedule Interview
+        <Button
+          disabled={isPending}
+          type="submit"
+          className="text-xs h-10 bg-main-color text-white min-w-40">
+          {isPending ? (
+            <Spinner />
+          ) : (
+            <>
+              <HugeiconsIcon icon={Calendar02Icon} />
+              Schedule Interview
+            </>
+          )}
         </Button>
       </div>
     </motion.form>

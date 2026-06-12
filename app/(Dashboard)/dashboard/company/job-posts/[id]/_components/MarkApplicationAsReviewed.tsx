@@ -96,7 +96,9 @@ export default function MarkApplicationAsReviewed({
   });
   return (
     <Button
-      disabled={isPending || currentStatus == "Reviewed"}
+      disabled={
+        isPending || currentStatus == "Reviewed" || currentStatus == "Accepted"
+      }
       onClick={() => mutate()}
       className="w-1/2 text-xs h-10 bg-blue-700 hover:bg-blue-800 ">
       {isPending ? (

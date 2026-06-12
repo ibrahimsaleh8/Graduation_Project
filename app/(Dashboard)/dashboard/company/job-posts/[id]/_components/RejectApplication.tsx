@@ -97,7 +97,9 @@ export default function RejectApplication({
 
   return (
     <Button
-      disabled={isPending || currentStatus == "Rejected"}
+      disabled={
+        isPending || currentStatus == "Rejected" || currentStatus == "Accepted"
+      }
       onClick={() => {
         mutate();
       }}

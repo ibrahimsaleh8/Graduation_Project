@@ -110,6 +110,7 @@ export default function ShowApplicantsDetails({
             status={applicationData.applicationStatus}
           />
           <Button
+            disabled={applicationData.applicationStatus == "Accepted"}
             onClick={() => setShowDetails(false)}
             className="text-xs h-10 bg-purple-700 font-medium hover:bg-purple-800">
             <HugeiconsIcon
