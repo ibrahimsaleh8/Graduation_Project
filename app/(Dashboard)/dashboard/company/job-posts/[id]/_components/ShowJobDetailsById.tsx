@@ -61,9 +61,19 @@ export type JobDetailsResponse = {
   minSalary: number;
   maxSalary: number;
   applicantDetails: JobDetailsApplicantDetailsType[];
-  applicantInterviews: string[];
+  applicantInterviews: JobDetailsInterviews[];
 };
 
+export type JobDetailsInterviews = {
+  interviewId: string;
+  applicantName: string;
+  email: string;
+  imageUrl: string;
+  interviewDate: string;
+  interviewStatus: InterviewStatusDataType;
+  startTime: string;
+  endTime: string;
+};
 export type JobDetailsApplicantDetailsType = {
   applicantionId: string;
   applicantName: string;
@@ -73,6 +83,8 @@ export type JobDetailsApplicantDetailsType = {
   status: ApplicantStatusDetailsType;
 };
 export type JobStatusDataType = "Pending" | "Approved" | "Rejected";
+export type InterviewStatusDataType = "Upcoming" | "Completed" | "Cancelled";
+
 export type ApplicantStatusDetailsType =
   | "Pending"
   | "Reviewed"
@@ -279,7 +291,11 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
                   />
                 </TabsContent>
                 <TabsContent value="interviews" className="w-full">
-                  <JobInterviews />
+                  <JobInterviews
+                    interviewsData={data.applicantInterviews}
+                    token={token}
+                    jobId={jobId}
+                  />
                 </TabsContent>
               </TabsContents>
             </div>

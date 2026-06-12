@@ -1,54 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  editInterviewFormData,
-  editInterviewSchema,
-} from "@/validations/EditInterviewDataSchema";
 import { Button } from "@/components/ui/button";
 import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Dispatch, SetStateAction } from "react";
+import { InterviewDetailsResponse } from "./InterviewDetailsSheetBody";
+import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
+import { Calendar } from "@/components/ui/calendar";
+import { Spinner } from "@/components/ui/spinner";
+import { Textarea } from "@/components/ui/textarea";
+import { useEditInterview } from "./useEditInterview";
 
-function ErrorValidationMessage({ message }: { message: string }) {
-  return <p className="text-red-500 text-xs">{message}</p>;
-}
-
-type InterviewStatusType = "pending" | "cancelled" | "completed";
 type Props = {
   setShowInterviewData: Dispatch<SetStateAction<boolean>>;
+  interviewDetails: InterviewDetailsResponse;
+  token: string;
+  jobId: string;
 };
 
-export default function EditInterviewData({ setShowInterviewData }: Props) {
+export default function EditInterviewData({
+  setShowInterviewData,
+  interviewDetails,
+  token,
+  jobId,
+}: Props) {
   const {
+    onSubmit,
+    selectedDate,
+    isPending,
+    setValue,
     register,
     handleSubmit,
-    formState: { errors },
+    errors,
     getValues,
-    setValue,
-  } = useForm<editInterviewFormData>({
-    resolver: zodResolver(editInterviewSchema),
-    defaultValues: {
-      date: "2026-05-24",
-      startTime: "10:30",
-      endTime: "11:30",
-      interviewerName: "Sarah Jenkins",
-      interviewType: "Technical Interview",
-      meetingLink: "https://zoom.us/j/827391283",
-      status: "pending",
-    },
+  } = useEditInterview({
+    setShowInterviewData,
+    interviewDetails,
+    token,
+    jobId,
   });
-
-  const onSubmit = (data: editInterviewFormData) => {
-    console.log(data);
-    setShowInterviewData(true);
-  };
 
   return (
     <motion.div
@@ -62,15 +57,15 @@ export default function EditInterviewData({ setShowInterviewData }: Props) {
         <div className="space-y-1 w-full">
           <Label htmlFor="status">Status</Label>
           <NativeSelect
-            className="w-full! border border-black/10 flex"
+            className="w-full! border border-black/10 h-11 cursor-pointer flex"
             id="status"
             defaultValue={getValues("status")}
-            onChange={(e) =>
-              setValue("status", e.target.value as InterviewStatusType)
-            }>
-            <NativeSelectOption value="pending">Pending</NativeSelectOption>
-            <NativeSelectOption value="completed">Completed</NativeSelectOption>
-            <NativeSelectOption value="rejected">Rejected</NativeSelectOption>
+            onChange={(e) => setValue("status", e.target.value)}>
+            <NativeSelectOption value="Upcoming" disabled>
+              Upcoming
+            </NativeSelectOption>
+            <NativeSelectOption value="Completed">Completed</NativeSelectOption>
+            <NativeSelectOption value="Cancelled">Cancelled</NativeSelectOption>
           </NativeSelect>
 
           {errors.status && (
@@ -78,17 +73,16 @@ export default function EditInterviewData({ setShowInterviewData }: Props) {
           )}
         </div>
 
-        {/* Date */}
-        <div className="space-y-1">
-          <Label htmlFor="date">Date</Label>
-          <Input
-            id="date"
-            type="date"
-            className="w-full bg-white border-border-color"
-            {...register("date")}
+        <div className="space-y-1 w-full">
+          <Label>Select Date</Label>
+          <Calendar
+            mode="single"
+            selected={new Date(selectedDate)}
+            onSelect={(date) => setValue("date", date?.toString() ?? "")}
+            className="rounded-lg border bg-input-bg  w-full h-fit"
           />
           {errors.date && (
-            <ErrorValidationMessage message={errors.date.message as string} />
+            <p className="text-red-500 text-xs">{errors.date.message}</p>
           )}
         </div>
 
@@ -166,20 +160,32 @@ export default function EditInterviewData({ setShowInterviewData }: Props) {
             type="text"
             placeholder="Meeting Link"
             className="w-full bg-white border-border-color"
-            {...register("meetingLink")}
+            {...register("interviewLink")}
           />
-          {errors.meetingLink && (
+          {errors.interviewLink && (
             <ErrorValidationMessage
-              message={errors.meetingLink.message as string}
+              message={errors.interviewLink.message as string}
             />
           )}
+        </div>
+
+        {/* Notes */}
+        <div className="space-y-1">
+          <Label htmlFor="notes">Notes</Label>
+          <Textarea
+            id="notes"
+            placeholder="Notes.."
+            className="w-full bg-white border-border-color h-30"
+            {...register("notes")}
+          />
         </div>
 
         {/* Submit */}
         <Button
           type="submit"
-          className="w-fit bg-black hover:bg-black/80 text-xs h-9 text-white py-2 rounded-md hover:opacity-90 transition">
-          Save Changes
+          disabled={isPending}
+          className="w-40 bg-black hover:bg-black/80 text-xs h-10 text-white py-2 rounded-md hover:opacity-90 transition">
+          {isPending ? <Spinner /> : "Save Changes"}
         </Button>
       </form>
     </motion.div>

@@ -8,10 +8,11 @@ export const editInterviewSchema = z
 
     interviewerName: z.string().min(3, "Interviewer name is required"),
     interviewType: z.string().min(2, "Interview type is required"),
-    status: z.enum(["pending", "cancelled", "completed"], {
-      message: "Invalid interview status",
+    status: z.string({
+      error: "Status is required",
     }),
-    meetingLink: z.string().url("Invalid URL"),
+    interviewLink: z.string().url("Invalid URL"),
+    notes: z.string().nullable(),
   })
   .refine(
     (data) => {
