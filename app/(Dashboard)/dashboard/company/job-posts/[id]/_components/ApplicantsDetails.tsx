@@ -10,19 +10,21 @@ import JobApplicantsLoadingSkeleton from "./JobApplicantsLoadingSkeleton";
 type Props = {
   ApplicationId: string;
   token: string;
+  jobId: string;
 };
 export type CandidateApplicationDetailsDataType = {
   name: string;
   email: string;
-  portfolioLink: string;
-  imageUrl: string | null;
+  applicantId: string;
+  imageUrl: string;
   cvPath: string;
   cvName: string;
   applicationStatus: ApplicantStatusDetailsType;
 };
-async function getApplicationDetailsApi(
-  params: Props,
-): Promise<CandidateApplicationDetailsDataType> {
+async function getApplicationDetailsApi(params: {
+  ApplicationId: string;
+  token: string;
+}): Promise<CandidateApplicationDetailsDataType> {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Application/${params.ApplicationId}`,
     {
@@ -34,7 +36,11 @@ async function getApplicationDetailsApi(
   return res.data;
 }
 
-export default function ApplicantsDetails({ ApplicationId, token }: Props) {
+export default function ApplicantsDetails({
+  ApplicationId,
+  token,
+  jobId,
+}: Props) {
   const { data, error, isLoading } = useQuery<
     CandidateApplicationDetailsDataType,
     AxiosError<{ message: string }>
@@ -65,6 +71,9 @@ export default function ApplicantsDetails({ ApplicationId, token }: Props) {
           <ShowApplicantsDetails
             setShowDetails={setShowDetails}
             applicationData={data}
+            applicationId={ApplicationId}
+            token={token}
+            jobId={jobId}
           />
         </Activity>
         <Activity mode={!showDetails ? "visible" : "hidden"}>

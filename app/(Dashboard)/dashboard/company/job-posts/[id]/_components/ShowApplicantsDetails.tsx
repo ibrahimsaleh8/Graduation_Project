@@ -3,8 +3,6 @@ import MatchCircle from "./MatchCircle";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Calendar02Icon,
-  Cancel01Icon,
-  CheckmarkCircle03Icon,
   LicenseIcon,
   Link04Icon,
   UserCircleIcon,
@@ -14,14 +12,23 @@ import { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { CandidateApplicationDetailsDataType } from "./ApplicantsDetails";
 import CandidateApplicationStatus from "./CandidateApplicationStatus";
+import MarkApplicationAsReviewed from "./MarkApplicationAsReviewed";
+import Link from "next/link";
+import RejectApplication from "./RejectApplication";
 
 type Props = {
   setShowDetails: Dispatch<SetStateAction<boolean>>;
   applicationData: CandidateApplicationDetailsDataType;
+  applicationId: string;
+  token: string;
+  jobId: string;
 };
 export default function ShowApplicantsDetails({
   setShowDetails,
   applicationData,
+  applicationId,
+  token,
+  jobId,
 }: Props) {
   return (
     <motion.div
@@ -40,7 +47,7 @@ export default function ShowApplicantsDetails({
           {/* User Image */}
           <div className="size-20 rounded-full bg-input-bg">
             <Image
-              src={applicationData.portfolioLink}
+              src={applicationData.imageUrl}
               width={80}
               height={80}
               alt="User Image"
@@ -53,14 +60,17 @@ export default function ShowApplicantsDetails({
             <p className="text-black/70 text-xs font-medium">
               {applicationData.email}
             </p>
-            <p className="mt-1.5 text-sm flex items-center gap-1 pb-0 w-fit underline font-medium">
+            <Link
+              target="_blank"
+              href={`/portfolio/${applicationData.applicantId}`}
+              className="mt-1.5 text-sm flex items-center gap-1 pb-0 w-fit underline font-medium">
               <HugeiconsIcon
                 icon={UserCircleIcon}
                 className="size-4"
                 strokeWidth={2}
               />
               Show Portfolio
-            </p>
+            </Link>
           </div>
         </div>
         {/* Match Bar */}
@@ -112,22 +122,18 @@ export default function ShowApplicantsDetails({
         </div>
 
         <div className="flex items-center gap-1 w-full mt-6">
-          <Button className="w-1/2 text-xs h-10 bg-blue-700 hover:bg-blue-800 ">
-            <HugeiconsIcon
-              icon={CheckmarkCircle03Icon}
-              strokeWidth={2}
-              className="size-4.5"
-            />{" "}
-            Mark As Reviewed
-          </Button>
-          <Button className="w-1/2 text-xs h-10 bg-red-600 hover:bg-red-700">
-            <HugeiconsIcon
-              icon={Cancel01Icon}
-              strokeWidth={2}
-              className="size-4.5"
-            />{" "}
-            Reject
-          </Button>
+          <MarkApplicationAsReviewed
+            applicationId={applicationId}
+            token={token}
+            jobId={jobId}
+            currentStatus={applicationData.applicationStatus}
+          />
+          <RejectApplication
+            applicationId={applicationId}
+            token={token}
+            jobId={jobId}
+            currentStatus={applicationData.applicationStatus}
+          />
         </div>
       </div>
     </motion.div>

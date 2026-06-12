@@ -22,7 +22,7 @@ export default function JobApplicantsLoadingSkeleton() {
 
         {/* Match Circle */}
         <div className="flex flex-col gap-1 items-center">
-          <Skeleton className="size-[70px] rounded-full" />
+          <Skeleton className="size-17.5 rounded-full" />
         </div>
       </div>
 

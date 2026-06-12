@@ -275,6 +275,7 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
                   <JobApplicants
                     candidates={data.applicantDetails}
                     token={token}
+                    jobId={jobId}
                   />
                 </TabsContent>
                 <TabsContent value="interviews" className="w-full">

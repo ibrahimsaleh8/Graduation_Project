@@ -23,9 +23,10 @@ import { useMemo, useState } from "react";
 type Props = {
   candidates: JobDetailsApplicantDetailsType[];
   token: string;
+  jobId: string;
 };
 
-export default function JobApplicants({ candidates, token }: Props) {
+export default function JobApplicants({ candidates, token, jobId }: Props) {
   const [searchTxt, setSearchTxt] = useState("");
   const [filterStatus, setFilterStatus] = useState<
     "All" | ApplicantStatusDetailsType
@@ -125,6 +126,7 @@ export default function JobApplicants({ candidates, token }: Props) {
                       <ApplicantsDetails
                         ApplicationId={candidate.applicantionId}
                         token={token}
+                        jobId={jobId}
                       />
                     }
                     contentClassname="md:min-w-150 pb-3"
