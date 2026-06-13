@@ -88,20 +88,23 @@ export default function InterviewDetailsSheetBody({
             jobId={jobId}
           />
         )}
+
         {/* Button Actions */}
-        <div className="sticky mt-auto bottom-0 left-0 w-full bg-input-bg p-4 pt-6 flex flex-col gap-3">
-          <Button
-            onClick={() => setShowInterviewData((pre) => !pre)}
-            className="text-sm bg-main-color text-white hover:bg-main-color/75">
-            <HugeiconsIcon
-              icon={showInterviewData ? Setting07Icon : File02Icon}
-              strokeWidth={2}
-            />
-            {showInterviewData
-              ? "Modify Interview Data"
-              : "Show Interview Details"}
-          </Button>
-        </div>
+        {data.interviewStatus == "Upcoming" && (
+          <div className="sticky mt-auto bottom-0 left-0 w-full bg-input-bg p-4 pt-6 flex flex-col gap-3">
+            <Button
+              onClick={() => setShowInterviewData((pre) => !pre)}
+              className="text-sm bg-main-color text-white hover:bg-main-color/75">
+              <HugeiconsIcon
+                icon={showInterviewData ? Setting07Icon : File02Icon}
+                strokeWidth={2}
+              />
+              {showInterviewData
+                ? "Modify Interview Data"
+                : "Show Interview Details"}
+            </Button>
+          </div>
+        )}
       </div>
     )
   );

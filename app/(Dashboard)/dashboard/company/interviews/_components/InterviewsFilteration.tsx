@@ -15,15 +15,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { InterviewStatus } from "../../../employee/interviews/_components/ShowEmployeeInterviews";
 
-export default function InterviewsFilteration() {
+type Props = {
+  UpdateSearchTxt: (value: string) => void;
+  UpdateStatusFilter: (value: InterviewStatus | "All") => void;
+  UpdateShowTodayInterviews: (value: boolean) => void;
+  forJobDetails: boolean;
+};
+
+export default function InterviewsFilteration({
+  UpdateSearchTxt,
+  UpdateStatusFilter,
+  UpdateShowTodayInterviews,
+  forJobDetails,
+}: Props) {
   return (
     <div className="w-full flex items-center gap-3 flex-wrap justify-between">
       <div className="flex items-center gap-3 flex-wrap">
-        {/* Search By Candidate name */}
-        <div className="space-y-1 md:w-80 w-full">
+        {/* Search  */}
+        <div className="space-y-1 md:w-130 w-full">
           <Label htmlFor="search-name" className="text-sm">
-            Search by Candidate Name
+            {`Search by (Candidate Name , Email ${forJobDetails ? "" : ", Job Title"})`}
           </Label>
           <div className="flex items-center bg-white pl-2 rounded-md border">
             <HugeiconsIcon
@@ -33,19 +46,24 @@ export default function InterviewsFilteration() {
             />
             <Input
               type="text"
-              placeholder="Search by Candidate Name"
+              placeholder={`Search by (Candidate Name , Email ${forJobDetails ? "" : ", Job Title"})`}
               className="border-0 outline-0 focus-visible:ring-0 text-black rounded-md bg-transparent shadow-none"
               id="search-name"
+              onChange={(e) => UpdateSearchTxt(e.target.value)}
             />
           </div>
         </div>
 
         {/* Filter By Status */}
-        <div className="space-y-1 md:w-50 w-full">
+        <div className="space-y-1 md:w-80 w-full">
           <Label htmlFor="interview-status" className="text-sm">
             Status
           </Label>
-          <Select defaultValue={"all"}>
+          <Select
+            onValueChange={(e) =>
+              UpdateStatusFilter(e as InterviewStatus | "All")
+            }
+            defaultValue={"All"}>
             <SelectTrigger
               id="interview-status"
               className="w-full bg-white h-11! border border-border-color">
@@ -55,23 +73,23 @@ export default function InterviewsFilteration() {
               <SelectGroup>
                 <SelectItem
                   className="hover:bg-input-bg! hover:text-black!"
-                  value="all">
+                  value="All">
                   All
                 </SelectItem>
                 <SelectItem
                   className="hover:bg-input-bg! hover:text-black!"
-                  value="pending">
-                  Pending
+                  value="Upcoming">
+                  Upcoming
                 </SelectItem>
                 <SelectItem
                   className="hover:bg-input-bg! hover:text-black!"
-                  value="completed">
+                  value="Completed">
                   Completed
                 </SelectItem>
                 <SelectItem
                   className="hover:bg-input-bg! hover:text-black!"
-                  value="canceled">
-                  Canceled
+                  value="Cancelled">
+                  Cancelled
                 </SelectItem>
               </SelectGroup>
             </SelectContent>
@@ -81,6 +99,7 @@ export default function InterviewsFilteration() {
       {/* Show Only Today */}
       <div className="flex items-center gap-1">
         <Checkbox
+          onCheckedChange={(e) => UpdateShowTodayInterviews(e as boolean)}
           id="today-interviews"
           className="w-4.5 h-4.5 flex items-center justify-center border bg-white border-black/20
                   data-[state=checked]:bg-main-color

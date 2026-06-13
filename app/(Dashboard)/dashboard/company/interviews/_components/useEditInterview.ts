@@ -147,6 +147,10 @@ export const useEditInterview = ({
         },
       );
 
+      queryClient.refetchQueries({
+        queryKey: ["all-compnay-interviews"],
+      });
+
       sileo.success({
         title: "Interview details updated successfully",
       });

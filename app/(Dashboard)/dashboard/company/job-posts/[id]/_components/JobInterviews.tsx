@@ -12,15 +12,61 @@ import InterviewsFilteration from "../../../interviews/_components/InterviewsFil
 import { JobDetailsInterviews } from "./ShowJobDetailsById";
 import InterviewStatusBadge from "./InterviewStatusBadge";
 import { formatTime } from "@/lib/InterviewDateFormater";
+import { InterviewStatus } from "@/app/(Dashboard)/dashboard/employee/interviews/_components/ShowEmployeeInterviews";
+import { useMemo, useState } from "react";
 type Props = {
   token: string;
   interviewsData: JobDetailsInterviews[];
   jobId: string;
 };
 export default function JobInterviews({ interviewsData, token, jobId }: Props) {
+  const [searchTxt, setSearchTxt] = useState("");
+  const [statusFilter, setStatusFilter] = useState<InterviewStatus | "All">(
+    "All",
+  );
+
+  const [showTodayInterviews, setShowTodayInterviews] = useState(false);
+
+  const UpdateSearchTxt = (value: string) => {
+    setSearchTxt(value);
+  };
+
+  const UpdateStatusFilter = (value: InterviewStatus | "All") => {
+    setStatusFilter(value);
+  };
+  const UpdateShowTodayInterviews = (value: boolean) => {
+    setShowTodayInterviews(value);
+  };
+
+  const allInterviews = useMemo(() => {
+    const today = new Date().toISOString().split("T")[0];
+
+    return interviewsData.filter((interview) => {
+      const matchesSearch =
+        searchTxt.trim() === "" ||
+        interview.applicantName
+          .toLowerCase()
+          .includes(searchTxt.toLowerCase()) ||
+        interview.email.toLowerCase().includes(searchTxt.toLowerCase());
+
+      const matchesStatus =
+        statusFilter === "All" || interview.interviewStatus === statusFilter;
+
+      const matchesToday =
+        !showTodayInterviews || interview.interviewDate === today;
+
+      return matchesSearch && matchesStatus && matchesToday;
+    });
+  }, [interviewsData, searchTxt, statusFilter, showTodayInterviews]);
+
   return (
     <div className="space-y-5 w-full">
-      <InterviewsFilteration />
+      <InterviewsFilteration
+        UpdateSearchTxt={UpdateSearchTxt}
+        UpdateStatusFilter={UpdateStatusFilter}
+        UpdateShowTodayInterviews={UpdateShowTodayInterviews}
+        forJobDetails={true}
+      />
       <Table className="bg-white rounded-md overflow-hidden pb-2 inline-table">
         <TableHeader>
           <TableRow className="bg-main-dark hover:bg-main-dark/90 rounded-t-md">
@@ -33,8 +79,8 @@ export default function JobInterviews({ interviewsData, token, jobId }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {interviewsData.length > 0 ? (
-            interviewsData.map((interview) => (
+          {allInterviews.length > 0 ? (
+            allInterviews.map((interview) => (
               <TableRow
                 key={interview.interviewId}
                 className="hover:bg-black/5">
