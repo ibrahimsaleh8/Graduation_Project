@@ -108,7 +108,8 @@ export default function CompanySocialLinks({ token, socialsData }: Props) {
             ...oldData,
             socialLinks: socialsData,
             websiteUrl: getValues("websiteUrl"),
-            location: getValues("address"),
+            address: getValues("address"),
+            phone: getValues("phone"),
           };
         },
       );

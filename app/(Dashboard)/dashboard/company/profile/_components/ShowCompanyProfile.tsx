@@ -3,6 +3,7 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Building06Icon,
+  CallIcon,
   LinkSquare02Icon,
   Location01Icon,
   UserGroup02Icon,
@@ -26,12 +27,13 @@ export type CompanyProfileDetailsResponseDataType = {
   coverLogoUrl: string | null;
   tagline: string | null;
   about: string | null;
-  location: string;
   country: string | null;
   industry: string;
   websiteUrl: string | null;
   companySize: string | null;
   foundedYear: string | null;
+  address: string | null;
+  phone: string | null;
   socialLinks: CompanySocialLinks;
   stats: CompanyProfileHighlightsDataType;
   openVacancies: CompanyProfilOpenVacancyDataType[];
@@ -131,13 +133,23 @@ export default function ShowCompanyProfile({ token }: Props) {
                     {data.tagline ?? ""}
                   </p>
                   <div className="flex items-center gap-5 flex-wrap mt-3 justify-start text-center">
-                    {data.location && (
+                    {data.address && (
                       <p className="flex items-center gap-1 text-sm">
                         <HugeiconsIcon
                           icon={Location01Icon}
                           className="size-5 text-black/70"
                         />
-                        {data.location}
+                        {data.address}
+                      </p>
+                    )}
+
+                    {data.phone && (
+                      <p className="flex items-center gap-1 text-sm">
+                        <HugeiconsIcon
+                          icon={CallIcon}
+                          className="size-5 text-black/70"
+                        />
+                        {data.phone}
                       </p>
                     )}
 
