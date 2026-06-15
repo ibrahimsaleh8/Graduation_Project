@@ -48,8 +48,9 @@ export default function CompanyProfileStatistics({
     },
   ];
   return (
-    <div className="w-full lg:max-w-lg bg-white border p-4 rounded-md space-y-4">
-      <p className="text-xl font-medium">Highlights</p>
+    <div className="w-full xl:max-w-lg bg-white border p-5 rounded-md space-y-4">
+      <p className="font-medium pb-2 border-b">Highlights</p>
+
       <div className="grid md:grid-cols-2 gap-4 text-sm">
         {companyHighlightsData.map((highlight) => (
           <CompanyHighlightCard

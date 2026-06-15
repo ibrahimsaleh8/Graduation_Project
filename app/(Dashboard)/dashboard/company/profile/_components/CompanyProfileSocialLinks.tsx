@@ -9,66 +9,76 @@ import Link from "next/link";
 type Props = {
   socialLinks: CompanySocialLinks;
 };
+
 export default function CompanyProfileSocialLinks({ socialLinks }: Props) {
+  const hasSocialLinks =
+    socialLinks.facebook ||
+    socialLinks.instagram ||
+    socialLinks.linkedin ||
+    socialLinks.twitter;
+
   return (
-    <div className="w-full lg:max-w-lg bg-white border p-4 rounded-md space-y-4">
-      <p className="text-xl font-medium">Social Links</p>
-      {!socialLinks.facebook &&
-        !socialLinks.instagram &&
-        !socialLinks.linkedin &&
-        !socialLinks.twitter && (
-          <Link
-            href={"/dashboard/company/setting"}
-            className="text-sm text-black/70 font-medium w-full flex items-center gap-1 hover:underline">
-            <HugeiconsIcon icon={Share01Icon} className="size-5" /> Please Add
-            Company Social Links in Settings{" "}
-          </Link>
-        )}
-      <ul className="grid md:grid-cols-2 gap-4 text-sm">
+    <div className="w-full xl:max-w-100 bg-white p-5 rounded-2xl border border-border-color">
+      <p className="font-medium pb-2 border-b">Social Links</p>
+
+      {!hasSocialLinks && (
+        <Link
+          href="/dashboard/company/setting"
+          className="text-sm text-black/70 font-medium w-full flex items-center gap-1 mt-4 hover:underline">
+          <HugeiconsIcon icon={Share01Icon} className="size-5" />
+          Please Add Company Social Links in Settings
+        </Link>
+      )}
+
+      <ul className="space-y-6 mt-4">
         {socialLinks.facebook && (
-          <li>
+          <li className="flex items-center gap-2 text-sm font-medium">
+            <FaFacebook className="size-5 text-black/70" />
             <a
               href={socialLinks.facebook}
               target="_blank"
-              className="flex items-center gap-2 bg-[#1877f2] text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
-              <FaFacebook className="size-5" />
+              rel="noopener noreferrer"
+              className="hover:underline">
               Facebook
             </a>
           </li>
         )}
 
         {socialLinks.linkedin && (
-          <li>
+          <li className="flex items-center gap-2 text-sm font-medium">
+            <FaLinkedin className="size-5 text-black/70" />
             <a
               href={socialLinks.linkedin}
               target="_blank"
-              className="flex items-center gap-2 bg-[#0a66c2] text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
-              <FaLinkedin className="size-5" />
-              Linkedin
+              rel="noopener noreferrer"
+              className="hover:underline">
+              LinkedIn
             </a>
           </li>
         )}
 
         {socialLinks.instagram && (
-          <li>
+          <li className="flex items-center gap-2 text-sm font-medium">
+            <FaInstagram className="size-5 text-black/70" />
             <a
               href={socialLinks.instagram}
               target="_blank"
-              className="flex items-center gap-2 bg-[#e1306c] text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
-              <FaInstagram className="size-5" />
+              rel="noopener noreferrer"
+              className="hover:underline">
               Instagram
             </a>
           </li>
         )}
 
         {socialLinks.twitter && (
-          <li>
+          <li className="flex items-center gap-2 text-sm font-medium">
+            <BsTwitterX className="size-5 text-black/70" />
             <a
               href={socialLinks.twitter}
               target="_blank"
-              className="flex items-center gap-2 bg-[#000000] text-white px-4 py-2 rounded-md hover:opacity-80 duration-300">
-              <BsTwitterX className="size-5" />
-              Twitter
+              rel="noopener noreferrer"
+              className="hover:underline">
+              Twitter (X)
             </a>
           </li>
         )}

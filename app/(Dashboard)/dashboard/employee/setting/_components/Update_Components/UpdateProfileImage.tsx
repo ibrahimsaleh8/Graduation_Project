@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -27,47 +27,80 @@ type Props = {
   operation: "profile" | "cover";
   token: string;
   currentImageUrl?: string;
+  role: "employee" | "company";
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
 async function uploadImage(
   file: File,
   token: string,
   operation: "profile" | "cover",
+  role: "employee" | "company",
   onProgress?: (percent: number) => void,
 ) {
   const formData = new FormData();
 
-  if (operation === "profile") {
-    formData.append("photo", file);
+  if (role == "employee") {
+    if (operation === "profile") {
+      formData.append("photo", file);
+    } else {
+      formData.append("coverPhoto", file);
+    }
+
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/${
+        operation === "profile" ? "update-photo" : "update-cover-photo"
+      }`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (e) => {
+          if (e.total) {
+            onProgress?.(Math.round((e.loaded * 100) / e.total));
+          }
+        },
+      },
+    );
+
+    return res.data;
   } else {
-    formData.append("coverPhoto", file);
+    if (operation === "profile") {
+      formData.append("logo", file);
+    } else {
+      formData.append("cover", file);
+    }
+
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/CompanySettings/${
+        operation === "profile" ? "logo" : "cover-image"
+      }`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (e) => {
+          if (e.total) {
+            onProgress?.(Math.round((e.loaded * 100) / e.total));
+          }
+        },
+      },
+    );
+
+    return res.data;
   }
-
-  const res = await axios.put(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/${
-      operation === "profile" ? "update-photo" : "update-cover-photo"
-    }`,
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-      onUploadProgress: (e) => {
-        if (e.total) {
-          onProgress?.(Math.round((e.loaded * 100) / e.total));
-        }
-      },
-    },
-  );
-
-  return res.data;
 }
 
 export default function UpdateProfileImage({
   operation,
   token,
   currentImageUrl,
+  role,
+  setOpen,
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -79,12 +112,22 @@ export default function UpdateProfileImage({
 
   const { mutate, isPending } = useMutation({
     mutationFn: (file: File) =>
-      uploadImage(file, token, operation, setUploadProgress),
+      uploadImage(file, token, operation, role, setUploadProgress),
     onSuccess: () => {
       sileo.success({ title: "Image updated successfully!" });
-      queryClient.invalidateQueries({ queryKey: ["get-my-profile-employee"] });
+
+      if (role == "employee") {
+        queryClient.refetchQueries({ queryKey: ["get-my-profile-employee"] });
+      } else {
+        queryClient.refetchQueries({ queryKey: ["company-profile-settings"] });
+        queryClient.refetchQueries({ queryKey: ["company-profile"] });
+      }
+
       setUploadProgress(0);
       removeImage();
+      if (setOpen) {
+        setOpen(false);
+      }
     },
     onError: (err: AxiosError<{ errors: string[] }>) => {
       sileo.error({
@@ -100,7 +143,6 @@ export default function UpdateProfileImage({
     if (!file) return;
     setSelectedFile(file);
     setCroppedImage(null);
-    // For cover, skip crop and use the file directly
     if (operation === "cover") {
       setImageFile(file);
       const previewUrl = URL.createObjectURL(file);
@@ -137,7 +179,6 @@ export default function UpdateProfileImage({
     mutate(imageFile);
   };
 
-  /* ── Cover photo layout (no crop) ── */
   if (operation === "cover") {
     return (
       <div className="space-y-5">

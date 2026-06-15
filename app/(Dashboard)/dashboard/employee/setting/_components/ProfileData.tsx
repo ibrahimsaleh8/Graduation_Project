@@ -140,7 +140,13 @@ export default function ProfileData({
                   <HugeiconsIcon icon={Camera03Icon} className="size-6" />
                 </button>
               }
-              content={<UpdateProfileImage token={token} operation="cover" />}
+              content={
+                <UpdateProfileImage
+                  token={token}
+                  operation="cover"
+                  role="employee"
+                />
+              }
               contentClassname="md:min-w-150 pb-3"
             />
           </div>
@@ -161,7 +167,13 @@ export default function ProfileData({
                   <HugeiconsIcon icon={Camera03Icon} className="size-6" />
                 </button>
               }
-              content={<UpdateProfileImage token={token} operation="profile" />}
+              content={
+                <UpdateProfileImage
+                  token={token}
+                  operation="profile"
+                  role="employee"
+                />
+              }
               contentClassname="md:min-w-150 pb-3"
             />
           </div>

@@ -102,92 +102,97 @@ export default function ShowCompanyProfile({ token }: Props) {
     data && (
       <div className="space-y-6">
         {/* Top */}
-        <div className="flex flex-col">
-          <div className="w-full h-60 rounded-2xl bg-white overflow-hidden border">
-            {data.coverLogoUrl && (
-              <img
-                src={data.coverLogoUrl}
-                alt={`${data.name} Cover Image`}
-                className="w-full h-full object-cover object-center"
-              />
-            )}
-          </div>{" "}
-          <div className="flex items-start justify-between flex-wrap">
-            {/* Image & Names */}
-            <div className="flex items-center flex-col lg:flex-row text-center lg:text-left w-full lg:w-fit">
-              <div className="size-38 bg-main-dark rounded-full ml-3 -mt-20">
-                {data.logoUrl && (
-                  <img
-                    src={data.logoUrl}
-                    alt={`${data.name} profile image`}
-                    className="w-full h-full object-cover object-center"
-                  />
-                )}
-              </div>
-              <div className="space-y-1 pl-7 mt-4">
-                <p className="text-4xl font-medium">{data.name}</p>
-                <p className="font-medium text-black/70">
-                  {data.tagline ?? ""}
-                </p>
-                <div className="flex items-center gap-5 flex-wrap mt-3 justify-start text-center">
-                  {data.location && (
-                    <p className="flex items-center gap-1 text-sm">
-                      <HugeiconsIcon
-                        icon={Location01Icon}
-                        className="size-5 text-black/70"
-                      />
-                      {data.location}
-                    </p>
-                  )}
-
-                  {data.industry && (
-                    <p className="flex items-center gap-1 text-sm">
-                      <HugeiconsIcon
-                        icon={Building06Icon}
-                        className="size-5 text-black/70"
-                      />
-                      {data.industry}
-                    </p>
-                  )}
-
-                  {data.companySize && (
-                    <p className="flex items-center gap-1 text-sm">
-                      <HugeiconsIcon
-                        icon={UserGroup02Icon}
-                        className="size-5 text-black/70"
-                      />
-                      {data.companySize}
-                    </p>
+        <div className="flex items-start gap-5 flex-col xl:flex-row md:pl-7">
+          <div className="flex flex-col w-full">
+            <div className="w-full h-60 rounded-2xl bg-white overflow-hidden border">
+              {data.coverLogoUrl && (
+                <img
+                  src={data.coverLogoUrl}
+                  alt={`${data.name} Cover Image`}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
+            </div>{" "}
+            <div className="flex items-start justify-between flex-wrap">
+              {/* Image & Names */}
+              <div className="flex items-center flex-col lg:flex-row text-center lg:text-left w-full lg:w-fit">
+                <div className="size-38 bg-main-dark rounded-full ml-3 -mt-20 overflow-hidden">
+                  {data.logoUrl && (
+                    <img
+                      src={data.logoUrl}
+                      alt={`${data.name} profile image`}
+                      className="w-full h-full object-cover object-center"
+                    />
                   )}
                 </div>
+                <div className="space-y-1 pl-7 mt-4">
+                  <p className="text-4xl font-medium">{data.name}</p>
+                  <p className="font-medium text-black/70">
+                    {data.tagline ?? ""}
+                  </p>
+                  <div className="flex items-center gap-5 flex-wrap mt-3 justify-start text-center">
+                    {data.location && (
+                      <p className="flex items-center gap-1 text-sm">
+                        <HugeiconsIcon
+                          icon={Location01Icon}
+                          className="size-5 text-black/70"
+                        />
+                        {data.location}
+                      </p>
+                    )}
+
+                    {data.industry && (
+                      <p className="flex items-center gap-1 text-sm">
+                        <HugeiconsIcon
+                          icon={Building06Icon}
+                          className="size-5 text-black/70"
+                        />
+                        {data.industry}
+                      </p>
+                    )}
+
+                    {data.companySize && (
+                      <p className="flex items-center gap-1 text-sm">
+                        <HugeiconsIcon
+                          icon={UserGroup02Icon}
+                          className="size-5 text-black/70"
+                        />
+                        {data.companySize}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* Socials */}
+              <div className="flex items-center gap-4 ml-auto mt-4 pr-4 pl-7 w-full lg:w-fit">
+                {data.websiteUrl && (
+                  <a
+                    className="px-8 py-2 bg-main-color hover:bg-main-color/80 text-white rounded-md text-sm flex items-center justify-center gap-3 transition ml-auto md:w-fit w-full"
+                    href={data.websiteUrl}
+                    target="_blank">
+                    <HugeiconsIcon
+                      icon={LinkSquare02Icon}
+                      className="size-5"
+                      strokeWidth={2}
+                    />
+                    Visit Website
+                  </a>
+                )}
               </div>
             </div>
-            {/* Socials */}
-            <div className="flex items-center gap-4 ml-auto mt-4 pr-4 pl-7 w-full lg:w-fit">
-              {data.websiteUrl && (
-                <a
-                  className="px-8 py-2 bg-[#dfdfdf] hover:bg-[#d3d3d3] text-black rounded-md text-sm flex items-center justify-center gap-3 transition ml-auto md:w-fit w-full"
-                  href={data.websiteUrl}
-                  target="_blank">
-                  <HugeiconsIcon
-                    icon={LinkSquare02Icon}
-                    className="size-5"
-                    strokeWidth={2}
-                  />
-                  Visit Website
-                </a>
-              )}
-            </div>
           </div>
+
+          <CompanyProfileSocialLinks socialLinks={data.socialLinks} />
         </div>
 
         <div className="space-y-3 md:pl-7">
-          <div className="flex gap-5 items-start flex-col lg:flex-row">
-            <ProfileAbout aboutMe={data.about} />
-            <CompanyProfileSocialLinks socialLinks={data.socialLinks} />
-          </div>
-          <div className="flex gap-5 items-start flex-col lg:flex-row">
-            <CompanyProfileOpenendJobs openVacancies={data.openVacancies} />
+          <div className="flex items-start flex-col xl:flex-row gap-5">
+            {/* About & Social Links */}
+            <div className="flex gap-5 items-start flex-col w-full">
+              <ProfileAbout aboutMe={data.about} />
+              <CompanyProfileOpenendJobs openVacancies={data.openVacancies} />
+            </div>
+            {/* Skills */}
             <CompanyProfileStatistics
               country={data.country}
               foundedYear={data.foundedYear}
