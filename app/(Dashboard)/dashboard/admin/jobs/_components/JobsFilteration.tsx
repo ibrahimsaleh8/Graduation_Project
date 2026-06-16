@@ -7,16 +7,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { Label } from "@/components/ui/label";
+import { JobStatusDataType } from "../../../company/job-posts/[id]/_components/ShowJobDetailsById";
+import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+type Props = {
+  updateSearchTxt: (txt: string) => void;
+  updateStatusFilter: (status: "All" | JobStatusDataType) => void;
+  updateTypeFilter: (type: string) => void;
+};
 
-export default function JobsFilteration() {
+export default function JobsFilteration({
+  updateSearchTxt,
+  updateStatusFilter,
+  updateTypeFilter,
+}: Props) {
   return (
     <div className="flex items-center gap-3 md:flex-row flex-col">
       {/* Search */}
       <div className="w-full space-y-1">
         <Label htmlFor="search">Search</Label>
         <Input
+          onChange={(e) => updateSearchTxt(e.target.value)}
           id="search"
           type="text"
           placeholder="Search By job title or company..."
@@ -27,7 +38,11 @@ export default function JobsFilteration() {
       {/* Status */}
       <div className="w-full space-y-1">
         <Label htmlFor="status">Status</Label>
-        <Select defaultValue="all">
+        <Select
+          defaultValue="All"
+          onValueChange={(e) =>
+            updateStatusFilter(e as "All" | JobStatusDataType)
+          }>
           <SelectTrigger
             id="status"
             className="w-full bg-white h-11! border border-border-color">
@@ -37,22 +52,22 @@ export default function JobsFilteration() {
             <SelectGroup>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="all">
+                value="All">
                 All
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="active">
-                Active
+                value="Approved">
+                Approved
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="pending">
+                value="Pending">
                 Pending
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="rejected">
+                value="Rejected">
                 Rejected
               </SelectItem>
             </SelectGroup>
@@ -63,7 +78,7 @@ export default function JobsFilteration() {
       {/* Job Type */}
       <div className="w-full space-y-1">
         <Label htmlFor="Type">Type</Label>
-        <Select defaultValue="all">
+        <Select defaultValue="All" onValueChange={(e) => updateTypeFilter(e)}>
           <SelectTrigger
             id="Type"
             className="w-full bg-white h-11! border border-border-color">
@@ -73,29 +88,26 @@ export default function JobsFilteration() {
             <SelectGroup>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="all">
+                value="All">
                 All
               </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="remote">
-                Remote
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="onsite">
-                Onsite
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="hybrid">
-                Hybrid
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="flexible">
-                Flexible
-              </SelectItem>
+
+              {employmentTypes.map((emType) => (
+                <SelectItem
+                  key={emType}
+                  className="hover:bg-input-bg! hover:text-black!"
+                  value={emType}>
+                  {emType}
+                </SelectItem>
+              ))}
+              {workApproaches.map((workApproach) => (
+                <SelectItem
+                  key={workApproach}
+                  className="hover:bg-input-bg! hover:text-black!"
+                  value={workApproach}>
+                  {workApproach}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
