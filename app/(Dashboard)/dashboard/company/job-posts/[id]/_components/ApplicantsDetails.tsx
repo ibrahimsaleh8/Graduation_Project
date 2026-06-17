@@ -12,6 +12,7 @@ type Props = {
   token: string;
   jobId: string;
   setOpen?: Dispatch<SetStateAction<boolean>>;
+  role: "admin" | "company";
 };
 export type CandidateApplicationDetailsDataType = {
   name: string;
@@ -42,6 +43,7 @@ export default function ApplicantsDetails({
   token,
   jobId,
   setOpen,
+  role,
 }: Props) {
   const { data, error, isLoading } = useQuery<
     CandidateApplicationDetailsDataType,
@@ -76,6 +78,7 @@ export default function ApplicantsDetails({
             applicationId={ApplicationId}
             token={token}
             jobId={jobId}
+            role={role}
           />
         </Activity>
         <Activity mode={!showDetails ? "visible" : "hidden"}>

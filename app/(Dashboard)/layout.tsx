@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         </div>
       </div>
 
-      <AiChatFloatedIcon />
+      {/* <AiChatFloatedIcon /> */}
     </main>
   );
 }

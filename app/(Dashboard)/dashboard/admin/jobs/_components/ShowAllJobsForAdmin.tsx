@@ -11,11 +11,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import JobsFilteration from "./JobsFilteration";
-import AllJobsActions from "./AllJobsActions";
 import { JobAdminDashboardDataType } from "./ShowAllJobsAdminDashboard";
 import JobStatusBadge from "../../../company/job-posts/[id]/_components/JobStatusBadge";
 import { formatDate } from "@/lib/FormatDate";
 import { JobStatusDataType } from "../../../company/job-posts/[id]/_components/ShowJobDetailsById";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type Props = {
   data: JobAdminDashboardDataType[];
@@ -134,7 +135,11 @@ export default function ShowAllJobsForAdmin({ data }: Props) {
                 </TableCell>
 
                 <TableCell>
-                  <AllJobsActions />
+                  <Link
+                    className="px-6 py-2 text-xs bg-main-color text-white rounded-sm flex items-center gap-1 w-fit"
+                    href={`/dashboard/admin/jobs/${job.jobId}`}>
+                    Details <ArrowRight className="size-4" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))

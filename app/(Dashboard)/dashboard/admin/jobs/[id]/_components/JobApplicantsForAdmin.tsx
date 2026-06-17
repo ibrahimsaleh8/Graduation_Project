@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import AlertModel from "@/components/main-layout/AlertModel";
-import JobApplicantsFilter from "./JobApplicantsFilter";
 import {
   Table,
   TableBody,
@@ -8,25 +8,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import ApplicantsDetails from "./ApplicantsDetails";
-import {
-  ApplicantStatusDetailsType,
-  JobDetailsApplicantDetailsType,
-} from "./ShowJobDetailsById";
 import { formatDate } from "@/lib/FormatDate";
-import CandidateApplicationStatus from "./CandidateApplicationStatus";
 import { useMemo, useState } from "react";
+import { JobDetailsCandidatesDataType } from "./ShowJobDetailsPage";
+import { ApplicantStatusDetailsType } from "@/app/(Dashboard)/dashboard/company/job-posts/[id]/_components/ShowJobDetailsById";
+import CandidateApplicationStatus from "@/app/(Dashboard)/dashboard/company/job-posts/[id]/_components/CandidateApplicationStatus";
+import ApplicantsDetails from "@/app/(Dashboard)/dashboard/company/job-posts/[id]/_components/ApplicantsDetails";
+import JobApplicantsFilter from "@/app/(Dashboard)/dashboard/company/job-posts/[id]/_components/JobApplicantsFilter";
 
 type Props = {
-  candidates: JobDetailsApplicantDetailsType[];
+  candidates: JobDetailsCandidatesDataType[];
   token: string;
   jobId: string;
 };
-
-export default function JobApplicants({ candidates, token, jobId }: Props) {
+export default function JobApplicantsForAdmin({
+  candidates,
+  jobId,
+  token,
+}: Props) {
   const [searchTxt, setSearchTxt] = useState("");
   const [filterStatus, setFilterStatus] = useState<
     "All" | ApplicantStatusDetailsType
@@ -45,13 +46,13 @@ export default function JobApplicants({ candidates, token, jobId }: Props) {
 
     if (filterStatus !== "All") {
       filteredCandidates = filteredCandidates.filter(
-        (candidate) => candidate.status === filterStatus,
+        (candidate) => candidate.applicationStatus === filterStatus,
       );
     }
 
     if (searchTxt.trim() !== "") {
       filteredCandidates = filteredCandidates.filter((candidate) =>
-        candidate.applicantName.toLowerCase().includes(searchTxt.toLowerCase()),
+        candidate.fullName.toLowerCase().includes(searchTxt.toLowerCase()),
       );
     }
     return filteredCandidates;
@@ -80,24 +81,21 @@ export default function JobApplicants({ candidates, token, jobId }: Props) {
           {AllCandidates.length > 0 ? (
             AllCandidates.map((candidate) => (
               <TableRow
-                key={candidate.applicantionId}
+                key={candidate.applicationId}
                 className="border-b hover:bg-black/5">
                 <TableCell>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     {/* User Image */}
-                    <div className="size-12 rounded-full bg-input-bg">
-                      <Image
-                        src={candidate.imageUrl}
-                        alt="User Image"
-                        width={40}
-                        height={40}
+                    <div className="size-11 rounded-full bg-input-bg">
+                      <img
+                        src={candidate.avatarUrl}
+                        alt={candidate.fullName}
                         className="rounded-full w-full object-cover"
                       />
                     </div>
                     {/* User Info */}
                     <div className="text-sm space-y-0.5">
-                      <p className="font-medium">{candidate.applicantName}</p>
-                      <p className="text-black/70 text-xs">{candidate.email}</p>
+                      <p className="font-medium">{candidate.fullName}</p>
                     </div>
                   </div>
                 </TableCell>
@@ -108,15 +106,17 @@ export default function JobApplicants({ candidates, token, jobId }: Props) {
                 </TableCell>
                 <TableCell>
                   <div>
-                    <p>{formatDate(candidate.appliedDate)}</p>
+                    <p>{formatDate(candidate.appliedAgo)}</p>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <CandidateApplicationStatus status={candidate.status} />
+                  <CandidateApplicationStatus
+                    status={candidate.applicationStatus}
+                  />
                 </TableCell>
                 <TableCell>
                   <AlertModel
-                    title={`${candidate.applicantName}'s Application`}
+                    title={`${candidate.fullName}'s Application`}
                     trigger={
                       <Button className="text-xs h-9.5 bg-main-color text-white justify-start hover:bg-main-color/80 hover:text-white gap-1.5">
                         <Eye className="sie-5" /> View Details
@@ -124,10 +124,10 @@ export default function JobApplicants({ candidates, token, jobId }: Props) {
                     }
                     content={
                       <ApplicantsDetails
-                        ApplicationId={candidate.applicantionId}
+                        ApplicationId={candidate.applicationId}
                         token={token}
                         jobId={jobId}
-                        role="company"
+                        role="admin"
                       />
                     }
                     contentClassname="md:min-w-150 pb-3"

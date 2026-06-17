@@ -159,7 +159,12 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
     data && (
       <div className="space-y-3 container mx-auto">
         {/* Breadcrumb */}
-        <JobDetailsBreadcrumb jobId={jobId} jobTitle={data.title} />
+        <JobDetailsBreadcrumb
+          dashboardLink="/dashboard/company"
+          jobslink="/dashboard/company/job-posts"
+          jobId={jobId}
+          jobTitle={data.title}
+        />
 
         {/* Job Details */}
         <div className="space-y-5">

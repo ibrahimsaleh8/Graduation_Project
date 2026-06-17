@@ -22,6 +22,7 @@ type Props = {
   applicationId: string;
   token: string;
   jobId: string;
+  role: "admin" | "company";
 };
 export default function ShowApplicantsDetails({
   setShowDetails,
@@ -29,6 +30,7 @@ export default function ShowApplicantsDetails({
   applicationId,
   token,
   jobId,
+  role,
 }: Props) {
   return (
     <motion.div
@@ -43,7 +45,7 @@ export default function ShowApplicantsDetails({
       {/* Top */}
       <div className="w-full flex items-center justify-between gap-4">
         {/* User Image & Name */}
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-3 flex-wrap">
           {/* User Image */}
           <div className="size-20 rounded-full bg-input-bg">
             <Image
@@ -105,37 +107,41 @@ export default function ShowApplicantsDetails({
 
       {/* Buttons */}
       <div className="space-y-2 mt-5">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <CandidateApplicationStatus
             status={applicationData.applicationStatus}
           />
-          <Button
-            disabled={applicationData.applicationStatus == "Accepted"}
-            onClick={() => setShowDetails(false)}
-            className="text-xs h-10 bg-purple-700 font-medium hover:bg-purple-800">
-            <HugeiconsIcon
-              icon={Calendar02Icon}
-              strokeWidth={2}
-              className="size-4.5"
-            />
-            Schedule Interview
-          </Button>
+          {role == "company" && (
+            <Button
+              disabled={applicationData.applicationStatus == "Accepted"}
+              onClick={() => setShowDetails(false)}
+              className="text-xs h-10 bg-purple-700 font-medium hover:bg-purple-800">
+              <HugeiconsIcon
+                icon={Calendar02Icon}
+                strokeWidth={2}
+                className="size-4.5"
+              />
+              Schedule Interview
+            </Button>
+          )}
         </div>
 
-        <div className="flex items-center gap-1 w-full mt-6">
-          <MarkApplicationAsReviewed
-            applicationId={applicationId}
-            token={token}
-            jobId={jobId}
-            currentStatus={applicationData.applicationStatus}
-          />
-          <RejectApplication
-            applicationId={applicationId}
-            token={token}
-            jobId={jobId}
-            currentStatus={applicationData.applicationStatus}
-          />
-        </div>
+        {role == "company" && (
+          <div className="flex items-center gap-1 w-full mt-6 flex-wrap">
+            <MarkApplicationAsReviewed
+              applicationId={applicationId}
+              token={token}
+              jobId={jobId}
+              currentStatus={applicationData.applicationStatus}
+            />
+            <RejectApplication
+              applicationId={applicationId}
+              token={token}
+              jobId={jobId}
+              currentStatus={applicationData.applicationStatus}
+            />
+          </div>
+        )}
       </div>
     </motion.div>
   );

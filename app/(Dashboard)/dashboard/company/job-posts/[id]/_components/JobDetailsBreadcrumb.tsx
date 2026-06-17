@@ -4,13 +4,18 @@ import Link from "next/link";
 type Props = {
   jobTitle: string;
   jobId: string;
+  jobslink: string;
+  dashboardLink: string;
 };
-export default function JobDetailsBreadcrumb({ jobTitle, jobId }: Props) {
+export default function JobDetailsBreadcrumb({
+  jobTitle,
+  jobId,
+  dashboardLink,
+  jobslink,
+}: Props) {
   return (
     <div className="flex items-center sm:text-sm text-xs gap-1 sm:pl-2">
-      <Link
-        href={"/dashboard/company"}
-        className="text-black/70 hover:text-black">
+      <Link href={dashboardLink} className="text-black/70 hover:text-black">
         Dashboard
       </Link>
       <HugeiconsIcon
@@ -18,9 +23,7 @@ export default function JobDetailsBreadcrumb({ jobTitle, jobId }: Props) {
         className="size-3.5"
         strokeWidth={2}
       />
-      <Link
-        href={"/dashboard/company/job-posts"}
-        className="text-black/80 hover:text-black">
+      <Link href={jobslink} className="text-black/80 hover:text-black">
         Job Posts
       </Link>
       <HugeiconsIcon
@@ -29,7 +32,7 @@ export default function JobDetailsBreadcrumb({ jobTitle, jobId }: Props) {
         strokeWidth={2}
       />
       <Link
-        href={`/dashboard/company/job-posts/${jobId}`}
+        href={`${jobslink}/${jobId}`}
         className="font-medium line-clamp-1 overflow-hidden text-ellipsis w-32 md:w-60">
         {jobTitle}
       </Link>
