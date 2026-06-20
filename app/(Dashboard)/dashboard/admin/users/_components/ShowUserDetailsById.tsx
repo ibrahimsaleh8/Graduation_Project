@@ -21,8 +21,8 @@ import { formatDate } from "@/lib/FormatDate";
 import { Dispatch, SetStateAction, useMemo } from "react";
 import UserDetailsSocials from "./UserDetailsSocials";
 import BlockAndUnBlockUser from "./BlockAndUnBlockUser";
-import DeleteUser from "./DeleteUser";
 import ShowUserDetailsByIdSkeleton from "./ShowUserDetailsByIdSkeleton";
+import DeleteProfiles from "../../_components/DeleteProfiles";
 
 type Props = {
   token: string;
@@ -162,7 +162,6 @@ export default function ShowUserDetailsById({ token, userId, setOpen }: Props) {
                   className="w-full h-full object-cover"
                 />
               )}
-
             </div>
 
             {/* User Main Data */}
@@ -240,14 +239,14 @@ export default function ShowUserDetailsById({ token, userId, setOpen }: Props) {
             data.github ||
             data.linkedin ||
             data.portfolio) && (
-              <UserDetailsSocials
-                cvUrl={data.cvUrl}
-                facebook={data.facebook}
-                github={data.github}
-                linkedin={data.linkedin}
-                portfolio={data.portfolio}
-              />
-            )}
+            <UserDetailsSocials
+              cvUrl={data.cvUrl}
+              facebook={data.facebook}
+              github={data.github}
+              linkedin={data.linkedin}
+              portfolio={data.portfolio}
+            />
+          )}
         </div>
 
         <div className="sticky mt-auto left-0 bottom-0 w-full bg-input-bg border-t p-10 pt-6 pb-4 flex items-center flex-col gap-4">
@@ -258,7 +257,12 @@ export default function ShowUserDetailsById({ token, userId, setOpen }: Props) {
               isBlocked={data.isBlocked}
             />
 
-            <DeleteUser setOpen={setOpen} token={token} userId={userId} />
+            <DeleteProfiles
+              setOpen={setOpen}
+              token={token}
+              id={userId}
+              profile="user"
+            />
           </div>
 
           <Link
