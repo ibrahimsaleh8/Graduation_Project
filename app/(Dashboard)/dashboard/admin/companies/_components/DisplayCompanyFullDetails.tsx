@@ -141,6 +141,7 @@ export default function DisplayCompanyFullDetails() {
                 <HugeiconsIcon icon={BlockedIcon} /> Block Company
               </Button>
               <DeleteBtnWithVerfication
+                isPending={false}
                 deleteFn={() => {
                   console.log("delete company");
                 }}
