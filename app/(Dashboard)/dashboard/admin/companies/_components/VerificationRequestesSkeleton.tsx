@@ -9,13 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TableReSortData from "@/components/buttons/TableReSortData";
 
 export default function VerificationRequestesSkeleton() {
   return (
     <div className="space-y-4">
       {/* Filtration Skeleton */}
-      <div className="flex items-center gap-3 md:flex-row flex-col w-full md:max-w-6xl">
+      <div className="flex items-center gap-3 md:flex-row flex-col w-full">
         {/* Search */}
         <div className="w-full space-y-1">
           <div className="text-sm font-medium text-black/70">
@@ -39,34 +38,26 @@ export default function VerificationRequestesSkeleton() {
           <TableHeader>
             <TableRow className="bg-main-dark hover:bg-main-dark border-none">
               <TableHead className="pl-5 py-4 text-white">
-                <TableReSortData
-                  label="Company"
-                  sortFn={() => {}}
-                />
+                <Skeleton className="h-4 w-16 bg-white/20" />
               </TableHead>
-
-              <TableHead className="py-4 text-white">Email</TableHead>
-              <TableHead className="py-4 text-white">Industry</TableHead>
-
               <TableHead className="py-4 text-white">
-                <TableReSortData
-                  label="Documents"
-                  sortFn={() => {}}
-                />
+                <Skeleton className="h-4 w-12 bg-white/20" />
               </TableHead>
-
               <TableHead className="py-4 text-white">
-                Verification Status
+                <Skeleton className="h-4 w-16 bg-white/20" />
               </TableHead>
-
               <TableHead className="py-4 text-white">
-                <TableReSortData
-                  label="Submitted Date"
-                  sortFn={() => {}}
-                />
+                <Skeleton className="h-4 w-20 bg-white/20" />
               </TableHead>
-
-              <TableHead className="py-4 text-white w-52">Action</TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-12 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-28 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white w-52">
+                <Skeleton className="h-4 w-12 bg-white/20" />
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -82,7 +73,7 @@ export default function VerificationRequestesSkeleton() {
                     <div className="space-y-1.5">
                       <Skeleton className="h-4 w-24" />
                       <div className="flex items-center gap-1 mt-1">
-                        <Skeleton className="size-3.5 rounded-full" />
+                        <Skeleton className="size-3 rounded-full" />
                         <Skeleton className="h-3 w-16" />
                       </div>
                     </div>
@@ -97,7 +88,7 @@ export default function VerificationRequestesSkeleton() {
                 {/* Industry */}
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Skeleton className="size-4.5 rounded-sm" />
+                    <Skeleton className="size-4 rounded" />
                     <Skeleton className="h-4 w-24" />
                   </div>
                 </TableCell>
@@ -105,27 +96,27 @@ export default function VerificationRequestesSkeleton() {
                 {/* Documents */}
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Skeleton className="size-4.5 rounded-sm" />
-                    <Skeleton className="h-4 w-16" />
+                    <Skeleton className="size-4 rounded" />
+                    <Skeleton className="h-4 w-12" />
                   </div>
                 </TableCell>
 
-                {/* Verification Status */}
+                {/* Status */}
                 <TableCell>
-                  <Skeleton className="h-8 w-28 rounded-xl" />
+                  <Skeleton className="h-6 w-20 rounded-md" />
                 </TableCell>
 
                 {/* Submitted Date */}
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Skeleton className="size-4.5 rounded-sm" />
-                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="size-4 rounded" />
+                    <Skeleton className="h-4 w-24" />
                   </div>
                 </TableCell>
 
                 {/* Action */}
                 <TableCell>
-                  <Skeleton className="h-9 w-32 rounded-lg" />
+                  <Skeleton className="h-9 w-30 rounded-sm" />
                 </TableCell>
               </TableRow>
             ))}

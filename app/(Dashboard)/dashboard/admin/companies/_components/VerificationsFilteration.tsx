@@ -7,19 +7,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { Label } from "@/components/ui/label";
+import { VerificationRequestStatusDataType } from "./hooks/useVerificationRequest";
+type Props = {
+  updateSearchTxt: (value: string) => void;
+  updateStatus: (value: "All" | VerificationRequestStatusDataType) => void;
+};
 
-export default function VerificationsFilteration() {
+export default function VerificationsFilteration({
+  updateSearchTxt,
+  updateStatus,
+}: Props) {
   return (
-    <div className="flex items-center gap-3 md:flex-row flex-col w-full md:max-w-6xl">
+    <div className="flex items-center gap-3 md:flex-row flex-col w-full ">
       {/* Search */}
       <div className="w-full space-y-1">
-        <Label htmlFor="search">Search</Label>
+        <Label htmlFor="request-company-search">Search</Label>
         <Input
-          id="search"
+          onChange={(e) => updateSearchTxt(e.target.value)}
+          id="request-company-search"
           type="text"
-          placeholder="Search By Comany Name"
+          placeholder="Search By Company Name or Email"
           className="bg-white border border-border-color w-full"
         />
       </div>
@@ -27,7 +35,11 @@ export default function VerificationsFilteration() {
       {/* Status */}
       <div className="w-full space-y-1">
         <Label htmlFor="verif-status">Status</Label>
-        <Select defaultValue="all">
+        <Select
+          onValueChange={(e: "All" | VerificationRequestStatusDataType) =>
+            updateStatus(e)
+          }
+          defaultValue="All">
           <SelectTrigger
             id="verif-status"
             className="w-full bg-white h-11! border border-border-color">
@@ -37,28 +49,28 @@ export default function VerificationsFilteration() {
             <SelectGroup>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="all">
+                value="All">
                 All
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="pending">
+                value="Pending">
                 Pending
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="approved">
+                value="Approved">
                 Approved
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="rejected">
+                value="Rejected">
                 Rejected
               </SelectItem>
               <SelectItem
                 className="hover:bg-input-bg! hover:text-black!"
-                value="needs_more_info">
-                Needs more info
+                value="NeedsMoreInformation">
+                Need more Details
               </SelectItem>
             </SelectGroup>
           </SelectContent>

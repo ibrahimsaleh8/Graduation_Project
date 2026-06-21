@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -9,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import companyImage from "@images/HR.png";
+import userImage from "@images/dashboard-user-image.png";
 import UsersFilter from "./UsersFilter";
 import ShowUserDetails from "./ShowUserDetails";
 import { ApplicantsDataType } from "./DisplayUsersForAdmin";
@@ -66,16 +67,11 @@ export default function ShowAllUsers({ users, token }: Props) {
         <TableHeader>
           <TableRow className="bg-main-dark hover:bg-main-dark">
             <TableHead className="pl-4 py-4">User</TableHead>
-
             <TableHead className="py-4">Email Address</TableHead>
             <TableHead className="py-4">Job Title</TableHead>
-
             <TableHead className="py-4">Status</TableHead>
-
             <TableHead className="py-4">Location</TableHead>
-
             <TableHead className="py-4">Joined Date</TableHead>
-
             <TableHead className="py-4 w-40">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -90,11 +86,21 @@ export default function ShowAllUsers({ users, token }: Props) {
                 <TableCell className="pl-4">
                   <div className="flex items-center gap-3">
                     <div className="size-10 rounded-full bg-input-bg flex items-center justify-center overflow-hidden">
-                      <Image
-                        src={companyImage}
-                        alt={user.fullName}
-                        className="w-full h-full object-cover"
-                      />
+                      {user.profilePic ? (
+                        <img
+                          src={user.profilePic}
+                          alt={user.fullName}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <Image
+                          src={userImage.src}
+                          alt={user.fullName}
+                          width={100}
+                          height={100}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                     </div>
 
                     <div>

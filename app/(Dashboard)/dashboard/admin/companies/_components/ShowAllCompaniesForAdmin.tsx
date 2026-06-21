@@ -37,6 +37,7 @@ export type CompanyAdminDashboardDataType = {
   companyId: string;
   name: string;
   location: string;
+  logo: string;
   country: string | null;
   email: string;
   industry: string;
@@ -165,7 +166,7 @@ export default function ShowAllCompaniesForAdmin({ token }: Props) {
               <ShowAllCompanies companiesData={data.companies} token={token} />
             </TabsContent>
             <TabsContent value="verifi-req">
-              <VerificationRequestes />
+              <VerificationRequestes token={token} />
             </TabsContent>
           </TabsContents>
         </Tabs>

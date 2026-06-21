@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import CompaniesFilteration from "./CompaniesFilteration";
-import companyImage from "@images/HR.png";
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import DisplayCompanyFullDetails from "./DisplayCompanyFullDetails";
@@ -93,11 +92,11 @@ export default function ShowAllCompanies({ companiesData, token }: Props) {
                   {/* Company */}
                   <TableCell className="pl-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="size-11 rounded-xl bg-input-bg overflow-hidden border border-border-color">
-                        <Image
-                          src={companyImage}
+                      <div className="size-12 rounded-full bg-input-bg overflow-hidden border border-border-color">
+                        <img
+                          src={company.logo}
                           alt={company.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover rounded-full"
                         />
                       </div>
 

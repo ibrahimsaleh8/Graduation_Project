@@ -30,6 +30,7 @@ interface Stats {
 export interface ApplicantsDataType {
   applicantId: string;
   fullName: string;
+  profilePic: string | null;
   email: string;
   jobTitle: string | null;
   isBlocked: boolean;

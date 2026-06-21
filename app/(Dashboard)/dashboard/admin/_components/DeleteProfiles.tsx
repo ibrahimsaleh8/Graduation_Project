@@ -20,7 +20,7 @@ async function deleteApi({
   profile: "user" | "company";
 }) {
   const res = await axios.delete(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Admin/${profile == "user" ? "users" : "companies"}/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Admin/${profile == "user" ? "user" : "companies"}/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

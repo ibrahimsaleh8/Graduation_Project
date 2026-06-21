@@ -45,15 +45,33 @@ export default function ShowAllCompaniesSkeleton() {
         <Table>
           <TableHeader>
             <TableRow className="bg-main-dark hover:bg-main-dark border-none">
-              <TableHead className="pl-5 py-4 text-white">Company</TableHead>
-              <TableHead className="py-4 text-white">Email Address</TableHead>
-              <TableHead className="py-4 text-white">Industry</TableHead>
-              <TableHead className="py-4 text-white">Jobs </TableHead>
-              <TableHead className="py-4 text-white">Status</TableHead>
-              <TableHead className="py-4 text-white">Location</TableHead>
-              <TableHead className="py-4 text-white">Joined Date</TableHead>
-              <TableHead className="py-4 text-white">Subscription</TableHead>
-              <TableHead className="py-4 text-white w-40">Action</TableHead>
+              <TableHead className="pl-5 py-4 text-white">
+                <Skeleton className="h-4 w-16 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-28 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-16 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-8 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-12 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-16 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-20 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white">
+                <Skeleton className="h-4 w-20 bg-white/20" />
+              </TableHead>
+              <TableHead className="py-4 text-white w-40">
+                <Skeleton className="h-4 w-12 bg-white/20" />
+              </TableHead>
             </TableRow>
           </TableHeader>
 
