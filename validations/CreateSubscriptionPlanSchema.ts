@@ -9,53 +9,45 @@ export const createSubscriptionPlanSchema = z
 
     shortDescription: z
       .string()
-      .min(10, "Description must be at least 10 characters")
-      .max(300, "Description must not exceed 300 characters"),
+      .min(5, "Description must be at least 10 characters")
+      .max(500, "Description must not exceed 300 characters"),
 
-    billingCycle: z.enum(["monthly-yearly", "monthly", "yearly"], {
-      error: "Please select a billing cycle",
-    }),
     monthlyPrice: z.number().min(0, "Monthly price cannot be negative"),
     yearlyPrice: z.number().min(0, "Yearly price cannot be negative"),
+
     maxJobPosts: z.number().min(1, "Max job posts must be at least 1"),
 
     featuredJobPosts: z
       .number()
       .min(0, "Featured job posts cannot be negative"),
 
-    aiToolsAccess: z.boolean({ error: "Ai Tools Access Feature is required " }),
+    aiToolsAccess: z.boolean({
+      error: "Ai Tools Access Feature is required",
+    }),
+
     prioritySupport: z.boolean({
-      error: "Priority Support Feature is required ",
+      error: "Priority Support Feature is required",
     }),
 
     candidateSearch: z.boolean({
-      error: "candidate Search Feature is required ",
+      error: "Candidate Search Feature is required",
     }),
   })
   .superRefine((data, ctx) => {
-    // Monthly validation
-    if (
-      (data.billingCycle === "monthly" ||
-        data.billingCycle === "monthly-yearly") &&
-      (data.monthlyPrice === undefined || data.monthlyPrice <= 0)
-    ) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["monthlyPrice"],
-        message: "Monthly price is required",
-      });
-    }
-
-    // Yearly validation
-    if (
-      (data.billingCycle === "yearly" ||
-        data.billingCycle === "monthly-yearly") &&
-      (data.yearlyPrice === undefined || data.yearlyPrice <= 0)
-    ) {
+    if (data.yearlyPrice <= data.monthlyPrice) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["yearlyPrice"],
-        message: "Yearly price is required",
+        message: "Yearly price must be greater than monthly price",
+      });
+    }
+
+    if (data.featuredJobPosts > data.maxJobPosts) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["featuredJobPosts"],
+        message:
+          "Featured job posts must be less than or equal to max job posts",
       });
     }
   });

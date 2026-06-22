@@ -8,52 +8,43 @@ import {
   InputGroupInput,
   InputGroupText,
 } from "@/components/ui/input-group";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CheckListIcon } from "@hugeicons/core-free-icons";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import {
-  createSubscriptionPlanSchema,
-  CreateSubscriptionPlanSchemaType,
-} from "@/validations/CreateSubscriptionPlanSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
+import { SubscriptionPlanDataType } from "./DisplaySubscriptionPage";
+import { Dispatch, SetStateAction } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { useSubscriptionPlanForm } from "./hooks/useSubscriptionPlanForm";
+
 type Props = {
   operation: "edit" | "create";
+  deafultValues?: SubscriptionPlanDataType;
+  token: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
-export default function SubscriptionPlanForm({ operation }: Props) {
+
+export default function SubscriptionPlanForm({
+  operation,
+  deafultValues,
+  token,
+  setOpen,
+}: Props) {
   const {
+    onSubmit,
+    isPending,
+    getValues,
+    errors,
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm<CreateSubscriptionPlanSchemaType>({
-    resolver: zodResolver(createSubscriptionPlanSchema),
-    defaultValues: {
-      planName: "",
-      shortDescription: "",
-      billingCycle: "monthly-yearly",
-      monthlyPrice: 0,
-      yearlyPrice: 0,
-      maxJobPosts: 0,
-      featuredJobPosts: 0,
-      aiToolsAccess: false,
-      candidateSearch: false,
-      prioritySupport: false,
-    },
+  } = useSubscriptionPlanForm({
+    operation,
+    deafultValues,
+    token,
+    setOpen,
   });
-  const onSubmit: SubmitHandler<CreateSubscriptionPlanSchemaType> = (data) => {
-    console.log(data);
-  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="flex md:items-end gap-3 flex-wrap w-full flex-col-reverse md:flex-row">
@@ -61,6 +52,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         <div className="space-y-1 flex-1">
           <Label htmlFor="plan-name">Plan Name</Label>
           <Input
+            aria-invalid={errors.planName ? "true" : "false"}
             {...register("planName")}
             id="plan-name"
             type="text"
@@ -70,7 +62,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         {operation == "edit" && (
           <div className="flex items-center justify-end">
             <p className="text-xs px-4 w-full md:w-fit h-10.5 flex items-center justify-center font-medium bg-black rounded-md text-white">
-              1,204 Active
+              {deafultValues?.numberOfUser} Active
             </p>
           </div>
         )}
@@ -86,6 +78,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         <Textarea
           {...register("shortDescription")}
           id="plan-desc"
+          aria-invalid={errors.shortDescription ? "true" : "false"}
           className="h-32 bg-input-bg"
           placeholder="Describe what makes this plan unique..."
         />
@@ -93,46 +86,6 @@ export default function SubscriptionPlanForm({ operation }: Props) {
       {errors.shortDescription && (
         <ErrorValidationMessage
           message={errors.shortDescription.message as string}
-        />
-      )}
-
-      {/* Billing Cycle */}
-      <div className="space-y-1">
-        <Label htmlFor="billing-cycle">Billing Cycle</Label>
-        <Select
-          onValueChange={(e: "monthly-yearly" | "monthly" | "yearly") =>
-            setValue("billingCycle", e)
-          }
-          defaultValue="monthly-yearly">
-          <SelectTrigger
-            id="billing-cycle"
-            className="w-full bg-input-bg h-11! border-0">
-            <SelectValue placeholder="Location Type" />
-          </SelectTrigger>
-          <SelectContent className="bg-white text-black">
-            <SelectGroup>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="monthly-yearly">
-                Monthly & Yearly
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="monthly">
-                Monthly only
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="yearly">
-                Yearly only
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-      {errors.billingCycle && (
-        <ErrorValidationMessage
-          message={errors.billingCycle.message as string}
         />
       )}
 
@@ -146,10 +99,11 @@ export default function SubscriptionPlanForm({ operation }: Props) {
               <InputGroupText>$</InputGroupText>
             </InputGroupAddon>
             <InputGroupInput
+              aria-invalid={errors.monthlyPrice ? "true" : "false"}
               id="monthly-price"
               placeholder="0.00"
               type="number"
-              defaultValue={0}
+              defaultValue={getValues("monthlyPrice")}
               min={0}
               onChange={(e) => setValue("monthlyPrice", +e.target.value)}
             />
@@ -167,9 +121,10 @@ export default function SubscriptionPlanForm({ operation }: Props) {
               <InputGroupText>$</InputGroupText>
             </InputGroupAddon>
             <InputGroupInput
+              aria-invalid={errors.yearlyPrice ? "true" : "false"}
               id="yearly-price"
               placeholder="0.00"
-              defaultValue={0}
+              defaultValue={getValues("yearlyPrice")}
               min={0}
               type="number"
               onChange={(e) => setValue("yearlyPrice", +e.target.value)}
@@ -215,8 +170,9 @@ export default function SubscriptionPlanForm({ operation }: Props) {
           <InputGroup>
             <InputGroupInput
               id="max-jobs"
+              aria-invalid={errors.maxJobPosts ? "true" : "false"}
               min={0}
-              defaultValue={0}
+              defaultValue={getValues("maxJobPosts")}
               placeholder="0"
               type="number"
               onChange={(e) => setValue("maxJobPosts", +e.target.value)}
@@ -233,7 +189,8 @@ export default function SubscriptionPlanForm({ operation }: Props) {
           <InputGroup>
             <InputGroupInput
               min={0}
-              defaultValue={0}
+              aria-invalid={errors.featuredJobPosts ? "true" : "false"}
+              defaultValue={getValues("featuredJobPosts")}
               id="featured-jobs"
               placeholder="0"
               type="number"
@@ -270,6 +227,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         </Label>
 
         <Switch
+          defaultChecked={getValues("aiToolsAccess")}
           onCheckedChange={(e) => setValue("aiToolsAccess", e)}
           id="ai-tools"
           className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
@@ -288,6 +246,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         </Label>
 
         <Switch
+          defaultChecked={getValues("candidateSearch")}
           onCheckedChange={(e) => setValue("candidateSearch", e)}
           id="candidate-search"
           className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
@@ -306,6 +265,7 @@ export default function SubscriptionPlanForm({ operation }: Props) {
         </Label>
 
         <Switch
+          defaultChecked={getValues("prioritySupport")}
           onCheckedChange={(e) => setValue("prioritySupport", e)}
           id="priority-support"
           className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
@@ -328,9 +288,16 @@ export default function SubscriptionPlanForm({ operation }: Props) {
       )}
 
       <Button
+        disabled={isPending}
         type="submit"
         className="text-sm bg-main-color hover:bg-main-color/70 h-10 w-32">
-        {operation == "create" ? "Publish Plan" : "Save Changes"}
+        {isPending ? (
+          <Spinner />
+        ) : operation == "create" ? (
+          "Publish Plan"
+        ) : (
+          "Save Changes"
+        )}
       </Button>
     </form>
   );
