@@ -10,28 +10,30 @@ export default function SubscriptionUsage({ planUsage }: Props) {
       label: "Active Jobs",
       value: `${planUsage.activeJobs.used} / ${planUsage.activeJobs.limit}`,
       progress:
-        (planUsage.activeJobs.used / planUsage.activeJobs.limit == 0
-          ? 1
-          : planUsage.activeJobs.limit) * 100,
+        planUsage.activeJobs.limit == 0
+          ? 0
+          : (planUsage.activeJobs.used / planUsage.activeJobs.limit) * 100,
     },
     {
       label: "Featured Posts",
       value: `${planUsage.featuredPosts.used} / ${planUsage.featuredPosts.limit}`,
       progress:
-        (planUsage.featuredPosts.used / planUsage.featuredPosts.limit == 0
-          ? 1
-          : planUsage.featuredPosts.limit) * 100,
+        planUsage.featuredPosts.limit == 0
+          ? 0
+          : (planUsage.featuredPosts.used / planUsage.featuredPosts.limit) *
+            100,
     },
     {
       label: "Subscription Progress",
       value: `${planUsage.subscriptionProgress.used} / ${planUsage.subscriptionProgress.limit}`,
       progress:
-        (planUsage.subscriptionProgress.used /
-          planUsage.subscriptionProgress.limit) *
-        100,
+        planUsage.subscriptionProgress.limit == 0
+          ? 0
+          : (planUsage.subscriptionProgress.used /
+              planUsage.subscriptionProgress.limit) *
+            100,
     },
   ];
-  console.log("planUsage", planUsage);
   return (
     <div className="bg-white p-5 w-full rounded-md border space-y-6">
       <p className="font-medium">Plan Usage</p>

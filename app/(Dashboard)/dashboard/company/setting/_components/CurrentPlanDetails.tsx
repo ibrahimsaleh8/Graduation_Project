@@ -1,33 +1,41 @@
 import { CreditCardPosIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Progress } from "@/components/animate-ui/components/radix/progress";
+import { CurrentPlan } from "./CompanySubscription";
+import SubscriptionStatusBadge from "../../../admin/subscriptions/_components/SubscriptionStatusBadge";
+import { formatDate } from "@/lib/FormatDate";
+type Props = {
+  currentPlanData: CurrentPlan;
+};
 
-const usages = [
-  {
-    label: "Active Jobs",
-    value: "84 / 100",
-    progress: (84 / 100) * 100,
-  },
-  {
-    label: "Featured Posts",
-    value: "10 / 10",
-    progress: (10 / 10) * 100,
-  },
-  {
-    label: "Subscription Progress",
-    value: "10 / 365",
-    progress: (10 / 365) * 100,
-  },
-];
-export default function CurrentPlanDetails() {
+export default function CurrentPlanDetails({ currentPlanData }: Props) {
+  const usages = [
+    {
+      label: "Active Jobs",
+      value: `${currentPlanData.activeJobs.used} / ${currentPlanData.activeJobs.limit}`,
+      progress: currentPlanData.activeJobs.percentage,
+    },
+    {
+      label: "Featured Posts",
+      value: `${currentPlanData.featuredPosts.used} / ${currentPlanData.featuredPosts.limit}`,
+      progress: currentPlanData.featuredPosts.percentage,
+    },
+    {
+      label: "Subscription Progress",
+      value: `${currentPlanData.subscriptionProgress.used} / ${currentPlanData.subscriptionProgress.limit}`,
+      progress: currentPlanData.subscriptionProgress.percentage,
+    },
+  ];
+
   return (
     <div className="p-5 bg-white rounded-2xl">
       {/* Top */}
       <div className="flex items-center justify-between flex-wrap gap-4 pb-3 border-b">
         <p className="font-medium">Current Plan Details</p>
-        <p className="text-sm px-4 py-2 bg-green-600 text-white rounded-sm w-fit">
-          Active
-        </p>
+
+        <SubscriptionStatusBadge
+          isActive={currentPlanData.status == "Active"}
+        />
       </div>
 
       {/* Plan Details */}
@@ -45,7 +53,7 @@ export default function CurrentPlanDetails() {
             </div>
             <div>
               <p className="text-sm text-black/70">Plan Name</p>
-              <p className="font-medium">Basic Plan</p>
+              <p className="font-medium">{currentPlanData.planName}</p>
             </div>
           </div>
 
@@ -53,11 +61,13 @@ export default function CurrentPlanDetails() {
           <div className="flex items-center gap-4 flex-wrap">
             <div className="p-3 bg-input-bg rounded-md text-sm">
               <p className="text-black/70">Billing</p>
-              <p className="font-medium">Yearly Cycle</p>
+              <p className="font-medium">{currentPlanData.billingCycle}</p>
             </div>
             <div className="p-3 bg-input-bg rounded-md text-sm">
               <p className="text-black/70">Renewal</p>
-              <p className="font-medium">20 Nov, 2027</p>
+              <p className="font-medium">
+                {formatDate(currentPlanData.renewalDate)}
+              </p>
             </div>
           </div>
         </div>

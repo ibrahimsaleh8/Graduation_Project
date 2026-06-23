@@ -139,7 +139,7 @@ export default function ShowCompanySettings({ token }: Props) {
               <CompanySocialLinks token={token} socialsData={data.socials} />
             </TabsContent>
             <TabsContent value="Subscription">
-              <CompanySubscription />
+              <CompanySubscription token={token} />
             </TabsContent>
             <TabsContent value="security">
               <SecuritySettings token={token} />

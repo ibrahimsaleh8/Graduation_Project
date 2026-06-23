@@ -6,8 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SubscriptionHistoryRecord } from "./DisplaySubscriptionDetails";
 import { formatDate } from "@/lib/FormatDate";
+import { SubscriptionHistoryRecord } from "./hooks/useSubscriptionDetails";
 
 type Props = {
   subscriptionHistory: {

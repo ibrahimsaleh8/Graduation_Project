@@ -6,49 +6,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BillingHistory } from "./CompanySubscription";
+import { formatDate } from "@/lib/FormatDate";
 
-const billingHistory = [
-  {
-    id: 1,
-    planName: "Starter Plan",
-    amount: "$19",
-    purchaseDate: "12 May, 2026",
-    endDate: "12 Jun, 2026",
-    status: "Active",
-  },
-  {
-    id: 2,
-    planName: "Professional Plan",
-    amount: "$49",
-    purchaseDate: "02 Apr, 2026",
-    endDate: "02 May, 2026",
-    status: "Expired",
-  },
-  {
-    id: 3,
-    planName: "Enterprise Plan",
-    amount: "$99",
-    purchaseDate: "18 Mar, 2026",
-    endDate: "18 Apr, 2026",
-    status: "Expired",
-  },
-  {
-    id: 4,
-    planName: "Professional Plan",
-    amount: "$49",
-    purchaseDate: "05 Feb, 2026",
-    endDate: "05 Mar, 2026",
-    status: "Expired",
-  },
-];
-
-export default function CompanyBillingHistory() {
+type Props = {
+  billingHistory: BillingHistory;
+};
+export default function CompanyBillingHistory({ billingHistory }: Props) {
   return (
     <div className="p-5 space-y-5 rounded-2xl border bg-white">
       <div className="flex items-center justify-between">
         <p className="font-semibold text-lg">Billing History</p>
         <p className="text-sm text-gray-500">
-          {billingHistory.length} Transactions
+          {billingHistory.totalTransactions} Transactions
         </p>
       </div>
 
@@ -64,28 +34,32 @@ export default function CompanyBillingHistory() {
         </TableHeader>
 
         <TableBody>
-          {billingHistory.map((item) => (
-            <TableRow key={item.id}>
+          {billingHistory.records.map((billing) => (
+            <TableRow key={billing.subscriptionId}>
               <TableCell className="font-medium py-4">
-                {item.planName}
+                {billing.planName}
               </TableCell>
 
-              <TableCell className="font-medium py-4">{item.amount}</TableCell>
-
               <TableCell className="font-medium py-4">
-                {item.purchaseDate}
+                ${billing.amount}
               </TableCell>
 
-              <TableCell className="font-medium py-4">{item.endDate}</TableCell>
+              <TableCell className="font-medium py-4">
+                {formatDate(billing.purchaseDate)}
+              </TableCell>
+
+              <TableCell className="font-medium py-4">
+                {formatDate(billing.endDate)}
+              </TableCell>
 
               <TableCell className="py-4">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    item.status === "Active"
+                    billing.status === "Active"
                       ? "bg-green-100 text-green-700"
-                      : "bg-yellow-100 text-yellow-700"
+                      : "bg-red-100 text-red-700"
                   }`}>
-                  {item.status}
+                  {billing.status}
                 </span>
               </TableCell>
             </TableRow>

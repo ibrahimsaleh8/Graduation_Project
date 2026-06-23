@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import SubscriptionPlanCardForCompany from "./SubscriptionPlanCardForCompany";
-
-export default function UpgradePlanForCompany() {
+import { AvailablePlan } from "./CompanySubscription";
+type Props = {
+  plansData: AvailablePlan[];
+  token: string;
+};
+export default function UpgradePlanForCompany({ plansData, token }: Props) {
   const [billingType, setBillingType] = useState<"monthly" | "yearly">(
     "monthly",
   );
@@ -26,10 +30,15 @@ export default function UpgradePlanForCompany() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1">
-        <SubscriptionPlanCardForCompany />
-        <SubscriptionPlanCardForCompany />
-        <SubscriptionPlanCardForCompany />
+      <div className="grid xl:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1">
+        {plansData.map((plan) => (
+          <SubscriptionPlanCardForCompany
+            billingType={billingType}
+            token={token}
+            planDetails={plan}
+            key={plan.planId}
+          />
+        ))}
       </div>
     </div>
   );
