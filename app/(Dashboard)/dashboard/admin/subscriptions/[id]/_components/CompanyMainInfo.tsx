@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Briefcase01Icon,
   Location01Icon,
@@ -5,31 +6,37 @@ import {
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
-const companyInfo = [
-  {
-    value: "ebrihm576@gmail.com",
-    icon: Mail01FreeIcons,
-  },
-  {
-    value: "Software Development",
-    icon: Briefcase01Icon,
-  },
-  {
-    value: "Cairo, Egypt",
-    icon: Location01Icon,
-  },
-];
-export default function CompanyMainInfo() {
+import { formatDate } from "@/lib/FormatDate";
+import { CompanyInfo } from "./hooks/useSubscriptionDetails";
+
+type Props = {
+  companyData: CompanyInfo;
+};
+
+export default function CompanyMainInfo({ companyData }: Props) {
+  const companyInfo = [
+    {
+      value: companyData.companyEmail,
+      icon: Mail01FreeIcons,
+    },
+    {
+      value: companyData.industry,
+      icon: Briefcase01Icon,
+    },
+    {
+      value: companyData.location,
+      icon: Location01Icon,
+    },
+  ];
   return (
-    <div className="bg-white p-5 w-full rounded-md border space-y-6">
+    <div className="bg-white p-5 w-full rounded-md border flex flex-col gap-6">
       {/* Image & Title */}
       <div className="flex md:items-center items-start flex-col md:flex-row gap-3">
-        <div className="size-15 bg-amber-300 rounded-sm"></div>
+        <div className="size-15 bg-input-bg rounded-full overflow-hidden">
+          <img src={companyData.companyLogoUrl} alt={companyData.companyName} />
+        </div>
         <div className="space-y-1">
-          <p className="font-medium">Techify Solutions</p>
-          <p className="text-sm text-black/70">
-            Building innovative solutions for a better tomorrow
-          </p>
+          <p className="font-medium">{companyData.companyName}</p>
         </div>
       </div>
 
@@ -47,11 +54,13 @@ export default function CompanyMainInfo() {
       </div>
 
       {/* Bottom */}
-      <div className="pt-3 border-t flex items-center justify-between text-sm flex-wrap gap-4">
-        <p className="text-black/70">Joined Jan 12, 2023</p>
+      <div className="pt-3 mt-auto border-t flex items-center justify-between text-sm flex-wrap gap-4">
+        <p className="text-black/70">
+          Joined: {formatDate(companyData.joinedAt)}
+        </p>
         <Link
           className="text-main-color font-medium hover:underline"
-          href={"/"}>
+          href={`/profile/${companyData.companyId}`}>
           View Profile
         </Link>
       </div>

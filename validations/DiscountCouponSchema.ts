@@ -21,9 +21,13 @@ export const discountCouponSchema = z.object({
     .min(1, "Usage limit must be at least 1"),
 
   isActive: z.boolean(),
-
   applicablePlans: z
-    .array(z.string())
+    .array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    )
     .min(1, "Select at least one applicable plan"),
 });
 

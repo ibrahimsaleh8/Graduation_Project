@@ -10,11 +10,13 @@ import PlanFeatureBadge from "./PlanFeatureBadge";
 type Props = {
   planDetails: SubscriptionPlanDataType;
   token: string;
+  billingType: "monthly" | "yearly";
 };
 
 export default function SubscriptionPlanCardWithOperations({
   planDetails,
   token,
+  billingType,
 }: Props) {
   return (
     <div className="w-full bg-white rounded-2xl p-6 flex flex-col gap-6 border border-border-color">
@@ -32,15 +34,15 @@ export default function SubscriptionPlanCardWithOperations({
       </div>
 
       {/* Price */}
-      <div className="flex items-center gap-6 flex-wrap">
+      {billingType == "monthly" ? (
         <p className="text-3xl font-medium">
           ${planDetails.monthlyPrice} <span className="text-sm">/Month</span>
         </p>
-        -
+      ) : (
         <p className="text-3xl font-medium">
           ${planDetails.yearlyPrice} <span className="text-sm">/Year</span>
         </p>
-      </div>
+      )}
 
       {/* Features */}
       <ul className="space-y-2">

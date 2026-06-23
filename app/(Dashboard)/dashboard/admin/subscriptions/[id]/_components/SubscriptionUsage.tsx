@@ -1,24 +1,37 @@
 import { Progress } from "@/components/animate-ui/components/radix/progress";
+import { PlanUsage } from "./hooks/useSubscriptionDetails";
+type Props = {
+  planUsage: PlanUsage;
+};
 
-const usages = [
-  {
-    label: "Active Jobs",
-    value: "84 / 100",
-    progress: (84 / 100) * 100,
-  },
-  {
-    label: "Featured Posts",
-    value: "10 / 10",
-    progress: (10 / 10) * 100,
-  },
-  {
-    label: "Subscription Progress",
-    value: "10 / 365",
-    progress: (10 / 365) * 100,
-  },
-];
-export default function SubscriptionUsage() {
-  console.log((100 - 84) / 100);
+export default function SubscriptionUsage({ planUsage }: Props) {
+  const usages = [
+    {
+      label: "Active Jobs",
+      value: `${planUsage.activeJobs.used} / ${planUsage.activeJobs.limit}`,
+      progress:
+        (planUsage.activeJobs.used / planUsage.activeJobs.limit == 0
+          ? 1
+          : planUsage.activeJobs.limit) * 100,
+    },
+    {
+      label: "Featured Posts",
+      value: `${planUsage.featuredPosts.used} / ${planUsage.featuredPosts.limit}`,
+      progress:
+        (planUsage.featuredPosts.used / planUsage.featuredPosts.limit == 0
+          ? 1
+          : planUsage.featuredPosts.limit) * 100,
+    },
+    {
+      label: "Subscription Progress",
+      value: `${planUsage.subscriptionProgress.used} / ${planUsage.subscriptionProgress.limit}`,
+      progress:
+        (planUsage.subscriptionProgress.used /
+          planUsage.subscriptionProgress.limit) *
+        100,
+    },
+  ];
+  console.log("planUsage", planUsage);
   return (
     <div className="bg-white p-5 w-full rounded-md border space-y-6">
       <p className="font-medium">Plan Usage</p>
@@ -30,7 +43,10 @@ export default function SubscriptionUsage() {
               <p>{usage.label}</p>
               <p>{usage.value}</p>
             </div>
-            <Progress value={usage.progress} className="w-full" />
+            <Progress
+              value={usage.progress > 100 ? 100 : usage.progress}
+              className="w-full"
+            />
           </div>
         ))}
       </div>

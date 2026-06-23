@@ -1,10 +1,10 @@
 import AlertModel from "@/components/main-layout/AlertModel";
 import { Button } from "@/components/ui/button";
-import { Add01Icon } from "@hugeicons/core-free-icons";
+import { Add01Icon, CreditCardNotFoundIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import SubscriptionPlanCardWithOperations from "./SubscriptionPlanCardWithOperations";
 import SubscriptionPlanForm from "./SubscriptionPlanForm";
 import { SubscriptionPlanDataType } from "./DisplaySubscriptionPage";
+import ShowPlans from "./ShowPlans";
 
 type Props = {
   token: string;
@@ -35,15 +35,20 @@ export default function AllSubscriptionPlans({ plans, token }: Props) {
       </div>
 
       {/* All Plans */}
-      <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 mt-6 gap-4">
-        {plans.map((plan) => (
-          <SubscriptionPlanCardWithOperations
-            token={token}
-            planDetails={plan}
-            key={plan.id}
-          />
-        ))}
-      </div>
+      {plans.length > 0 ? (
+        <ShowPlans plans={plans} token={token} />
+      ) : (
+        <div className="w-full capitalize flex items-center justify-center p-10 text-black/80 font-medium">
+          <p className="flex items-center gap-2">
+            <HugeiconsIcon
+              icon={CreditCardNotFoundIcon}
+              className="size-5"
+              strokeWidth={2}
+            />
+            No plans added yet ...
+          </p>
+        </div>
+      )}
     </div>
   );
 }

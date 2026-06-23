@@ -30,7 +30,7 @@ export default function DeleteSubscriptionPlan({
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => deletePlanApi(planId, token),
+    mutationFn: () => deletePlanApi(token, planId),
 
     onSuccess: () => {
       queryClient.refetchQueries({

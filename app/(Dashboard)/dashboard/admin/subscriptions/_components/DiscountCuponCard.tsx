@@ -8,22 +8,29 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import DiscountCouponForm from "./DiscountCouponForm";
 import DeleteCoupon from "./DeleteCoupon";
+import { DiscountCodeDataType } from "./ShowCupons";
 
-const cuponData = [
-  {
-    label: "Percent",
-    value: "30%",
-  },
-  {
-    label: "Users",
-    value: "30/100",
-  },
-  {
-    label: "Plans",
-    value: "All Plans",
-  },
-];
-export default function DiscountCuponCard() {
+type Props = {
+  codeData: DiscountCodeDataType;
+  token: string;
+  plans: {
+    name: string;
+    id: string;
+  }[];
+};
+
+export default function DiscountCuponCard({ token, codeData, plans }: Props) {
+  const cuponData = [
+    {
+      label: "Percent",
+      value: `${codeData.percentage}%`,
+    },
+    {
+      label: "Users",
+      value: `${codeData.usedCount}/${codeData.totalUsageLimit}`,
+    },
+  ];
+
   return (
     <div className="w-full bg-white rounded-md p-4 space-y-5 border border-border-color overflow-hidden">
       {/* Top */}
@@ -35,7 +42,7 @@ export default function DiscountCuponCard() {
             strokeWidth={2}
           />
         </div>
-        <p className="text-lg font-medium">SUMMER30</p>
+        <p className="text-lg font-medium">{codeData.code}</p>
       </div>
 
       {/* Data */}
@@ -51,9 +58,21 @@ export default function DiscountCuponCard() {
 
         <div className="flex items-center justify-between text-sm">
           <p>Status</p>
-          <p className="px-2 py-1.5 bg-green-700 text-white rounded-sm">
+          <p className="px-2 py-1.5 text-xs bg-green-700 text-white rounded-sm">
             Active
           </p>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <p>Plans</p>
+          <div className="flex items-center gap-1">
+            {codeData.applicablePlans.map((plan) => (
+              <p
+                key={plan.id}
+                className="w-fit px-2 py-1.5 text-xs bg-input-bg border rounded-sm">
+                {plan.name}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -71,7 +90,14 @@ export default function DiscountCuponCard() {
               Edit Coupon
             </Button>
           }
-          content={<DiscountCouponForm operation="update" />}
+          content={
+            <DiscountCouponForm
+              operation="update"
+              couponData={codeData}
+              plans={plans}
+              token={token}
+            />
+          }
           contentClassname="md:min-w-160 pb-3"
         />
         <AlertModel
@@ -86,7 +112,7 @@ export default function DiscountCuponCard() {
               Delete Coupon
             </Button>
           }
-          content={<DeleteCoupon />}
+          content={<DeleteCoupon token={token} codeId={codeData.id} />}
           contentClassname="md:min-w-150 pb-3"
         />
       </div>

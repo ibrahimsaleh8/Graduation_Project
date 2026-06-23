@@ -9,63 +9,47 @@ import { ShuffleIcon, UserGroup02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  DiscountCouponFormType,
-  discountCouponSchema,
-} from "@/validations/DiscountCouponSchema";
 import ErrorValidationMessage from "@/components/forms/ErrorValidationMessage";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Spinner } from "@/components/ui/spinner";
+import { DiscountCodeDataType } from "./ShowCupons";
+import { useCouponForm } from "./hooks/useCouponForm";
+import { Dispatch, SetStateAction } from "react";
 
-const plans = ["Basic Plan", "Premium Plan", "Enterprise Plan"];
 type Props = {
   operation: "create" | "update";
+  token: string;
+  plans: {
+    name: string;
+    id: string;
+  }[];
+  couponData?: DiscountCodeDataType;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 };
-export default function DiscountCouponForm({ operation }: Props) {
+
+export default function DiscountCouponForm({
+  operation,
+  plans,
+  token,
+  couponData,
+  setOpen,
+}: Props) {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
+    generateCouponCode,
+    HandleAddPlan,
+    onSubmit,
+    isPending,
+    errors,
+    setValue,
     getValues,
-    formState: { errors },
-  } = useForm<DiscountCouponFormType>({
-    resolver: zodResolver(discountCouponSchema),
-    mode: "onSubmit",
-    defaultValues: {
-      applicablePlans: [],
-      isActive: true,
-      totalUsageLimit: 0,
-      discountValue: 0,
-    },
+  } = useCouponForm({
+    operation,
+    token,
+    couponData,
+    setOpen,
   });
-  const onSubmit: SubmitHandler<DiscountCouponFormType> = (data) => {
-    console.log(data);
-  };
-
-  const HandleAddPlan = (plan: string) => {
-    if (!getValues("applicablePlans").includes(plan)) {
-      setValue("applicablePlans", [...getValues("applicablePlans"), plan]);
-    } else {
-      setValue("applicablePlans", [
-        ...getValues("applicablePlans").filter((p) => p != plan),
-      ]);
-    }
-  };
-
-  const generateCouponCode = () => {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    let coupon = "";
-
-    for (let i = 0; i < 10; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      coupon += chars[randomIndex];
-    }
-
-    setValue("couponCode", coupon);
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -76,6 +60,7 @@ export default function DiscountCouponForm({ operation }: Props) {
           <Input
             disabled={operation == "update"}
             {...register("couponCode")}
+            aria-invalid={errors.couponCode ? "true" : "false"}
             id="coupon-code"
             type="text"
             placeholder="code10"
@@ -101,6 +86,8 @@ export default function DiscountCouponForm({ operation }: Props) {
         <InputGroup>
           <InputGroupInput
             min={0}
+            defaultValue={getValues("discountValue")}
+            aria-invalid={errors.discountValue ? "true" : "false"}
             onChange={(e) => setValue("discountValue", +e.target.value)}
             id="coupon-value"
             placeholder="10"
@@ -118,7 +105,9 @@ export default function DiscountCouponForm({ operation }: Props) {
         <Label htmlFor="coupon-limit">Total Usage Limit</Label>
         <InputGroup>
           <InputGroupInput
+            defaultValue={getValues("totalUsageLimit")}
             min={0}
+            aria-invalid={errors.totalUsageLimit ? "true" : "false"}
             onChange={(e) => setValue("totalUsageLimit", +e.target.value)}
             id="coupon-limit"
             placeholder="20"
@@ -152,7 +141,7 @@ export default function DiscountCouponForm({ operation }: Props) {
 
         <Switch
           onCheckedChange={(e) => setValue("isActive", e)}
-          defaultChecked={true}
+          defaultChecked={getValues("isActive")}
           id="candidate-search"
           className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
         />
@@ -168,12 +157,11 @@ export default function DiscountCouponForm({ operation }: Props) {
         <div className="flex items-center gap-2 flex-wrap">
           {plans.map((plan) => (
             <button
-              onClick={() => HandleAddPlan(plan)}
+              onClick={() => HandleAddPlan(plan.id, plan.name)}
               type="button"
-              key={plan}
-              // eslint-disable-next-line react-hooks/incompatible-library
-              className={`px-4 py-2 ${watch("applicablePlans").includes(plan) ? "bg-main-color/10 text-blue-700" : "bg-input-bg text-black"}  text-sm font-medium rounded-md cursor-pointer`}>
-              {plan}
+              key={plan.id}
+              className={`px-4 py-2 ${watch("applicablePlans").findIndex((pl) => pl.id == plan.id) != -1 ? "bg-main-color/10 text-blue-700" : "bg-input-bg text-black"}  text-sm font-medium rounded-md cursor-pointer`}>
+              {plan.name}
             </button>
           ))}
         </div>
@@ -184,9 +172,16 @@ export default function DiscountCouponForm({ operation }: Props) {
         />
       )}
       <Button
+        disabled={isPending}
         type="submit"
         className="text-sm bg-main-color text-white hover:bg-main-color/80 w-full">
-        {operation == "create" ? "Create Coupon" : "Update Coupon"}
+        {isPending ? (
+          <Spinner />
+        ) : operation == "create" ? (
+          "Create Coupon"
+        ) : (
+          "Update Coupon"
+        )}
       </Button>
     </form>
   );

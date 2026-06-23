@@ -20,6 +20,7 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
 import { useMemo } from "react";
+import DisplaySubscriptionPageSkeleton from "./DisplaySubscriptionPageSkeleton";
 
 export type SubscriptionPlanDataType = {
   id: string;
@@ -134,7 +135,7 @@ export default function DisplaySubscriptionPage({ token }: Props) {
   }
 
   return isLoading ? (
-    <>Loading</>
+    <DisplaySubscriptionPageSkeleton />
   ) : (
     data && (
       <div className="space-y-6">
@@ -181,10 +182,19 @@ export default function DisplaySubscriptionPage({ token }: Props) {
               <AllSubscriptionPlans plans={data.plans} token={token} />
             </TabsContent>
             <TabsContent value="subscriptions">
-              <AllSubscriptionsTable />
+              <AllSubscriptionsTable
+                token={token}
+                plans={data.plans.map((plan) => plan.name)}
+              />
             </TabsContent>
             <TabsContent value="coupons">
-              <ShowCupons />
+              <ShowCupons
+                token={token}
+                plans={data.plans.map((plan) => ({
+                  name: plan.name,
+                  id: plan.id,
+                }))}
+              />
             </TabsContent>
           </TabsContents>
         </Tabs>
