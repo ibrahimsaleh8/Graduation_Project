@@ -1,111 +1,66 @@
-import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import logo from "@images/landing-page-images/logo.png";
+import Image from "next/image";
 import Link from "next/link";
+import FooterSocials from "./FooterSocials";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-main-dark text-white md:p-15 p-5 md:pt-20 pt-10 md:px-10 px-3">
-      <div className="flex flex-col gap-10">
-        <div className="flex items-end gap-10 md:flex-row flex-col">
-          <div className="flex items-start flex-col w-full gap-8">
-            <div className="flex flex-col gap-3 w-fit">
-              <p className="xl:text-[10rem] lg:text-8xl md:text-7xl text-4xl font-medium">
-                Jobify
-              </p>
-              <p className="text-white/80 max-w-2xl">
-                Jobify is a smart job-matching platform that connects talented
-                professionals with the right opportunities faster.
-              </p>
-            </div>
+    <div className="w-full sm:px-8 px-3 pt-20 bg-main-dark rounded-t-2xl text-white flex items-center gap-10">
+      <div className="flex flex-col items-center gap-12 sm:p-6 p-3 w-full h-full">
+        <Link
+          href={"/"}
+          className="sm:text-6xl text-2xl font-medium flex items-center sm:gap-4 gap-2.5">
+          <Image src={logo} alt="Logo" className="sm:w-15 w-8 invert" /> Jobify
+        </Link>
 
-            {/* Socials */}
-            <div className="flex flex-col items-start gap-4 text-xl">
-              <a
-                href="#"
-                target="_blank"
-                className="flex items-center gap-1 underline">
-                Facebook
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  className="size-5"
-                  strokeWidth={2}
-                />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                className="flex items-center gap-1 underline">
-                Twitter
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  className="size-5"
-                  strokeWidth={2}
-                />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                className="flex items-center gap-1 underline">
-                Instagram
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  className="size-5"
-                  strokeWidth={2}
-                />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                className="flex items-center gap-1 underline">
-                Linkedin
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  className="size-5"
-                  strokeWidth={2}
-                />
-              </a>
-            </div>
-          </div>
-
-          <div className="flex items-start w-full gap-10 md:flex-row flex-col">
-            <div className="flex flex-col gap-4 w-full">
-              <p className="font-medium text-xl text-white">Main Links:</p>
-              <ul className="flex text-white/80 flex-col gap-4 text-xl">
-                <li>
-                  <Link href={"/"}>Home</Link>
-                </li>
-                <li>
-                  <Link href={"/"}>Jobs</Link>
-                </li>
-                <li>
-                  <Link href={"/"}>About</Link>
-                </li>
-                <li>
-                  <Link href={"/"}>Contact</Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col gap-4 w-full">
-              <p className="font-medium text-white text-xl">Auth Links:</p>
-              <ul className="flex flex-col gap-4 text-xl text-white/80">
-                <li>
-                  <Link href={"/"}>Login</Link>
-                </li>
-                <li>
-                  <Link href={"/"}>Register</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="pt-8 border-t border-white/40 flex items-center sm:justify-between flex-wrap justify-center">
-          <p className="text-white/80">@Copyright 2026 Jobify</p>
-          <p>
-            Developed with ❤️ By <span className="text-sky-300">Our Team</span>
+        <ul className="flex items-center gap-8 text-xl flex-wrap justify-center">
+          <li>
+            <Link
+              href={"/"}
+              className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
+              About
+              <span className="size-2 rounded-full bg-[#464545]"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={"/"}
+              className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
+              Find Jobs
+              <span className="size-2 rounded-full bg-[#464545]"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={"/"}
+              className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
+              Login
+              <span className="size-2 rounded-full bg-[#464545]"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={"/"}
+              className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
+              Register
+              <span className="size-2 rounded-full bg-[#464545]"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={"/"}
+              className="text-white/90 hover:text-white/60 duration-300 text-sm sm:text-base">
+              Contact
+            </Link>
+          </li>
+        </ul>
+        <FooterSocials />
+        <div className="w-full border-t border-white/20 p-4">
+          <p className="text-center text-white/90">
+            &#169; {new Date().getFullYear()} All right reserved
           </p>
         </div>
       </div>
-    </footer>
+    </div>
   );
 }

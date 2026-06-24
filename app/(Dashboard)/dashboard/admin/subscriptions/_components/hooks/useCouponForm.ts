@@ -28,7 +28,7 @@ async function CouponOperationAPIS(
     percentage: couponData.discountValue,
     totalUsageLimit: couponData.totalUsageLimit,
     isActive: couponData.isActive,
-    SubscriptionPlanIds: couponData.applicablePlans,
+    SubscriptionPlanIds: couponData.applicablePlans.map((plan) => plan.id),
   };
 
   if (operation == "create") {

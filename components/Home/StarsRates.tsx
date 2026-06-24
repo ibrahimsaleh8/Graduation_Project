@@ -6,8 +6,8 @@ import { motion } from "motion/react";
 
 export default function StarsRates() {
   return (
-    <div className="px-4 py-1.5 w-fit mx-auto bg-main-dark rounded-sm sm:rounded-full flex items-center sm:flex-row flex-col sm:gap-2 text-black">
-      <div className="flex items-center text-yellow-500 gap-1">
+    <div className="px-4 py-1.5 w-fit mx-auto bg-white rounded-sm sm:rounded-full flex items-center sm:flex-row flex-col sm:gap-2 text-black">
+      <div className="flex items-center text-yellow-700 gap-1">
         <motion.span
           initial={{ scale: 0 }}
           whileInView={{
@@ -74,7 +74,7 @@ export default function StarsRates() {
           <HugeiconsIcon icon={StarIcon} className="fill-yellow-500 w-4" />
         </motion.span>
       </div>
-      <p className="text-sm font-semibold text-white">
+      <p className="sm:text-sm text-xs font-semibold text-black">
         Rated 5/5 From over 600 reviews
       </p>
     </div>

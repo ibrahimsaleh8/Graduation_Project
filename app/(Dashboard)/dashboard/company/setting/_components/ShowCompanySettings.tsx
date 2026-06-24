@@ -2,10 +2,9 @@
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   UserCircleIcon,
@@ -128,7 +127,7 @@ export default function ShowCompanySettings({ token }: Props) {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContents className="w-full md:border-l border-t md:border-t-0">
+          <div className="w-full md:border-l border-t md:border-t-0">
             <TabsContent value="profile">
               <CompanyProfileSettings
                 profileData={data.profile}
@@ -144,7 +143,7 @@ export default function ShowCompanySettings({ token }: Props) {
             <TabsContent value="security">
               <SecuritySettings token={token} />
             </TabsContent>
-          </TabsContents>
+          </div>
         </Tabs>
       </div>
     )

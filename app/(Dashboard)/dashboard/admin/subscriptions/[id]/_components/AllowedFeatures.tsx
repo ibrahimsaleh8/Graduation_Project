@@ -1,5 +1,5 @@
-import { AllowedFeaturesDataType } from "./DisplaySubscriptionDetails";
 import PlanFeatureBadge from "../../_components/PlanFeatureBadge";
+import { AllowedFeaturesDataType } from "./hooks/useSubscriptionDetails";
 
 type Props = {
   allowedFeatures: AllowedFeaturesDataType;

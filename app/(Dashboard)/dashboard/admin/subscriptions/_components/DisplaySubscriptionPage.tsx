@@ -9,10 +9,9 @@ import {
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import AllSubscriptionPlans from "./AllSubscriptionPlans";
 import AllSubscriptionsTable from "./AllSubscriptionsTable";
 import ShowCupons from "./ShowCupons";
@@ -177,7 +176,7 @@ export default function DisplaySubscriptionPage({ token }: Props) {
               Coupons
             </TabsTrigger>
           </TabsList>
-          <TabsContents className="overflow-visible! mt-7">
+          <div className="overflow-visible! mt-7">
             <TabsContent value="plans">
               <AllSubscriptionPlans plans={data.plans} token={token} />
             </TabsContent>
@@ -196,7 +195,7 @@ export default function DisplaySubscriptionPage({ token }: Props) {
                 }))}
               />
             </TabsContent>
-          </TabsContents>
+          </div>
         </Tabs>
       </div>
     )

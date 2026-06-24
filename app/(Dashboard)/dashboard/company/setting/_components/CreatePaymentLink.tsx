@@ -20,8 +20,32 @@ async function createPaymentLinkApi(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Subscription/checkout`,
     {
       subscriptionPlanId: planId,
-      billingCycle: 1,
+      billingCycle: billingCycle,
       couponCode,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return res.data;
+}
+
+async function couponValidationApi(
+  token: string,
+  code: string,
+  planId: string,
+): Promise<{
+  isValid: boolean;
+  coupon: null;
+  discountAmount: number;
+}> {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Coupon/validate`,
+    {
+      SubscriptionPlanId: planId,
+      code,
     },
     {
       headers: {
@@ -52,10 +76,17 @@ export default function CreatePaymentLink({
   const [finalPrice, setFinalPrice] = useState(
     billingType == "monthly" ? monthlyPrice : yearlyPrice,
   );
+  const [isValidCode, setIsValideCode] = useState<null | boolean>(null);
+
   const route = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: (couponCode: string) =>
-      createPaymentLinkApi(token, planId, billingType, couponCode),
+      createPaymentLinkApi(
+        token,
+        planId,
+        billingType,
+        isValidCode ? couponCode : "",
+      ),
 
     onSuccess: (respnse) => {
       route.push(respnse.checkoutUrl);
@@ -68,6 +99,29 @@ export default function CreatePaymentLink({
         description:
           error.response?.data?.errors?.[0] ||
           "An error occurred. Please try again.",
+      });
+    },
+  });
+
+  const { mutate: validateCode, isPending: validatingCode } = useMutation({
+    mutationFn: (code: string) => couponValidationApi(token, code, planId),
+    onSuccess: (respnse) => {
+      console.log(respnse);
+      if (respnse.isValid) {
+        sileo.success({ title: "succces" });
+        setFinalPrice((old) => old - (old * respnse.discountAmount) / 100);
+        setIsValideCode(true);
+      } else {
+        setIsValideCode(false);
+        sileo.error({ title: "invalid code" });
+      }
+    },
+
+    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+      setIsValideCode(false);
+      console.log("error ", error.response);
+      sileo.error({
+        title: `invalid code`,
       });
     },
   });
@@ -86,7 +140,15 @@ export default function CreatePaymentLink({
         </div>
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <p>Amount:</p>
-          <p className="font-medium capitalize">${finalPrice}</p>
+          <p className="font-medium capitalize flex items-center gap-1">
+            <span> ${finalPrice}</span>
+
+            {isValidCode && (
+              <span className="line-through text-xs text-red-500 pt-2">
+                $ {billingType == "monthly" ? monthlyPrice : yearlyPrice}
+              </span>
+            )}
+          </p>
         </div>
       </div>
 
@@ -95,20 +157,32 @@ export default function CreatePaymentLink({
 
         <div className="flex sm:items-center items-end sm:gap-5 gap-2 sm:flex-row flex-col">
           <Input
+            disabled={isValidCode != null && isValidCode == true}
             onChange={(e) => setCouponCode(e.target.value)}
             id="coupon-code"
             type="text"
             placeholder="Discount Code"
           />
           <Button
-            disabled={couponCode.trim().length == 0}
-            className="text-sm bg-main-color hover:bg-main-color/80 duration-300 w-fit">
-            <HugeiconsIcon
-              icon={Coupon02Icon}
-              className="size-4.5!"
-              strokeWidth={2}
-            />{" "}
-            Apply
+            onClick={() => validateCode(couponCode)}
+            disabled={
+              couponCode.trim().length == 0 ||
+              validatingCode ||
+              (isValidCode != null && isValidCode == true)
+            }
+            className="text-sm bg-main-color hover:bg-main-color/80 duration-300 w-32">
+            {validatingCode ? (
+              <Spinner />
+            ) : (
+              <>
+                <HugeiconsIcon
+                  icon={Coupon02Icon}
+                  className="size-4.5!"
+                  strokeWidth={2}
+                />{" "}
+                Apply
+              </>
+            )}
           </Button>
         </div>
       </div>

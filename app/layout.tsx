@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sileo";
 import QueryClientHandler from "@/components/QueryClientHandler";
 import InitilaizeAuthedUser from "@/components/main-layout/InitilaizeAuthedUser";
 
-const font = Bricolage_Grotesque({
+const font = Outfit({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "300", "800", "100", "200", "900"],
 });
 
 export const metadata: Metadata = {

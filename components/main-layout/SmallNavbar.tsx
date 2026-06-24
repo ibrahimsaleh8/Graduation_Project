@@ -32,8 +32,9 @@ export default function SmallNavbar({ links, pathname, userData }: Props) {
       tl.current?.reverse();
     }
   }, [open]);
+
   return (
-    <div className="lg:hidden flex">
+    <div className="md:hidden flex">
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="px-4 py-1.5 border border-border-color rounded-full cursor-pointer">
@@ -44,17 +45,13 @@ export default function SmallNavbar({ links, pathname, userData }: Props) {
         {/* <HugeiconsIcon icon={Cancel01Icon} className="w-5 h-5 text-black"/> */}
       </button>
 
-      <div
-        style={{
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        }}
-        className="fixed z-100000 w-screen h-screen bg-main-bg left-0 top-17.75 border-t border-border-color overflow-hidden backdrop-blur-2xl small-navbar">
-        <ul className="flex flex-col items-start gap-10 py-10 md:px-6 px-2 w-full">
+      <div className="[clip-path:polygon(0%_0%,100%_0%,100%_0%,0%_0%)] fixed z-100000 w-full min-h-screen bg-white left-0 top-16.5 border-t border-border-color overflow-hidden small-navbar">
+        <ul className="flex flex-col items-start gap-6 py-6 md:px-6 px-2 w-full">
           {links.map((lin) => (
             <li key={lin.title} className="w-full">
               <Link
                 onClick={() => setOpen(false)}
-                className={`px-4 hover:bg-main-color hover:text-white duration-300 py-1.5 w-full font-medium flex items-center gap-3 rounded-md ${pathname == lin.link ? "bg-main-color text-white" : ""}`}
+                className={`px-4 py-3 hover:bg-main-color hover:text-white duration-300 w-full font-medium flex items-center gap-3 rounded-md ${pathname == lin.link ? "bg-main-color text-white" : ""}`}
                 href={lin.link}>
                 <HugeiconsIcon icon={lin.icon} className="size-5" />
                 {lin.title}

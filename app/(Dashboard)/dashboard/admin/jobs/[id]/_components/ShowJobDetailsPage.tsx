@@ -8,10 +8,9 @@ import axios, { AxiosError } from "axios";
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import JobStatusBadge from "@/app/(Dashboard)/dashboard/company/job-posts/[id]/_components/JobStatusBadge";
 import {
   ApplicantStatusDetailsType,
@@ -285,7 +284,7 @@ export default function ShowJobDetailsPage({ jobId, token }: Props) {
               </TabsTrigger>
             </TabsList>
             <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-4 mt-8">
-              <TabsContents className="bg-white p-6 rounded-md border shadow lg:flex-1 w-full lg:w-fit">
+              <div className="bg-white p-6 rounded-md border shadow lg:flex-1 w-full lg:w-fit">
                 <TabsContent value="details" className="w-full">
                   <ShowJobDetails
                     description={data.description}
@@ -300,7 +299,7 @@ export default function ShowJobDetailsPage({ jobId, token }: Props) {
                     token={token}
                   />
                 </TabsContent>
-              </TabsContents>
+              </div>
             </div>
           </Tabs>
         </div>

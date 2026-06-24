@@ -9,6 +9,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import DiscountCouponForm from "./DiscountCouponForm";
 import DeleteCoupon from "./DeleteCoupon";
 import { DiscountCodeDataType } from "./ShowCupons";
+import CouponCodeStatusBadge from "./CouponCodeStatusBadge";
 
 type Props = {
   codeData: DiscountCodeDataType;
@@ -58,9 +59,7 @@ export default function DiscountCuponCard({ token, codeData, plans }: Props) {
 
         <div className="flex items-center justify-between text-sm">
           <p>Status</p>
-          <p className="px-2 py-1.5 text-xs bg-green-700 text-white rounded-sm">
-            Active
-          </p>
+          <CouponCodeStatusBadge isActive={codeData.isActive} />
         </div>
         <div className="flex items-center justify-between text-sm">
           <p>Plans</p>

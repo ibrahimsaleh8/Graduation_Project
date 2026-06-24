@@ -2,10 +2,9 @@
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LockPasswordIcon, Share02Icon } from "@hugeicons/core-free-icons";
 import ManageProjectSocialLinks from "./ManageProjectSocialLinks";
@@ -88,14 +87,14 @@ export default function ShowAdminSettings({ token }: Props) {
               Security
             </TabsTrigger>
           </TabsList>
-          <TabsContents className="w-full md:border-l border-t md:border-t-0">
+          <div className="w-full md:border-l border-t md:border-t-0">
             <TabsContent value="Socials">
               <ManageProjectSocialLinks socialsData={data} token={token} />
             </TabsContent>
             <TabsContent value="security">
               <SecuritySettings token={token} />
             </TabsContent>
-          </TabsContents>
+          </div>
         </Tabs>
       </div>
     )

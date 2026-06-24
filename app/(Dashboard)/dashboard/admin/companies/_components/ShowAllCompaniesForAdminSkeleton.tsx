@@ -4,10 +4,9 @@ import DashboardCardStatisticsSkeleton from "@/app/(Dashboard)/_components/Dashb
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import ShowAllCompaniesSkeleton from "./ShowAllCompaniesSkeleton";
 import VerificationRequestesSkeleton from "./VerificationRequestesSkeleton";
 
@@ -41,14 +40,14 @@ export default function ShowAllCompaniesForAdminSkeleton() {
             Verification Requestes
           </TabsTrigger>
         </TabsList>
-        <TabsContents className="overflow-visible! mt-7">
+        <div className="overflow-visible! mt-7">
           <TabsContent value="companies">
             <ShowAllCompaniesSkeleton />
           </TabsContent>
           <TabsContent value="verifi-req">
             <VerificationRequestesSkeleton />
           </TabsContent>
-        </TabsContents>
+        </div>
       </Tabs>
     </div>
   );

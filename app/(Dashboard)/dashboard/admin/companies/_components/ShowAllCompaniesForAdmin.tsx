@@ -9,10 +9,9 @@ import {
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import ShowAllCompanies from "./ShowAllCompanies";
 import VerificationRequestes from "./VerificationRequestes";
 import ShowAllCompaniesForAdminSkeleton from "./ShowAllCompaniesForAdminSkeleton";
@@ -161,14 +160,14 @@ export default function ShowAllCompaniesForAdmin({ token }: Props) {
               Verification Requestes
             </TabsTrigger>
           </TabsList>
-          <TabsContents className="overflow-visible! mt-7">
+          <div className="overflow-visible! mt-7">
             <TabsContent value="companies">
               <ShowAllCompanies companiesData={data.companies} token={token} />
             </TabsContent>
             <TabsContent value="verifi-req">
               <VerificationRequestes token={token} />
             </TabsContent>
-          </TabsContents>
+          </div>
         </Tabs>
       </div>
     )

@@ -2,10 +2,9 @@
 import {
   Tabs,
   TabsContent,
-  TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/primitives/radix/tabs";
+} from "@/components/motion/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   UserCircleIcon,
@@ -96,7 +95,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContents className="overflow-visible! w-full md:border-l border-t md:border-t-0">
+          <div className="overflow-visible! w-full md:border-l border-t md:border-t-0">
             <TabsContent className="overflow-visible" value="profile">
               <ProfileData
                 fullName={data.fullName}
@@ -134,7 +133,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
             <TabsContent value="security">
               <SecuritySettings token={token} />
             </TabsContent>
-          </TabsContents>
+          </div>
         </Tabs>
       </div>
     )
