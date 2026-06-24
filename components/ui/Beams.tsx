@@ -236,8 +236,6 @@ const Beams: FC<BeamsProps> = ({
   const beamMaterial = useMemo(
     () =>
       extendMaterial(THREE.MeshStandardMaterial, {
-        // FIX: VERTEX_HEADER is now a module-level constant so the string
-        // is not recreated on every render that hits this memo.
         header: `
   varying vec3 vEye;
   varying float vNoise;

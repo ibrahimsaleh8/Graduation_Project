@@ -39,7 +39,7 @@ export default function JobDetails({ jobDetails }: Props) {
             {!jobDetails.isApplied && (
               <Button
                 onClick={() => setShowDescription((prev) => !prev)}
-                className="bg-main-color text-white hover:bg-main-color/90 rounded-full text-sm">
+                className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
                 {showDescription ? "Apply Now" : "Show Description"}
               </Button>
             )}
@@ -54,7 +54,7 @@ export default function JobDetails({ jobDetails }: Props) {
           </div>
         </div>
 
-        <div className="flex gap-7 items-start flex-wrap">
+        <div className="flex gap-7 items-start flex-col sm:flex-row flex-wrap">
           <Image
             src={logo}
             alt={jobDetails.companyName}

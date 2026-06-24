@@ -11,17 +11,9 @@ import {
 import { Eye, EyeOff } from "lucide-react";
 import ErrorValidationMessage from "./ErrorValidationMessage";
 import CountrySelect from "./CountrySelect";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { jobCategories } from "@/lib/JobCategories";
 import { Spinner } from "../ui/spinner";
 import { useRegisterCompany } from "./hooks/useRegisterCompany";
+import IndustrySearch from "./IndustrySearch";
 
 export default function RegisterCompaniesForm() {
   const {
@@ -47,13 +39,13 @@ export default function RegisterCompaniesForm() {
           {...register("name")}
           type="text"
           id="company-name"
+          aria-invalid={errors.name ? "true" : "false"}
           placeholder="Company name"
         />
         {errors.name && (
           <ErrorValidationMessage message={errors.name.message as string} />
         )}
       </div>
-
       <div className="flex flex-col gap-2">
         <Label htmlFor="email" className="text-sm">
           Business email
@@ -62,13 +54,13 @@ export default function RegisterCompaniesForm() {
           {...register("email")}
           type="email"
           id="email"
+          aria-invalid={errors.email ? "true" : "false"}
           placeholder="Business email"
         />
         {errors.email && (
           <ErrorValidationMessage message={errors.email.message as string} />
         )}
       </div>
-
       <div className="flex flex-col gap-2">
         <Label htmlFor="password" className="text-sm">
           Password
@@ -78,6 +70,7 @@ export default function RegisterCompaniesForm() {
             placeholder="Password"
             type={showPass ? "text" : "password"}
             {...register("password")}
+            aria-invalid={errors.password ? "true" : "false"}
             id="password"
           />
           <InputGroupAddon align="inline-end">
@@ -101,38 +94,31 @@ export default function RegisterCompaniesForm() {
         )}
       </div>
 
-      <div className="flex items-center gap-5 flex-col sm:flex-row">
+      <div className="flex items-center gap-5 flex-col sm:flex-row h-11">
         <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="industry" className="text-sm">
             Main Industry
           </Label>
-          <Select onValueChange={(e) => setValue("industry", e)}>
-            <SelectTrigger
-              id="industry"
-              className="w-full bg-input-bg h-11! border-0">
-              <SelectValue placeholder="Indusrty" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black border border-border-color">
-              <SelectGroup>
-                {jobCategories.map((cat) => (
-                  <SelectItem
-                    className="hover:bg-input-bg! hover:text-black!"
-                    key={cat}
-                    value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <IndustrySearch
+            withIcon={false}
+            UpdateIndustry={(value: string) => {
+              setValue("industry", value);
+            }}
+            deafultIndustry=""
+            classes="w-full bg-input-bg rounded-md hover:bg-input-bg/80 border"
+            isInvalid={errors.industry ? true : false}
+          />
         </div>
 
         <div className="flex flex-col gap-1 w-full">
           <Label className="text-sm">Country</Label>
-          <CountrySelect deafultCountry="" UpdateCountry={UpdateCountry} />
+          <CountrySelect
+            deafultCountry=""
+            UpdateCountry={UpdateCountry}
+            isInvalid={errors.location ? true : false}
+          />
         </div>
       </div>
-
       {(errors.industry || errors.location) && (
         <div className="flex items-center gap-4">
           {errors.industry && (
@@ -147,7 +133,6 @@ export default function RegisterCompaniesForm() {
           )}
         </div>
       )}
-
       <Button disabled={isPending} className="text-sm my-2">
         {isPending ? (
           <>

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import DashboardHeader from "./_components/DashboardHeader";
-import AiChatFloatedIcon from "./dashboard/company/_components/AiChatFloatedIcon";
 import { Poppins } from "next/font/google";
 
 const font = Poppins({
@@ -17,8 +16,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           {children}
         </div>
       </div>
-
-      {/* <AiChatFloatedIcon /> */}
     </main>
   );
 }

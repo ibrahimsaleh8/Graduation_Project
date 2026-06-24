@@ -15,31 +15,44 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
 import { jobCategories } from "@/lib/JobCategories";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Briefcase01Icon } from "@hugeicons/core-free-icons";
 
 type Props = {
-  UpdateCountry: (country: string) => void;
-  deafultCountry: string;
+  UpdateIndustry: (country: string) => void;
+  deafultIndustry: string;
   classes?: string;
+  withIcon: boolean;
+  isInvalid?: boolean;
 };
 export default function IndustrySearch({
-  UpdateCountry,
-  deafultCountry,
+  UpdateIndustry,
+  deafultIndustry,
   classes,
+  withIcon,
+  isInvalid,
 }: Props) {
-  const [value, setValue] = useState(deafultCountry);
+  const [value, setValue] = useState(deafultIndustry);
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          className={`${classes ? classes : "h-11 text-low-color border-0 flex justify-start hover:bg-input-bg/80 duration-300 bg-input-bg"}`}>
-          <span className="text-left text-black w-full text-sm font-normal">
+          className={`${classes ? classes : "h-11 text-low-color border-0 flex items-center justify-start hover:bg-input-bg/80 duration-300 bg-input-bg"} ${isInvalid ? "border-red-500" : ""} `}>
+          <span className="text-left text-black w-full text-sm font-normal flex items-center gap-3">
+            {withIcon && (
+              <HugeiconsIcon
+                icon={Briefcase01Icon}
+                className="size-6 text-black/50"
+              />
+            )}
+
             {value ? (
               jobCategories.find((category) => category === value)
             ) : (
-              <span className="text-black/30 flex items-center gap-3 justify-between w-full">
-                Select Industry <ChevronDown />
+              <span className="text-black/50 font-medium flex items-center gap-3 justify-between w-full">
+                Select Industry... <ChevronDown />
               </span>
             )}
           </span>
@@ -59,7 +72,7 @@ export default function IndustrySearch({
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    UpdateCountry(currentValue);
+                    UpdateIndustry(currentValue);
                   }}>
                   <span className="truncate">{country}</span>
                 </CommandItem>

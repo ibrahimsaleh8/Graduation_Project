@@ -65,7 +65,7 @@ export const jobCategories = [
 
 export default function JobsCategories() {
   return (
-    <div className="container mx-auto space-y-6 w-full md:p-10 p-5 relative mt-20 pb-20">
+    <div className="container mx-auto space-y-6 w-full md:p-10 p-5 relative mt-20 md:pb-24 pb-10">
       <p className="px-4 py-2 bg-[#1A1A1A] w-fit rounded-2xl text-sm">
         Categories
       </p>

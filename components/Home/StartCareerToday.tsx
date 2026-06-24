@@ -20,7 +20,7 @@ export default function StartCareerToday() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
-        start: "top 80%",
+        start: "top 90%",
       },
     });
 
@@ -105,7 +105,7 @@ export default function StartCareerToday() {
         <div className="flex items-center sm:gap-6 gap-3 flex-col sm:flex-row">
           <Link
             className="px-10 py-4 scale-0 start-career-links bg-main-dark border border-main-dark text-white rounded-2xl flex items-center gap-2 hover:bg-main-dark/80 duration-300"
-            href={"/"}>
+            href={"/register"}>
             Create Profile{" "}
             <HugeiconsIcon
               icon={ArrowRight02Icon}
@@ -115,7 +115,7 @@ export default function StartCareerToday() {
           </Link>
           <Link
             className="px-10 py-4 border scale-0 start-career-links bg-input-bg text-black rounded-2xl flex items-center gap-2 hover:bg-input-bg/80 duration-300"
-            href={"/"}>
+            href={"/jobs"}>
             Browse Jobs
             <HugeiconsIcon
               icon={Search01Icon}

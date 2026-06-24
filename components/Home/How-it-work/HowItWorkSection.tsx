@@ -41,9 +41,10 @@ export default function HowItWorkSection() {
   useGSAP(
     () => {
       const tl = gsap.timeline({
+        delay: 0.6,
         scrollTrigger: {
           trigger: container.current,
-          start: "top bottom",
+          start: "top 80%",
         },
       });
 

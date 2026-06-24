@@ -51,6 +51,7 @@ export default function LoginUserForm() {
             placeholder="Email"
             type="email"
             id="email"
+            aria-invalid={errors.email ? "true" : "false"}
           />
           <InputGroupAddon align="inline-end">
             <InputGroupButton aria-label="Email" title="Email" size="sm">
@@ -80,6 +81,7 @@ export default function LoginUserForm() {
               aria-label="Show Password"
               title="Show Password"
               className="cursor-pointer"
+              aria-invalid={errors.password ? "true" : "false"}
               size="sm"
               onClick={() => {
                 setShowPass((pre) => !pre);

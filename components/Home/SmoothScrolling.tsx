@@ -14,6 +14,7 @@ export default function SmoothScrolling({
     ScrollSmoother.create({
       smooth: 1,
       effects: true,
+      smoothTouch: false,
     });
   });
   return (

@@ -8,7 +8,9 @@ export default function ApplicationForm() {
   const [selectedCV, setSelectedCV] = useState("");
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+    <form
+      className="flex flex-col gap-3 max-w-3xl"
+      onSubmit={(e) => e.preventDefault()}>
       <div className="flex flex-col gap-1">
         <label htmlFor="name">Name:</label>
         <Input type="text" placeholder="Your Name" id="name" />
@@ -42,7 +44,9 @@ export default function ApplicationForm() {
         </div>
       </div>
 
-      <Button className="w-48 mt-6">Submit</Button>
+      <Button className="w-32 mt-6 text-sm bg-main-color hover:bg-main-color/90 duration-300 ">
+        Submit
+      </Button>
     </form>
   );
 }

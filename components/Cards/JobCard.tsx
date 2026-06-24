@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Bookmark01Icon,
@@ -39,11 +40,11 @@ export default function JobCard({
   withSimilarJobs: boolean;
 }) {
   return (
-    <div className="bg-white w-full rounded-2xl flex flex-col gap-4 p-5 border border-black/8 hover:shadow-md transition-shadow duration-200 text-black">
+    <div className="bg-white w-full rounded-md flex flex-col gap-4 p-5 border border-black/8 hover:shadow-md transition-shadow duration-200 text-black">
       {/* Top: Company info + Bookmark */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex gap-3 items-center">
-          <div className="size-11 rounded-xl overflow-hidden border border-black/8 shrink-0 flex items-center justify-center bg-white">
+          <div className="size-11 rounded-md overflow-hidden border border-black/8 shrink-0 flex items-center justify-center bg-white">
             <img
               src={companyLogoUrl}
               alt={companyName}
@@ -96,7 +97,7 @@ export default function JobCard({
           <span className="text-xs text-gray-400 font-normal">/month</span>
         </p>
 
-        <p className="text-xs text-gray-400 flex items-center gap-1">
+        <p className="text-xs text-black/80 flex items-center gap-1">
           <HugeiconsIcon icon={Clock01Icon} className="size-3" />
           {formatDate(timeAgo.toString())}
         </p>

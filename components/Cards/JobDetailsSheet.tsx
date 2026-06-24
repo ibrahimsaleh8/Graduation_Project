@@ -22,7 +22,7 @@ export default function JobDetailsSheet({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="px-8 py-3 text-sm bg-main-color hover:bg-main-color/90 text-white font-medium rounded-full">
+        <Button className="px-8 py-3 text-sm bg-main-color hover:bg-main-color/90 text-white font-medium rounded-md">
           Apply
         </Button>
       </SheetTrigger>

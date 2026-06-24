@@ -91,7 +91,7 @@ export default function JobFilteration() {
       bg-white
       border
       border-border-color
-      rounded-2xl
+      rounded-md
       shadow-sm
       p-5
       space-y-5

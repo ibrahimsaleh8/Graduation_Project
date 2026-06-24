@@ -55,7 +55,7 @@ export default function Header() {
           {mainLinks.map((lin) => (
             <li key={lin.title}>
               <Link
-                className={`px-4 py-2 ${pathname == lin.link ? "text-black" : "text-black/60"}`}
+                className={`px-4 py-2 hover:text-black duration-300 ${pathname == lin.link ? "text-black" : "text-black/70"}`}
                 href={lin.link}>
                 {lin.title}
               </Link>
@@ -82,13 +82,15 @@ export default function Header() {
           ) : (
             <>
               <li>
-                <Link className="px-4 py-2" href={"/login"}>
+                <Link
+                  className="px-3 py-1 hover:bg-black border hover:border-black border-transparent hover:text-white duration-200 rounded-md"
+                  href={"/login"}>
                   Login
                 </Link>
               </li>
               <li>
                 <Link
-                  className="px-3 py-1 border border-black text-sm rounded-md"
+                  className="px-3 py-1 border border-black text-sm rounded-md hover:bg-black hover:text-white duration-200"
                   href={"/register"}>
                   Register
                 </Link>

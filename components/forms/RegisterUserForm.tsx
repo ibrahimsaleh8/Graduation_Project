@@ -13,6 +13,7 @@ import ErrorValidationMessage from "./ErrorValidationMessage";
 import CountrySelect from "./CountrySelect";
 import { Spinner } from "../ui/spinner";
 import { useRegisterUser } from "./hooks/useRegisterUser";
+import IndustrySearch from "./IndustrySearch";
 
 export type AuthResponseDataType = {
   userId: string;
@@ -31,6 +32,7 @@ export default function RegisterUserForm() {
     handleSubmit,
     showPass,
     setShowPass,
+    setValue,
   } = useRegisterUser();
   return (
     <form
@@ -46,6 +48,7 @@ export default function RegisterUserForm() {
             {...register("firstName")}
             type="text"
             id="first-name"
+            aria-invalid={errors.firstName ? "true" : "false"}
             placeholder="First name"
           />
         </div>
@@ -57,6 +60,7 @@ export default function RegisterUserForm() {
             {...register("lastName")}
             type="text"
             id="last-name"
+            aria-invalid={errors.lastName ? "true" : "false"}
             placeholder="Last name"
           />
         </div>
@@ -85,6 +89,7 @@ export default function RegisterUserForm() {
           {...register("email")}
           type="email"
           id="email"
+          aria-invalid={errors.email ? "true" : "false"}
           placeholder="Email"
         />
         {errors.email && (
@@ -102,6 +107,7 @@ export default function RegisterUserForm() {
             placeholder="Password"
             type={showPass ? "text" : "password"}
             id="password"
+            aria-invalid={errors.password ? "true" : "false"}
             {...register("password")}
           />
           <InputGroupAddon align="inline-end">
@@ -126,13 +132,46 @@ export default function RegisterUserForm() {
       </div>
 
       {/* Country */}
-      <div className="flex flex-col gap-1">
-        <Label className="text-sm">Country</Label>
-        <CountrySelect deafultCountry="" UpdateCountry={UpdateCountry} />
-        {errors.location && (
-          <ErrorValidationMessage message={errors.location.message as string} />
-        )}
+      <div className="flex items-center gap-3 md:flex-row flex-col">
+        <div className="flex flex-col gap-2 w-full">
+          <Label htmlFor="industry" className="text-sm">
+            Main Industry
+          </Label>
+          <IndustrySearch
+            withIcon={false}
+            UpdateIndustry={(value: string) => {
+              setValue("industry", value);
+            }}
+            deafultIndustry=""
+            classes="w-full bg-input-bg rounded-md hover:bg-input-bg/80 border"
+            isInvalid={errors.industry ? true : false}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1 w-full">
+          <Label className="text-sm">Country</Label>
+          <CountrySelect
+            isInvalid={errors.location ? true : false}
+            deafultCountry=""
+            UpdateCountry={UpdateCountry}
+          />
+        </div>
       </div>
+
+      {(errors.industry || errors.location) && (
+        <div className="flex items-center gap-4">
+          {errors.industry && (
+            <ErrorValidationMessage
+              message={errors.industry.message as string}
+            />
+          )}{" "}
+          {errors.location && (
+            <ErrorValidationMessage
+              message={errors.location.message as string}
+            />
+          )}
+        </div>
+      )}
 
       <Button disabled={isPending} className="text-sm my-2">
         {isPending ? (

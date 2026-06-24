@@ -45,7 +45,7 @@ export default function SmallNavbar({ links, pathname, userData }: Props) {
         {/* <HugeiconsIcon icon={Cancel01Icon} className="w-5 h-5 text-black"/> */}
       </button>
 
-      <div className="[clip-path:polygon(0%_0%,100%_0%,100%_0%,0%_0%)] fixed z-100000 w-full min-h-screen bg-white left-0 top-16.5 border-t border-border-color overflow-hidden small-navbar">
+      <div className="[clip-path:polygon(0%_0%,100%_0%,100%_0%,0%_0%)] fixed z-100000 w-full min-h-screen bg-white left-0 top-15.75 border-t border-border-color overflow-hidden small-navbar">
         <ul className="flex flex-col items-start gap-6 py-6 md:px-6 px-2 w-full">
           {links.map((lin) => (
             <li key={lin.title} className="w-full">

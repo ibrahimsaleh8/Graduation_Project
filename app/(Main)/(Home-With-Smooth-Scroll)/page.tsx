@@ -15,6 +15,9 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   useGSAP(() => {
+    gsap.to(container.current, {
+      opacity: 1,
+    });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#container-wraper",
@@ -34,7 +37,7 @@ export default function Home() {
       className="w-full flex items-center flex-col overflow-x-hidden">
       <div
         ref={container}
-        className="[clip-path:inset(5px_10px_36px_round_24px)] lg:[clip-path:inset(5px_80px_36px_round_24px)] xl:[clip-path:inset(5px_200px_34px_round_24px)] overflow-x-hidden w-full bg-[radial-gradient(circle_at_35%_20%,rgba(0,0,255,0.22),transparent_16%),radial-gradient(circle_at_50%_45%,rgba(0,0,255,0.25),transparent_18%),radial-gradient(circle_at_65%_90%,rgba(0,0,255,0.2),transparent_14%),linear-gradient(120deg,transparent_18%,rgba(0,0,255,0.08)_32%,transparent_48%),linear-gradient(120deg,transparent_42%,rgba(0,0,255,0.07)_55%,transparent_70%),linear-gradient(to_bottom,#000,#000)] text-white relative flex flex-col items-center gap-10 rounded-b-2xl">
+        className="[clip-path:inset(5px_10px_36px_round_24px)] opacity-0 lg:[clip-path:inset(5px_80px_36px_round_24px)] xl:[clip-path:inset(5px_200px_34px_round_24px)] overflow-x-hidden w-full bg-[radial-gradient(circle_at_35%_20%,rgba(0,0,255,0.22),transparent_16%),radial-gradient(circle_at_50%_45%,rgba(0,0,255,0.25),transparent_18%),radial-gradient(circle_at_65%_90%,rgba(0,0,255,0.2),transparent_14%),linear-gradient(120deg,transparent_18%,rgba(0,0,255,0.08)_32%,transparent_48%),linear-gradient(120deg,transparent_42%,rgba(0,0,255,0.07)_55%,transparent_70%),linear-gradient(to_bottom,#000,#000)] text-white relative flex flex-col items-center gap-10 rounded-b-2xl">
         <HeroSectionWithBg />
       </div>
       <Companies />

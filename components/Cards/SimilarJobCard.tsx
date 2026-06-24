@@ -28,25 +28,19 @@ export default function SimilarJobCard() {
         </div>
 
         <Button className="bg-transparent hover:bg-black/5 text-black ml-auto">
-          <HugeiconsIcon icon={Bookmark01Icon} className="size-5!" />
+          <HugeiconsIcon icon={Bookmark01Icon} className="size-4.5!" />
         </Button>
       </div>
 
       {/* Employemnt Types */}
       <div className="flex items-center gap-2 flex-wrap">
-        <p className="px-2 py-1.5 text-[0.8rem] bg-input-bg rounded-sm">
-          Part-time
-        </p>
-        <p className="px-2 py-1.5 text-[0.8rem] bg-input-bg rounded-sm">
-          Part-time
-        </p>
-        <p className="px-2 py-1.5 text-[0.8rem] bg-input-bg rounded-sm">
+        <p className="px-2 py-1 text-xs font-medium border bg-input-bg rounded-sm">
           Part-time
         </p>
       </div>
 
       {/* Bottom */}
-      <div className="w-full flex items-center justify-between gap-7">
+      <div className="w-full flex sm:items-center items-end justify-between gap-7">
         <div className="flex items-center gap-3 flex-wrap">
           <p className="flex items-center gap-1 text-sm text-black/80">
             <HugeiconsIcon icon={Calendar02Icon} className="size-4" /> 2 day ago

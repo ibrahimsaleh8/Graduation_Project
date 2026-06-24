@@ -19,7 +19,11 @@ const jobsData: Job[] = [
   { id: 5, title: "Next.js Developer" },
 ];
 
-export default function SearchBar() {
+type Props = {
+  updateSearchTxt: (value: string) => void;
+};
+
+export default function SearchBar({ updateSearchTxt }: Props) {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -45,7 +49,9 @@ export default function SearchBar() {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative w-full md:w-1/2 md:border-r">
+    <div
+      ref={wrapperRef}
+      className="relative lg:w-fit lg:flex-1 w-full lg:border-r border-b lg:border-b-0">
       <div className="flex flex-col gap-1">
         <div className="flex items-center rounded-full pl-5 bg-white">
           <HugeiconsIcon
@@ -58,14 +64,17 @@ export default function SearchBar() {
             placeholder="Search your job title or keyword..."
             className="border-0 outline-0 focus-visible:ring-0 text-black rounded-md bg-transparent h-12 shadow-none"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              updateSearchTxt(e.target.value);
+            }}
             onFocus={() => setIsOpen(true)}
           />
         </div>
       </div>
 
       {/* Search Results Dropdown */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -93,7 +102,7 @@ export default function SearchBar() {
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 }

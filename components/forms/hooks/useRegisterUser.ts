@@ -68,5 +68,6 @@ export const useRegisterUser = () => {
     handleSubmit,
     showPass,
     setShowPass,
+    setValue,
   };
 };

@@ -36,10 +36,11 @@ export default function CandidatesSearch() {
       <div className="w-full space-y-1">
         <Label>Industry</Label>
         <IndustrySearch
-          UpdateCountry={(value: string) => {
+          withIcon={false}
+          UpdateIndustry={(value: string) => {
             console.log(value);
           }}
-          deafultCountry=""
+          deafultIndustry=""
           classes="w-full space-y-1 bg-white border border-border-color hover:bg-white"
         />
       </div>

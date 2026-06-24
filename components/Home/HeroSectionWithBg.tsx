@@ -41,6 +41,15 @@ export default function HeroSectionWithBg() {
       "0",
     );
     tl.to(
+      ".rating-stars",
+      {
+        scale: 1,
+        duration: 1,
+        ease: "power2.inOut",
+      },
+      "0",
+    );
+    tl.to(
       ".hero-image",
       {
         opacity: 1,
@@ -55,8 +64,8 @@ export default function HeroSectionWithBg() {
     <>
       <div style={{ width: "100%", height: "100vh", position: "absolute" }}>
         <Beams
-          beamWidth={3}
-          beamHeight={30}
+          beamWidth={2}
+          beamHeight={20}
           beamNumber={20}
           lightColor="#2c41ff"
           speed={5}
@@ -68,7 +77,9 @@ export default function HeroSectionWithBg() {
 
       {/* Content */}
       <div className="flex flex-col items-center gap-10 relative py-20">
-        <StarsRates />
+        <div className="scale-0 rating-stars">
+          <StarsRates />
+        </div>
 
         <div className="xl:text-6xl lg:text-5xl text-3xl font-medium text-center hero-header">
           <div className="overflow-hidden">
@@ -85,7 +96,7 @@ export default function HeroSectionWithBg() {
         </div>
 
         <div className="hero-link scale-0">
-          <ArrowLink label="Search for jobs" link="/" />
+          <ArrowLink label="Search for jobs" link="/jobs" />
         </div>
       </div>
       {/* Jobs Image */}

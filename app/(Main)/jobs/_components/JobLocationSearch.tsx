@@ -17,14 +17,16 @@ import { countries } from "@/lib/Countries";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
-
-export default function JobLocationSearch() {
+type Props = {
+  updateLocation: (value: string) => void;
+};
+export default function JobLocationSearch({ updateLocation }: Props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="md:w-1/2 w-full flex flex-col gap-1 border-y md:border-y-0 py-2 md:py-0">
+        <div className="lg:w-fit lg:flex-1 w-full flex flex-col gap-1 py-2 md:py-0">
           <Button
             variant="outline"
             role="combobox"
@@ -69,6 +71,7 @@ export default function JobLocationSearch() {
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
+                    updateLocation(currentValue);
                   }}>
                   <span className="truncate">{city}</span>
                 </CommandItem>

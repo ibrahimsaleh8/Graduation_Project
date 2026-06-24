@@ -20,12 +20,14 @@ type Props = {
   UpdateCountry: (country: string) => void;
   deafultCountry: string;
   classes?: string;
+  isInvalid?: boolean;
 };
 
 export default function CountrySelect({
   UpdateCountry,
   deafultCountry,
   classes,
+  isInvalid,
 }: Props) {
   const [value, setValue] = useState(deafultCountry);
   const [open, setOpen] = useState(false);
@@ -34,7 +36,7 @@ export default function CountrySelect({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          className={`${classes ? classes : "h-11 text-low-color border-0 flex justify-start hover:bg-input-bg/80 duration-300 bg-input-bg"}`}>
+          className={`${classes ? classes : "h-11 text-low-color border-0 flex justify-start hover:bg-input-bg/80 duration-300 bg-input-bg"} border ${isInvalid ? "border-red-500" : ""}`}>
           <span className="text-left text-black w-full text-sm font-normal">
             {value ? (
               countries.find((country) => country === value)
