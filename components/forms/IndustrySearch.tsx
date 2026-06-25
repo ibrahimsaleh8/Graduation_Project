@@ -72,7 +72,7 @@ export default function IndustrySearch({
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    UpdateIndustry(currentValue);
+                    UpdateIndustry(currentValue === value ? "" : currentValue);
                   }}>
                   <span className="truncate">{country}</span>
                 </CommandItem>

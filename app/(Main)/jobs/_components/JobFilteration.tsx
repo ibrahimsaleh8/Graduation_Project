@@ -1,21 +1,17 @@
 "use client";
 
-import { useState } from "react";
-
+import { Dispatch, SetStateAction } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
 import {
   Checkbox,
   CheckboxIndicator,
 } from "@/components/animate-ui/primitives/radix/checkbox";
-
 import { Label } from "@/components/ui/label";
-
 import {
   Select,
   SelectContent,
@@ -24,29 +20,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { ExperienceYears } from "@/lib/ExperienceYears";
+import { JobsFilteration } from "./DisplayJobsForSearch";
+import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
 
-const JOB_TYPES = ["Full-time", "Part-time", "Contract"];
-
-const WORK_TYPES = ["Remote", "On-site", "Hybrid"];
-
-type Filters = {
-  jobTypes: string[];
-  workType: string[];
-  minExperience: string;
-  maxExperience: string;
+type Props = {
+  setFilters: Dispatch<SetStateAction<JobsFilteration>>;
+  filters: JobsFilteration;
 };
 
-export default function JobFilteration() {
-  const [filters, setFilters] = useState<Filters>({
-    jobTypes: [],
-    workType: [],
-    minExperience: "",
-    maxExperience: "",
-  });
-
-  // Toggle checkbox filters
+export default function JobFilteration({ setFilters, filters }: Props) {
   function toggleFilter(field: "jobTypes" | "workType", value: string) {
     setFilters((prev) => {
       const current = prev[field];
@@ -63,24 +46,6 @@ export default function JobFilteration() {
       return newFilters;
     });
   }
-
-  // Clear all filters
-  function clearFilters() {
-    const clearedFilters = {
-      jobTypes: [],
-      workType: [],
-      minExperience: "",
-      maxExperience: "",
-    };
-
-    setFilters(clearedFilters);
-  }
-
-  const totalFilters =
-    filters.jobTypes.length +
-    filters.workType.length +
-    (filters.minExperience ? 1 : 0) +
-    (filters.maxExperience ? 1 : 0);
 
   return (
     <div
@@ -100,25 +65,7 @@ export default function JobFilteration() {
       <div className="flex items-center justify-between">
         <div>
           <p className="font-semibold text-lg">Filters</p>
-
-          {totalFilters > 0 && (
-            <p className="text-sm text-low-color">
-              {totalFilters} active filters
-            </p>
-          )}
         </div>
-
-        {totalFilters > 0 && (
-          <button
-            onClick={clearFilters}
-            className="
-              text-sm
-              text-main-color
-              hover:underline
-            ">
-            Clear
-          </button>
-        )}
       </div>
 
       <Accordion
@@ -138,7 +85,7 @@ export default function JobFilteration() {
           </AccordionTrigger>
 
           <AccordionContent className="space-y-3 pt-2">
-            {JOB_TYPES.map((type) => (
+            {employmentTypes.map((type) => (
               <div
                 key={type}
                 className="
@@ -192,7 +139,7 @@ export default function JobFilteration() {
           </AccordionTrigger>
 
           <AccordionContent className="space-y-3 pt-2">
-            {WORK_TYPES.map((type) => (
+            {workApproaches.map((type) => (
               <div
                 key={type}
                 className="

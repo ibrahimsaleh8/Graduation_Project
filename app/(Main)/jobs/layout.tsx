@@ -1,3 +1,4 @@
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import Footer from "@/components/Home/Footer";
 
 export default function Layout({
@@ -7,7 +8,7 @@ export default function Layout({
 }>) {
   return (
     <>
-      {children}
+      <NuqsAdapter>{children}</NuqsAdapter>
       <Footer />
     </>
   );

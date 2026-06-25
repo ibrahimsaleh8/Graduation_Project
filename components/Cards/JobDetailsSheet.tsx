@@ -13,6 +13,7 @@ import SimilarJobs from "./SimilarJobs";
 import { JobsCardDataType } from "./JobCard";
 type Props = {
   jobDetails: JobsCardDataType;
+  token: string;
   withSimilarJobs: boolean;
 };
 export default function JobDetailsSheet({

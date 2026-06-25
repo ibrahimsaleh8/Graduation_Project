@@ -8,13 +8,23 @@ export default function JobDescription({ jobdesc, responsibility }: Props) {
       {/* About */}
       <div className="flex flex-col gap-2">
         <p className="font-medium text-lg">About this role</p>
-        <p>{jobdesc} </p>
+        <div
+          className="text-sm  ProseMirror"
+          dangerouslySetInnerHTML={{
+            __html: jobdesc,
+          }}
+        />
       </div>
 
       {/* Responsibility */}
       <div className="flex flex-col gap-2">
         <p className="font-medium text-lg">Responsibility</p>
-        <p>{responsibility}</p>
+        <div
+          className="text-sm  ProseMirror"
+          dangerouslySetInnerHTML={{
+            __html: responsibility,
+          }}
+        />
       </div>
     </div>
   );

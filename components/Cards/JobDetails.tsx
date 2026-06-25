@@ -109,7 +109,7 @@ export default function JobDetails({ jobDetails }: Props) {
             transition={{ duration: 0.3, ease: "easeInOut" }}>
             <JobDescription
               jobdesc={jobDetails.jobDescription}
-              responsibility={jobDetails.jobRequirement}
+              responsibility={""}
             />
           </motion.div>
         ) : (

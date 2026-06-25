@@ -5,16 +5,29 @@ import JobLocationSearch from "./JobLocationSearch";
 import SearchBar from "./SearchBar";
 import IndustrySearch from "@/components/forms/IndustrySearch";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+import { jobSearchQueryDataType } from "./DisplayJobsForSearch";
 
-export default function JobsSearchAndFilter() {
+type Props = {
+  params: jobSearchQueryDataType;
+};
+
+export default function JobsSearchAndFilter({ params }: Props) {
+  const router = useRouter();
   const search = useRef({
-    title: "",
-    location: "",
-    industry: "",
+    title: params.title ?? "",
+    location: params.location ?? "",
+    industry: params.industry ?? "",
   });
 
   const HandleSearch = () => {
-    console.log(search.current);
+    const searchParams = new URLSearchParams({
+      title: search.current.title,
+      location: search.current.location,
+      industry: search.current.industry,
+      page: "1",
+    });
+    router.push(`?${searchParams.toString()}`);
   };
   return (
     <div className="w-full relative md:p-18 p-8 border-b bg-main-color text-white space-y-5 rounded-md">
@@ -38,6 +51,7 @@ export default function JobsSearchAndFilter() {
         </div>
         <div className="relative flex items-center lg:gap-3 container mx-auto p-2 flex-col lg:flex-row bg-white rounded-md">
           <SearchBar
+            deafultValue={params.title ?? ""}
             updateSearchTxt={(value: string) => {
               search.current = {
                 ...search.current,
@@ -46,6 +60,7 @@ export default function JobsSearchAndFilter() {
             }}
           />
           <JobLocationSearch
+            deafultValue={params.location ?? ""}
             updateLocation={(value: string) => {
               search.current = {
                 ...search.current,
@@ -61,7 +76,7 @@ export default function JobsSearchAndFilter() {
                 industry: value,
               };
             }}
-            deafultIndustry=""
+            deafultIndustry={params.industry ?? ""}
             classes="lg:w-fit lg:flex-1 w-full flex flex-col gap-1 py-2 md:py-0 bg-white hover:bg-white lg:border-l lg:border-t-0 border-t rounded-none"
           />
 

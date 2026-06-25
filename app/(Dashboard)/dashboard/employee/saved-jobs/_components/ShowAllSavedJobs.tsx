@@ -101,6 +101,7 @@ export default function ShowAllSavedJobs({ token }: Props) {
           <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
             {jobs.map((job, i) => (
               <JobCard
+                token={token}
                 key={`${job.jobId} ${i}`}
                 {...job}
                 withSimilarJobs={false}

@@ -8,18 +8,20 @@ import {
 } from "@hugeicons/core-free-icons";
 import JobDetailsSheet from "./JobDetailsSheet";
 import { formatDate } from "@/lib/FormatDate";
+import Image from "next/image";
+import companyImage from "@images/company-icon.png";
+
 export type JobsCardDataType = {
   jobId: string;
-  companyLogoUrl: string;
+  companyLogoUrl: string | null;
   companyName: string;
   companyLocation: string;
   jobTitle: string;
   jobDescription: string;
-  jobRequirement: string;
   minSalary: number;
   maxSalary: number;
   jobType: string[];
-  timeAgo: Date;
+  timeAgo: string;
   isApplied: boolean;
 };
 export default function JobCard({
@@ -34,10 +36,11 @@ export default function JobCard({
   timeAgo,
   isApplied,
   jobId,
-  jobRequirement,
   withSimilarJobs,
+  token,
 }: JobsCardDataType & {
   withSimilarJobs: boolean;
+  token: string;
 }) {
   return (
     <div className="bg-white w-full rounded-md flex flex-col gap-4 p-5 border border-black/8 hover:shadow-md transition-shadow duration-200 text-black">
@@ -45,13 +48,23 @@ export default function JobCard({
       <div className="flex items-start justify-between gap-3">
         <div className="flex gap-3 items-center">
           <div className="size-11 rounded-md overflow-hidden border border-black/8 shrink-0 flex items-center justify-center bg-white">
-            <img
-              src={companyLogoUrl}
-              alt={companyName}
-              width={36}
-              height={36}
-              className="size-9 object-contain"
-            />
+            {companyLogoUrl ? (
+              <img
+                src={companyLogoUrl}
+                alt={companyName}
+                width={36}
+                height={36}
+                className="size-9 object-contain"
+              />
+            ) : (
+              <Image
+                src={companyImage}
+                alt={companyName}
+                width={36}
+                height={36}
+                className="size-9 object-contain"
+              />
+            )}
           </div>
 
           <div>
@@ -81,10 +94,12 @@ export default function JobCard({
       </div>
 
       {/* Description */}
-      <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-        {jobDescription}
-      </p>
-
+      <div
+        className="text-xs ProseMirror leading-relaxed line-clamp-2"
+        dangerouslySetInnerHTML={{
+          __html: jobDescription,
+        }}
+      />
       {/* Salary + Date */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <p className="text-sm font-bold text-gray-900">
@@ -139,9 +154,9 @@ export default function JobCard({
               timeAgo,
               isApplied,
               jobId,
-              jobRequirement,
             }}
             withSimilarJobs={withSimilarJobs}
+            token={token}
           />
         </div>
       )}

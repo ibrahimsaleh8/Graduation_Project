@@ -19,10 +19,14 @@ import { Location01Icon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
 type Props = {
   updateLocation: (value: string) => void;
+  deafultValue?: string;
 };
-export default function JobLocationSearch({ updateLocation }: Props) {
+export default function JobLocationSearch({
+  updateLocation,
+  deafultValue,
+}: Props) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(deafultValue ?? "");
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -60,6 +64,7 @@ export default function JobLocationSearch({ updateLocation }: Props) {
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "AnyWhere" : currentValue);
                   setOpen(false);
+                  updateLocation("AnyWhere");
                 }}>
                 <span className="truncate">AnyWhere</span>
               </CommandItem>
@@ -71,7 +76,9 @@ export default function JobLocationSearch({ updateLocation }: Props) {
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    updateLocation(currentValue);
+                    updateLocation(
+                      currentValue === value ? "AnyWhere" : currentValue,
+                    );
                   }}>
                   <span className="truncate">{city}</span>
                 </CommandItem>
