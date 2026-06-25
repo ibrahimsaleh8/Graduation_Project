@@ -16,7 +16,7 @@ export default function Footer() {
         <ul className="flex items-center gap-8 text-xl flex-wrap justify-center">
           <li>
             <Link
-              href={"/"}
+              href={"/about"}
               className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
               About
               <span className="size-2 rounded-full bg-[#464545]"></span>
@@ -24,7 +24,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href={"/"}
+              href={"/jobs"}
               className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
               Find Jobs
               <span className="size-2 rounded-full bg-[#464545]"></span>
@@ -32,7 +32,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href={"/"}
+              href={"/login"}
               className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
               Login
               <span className="size-2 rounded-full bg-[#464545]"></span>
@@ -40,7 +40,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href={"/"}
+              href={"/register"}
               className="flex items-center text-sm sm:text-base gap-4 text-white/90 hover:text-white/60 duration-300">
               Register
               <span className="size-2 rounded-full bg-[#464545]"></span>
@@ -48,7 +48,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href={"/"}
+              href={"/contact"}
               className="text-white/90 hover:text-white/60 duration-300 text-sm sm:text-base">
               Contact
             </Link>

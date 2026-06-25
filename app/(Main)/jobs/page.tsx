@@ -43,13 +43,14 @@ export default async function JobsPage({
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/JobPosting?title=${params.title ?? ""}&location=${params.location == "AnyWhere" ? "" : (params.location ?? "")}&category=${params.industry ?? ""}${params.page ? `&page=${params.page}` : ""}`,
     {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token?.value ?? ""}`,
         "Content-Type": "application/json",
       },
       cache: "no-store",
     },
   );
   if (!res.ok) {
+    console.log(await res.json());
     throw new Error("Failed to fetch jobs");
   }
   const jobs: JobsResponse = await res.json();

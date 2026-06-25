@@ -77,14 +77,14 @@ export default function RegisterPage() {
           }}
           className="md:w-3/4 w-full mx-auto flex flex-col gap-5">
           <Tabs defaultValue="employee">
-            <TabsList className="bg-main-dark sm:w-fit w-full justify-between flex gap-4 px-4 rounded-lg py-2 items-center text-white">
+            <TabsList className="w-fit flex flex-wrap items-center justify-center gap-4 text-white md:bg-main-dark bg-transparent px-3 md:rounded-4xl rounded-md">
               <TabsTrigger
-                className="cursor-pointer w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:text-black px-4 py-1.5 rounded-md"
+                className="cursor-pointer duration-300 hover:bg-white w-full font-medium md:text-white/70 text-black text-sm aria-selected:border aria-selected:bg-main-dark md:aria-selected:bg-white md:aria-selected:text-black aria-selected:text-white px-4 py-2 hover:text-black"
                 value="employee">
                 Employee
               </TabsTrigger>
               <TabsTrigger
-                className="cursor-pointer w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:text-black px-4 py-1.5 rounded-md"
+                className="cursor-pointer duration-300 hover:bg-white w-full font-medium md:text-white/70 text-black text-sm aria-selected:border aria-selected:bg-main-dark md:aria-selected:bg-white md:aria-selected:text-black aria-selected:text-white px-4 py-2 hover:text-black"
                 value="company">
                 Company
               </TabsTrigger>

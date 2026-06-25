@@ -73,15 +73,15 @@ export default function ShowAdminSettings({ token }: Props) {
         <Tabs
           defaultValue="Socials"
           className="flex flex-col md:flex-row w-full items-start">
-          <TabsList className="flex flex-col gap-3 md:px-4 rounded-lg py-2 items-center text-white min-w-50 flex-wrap w-full md:w-fit">
+          <TabsList className="flex md:flex-col gap-3 md:px-4 rounded-lg py-2 items-center text-black min-w-50 flex-wrap w-full md:w-fit bg-transparent">
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="Socials">
               <HugeiconsIcon icon={Share02Icon} className="size-5" /> Socials
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="security">
               <HugeiconsIcon icon={LockPasswordIcon} className="size-5" />
               Security

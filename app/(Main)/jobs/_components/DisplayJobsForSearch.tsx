@@ -39,7 +39,7 @@ export default function DisplayJobsForSearch({
     jobs,
     jobsResponse,
   } = useSearch({ params, token, initialJobs });
-
+  console.log("jobs", jobs);
   return (
     <div className="md:px-10 px-3 ">
       <p className="font-medium ml-auto w-fit my-4">

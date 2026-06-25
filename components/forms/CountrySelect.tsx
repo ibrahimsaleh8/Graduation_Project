@@ -62,7 +62,7 @@ export default function CountrySelect({
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    UpdateCountry(currentValue);
+                    UpdateCountry(currentValue === value ? "" : currentValue);
                   }}>
                   <span className="truncate">{country}</span>
                 </CommandItem>
