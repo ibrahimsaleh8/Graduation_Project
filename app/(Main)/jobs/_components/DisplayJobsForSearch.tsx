@@ -31,22 +31,28 @@ export default function DisplayJobsForSearch({
   params,
   initialJobs,
 }: Props) {
-  const { setFilteration, updarteCurrentPage, currentPage, filteration, jobs } =
-    useSearch({ params, token, initialJobs });
+  const {
+    setFilteration,
+    updarteCurrentPage,
+    currentPage,
+    filteration,
+    jobs,
+    jobsResponse,
+  } = useSearch({ params, token, initialJobs });
 
   return (
     <div className="md:px-10 px-3 ">
       <p className="font-medium ml-auto w-fit my-4">
-        {initialJobs.totalCount} jobs Found
+        {jobsResponse.totalCount} jobs Found
       </p>
 
       <div className="flex gap-3 flex-col md:flex-row">
         <JobFilteration filters={filteration} setFilters={setFilteration} />
         <div className="flex-1">
-          {jobs && jobs.length > 0 ? (
-            <div className="flex flex-col gap-7">
-              <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
-                {jobs.map((job) => (
+          <div className="flex flex-col gap-7">
+            <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] items-start gap-4">
+              {jobs && jobs.length > 0 ? (
+                jobs.map((job) => (
                   <JobCard
                     key={job.jobID}
                     withSimilarJobs={true}
@@ -63,30 +69,30 @@ export default function DisplayJobsForSearch({
                     timeAgo={job.postedDate}
                     token={token}
                   />
-                ))}
-              </div>
-              {initialJobs.totalCount > initialJobs.pageSize && (
-                <Pagination
-                  currentPage={currentPage}
-                  onPageChange={updarteCurrentPage}
-                  totalPages={Math.ceil(
-                    initialJobs.totalCount / initialJobs.pageSize,
-                  )}
-                />
+                ))
+              ) : (
+                <div className="p-6 flex items-center justify-center text-center">
+                  <p className="flex items-center gap-3 md:text-lg font-medium text-black/70">
+                    <HugeiconsIcon
+                      icon={SearchMinusIcon}
+                      className="md:size-6 size-5"
+                      strokeWidth={2}
+                    />{" "}
+                    No Jobs Found...
+                  </p>
+                </div>
               )}
             </div>
-          ) : (
-            <div className="p-6 flex items-center justify-center text-center">
-              <p className="flex items-center gap-3 md:text-lg font-medium text-black/70">
-                <HugeiconsIcon
-                  icon={SearchMinusIcon}
-                  className="md:size-6 size-5"
-                  strokeWidth={2}
-                />{" "}
-                No Jobs Found...
-              </p>
-            </div>
-          )}
+            {jobs && jobsResponse.totalCount > jobsResponse.pageSize && (
+              <Pagination
+                currentPage={currentPage}
+                onPageChange={updarteCurrentPage}
+                totalPages={Math.ceil(
+                  jobsResponse.totalCount / jobsResponse.pageSize,
+                )}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
