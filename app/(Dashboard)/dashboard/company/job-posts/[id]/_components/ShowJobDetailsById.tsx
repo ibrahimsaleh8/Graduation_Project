@@ -262,19 +262,19 @@ export default function ShowJobDetailsById({ jobId, token }: Props) {
           <Tabs defaultValue="details">
             <TabsList className="relative sm:w-fit w-full flex flex-wrap gap-4 py-2 items-center text-black bg-white rounded-md shadow border px-2">
               <TabsTrigger
-                className="cursor-pointer pb-2 text-black/50 w-fit font-medium text-[0.80rem] rounded-md data-[state=active]:bg-main-color data-[state=active]:text-white px-4 py-1.5"
+                className="cursor-pointer pb-2 text-black/60 hover:text-black w-fit font-medium text-[0.80rem] data-[state=active]:bg-main-color aria-selected:bg-input-bg aria-selected:text-black px-4 py-1.5"
                 value="details">
                 Details
               </TabsTrigger>
 
               <TabsTrigger
                 value="applicants"
-                className="cursor-pointer pb-2 text-black/50 w-fit font-medium text-[0.80rem] rounded-md data-[state=active]:bg-main-color data-[state=active]:text-white px-4 py-1.5">
+                className="cursor-pointer pb-2 text-black/60 hover:text-black w-fit font-medium text-[0.80rem] data-[state=active]:bg-main-color aria-selected:bg-input-bg aria-selected:text-black px-4 py-1.5">
                 Applicants
               </TabsTrigger>
               <TabsTrigger
                 value="interviews"
-                className="cursor-pointer pb-2 text-black/50 w-fit font-medium text-[0.80rem] rounded-md data-[state=active]:bg-main-color data-[state=active]:text-white px-4 py-1.5">
+                className="cursor-pointer pb-2 text-black/60 hover:text-black w-fit font-medium text-[0.80rem] data-[state=active]:bg-main-color aria-selected:bg-input-bg aria-selected:text-black px-4 py-1.5">
                 Interviews
               </TabsTrigger>
             </TabsList>

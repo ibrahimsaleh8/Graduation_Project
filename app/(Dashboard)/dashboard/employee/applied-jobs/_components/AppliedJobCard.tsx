@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Building06Icon, Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import googleImage from "@images/Icons/google.svg";
@@ -19,20 +20,20 @@ export default function AppliedJobCard({
       {/* Left */}
       <div className="flex items-start gap-4 flex-wrap">
         {/* Company Logo */}
-        <div className="size-14 bg-input-bg rounded-2xl flex items-center justify-center">
+        <div className="size-14 bg-input-bg rounded-2xl overflow-hidden flex items-center justify-center">
           <img
             src={logoUrl ?? googleImage}
             alt={companyName}
             width={1000}
             height={1000}
-            className="size-8 object-cover object-center"
+            className="w-full object-cover object-center"
           />
         </div>
 
         {/* Text */}
         <div className="space-y-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <p className="text-2xl font-medium">{jobTitle} </p>
+            <p className="text-xl font-medium">{jobTitle} </p>
           </div>
 
           <div className="flex items-center gap-1 text-[0.85rem] flex-wrap">

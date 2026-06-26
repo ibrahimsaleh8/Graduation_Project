@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 
 import { Label } from "@/components/ui/label";
-import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+import { employmentTypes } from "@/lib/EmploymentType";
 type Props = {
   UpdateSearchTxt: (text: string) => void;
   UpdateSearchType: (type: string) => void;
@@ -98,14 +98,6 @@ export default function AppliedJobFilteration({
                   className="hover:bg-input-bg! hover:text-black! capitalize"
                   value={empType}>
                   {empType}
-                </SelectItem>
-              ))}
-              {workApproaches.map((workAppro) => (
-                <SelectItem
-                  key={workAppro}
-                  className="hover:bg-input-bg! hover:text-black! capitalize"
-                  value={workAppro}>
-                  {workAppro}
                 </SelectItem>
               ))}
             </SelectGroup>

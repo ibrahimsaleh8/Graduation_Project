@@ -127,7 +127,7 @@ export default function ShowApplicantsDetails({
         </div>
 
         {role == "company" && (
-          <div className="flex items-center gap-1 w-full mt-6 flex-wrap">
+          <div className="flex items-center gap-1 w-full mt-6 md:flex-row flex-col">
             <MarkApplicationAsReviewed
               applicationId={applicationId}
               token={token}

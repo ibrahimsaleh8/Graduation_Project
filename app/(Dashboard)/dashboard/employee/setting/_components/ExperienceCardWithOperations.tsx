@@ -68,13 +68,14 @@ export default function ExperienceCardWithOperations({
               items-center
               justify-center
               rounded-xl
-              bg-main-color/10
+              bg-input-bg/40
               md:flex
               shrink-0
+              border
             ">
             <HugeiconsIcon
               icon={WorkHistoryIcon}
-              className="size-6 text-main-color"
+              className="size-6 text-black"
             />
           </div>
 
@@ -104,13 +105,12 @@ export default function ExperienceCardWithOperations({
             className="
               rounded-md
               border
-              border-blue-100
-              bg-blue-50
+              bg-input-bg
               px-3
               py-2
               text-xs
               font-medium
-              text-blue-700
+              text-black
             ">
             {formattedStartDate} - {formattedEndDate}
           </div>

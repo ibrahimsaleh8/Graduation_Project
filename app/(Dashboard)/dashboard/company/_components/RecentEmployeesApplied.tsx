@@ -23,7 +23,9 @@ export default function RecentEmployeesApplied({ applicants }: Props) {
               </motion.div>
             ))
           ) : (
-            <></>
+            <p className="text-center font-medium p-5 text-black/70">
+              No Applications Found
+            </p>
           )}
         </>
       </div>

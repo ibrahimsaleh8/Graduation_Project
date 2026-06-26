@@ -55,40 +55,40 @@ export default function ShowEmployeeSettings({ token }: Props) {
         <Tabs
           defaultValue="profile"
           className="flex flex-col md:flex-row w-full items-start">
-          <TabsList className="flex flex-col gap-3 px-4 rounded-lg py-2 items-center text-white min-w-50 flex-wrap w-full md:w-fit">
+          <TabsList className="flex md:flex-col gap-3 md:px-4 rounded-lg py-2 items-start text-black min-w-50 flex-wrap w-full md:w-fit bg-transparent">
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="profile">
               <HugeiconsIcon icon={UserCircleIcon} className="size-5" /> Profile
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="contact">
               <HugeiconsIcon icon={Mail01Icon} className="size-5" /> Contact
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="experience">
               <HugeiconsIcon icon={Calendar02Icon} className="size-5" />
               Experience
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="skills">
               <HugeiconsIcon icon={StarAward01Icon} className="size-5" /> Skills
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="projects">
               <HugeiconsIcon icon={Folder02Icon} className="size-5" /> Projects
             </TabsTrigger>
 
             <TabsTrigger
-              className="flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black duration-300 text-black/60 w-full font-medium text-sm data-[state=active]:bg-white data-[state=active]:shadow data-[state=active]:text-black px-4 py-3 rounded-md"
+              className="cursor-pointer gap-1 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="security">
               <HugeiconsIcon icon={LockPasswordIcon} className="size-5" />{" "}
               Security

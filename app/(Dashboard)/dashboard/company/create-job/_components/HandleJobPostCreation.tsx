@@ -1,7 +1,7 @@
 "use client";
 
 import JobPostStepper from "./JobPostStepper";
-import { useState, Activity } from "react";
+import { Activity } from "react";
 import JobPostBasicInfo from "./JobPostBasicInfo";
 import JobDescription from "./JobDescription";
 import {
@@ -9,10 +9,13 @@ import {
   JobPostBasicInfoType,
 } from "@/validations/JobPostValidation";
 import JobPostPreview from "./JobPostPreview";
-import axios, { AxiosError } from "axios";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { sileo } from "sileo";
-import { useRouter } from "next/navigation";
+import { useCreateJob } from "./hooks/useCreateJob";
+import { useCanCreateJob } from "./hooks/useCanCreateJob";
+import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
+import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Alert02Icon } from "@hugeicons/core-free-icons";
+import CreateJobSkeleton from "./CreateJobSkeleton";
 
 export type JobPostFullInfoType = {
   jobBasicData: JobPostBasicInfoType;
@@ -37,100 +40,48 @@ export type CreateJobPostData = {
   };
 };
 
-const initialData: JobPostFullInfoType = {
-  jobBasicData: {
-    employmentType: [],
-    jobCategory: "",
-    jobTitle: "",
-    location: "",
-    salaryMax: 0,
-    salaryMin: 0,
-    workApproach: [],
-    maxYearsExperience: 0,
-    minYearsExperience: 0,
-  },
-  jobDetails: {
-    jobDescription: "",
-    responsibilities: "",
-    skills: [],
-  },
-};
-
-async function CreateJobPostApi(params: {
-  token: string;
-  jobData: CreateJobPostData;
-}) {
-  const res = await axios.post(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/JobPosting`,
-    params.jobData,
-    {
-      headers: {
-        Authorization: `Bearer ${params.token}`,
-      },
-    },
-  );
-  return res.data;
-}
-
 type Props = {
   token: string;
 };
 
 export default function HandleJobPostCreation({ token }: Props) {
-  const [currentStep, setCurrentStep] = useState([
-    { stepNumber: 1, isCompleted: false, isCurrent: true },
-    { stepNumber: 2, isCompleted: false, isCurrent: false },
-    { stepNumber: 3, isCompleted: false, isCurrent: false },
-  ]);
-  const route = useRouter();
-  const activeStep = currentStep.find((step) => step.isCurrent)?.stepNumber;
+  const {
+    handlePublish,
+    isPending,
+    UpdateJobDetails,
+    UpdateBasicData,
+    setCurrentStep,
+    activeStep,
+    currentStep,
+    jobData,
+  } = useCreateJob({ token });
 
-  const [jobData, setJobData] = useState(initialData);
+  const { data, error, isLoading } = useCanCreateJob(token);
+  if (error) {
+    console.log("error", error.response);
+    const errorMessage =
+      error.response?.data.message ?? error.response?.statusText;
+    return (
+      <ErrorDashboardMessage
+        statusCode={error.response?.status}
+        errorMessage={errorMessage ?? "Something Went Wrong"}
+      />
+    );
+  }
 
-  const UpdateBasicData = (jobBasicData: JobPostBasicInfoType) => {
-    setJobData({
-      jobBasicData,
-      jobDetails: jobData.jobDetails,
-    });
-  };
-
-  const UpdateJobDetails = (jobDetails: JobDetailsType) => {
-    setJobData({
-      jobDetails,
-      jobBasicData: jobData.jobBasicData,
-    });
-  };
-  const queryClient = useQueryClient();
-
-  const { isPending, mutate } = useMutation({
-    mutationFn: (jobData: CreateJobPostData) =>
-      CreateJobPostApi({ token, jobData }),
-
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
-      queryClient.refetchQueries({ queryKey: ["company-dashboard"] });
-      sileo.success({
-        title: "Job Post created successfully",
-      });
-      route.push("/dashboard/company/job-posts");
-    },
-
-    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
-      console.log("error ", error.response);
-      sileo.error({
-        title: "Failed to create job post",
-        description:
-          error.response?.data?.errors?.[0] ||
-          "An error occurred. Please try again.",
-      });
-    },
-  });
-
-  const handlePublish = (jobData: CreateJobPostData) => {
-    mutate(jobData);
-  };
-
-  return (
+  return isLoading ? (
+    <CreateJobSkeleton />
+  ) : data && !data.canPost ? (
+    <div className="p-10 flex flex-col items-center gap-3 w-full justify-center my-20">
+      <HugeiconsIcon icon={Alert02Icon} className="fill-yellow-500 size-8" />
+      <p className="text-xl font-medium">You hit the limit</p>
+      <Link
+        className="px-4 py-2 bg-main-color text-white text-sm rounded-md w-fit"
+        href={"/dashboard/company/setting?tab=subscription"}>
+        Upgrade your plan
+      </Link>
+    </div>
+  ) : (
     <div className="flex gap-8 md:flex-row flex-col md:pr-10">
       <JobPostStepper currentStep={currentStep} />
 

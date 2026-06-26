@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
     );
 
     const data = await loginReq.json();
-    console.log("Login Api", data);
     if (!loginReq.ok) {
       if (loginReq.status == 400) {
         return NextResponse.json(

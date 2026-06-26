@@ -20,6 +20,7 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
 import SecuritySettings from "../../../employee/setting/_components/SecuritySettings";
+import { useSearchParams } from "next/navigation";
 type Props = {
   token: string;
 };
@@ -74,6 +75,8 @@ export default function ShowCompanySettings({ token }: Props) {
     queryFn: () => getCompanyProfileSettings(token),
   });
 
+  const params = useSearchParams();
+  console.log("params", params.get("tab"));
   if (error) {
     console.log("error", error.response);
     const errorMessage =
@@ -97,9 +100,11 @@ export default function ShowCompanySettings({ token }: Props) {
           </p>
         </div>
         <Tabs
-          defaultValue="profile"
+          defaultValue={
+            params.get("tab") == "subscription" ? "Subscription" : "profile"
+          }
           className="flex flex-col md:flex-row w-full items-start">
-          <TabsList className="flex md:flex-col gap-3 md:px-4 rounded-lg py-2 items-center text-black bg-transparent min-w-50 flex-wrap w-full md:w-fit">
+          <TabsList className="flex md:flex-col gap-3 lg:px-4 rounded-lg py-2 items-start text-black bg-transparent  md:max-w-40 flex-wrap w-full lg:min-w-50 lg:w-fit">
             <TabsTrigger
               className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black flex items-center gap-2"
               value="profile">

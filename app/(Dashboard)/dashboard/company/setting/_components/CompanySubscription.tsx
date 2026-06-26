@@ -13,7 +13,6 @@ type Props = {
 type UsageStats = {
   used: number;
   limit: number;
-  percentage: number;
 };
 
 export type CurrentPlan = {
@@ -100,7 +99,7 @@ export default function CompanySubscription({ token }: Props) {
     <CompanySubscriptionSkeleton />
   ) : (
     data && (
-      <div className="w-full md:px-4 py-4 md:py-0 space-y-5">
+      <div className="w-full lg:px-4 px-2 py-4 md:py-0 space-y-5">
         {/* Header */}
         <div>
           <p className="text-lg font-medium">Billing & Subscription</p>

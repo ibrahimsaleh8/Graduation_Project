@@ -1,6 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import userImage from "@images/user-image.png";
-import Image from "next/image";
 import { CompanyDashboardApplicant } from "./hooks/useGetCompanyDashboardData";
 import { formatDate } from "@/lib/FormatDate";
 type Props = {
@@ -12,9 +11,9 @@ export default function NewApplicantsCard({ applicationData }: Props) {
       {/* Left */}
       <div className="flex items-start gap-3">
         {/* User Image */}
-        <div className="size-12 rounded-full bg-amber-300">
-          <Image
-            src={userImage}
+        <div className="size-12 rounded-full bg-white">
+          <img
+            src={applicationData.imageUrl}
             alt="User Image"
             className="rounded-full w-full object-cover"
           />
@@ -23,7 +22,7 @@ export default function NewApplicantsCard({ applicationData }: Props) {
         <div className="text-sm">
           <p className="font-medium">{applicationData.applicantName}</p>
           <p className="text-black/70">
-            Applied For
+            Applied For{" "}
             <span className="font-medium text-black">
               {applicationData.jobAppliedFor}
             </span>
@@ -37,7 +36,7 @@ export default function NewApplicantsCard({ applicationData }: Props) {
       {/* Right */}
       <div className="text-sm text-black/70">
         <Link
-          href={"/"}
+          href={`/dashboard/company/job-posts/${applicationData.jobId}`}
           className="px-4 flex w-fit text-center items-center justify-center py-2 text-xs bg-black text-white rounded-md border border-black hover:bg-black/70 duration-300">
           Show Applications
         </Link>

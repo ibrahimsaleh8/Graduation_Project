@@ -15,6 +15,8 @@ import { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowDown01Icon,
+  Briefcase01Icon,
+  CreditCardIcon,
   Home03Icon,
   JobSearchIcon,
   RoboticIcon,
@@ -45,6 +47,40 @@ const employeeLinks = [
     icon: RoboticIcon,
   },
 ];
+const companyLinks = [
+  {
+    label: "Profile",
+    link: "/dashboard/company/profile",
+    icon: UserCircleIcon,
+  },
+  {
+    label: "Settings",
+    link: "/dashboard/company/setting",
+    icon: Settings02Icon,
+  },
+  {
+    label: "Ai Chat",
+    link: "/dashboard/company/ai-chat",
+    icon: RoboticIcon,
+  },
+];
+const adminLinks = [
+  {
+    label: "Jobs",
+    link: "/dashboard/admin/jobs",
+    icon: Briefcase01Icon,
+  },
+  {
+    label: "Subscriptions",
+    link: "/dashboard/admin/subscriptions",
+    icon: CreditCardIcon,
+  },
+  {
+    label: "Setting",
+    link: "/dashboard/admin/setting",
+    icon: Settings02Icon,
+  },
+];
 export default function UserDropDown({ email, photoUrl, role }: Props) {
   const [open, setOpen] = useState(false);
   return !email || !photoUrl || !role ? (
@@ -68,21 +104,53 @@ export default function UserDropDown({ email, photoUrl, role }: Props) {
         <DropdownMenuGroup>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <ul>
-            {employeeLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  className="w-full flex items-center gap-1.5 text-black text-sm font-medium hover:bg-main-dark hover:text-white px-1 py-1.5 rounded-sm"
-                  href={link.link}
-                  onClick={() => setOpen(false)}>
-                  <HugeiconsIcon
-                    icon={link.icon}
-                    className="size-4.5"
-                    strokeWidth={2}
-                  />
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {role == "APPLICANT"
+              ? employeeLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      className="w-full flex items-center gap-1.5 text-black text-sm font-medium hover:bg-main-dark hover:text-white px-1 py-1.5 rounded-sm"
+                      href={link.link}
+                      onClick={() => setOpen(false)}>
+                      <HugeiconsIcon
+                        icon={link.icon}
+                        className="size-4.5"
+                        strokeWidth={2}
+                      />
+                      {link.label}
+                    </Link>
+                  </li>
+                ))
+              : role == "COMPANY"
+                ? companyLinks.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        className="w-full flex items-center gap-1.5 text-black text-sm font-medium hover:bg-main-dark hover:text-white px-1 py-1.5 rounded-sm"
+                        href={link.link}
+                        onClick={() => setOpen(false)}>
+                        <HugeiconsIcon
+                          icon={link.icon}
+                          className="size-4.5"
+                          strokeWidth={2}
+                        />
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))
+                : adminLinks.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        className="w-full flex items-center gap-1.5 text-black text-sm font-medium hover:bg-main-dark hover:text-white px-1 py-1.5 rounded-sm"
+                        href={link.link}
+                        onClick={() => setOpen(false)}>
+                        <HugeiconsIcon
+                          icon={link.icon}
+                          className="size-4.5"
+                          strokeWidth={2}
+                        />
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
           </ul>
         </DropdownMenuGroup>
         <DropdownMenuGroup>
@@ -104,7 +172,7 @@ export default function UserDropDown({ email, photoUrl, role }: Props) {
             <li className="mb-1">
               <Link
                 className="w-full flex items-center gap-1.5 text-black text-sm font-medium hover:bg-main-dark hover:text-white px-1 py-1.5 rounded-sm"
-                href={"/"}
+                href={"/jobs"}
                 onClick={() => setOpen(false)}>
                 <HugeiconsIcon
                   icon={JobSearchIcon}

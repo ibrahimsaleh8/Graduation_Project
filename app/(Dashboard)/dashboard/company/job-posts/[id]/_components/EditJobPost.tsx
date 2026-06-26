@@ -62,6 +62,7 @@ export default function EditJobPostForm({
     jobId,
     setOpen,
   });
+  console.log(getValues("jobCategory"));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

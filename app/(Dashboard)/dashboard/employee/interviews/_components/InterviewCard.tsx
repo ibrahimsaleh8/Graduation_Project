@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Calendar02Icon,
@@ -13,6 +14,7 @@ import { InterviewDataType } from "./ShowEmployeeInterviews";
 import InterviewStatusBadge from "./InterviewStatusBadge";
 import AlertModel from "@/components/main-layout/AlertModel";
 import ShowInterviewNotes from "./ShowInterviewNotes";
+import Link from "next/link";
 export default function InterviewCard({
   jobTitle,
   companyName,
@@ -64,13 +66,13 @@ export default function InterviewCard({
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-black/5 pb-4">
         {/* Company + Role */}
         <div className="flex items-center gap-4">
-          <div className="rounded-xl bg-black/5 p-2">
+          <div className="rounded-xl bg-black/5 size-10 overflow-hidden">
             <img
               src={companyLogoUrl}
               alt={companyName}
               width={40}
               height={40}
-              className="size-10 object-contain"
+              className="w-full object-cover object-center"
             />
           </div>
 
@@ -133,12 +135,13 @@ export default function InterviewCard({
 
       {/* Footer */}
       <div className="flex items-center justify-end gap-3 border-t border-black/5 pt-3">
-        <a
+        <Link
+          target="_blank"
           href={`/jobs/${jobId}`}
           className="flex items-center gap-2 rounded-md bg-main-color px-6 py-2 text-sm text-white duration-300 hover:bg-main-color/80">
           <HugeiconsIcon icon={Briefcase04Icon} className="size-4" />
           Job Details
-        </a>
+        </Link>
 
         <a
           href={meetingLink}

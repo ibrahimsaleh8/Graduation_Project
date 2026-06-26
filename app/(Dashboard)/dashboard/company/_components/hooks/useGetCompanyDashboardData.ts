@@ -30,6 +30,8 @@ export type CompanyDashboardRecentJobPosting = {
 
 export type CompanyDashboardApplicant = {
   applicantId: string;
+  imageUrl: string;
+  jobId: string;
   applicantName: string;
   jobAppliedFor: string;
   appliedAt: string;

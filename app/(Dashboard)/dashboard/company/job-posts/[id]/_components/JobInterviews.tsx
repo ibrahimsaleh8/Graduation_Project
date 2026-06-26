@@ -130,7 +130,11 @@ export default function JobInterviews({ interviewsData, token, jobId }: Props) {
             ))
           ) : (
             <TableRow className="hover:bg-black/5">
-              <TableCell>No Interviews Scheduled yet..</TableCell>
+              <TableCell colSpan={4} className="text-center py-10">
+                <p className="text-sm text-black/70 font-medium ">
+                  No Interviews Scheduled yet..{" "}
+                </p>
+              </TableCell>
             </TableRow>
           )}
         </TableBody>

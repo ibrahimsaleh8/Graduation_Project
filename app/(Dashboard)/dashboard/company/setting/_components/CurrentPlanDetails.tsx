@@ -7,28 +7,40 @@ import { formatDate } from "@/lib/FormatDate";
 type Props = {
   currentPlanData: CurrentPlan;
 };
+const calculateProgress = (used: number, limit: number) => {
+  if (!limit) return 0;
+  return Math.min((used / limit) * 100, 100);
+};
 
 export default function CurrentPlanDetails({ currentPlanData }: Props) {
   const usages = [
     {
       label: "Active Jobs",
       value: `${currentPlanData.activeJobs.used} / ${currentPlanData.activeJobs.limit}`,
-      progress: currentPlanData.activeJobs.percentage,
+      progress: calculateProgress(
+        currentPlanData.activeJobs.used,
+        currentPlanData.activeJobs.limit,
+      ),
     },
     {
       label: "Featured Posts",
       value: `${currentPlanData.featuredPosts.used} / ${currentPlanData.featuredPosts.limit}`,
-      progress: currentPlanData.featuredPosts.percentage,
+      progress: calculateProgress(
+        currentPlanData.featuredPosts.used,
+        currentPlanData.featuredPosts.limit,
+      ),
     },
     {
       label: "Subscription Progress",
       value: `${currentPlanData.subscriptionProgress.used} / ${currentPlanData.subscriptionProgress.limit}`,
-      progress: currentPlanData.subscriptionProgress.percentage,
+      progress: calculateProgress(
+        currentPlanData.subscriptionProgress.used,
+        currentPlanData.subscriptionProgress.limit,
+      ),
     },
   ];
-
   return (
-    <div className="p-5 bg-white rounded-2xl">
+    <div className="p-5 bg-white rounded-2xl w-full">
       {/* Top */}
       <div className="flex items-center justify-between flex-wrap gap-4 pb-3 border-b">
         <p className="font-medium">Current Plan Details</p>

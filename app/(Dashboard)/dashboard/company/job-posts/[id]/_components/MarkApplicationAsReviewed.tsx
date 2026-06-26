@@ -100,7 +100,7 @@ export default function MarkApplicationAsReviewed({
         isPending || currentStatus == "Reviewed" || currentStatus == "Accepted"
       }
       onClick={() => mutate()}
-      className="w-1/2 text-xs h-10 bg-blue-700 hover:bg-blue-800 ">
+      className="md:w-1/2 w-full text-xs h-10 bg-blue-700 hover:bg-blue-800 ">
       {isPending ? (
         <Spinner />
       ) : (

@@ -43,52 +43,6 @@ type GetEmployeeDashboardDataType = {
     appliedAt: Date;
   }[];
 };
-// export const employeeDashboardStats = [
-//   {
-//     title: "Applied Jobs",
-//     value: 24,
-//     icon: BriefcaseIcon,
-//     iconColor: "#ffffff",
-//     iconBg: "#125af7a6",
-//     description: "Jobs you have submitted applications for",
-//     background: "#1b1b1b",
-//     textColor: "#ffffff",
-//     descriptionColor: "#ffffff",
-//   },
-//   {
-//     title: "Saved Jobs",
-//     value: 12,
-//     icon: Bookmark02Icon,
-//     iconColor: "#059669",
-//     iconBg: "rgba(5, 150, 105, 0.15)",
-//     description: "Jobs you marked to apply later",
-//     background: "#ffffff",
-//     textColor: "#000000",
-//     descriptionColor: "#2e2e2e",
-//   },
-//   {
-//     title: "Interview Schedule",
-//     value: 5,
-//     icon: Calendar03Icon,
-//     iconColor: "#EA580C",
-//     iconBg: "rgba(234, 88, 12, 0.15)",
-//     description: "Upcoming interviews on your schedule",
-//     background: "#ffffff",
-//     textColor: "#000000",
-//     descriptionColor: "#2e2e2e",
-//   },
-//   {
-//     title: "Profile Views",
-//     value: 7,
-//     icon: EyeIcon,
-//     iconColor: "#DC2626",
-//     iconBg: "rgba(220, 38, 38, 0.15)",
-//     description: "Number of times recruiters viewed your profile",
-//     background: "#ffffff",
-//     textColor: "#000000",
-//     descriptionColor: "#2e2e2e",
-//   },
-// ];
 
 async function getEmployeeDashboard(
   token: string,

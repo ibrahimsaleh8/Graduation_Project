@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import {
   Table,
@@ -7,37 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import googleImage from "@images/Icons/google.svg";
-import Image from "next/image";
 import { formatDate } from "@/lib/FormatDate";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { WorkHistoryIcon } from "@hugeicons/core-free-icons";
-// const recentJobs = [
-//   {
-//     id: 1,
-//     company: "Google",
-//     jobTitle: "Frontend Developer",
-//     appliedAt: "13 May, 2026",
-//   },
-//   {
-//     id: 2,
-//     company: "Google",
-//     jobTitle: "Frontend Developer",
-//     appliedAt: "13 May, 2026",
-//   },
-//   {
-//     id: 3,
-//     company: "Google",
-//     jobTitle: "Frontend Developer",
-//     appliedAt: "13 May, 2026",
-//   },
-//   {
-//     id: 4,
-//     company: "Google",
-//     jobTitle: "Frontend Developer",
-//     appliedAt: "13 May, 2026",
-//   },
-// ];
 
 type Props = {
   recentApplications: {
@@ -108,12 +81,12 @@ export default function RecentlyAppliedJobs({ recentApplications }: Props) {
               <TableRow key={job.id}>
                 <TableCell className="font-medium py-4">{`${i + 1}`}</TableCell>
                 <TableCell className="flex items-center gap-2 font-medium py-4">
-                  <Image
-                    src={googleImage}
+                  <img
+                    src={job.companyLogoUrl}
                     alt="Google"
                     width={1000}
                     height={1000}
-                    className="size-5 object-cover object-center"
+                    className="size-6 object-cover object-center rounded-full"
                   />
                   {job.companyName}
                 </TableCell>

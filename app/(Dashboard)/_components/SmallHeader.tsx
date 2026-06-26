@@ -26,7 +26,7 @@ export default function SmallHeader({ links, currentPath }: Props) {
       <SheetTrigger className="cursor-pointer lg:hidden flex">
         <HugeiconsIcon icon={Menu11Icon} className="size-5" strokeWidth={2} />
       </SheetTrigger>
-      <SheetContent className="border-black">
+      <SheetContent className="border-black lg:hidden flex max-w-[80%]">
         <SheetHeader>
           <SheetTitle className="pt-2 text-lg">Dashboard</SheetTitle>
           <SheetDescription></SheetDescription>

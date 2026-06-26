@@ -103,7 +103,7 @@ export default function RejectApplication({
       onClick={() => {
         mutate();
       }}
-      className="w-1/2 text-xs h-10 bg-red-600 hover:bg-red-700">
+      className="md:w-1/2 w-full text-xs h-10 bg-red-600 hover:bg-red-700">
       {isPending ? (
         <Spinner />
       ) : (

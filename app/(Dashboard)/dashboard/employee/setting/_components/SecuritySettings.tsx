@@ -5,7 +5,7 @@ type Props = {
 };
 export default function SecuritySettings({ token }: Props) {
   return (
-    <div className="w-full px-4 py-4 md:py-0 space-y-3">
+    <div className="w-full md:px-4 py-4 md:py-0 space-y-3">
       <UpdatePasswordForm token={token} />
       <UpdateUserEmail token={token} />
     </div>

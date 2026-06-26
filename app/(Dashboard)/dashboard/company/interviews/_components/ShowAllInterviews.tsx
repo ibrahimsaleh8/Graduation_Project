@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import InterviewsFilteration from "./InterviewsFilteration";
 import {
   Table,
@@ -7,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
 import InterviewDetails from "./InterviewDetails";
 import { CompanyAllInterviewsDataType } from "./DisplayAllInterviews";
 import { formatTime } from "@/lib/InterviewDateFormater";
@@ -87,8 +87,8 @@ export default function ShowAllInterviews({ interviews, token }: Props) {
                 <TableCell>
                   <div className="flex items-start gap-3">
                     {/* User Image */}
-                    <div className="size-12 rounded-full bg-input-bg">
-                      <Image
+                    <div className="size-12 rounded-full bg-input-bg overflow-hidden">
+                      <img
                         src={interview.imageUrl}
                         alt={interview.candidateName}
                         width={200}
