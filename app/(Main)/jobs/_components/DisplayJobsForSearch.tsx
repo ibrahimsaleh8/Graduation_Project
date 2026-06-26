@@ -16,8 +16,8 @@ export type jobSearchQueryDataType = {
 export type JobsFilteration = {
   jobTypes: string[];
   workType: string[];
-  minExperience: string;
-  maxExperience: string;
+  minExperience: number | null;
+  maxExperience: number | null;
 };
 
 type Props = {
@@ -33,6 +33,7 @@ export default function DisplayJobsForSearch({
 }: Props) {
   const {
     setFilteration,
+    resetFilteration,
     updarteCurrentPage,
     currentPage,
     filteration,
@@ -47,7 +48,11 @@ export default function DisplayJobsForSearch({
       </p>
 
       <div className="flex gap-3 flex-col xl:flex-row">
-        <JobFilteration filters={filteration} setFilters={setFilteration} />
+        <JobFilteration
+          filters={filteration}
+          setFilters={setFilteration}
+          onReset={resetFilteration}
+        />
         <div className="flex-1">
           <div className="flex flex-col gap-7">
             <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] items-start gap-4">

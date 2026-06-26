@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -17,6 +16,7 @@ import { countries } from "@/lib/Countries";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 type Props = {
   updateLocation: (value: string) => void;
   deafultValue?: string;
@@ -40,12 +40,12 @@ export default function JobLocationSearch({
               icon={Location01Icon}
               className="w-6! h-6! text-black/50"
             />
-            <span className={cn("truncate")}>
+            <span className="text-left text-black w-full text-sm font-normal flex items-center gap-3">
               {value ? (
                 value
               ) : (
-                <span className="text-black/50 font-medium">
-                  Set your country...
+                <span className="text-black/50 font-medium flex items-center gap-3 justify-between w-full">
+                  Set your country... <ChevronDown />
                 </span>
               )}
             </span>

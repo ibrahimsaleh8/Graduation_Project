@@ -17,7 +17,7 @@ export default function JobDetailsSheet({ jobId, token }: Props) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="px-8 py-3 text-sm bg-main-color hover:bg-main-color/90 text-white font-medium rounded-md">
+        <Button className="px-8 py-3 text-sm bg-main-color hover:bg-main-color/90 text-white font-medium rounded-md flex-1">
           Apply
         </Button>
       </SheetTrigger>

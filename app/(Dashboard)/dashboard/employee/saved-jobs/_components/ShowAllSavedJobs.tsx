@@ -1,60 +1,34 @@
 "use client";
-import JobCard, { JobsCardDataType } from "@/components/Cards/JobCard";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Bookmark02Icon, BookmarkOff01Icon } from "@hugeicons/core-free-icons";
 import SavedJobsFilteration from "./SavedJobsFilteration";
-import axios, { AxiosError } from "axios";
-import { useQuery } from "@tanstack/react-query";
 import SavedJobsSkeleton from "./SavedJobsSkeleton";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
-import { useMemo, useState } from "react";
+import SavedJobCard from "./SavedJobCard";
+import { useSavedJobs } from "./hooks/useSavedJobs";
 type Props = {
   token: string;
 };
 
-async function getSavedJobsApi(token: string): Promise<JobsCardDataType[]> {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Applicant/MysavedJobs`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
-  return res.data;
+export interface SavedJobType {
+  companyLogoUrl: string;
+  companyName: string;
+  companyLocation: string;
+  jobId: string;
+  jobTitle: string;
+  jobDescription: string;
+  jobRequirement: string;
+  minSalary: number;
+  maxSalary: number;
+  jobType: string[];
+  timeAgo: string;
+  isApplied: boolean;
 }
 
 export default function ShowAllSavedJobs({ token }: Props) {
-  const { data, isLoading, error } = useQuery<
-    JobsCardDataType[],
-    AxiosError<{ message: string }>
-  >({
-    queryKey: ["employee-saved-jobs"],
-    queryFn: () => getSavedJobsApi(token),
-  });
+  const { UpdateSearchType, UpdateSearchTxt, jobs, isLoading, error } =
+    useSavedJobs({ token });
 
-  const [serachedTxt, setSerachedTxt] = useState("");
-  const [serachedType, setSerachedType] = useState("all");
-
-  const jobs = useMemo(() => {
-    if (!data) return undefined;
-
-    let filteredJobs = data;
-
-    if (serachedTxt.trim().length > 0) {
-      filteredJobs = filteredJobs.filter((job) =>
-        job.jobTitle.toLowerCase().includes(serachedTxt.trim().toLowerCase()),
-      );
-    }
-
-    if (serachedType !== "all") {
-      filteredJobs = filteredJobs.filter((job) =>
-        job.jobType.includes(serachedType),
-      );
-    }
-
-    return filteredJobs;
-  }, [data, serachedTxt, serachedType]);
   if (error) {
     console.log("error", error.response);
     const errorMessage =
@@ -66,13 +40,6 @@ export default function ShowAllSavedJobs({ token }: Props) {
       />
     );
   }
-
-  const UpdateSearchTxt = (text: string) => {
-    setSerachedTxt(text);
-  };
-  const UpdateSearchType = (type: string) => {
-    setSerachedType(type);
-  };
 
   return isLoading ? (
     <SavedJobsSkeleton />
@@ -98,14 +65,9 @@ export default function ShowAllSavedJobs({ token }: Props) {
         />
 
         {jobs.length > 0 ? (
-          <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
-            {jobs.map((job, i) => (
-              <JobCard
-                token={token}
-                key={`${job.jobId} ${i}`}
-                {...job}
-                withSimilarJobs={false}
-              />
+          <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
+            {jobs.map((job) => (
+              <SavedJobCard key={job.jobId} token={token} jobData={job} />
             ))}
           </div>
         ) : (

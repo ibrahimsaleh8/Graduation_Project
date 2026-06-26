@@ -30,8 +30,8 @@ export const useSearch = ({ params, initialJobs }: Props) => {
   const [filteration, setFilteration] = useState<JobsFilteration>({
     jobTypes: [],
     workType: [],
-    minExperience: "",
-    maxExperience: "",
+    minExperience: null,
+    maxExperience: null,
   });
 
   const updarteCurrentPage = (page: number) => {
@@ -60,12 +60,43 @@ export const useSearch = ({ params, initialJobs }: Props) => {
         filteration.workType.some((type) => job.workApproaches.includes(type)),
       );
     }
+    if (filteration.workType.length > 0) {
+      filteredJobs = filteredJobs.filter((job) =>
+        filteration.workType.some((type) => job.workApproaches.includes(type)),
+      );
+    }
+    if (filteration.minExperience != null) {
+      filteredJobs = filteredJobs.filter(
+        (job) => job.minExperience == filteration.minExperience,
+      );
+    }
+    if (filteration.maxExperience != null) {
+      filteredJobs = filteredJobs.filter(
+        (job) => job.maxExperience == filteration.maxExperience,
+      );
+    }
 
     return filteredJobs;
-  }, [filteration.jobTypes, filteration.workType, initialJobs]);
+  }, [
+    filteration.jobTypes,
+    filteration.maxExperience,
+    filteration.minExperience,
+    filteration.workType,
+    initialJobs,
+  ]);
+
+  const resetFilteration = () => {
+    setFilteration({
+      jobTypes: [],
+      workType: [],
+      minExperience: null,
+      maxExperience: null,
+    });
+  };
 
   return {
     setFilteration,
+    resetFilteration,
     updarteCurrentPage,
     jobs,
     currentPage,

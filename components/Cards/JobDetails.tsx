@@ -58,9 +58,7 @@ export default function JobDetails({ jobDetails, jobId, token }: Props) {
             <SaveJobButton
               isSaved={jobDetails.isSaved}
               jobId={jobId}
-              token={token}
               size="small"
-              role={user?.role ?? ""}
             />
 
             <SharJob jobId={jobId} />

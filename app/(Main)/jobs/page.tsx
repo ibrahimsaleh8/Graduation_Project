@@ -57,7 +57,7 @@ export default async function JobsPage({
     throw new Error("Failed to fetch jobs");
   }
   const jobs: JobsResponse = await res.json();
-
+  console.log("jobs", jobs);
   return (
     <div className="space-y-6 px-1 pt-20 pb-30">
       <JobsSearchAndFilter params={params} />
