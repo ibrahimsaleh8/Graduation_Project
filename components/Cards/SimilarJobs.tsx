@@ -1,13 +1,16 @@
+import { SimilarJob } from "@/lib/useFetchJobDetailsById";
 import SimilarJobCard from "./SimilarJobCard";
-
-export default function SimilarJobs() {
+type Props = {
+  similarJobs: SimilarJob[];
+};
+export default function SimilarJobs({ similarJobs }: Props) {
   return (
     <div className="w-full lg:max-w-xl pt-10 space-y-6">
       <p className="text-lg font-medium">Similar Jobs</p>
       <div className="space-y-4">
-        <SimilarJobCard />
-        <SimilarJobCard />
-        <SimilarJobCard />
+        {similarJobs.map((job) => (
+          <SimilarJobCard jobData={job} key={job.jobId} />
+        ))}
       </div>
     </div>
   );

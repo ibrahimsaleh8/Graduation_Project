@@ -5,43 +5,34 @@ import {
   CheckmarkCircle01Icon,
   Location01Icon,
   Clock01Icon,
+  WorkHistoryIcon,
 } from "@hugeicons/core-free-icons";
 import JobDetailsSheet from "./JobDetailsSheet";
 import { formatDate } from "@/lib/FormatDate";
 import Image from "next/image";
 import companyImage from "@images/company-icon.png";
+import { JobSearchDataType } from "@/app/(Main)/jobs/page";
 
-export type JobsCardDataType = {
-  jobId: string;
-  companyLogoUrl: string | null;
-  companyName: string;
-  companyLocation: string;
-  jobTitle: string;
-  jobDescription: string;
-  minSalary: number;
-  maxSalary: number;
-  jobType: string[];
-  timeAgo: string;
-  isApplied: boolean;
-};
-export default function JobCard({
-  companyLogoUrl,
-  companyName,
-  companyLocation,
-  jobTitle,
-  jobDescription,
-  minSalary,
-  maxSalary,
-  jobType,
-  timeAgo,
-  isApplied,
-  jobId,
-  withSimilarJobs,
-  token,
-}: JobsCardDataType & {
-  withSimilarJobs: boolean;
+type Props = {
+  jobDetails: JobSearchDataType;
   token: string;
-}) {
+};
+
+export default function JobCard({ jobDetails, token }: Props) {
+  const {
+    companyName,
+    companyLogoUrl,
+    location,
+    title,
+    description,
+    minSalary,
+    maxSalary,
+    postedDate,
+    jobTypes,
+    isApplied,
+    workApproaches,
+  } = jobDetails;
+
   return (
     <div className="bg-white w-full rounded-md flex flex-col gap-4 p-5 border border-black/8 hover:shadow-md transition-shadow duration-200 text-black">
       {/* Top: Company info + Bookmark */}
@@ -51,7 +42,7 @@ export default function JobCard({
             {companyLogoUrl ? (
               <img
                 src={companyLogoUrl}
-                alt={companyName}
+                alt={companyName ?? title}
                 width={36}
                 height={36}
                 className="size-9 object-contain"
@@ -59,7 +50,7 @@ export default function JobCard({
             ) : (
               <Image
                 src={companyImage}
-                alt={companyName}
+                alt={companyName ?? title}
                 width={36}
                 height={36}
                 className="size-9 object-contain"
@@ -68,15 +59,10 @@ export default function JobCard({
           </div>
 
           <div>
-            <div className="flex items-center gap-1">
-              <p className="font-semibold text-sm text-gray-900">
-                {companyName}
-              </p>
-            </div>
-
+            <p className="font-semibold text-sm text-gray-900">{companyName}</p>
             <p className="text-xs text-gray-400 flex items-center gap-0.5 mt-0.5">
               <HugeiconsIcon icon={Location01Icon} className="size-3" />
-              {companyLocation}
+              {location}
             </p>
           </div>
         </div>
@@ -87,41 +73,41 @@ export default function JobCard({
       </div>
 
       {/* Job Title */}
-      <div>
-        <p className="font-semibold text-xl text-gray-900 leading-snug">
-          {jobTitle}
-        </p>
-      </div>
+      <p className="font-semibold text-xl text-gray-900 leading-snug">
+        {title}
+      </p>
 
       {/* Description */}
       <div
         className="text-xs ProseMirror leading-relaxed line-clamp-2"
-        dangerouslySetInnerHTML={{
-          __html: jobDescription,
-        }}
+        dangerouslySetInnerHTML={{ __html: description }}
       />
+
       {/* Salary + Date */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <p className="text-sm font-bold text-gray-900">
           <span className="font-semibold">${minSalary}</span>
-
           <span className="text-gray-400 font-normal"> – </span>
-
           <span className="font-semibold">${maxSalary}</span>
-
           <span className="text-xs text-gray-400 font-normal">/month</span>
         </p>
 
         <p className="text-xs text-black/80 flex items-center gap-1">
           <HugeiconsIcon icon={Clock01Icon} className="size-3" />
-          {formatDate(timeAgo.toString())}
+          {formatDate(postedDate)}
         </p>
       </div>
 
+      {/* Experience */}
+      <p className="flex items-center gap-1 text-xs text-low-color font-medium">
+        <HugeiconsIcon icon={WorkHistoryIcon} className="size-4.5" />
+        Experience:{"  "}
+        {`${jobDetails.minExperience} Years - ${jobDetails.maxExperience} Years`}
+      </p>
       {/* Tags */}
       <div className="flex gap-2 flex-wrap">
-        {jobType.length > 0 &&
-          jobType.map((type) => (
+        {(jobTypes.length > 0 || workApproaches.length > 0) &&
+          [...jobTypes, ...workApproaches].map((type) => (
             <span
               key={type}
               className="px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium">
@@ -141,23 +127,7 @@ export default function JobCard({
         </div>
       ) : (
         <div className="flex flex-col gap-2 pt-1">
-          <JobDetailsSheet
-            jobDetails={{
-              companyLogoUrl,
-              companyName,
-              companyLocation,
-              jobTitle,
-              jobDescription,
-              minSalary,
-              maxSalary,
-              jobType,
-              timeAgo,
-              isApplied,
-              jobId,
-            }}
-            withSimilarJobs={withSimilarJobs}
-            token={token}
-          />
+          <JobDetailsSheet jobId={jobDetails.jobID} token={token} />
         </div>
       )}
     </div>

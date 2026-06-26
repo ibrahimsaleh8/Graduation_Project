@@ -1,69 +1,82 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "../ui/button";
 import {
-  Bookmark01Icon,
   Building03Icon,
   Calendar02Icon,
   Location01Icon,
   MoneyBag02Icon,
-  Share08Icon,
+  WorkHistoryIcon,
 } from "@hugeicons/core-free-icons";
-import Image from "next/image";
 import { useState } from "react";
 import JobDescription from "./JobDescription";
 import ApplicationForm from "./ApplicationForm";
 import logo from "@images/company-icon.png";
 import { motion, AnimatePresence } from "framer-motion";
-import { JobsCardDataType } from "./JobCard";
 import { formatDate } from "@/lib/FormatDate";
+import { JobDetailsByIdDataType } from "@/lib/useFetchJobDetailsById";
+import SaveJobButton from "./SaveJobButton";
+import Link from "next/link";
+import SharJob from "./SharJob";
+import { useUserStore } from "@/lib/UserStore";
 
 type Props = {
-  jobDetails: JobsCardDataType;
+  jobDetails: JobDetailsByIdDataType;
+  jobId: string;
+  token: string;
 };
 
-export default function JobDetails({ jobDetails }: Props) {
+export default function JobDetails({ jobDetails, jobId, token }: Props) {
   const [showDescription, setShowDescription] = useState(true);
-
+  const user = useUserStore((data) => data.userData);
   return (
     <div className="md:p-7 p-2 flex flex-col gap-6 pt-7 w-full">
       {/* Header */}
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <p className="md:text-3xl text-2xl font-medium">
-            {jobDetails.jobTitle}
-          </p>
+          <p className="md:text-3xl text-2xl font-medium">{jobDetails.title}</p>
 
           <div className="flex items-center gap-2">
-            {!jobDetails.isApplied && (
-              <Button
-                onClick={() => setShowDescription((prev) => !prev)}
-                className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
-                {showDescription ? "Apply Now" : "Show Description"}
-              </Button>
+            {!user ? (
+              <Link
+                className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm h-11 flex items-center justify-center px-4 py-2 "
+                href={"/login"}>
+                Login
+              </Link>
+            ) : (
+              user.role == "APPLICANT" && (
+                <Button
+                  onClick={() => setShowDescription((prev) => !prev)}
+                  className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
+                  {showDescription ? "Apply Now" : "Show Description"}
+                </Button>
+              )
             )}
 
-            <Button className="bg-transparent hover:bg-black/5 text-black border border-border-color">
-              <HugeiconsIcon icon={Bookmark01Icon} className="size-5!" />
-            </Button>
+            <SaveJobButton
+              isSaved={jobDetails.isSaved}
+              jobId={jobId}
+              token={token}
+              size="small"
+              role={user?.role ?? ""}
+            />
 
-            <Button className="bg-transparent hover:bg-black/5 text-black border border-border-color">
-              <HugeiconsIcon icon={Share08Icon} className="size-5!" />
-            </Button>
+            <SharJob jobId={jobId} />
           </div>
         </div>
 
         <div className="flex gap-7 items-start flex-col sm:flex-row flex-wrap">
-          <Image
-            src={logo}
-            alt={jobDetails.companyName}
+          <img
+            src={jobDetails.companyImage ?? logo.src}
+            alt={jobDetails.companyName ?? jobDetails.title}
             width={1000}
             height={1000}
-            className="w-20"
+            className="w-20 rounded-full"
           />
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-2 gap-4 flex-wrap">
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
                 <HugeiconsIcon icon={Building03Icon} className="size-5" />
@@ -71,7 +84,7 @@ export default function JobDetails({ jobDetails }: Props) {
               </p>
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
                 <HugeiconsIcon icon={Location01Icon} className="size-5" />
-                {jobDetails.companyLocation}
+                {jobDetails.jobLocation}
               </p>
 
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
@@ -81,18 +94,25 @@ export default function JobDetails({ jobDetails }: Props) {
 
               <p className="flex items-center gap-1 text-sm text-low-color font-medium">
                 <HugeiconsIcon icon={Calendar02Icon} className="size-5" />
-                {formatDate(jobDetails.timeAgo.toString())}
+                {formatDate(jobDetails.postedDate)}
+              </p>
+              <p className="flex items-center gap-1 text-sm text-low-color font-medium">
+                <HugeiconsIcon icon={WorkHistoryIcon} className="size-5" />
+                Experience:{"  "}
+                {`${jobDetails.minExperience} Years - ${jobDetails.maxExperience} Years`}
               </p>
             </div>
 
             <div className="flex gap-3 flex-wrap">
-              {jobDetails.jobType.map((type) => (
-                <p
-                  key={type}
-                  className="px-3 py-1.5 bg-input-bg rounded-md text-sm font-medium">
-                  {type}
-                </p>
-              ))}
+              {[...jobDetails.jobTypes, ...jobDetails.workApproaches].map(
+                (type) => (
+                  <p
+                    key={type}
+                    className="px-3 py-1 bg-input-bg rounded-md text-sm font-medium">
+                    {type}
+                  </p>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -108,8 +128,9 @@ export default function JobDetails({ jobDetails }: Props) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}>
             <JobDescription
-              jobdesc={jobDetails.jobDescription}
-              responsibility={""}
+              jobdesc={jobDetails.description}
+              responsibility={jobDetails.responsibility}
+              skills={jobDetails.requiredSkill}
             />
           </motion.div>
         ) : (
@@ -119,7 +140,7 @@ export default function JobDetails({ jobDetails }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}>
-            <ApplicationForm />
+            <ApplicationForm jobId={jobId} token={token} />
           </motion.div>
         )}
       </AnimatePresence>

@@ -8,18 +8,12 @@ import {
   SheetTrigger,
 } from "@/components/animate-ui/components/radix/sheet";
 import { Button } from "../ui/button";
-import JobDetails from "./JobDetails";
-import SimilarJobs from "./SimilarJobs";
-import { JobsCardDataType } from "./JobCard";
+import ShowJobDetails from "./ShowJobDetails";
 type Props = {
-  jobDetails: JobsCardDataType;
+  jobId: string;
   token: string;
-  withSimilarJobs: boolean;
 };
-export default function JobDetailsSheet({
-  withSimilarJobs,
-  jobDetails,
-}: Props) {
+export default function JobDetailsSheet({ jobId, token }: Props) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -33,13 +27,8 @@ export default function JobDetailsSheet({
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <div
-            className={`${withSimilarJobs ? "flex items-start gap-10 flex-col lg:flex-row lg:px-10" : "container mx-auto"}`}>
-            <JobDetails jobDetails={jobDetails} />
-            {withSimilarJobs && <SimilarJobs />}
-          </div>
         </SheetHeader>
-
+        <ShowJobDetails jobId={jobId} token={token} />
         <SheetFooter></SheetFooter>
       </SheetContent>
     </Sheet>

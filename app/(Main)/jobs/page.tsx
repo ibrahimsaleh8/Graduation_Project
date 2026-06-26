@@ -9,11 +9,14 @@ export interface JobSearchDataType {
   companyLogoUrl: string | null;
   location: string;
   category: string;
-  isApplied: boolean;
   title: string;
   description: string;
   minSalary: number;
   maxSalary: number;
+  maxExperience: number;
+  minExperience: number;
+  isApplied: boolean;
+  isSaved: boolean;
   postedDate: string;
   jobTypes: string[];
   workApproaches: string[];

@@ -46,29 +46,14 @@ export default function DisplayJobsForSearch({
         {jobsResponse.totalCount} jobs Found
       </p>
 
-      <div className="flex gap-3 flex-col md:flex-row">
+      <div className="flex gap-3 flex-col xl:flex-row">
         <JobFilteration filters={filteration} setFilters={setFilteration} />
         <div className="flex-1">
           <div className="flex flex-col gap-7">
             <div className="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] items-start gap-4">
               {jobs && jobs.length > 0 ? (
                 jobs.map((job) => (
-                  <JobCard
-                    key={job.jobID}
-                    withSimilarJobs={true}
-                    companyLocation={job.location}
-                    companyLogoUrl={job.companyLogoUrl}
-                    companyName={job.companyName ?? ""}
-                    isApplied={job.isApplied}
-                    jobDescription={job.description}
-                    jobId={job.jobID}
-                    jobTitle={job.title}
-                    jobType={[...job.workApproaches, ...job.jobTypes]}
-                    maxSalary={job.maxSalary}
-                    minSalary={job.minSalary}
-                    timeAgo={job.postedDate}
-                    token={token}
-                  />
+                  <JobCard key={job.jobID} token={token} jobDetails={job} />
                 ))
               ) : (
                 <div className="p-6 flex items-center justify-center text-center">

@@ -50,7 +50,7 @@ export default function JobFilteration({ setFilters, filters }: Props) {
   return (
     <div
       className="
-      md:max-w-80
+      xl:max-w-80
       w-full
       h-fit
       bg-white

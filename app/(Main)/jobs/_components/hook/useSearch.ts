@@ -4,7 +4,7 @@ import {
 } from "../DisplayJobsForSearch";
 import { JobsResponse } from "../../page";
 import { usePathname, useRouter } from "next/navigation";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useEffectEvent } from "react";
 
 type Props = {
   token: string;
@@ -18,10 +18,13 @@ export const useSearch = ({ params, initialJobs }: Props) => {
     Number(params.page) > 0 ? Number(params.page) : 1,
   );
 
-  // Sync currentPage with URL params — resets when user does a new search
+  const updateCurrentPage = useEffectEvent((value: number) => {
+    setCurrentPage(value);
+  });
+
   useEffect(() => {
     const pageFromParams = Number(params.page) > 0 ? Number(params.page) : 1;
-    setCurrentPage(pageFromParams);
+    updateCurrentPage(pageFromParams);
   }, [params.page, params.title, params.location, params.industry]);
 
   const [filteration, setFilteration] = useState<JobsFilteration>({
