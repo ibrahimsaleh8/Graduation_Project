@@ -52,7 +52,7 @@ export default function CountrySelect({
         <Command className="bg-white">
           <CommandInput className="bg-white" placeholder="Search country..." />
           <CommandList>
-            <CommandEmpty>No city found.</CommandEmpty>
+            <CommandEmpty>No Country found.</CommandEmpty>
             <CommandGroup className="bg-white">
               {countries.map((country) => (
                 <CommandItem

@@ -11,10 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { countries } from "@/lib/Countries";
 import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
-import { jobCategories } from "@/lib/JobCategories";
-import { Add01Icon, CheckmarkCircle02Icon } from "@hugeicons/core-free-icons";
+import {
+  Add01Icon,
+  CheckmarkCircle02Icon,
+  InformationCircleIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -28,6 +30,14 @@ import { StepState } from "./JobPostStepper";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ExperienceYears } from "@/lib/ExperienceYears";
+import IndustrySearch from "@/components/forms/IndustrySearch";
+import CountrySelect from "@/components/forms/CountrySelect";
+import { Switch } from "@/components/ui/switch";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 type Props = {
   setCurrentStep: Dispatch<SetStateAction<StepState[]>>;
@@ -49,7 +59,7 @@ export default function JobPostBasicInfo({
     watch,
   } = useForm<JobPostBasicInfoType>({
     resolver: zodResolver(jobPostBasicInfoSchema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues,
   });
 
@@ -99,57 +109,30 @@ export default function JobPostBasicInfo({
       {/* Category & Location */}
       <div className="flex items-center gap-3 w-full flex-col md:flex-row">
         {/* Job Category */}
-        <div className="space-y-1 w-full">
-          <Label htmlFor="job-category">Job Category</Label>
-          <Select
-            defaultValue={getValues("jobCategory")}
-            onValueChange={(e) => setValue("jobCategory", e)}>
-            <SelectTrigger
-              aria-invalid={errors.jobCategory ? "true" : "false"}
-              id="job-category"
-              className="w-full bg-white h-11! border border-border-color">
-              <SelectValue placeholder="Job Category" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black border border-border-color">
-              <SelectGroup>
-                {jobCategories.map((cat) => (
-                  <SelectItem
-                    className="hover:bg-input-bg! hover:text-black!"
-                    key={cat}
-                    value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+
+        <div className="w-full space-y-1">
+          <Label>Job Category</Label>
+          <IndustrySearch
+            isInvalid={errors.jobCategory ? true : false}
+            withIcon={false}
+            UpdateIndustry={(value: string) => {
+              setValue("jobCategory", value);
+            }}
+            deafultIndustry={""}
+            classes="w-full space-y-1 bg-white border border-border-color hover:bg-white"
+          />
         </div>
 
-        {/* Location */}
-        <div className="space-y-1 w-full">
-          <Label htmlFor="job-location">Location</Label>
-          <Select
-            defaultValue={getValues("location")}
-            onValueChange={(e) => setValue("location", e)}>
-            <SelectTrigger
-              aria-invalid={errors.location ? "true" : "false"}
-              id="job-location"
-              className="w-full bg-white h-11! border border-border-color">
-              <SelectValue placeholder="Location" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black border border-border-color">
-              <SelectGroup>
-                {countries.map((country) => (
-                  <SelectItem
-                    className="hover:bg-input-bg! hover:text-black!"
-                    key={country}
-                    value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+        <div className="w-full space-y-1">
+          <Label>Location</Label>
+          <CountrySelect
+            UpdateCountry={(value: string) => {
+              setValue("location", value);
+            }}
+            deafultCountry={""}
+            isInvalid={errors.location ? true : false}
+            classes="w-full space-y-1 bg-white border border-border-color hover:bg-white"
+          />
         </div>
       </div>
 
@@ -375,6 +358,33 @@ export default function JobPostBasicInfo({
           )}
         </div>
       )}
+
+      <div className="flex items-center gap-3 flex-wrap">
+        <Switch
+          onCheckedChange={(e) => setValue("isFeatured", e)}
+          defaultChecked={getValues("isFeatured")}
+          id="featured-job"
+          className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
+        />
+        <Label
+          htmlFor="featured-job"
+          className="flex gap-6 items-center cursor-pointer">
+          Is this a featured job ?
+          <HoverCard openDelay={100} closeDelay={100}>
+            <HoverCardTrigger>
+              <HugeiconsIcon
+                icon={InformationCircleIcon}
+                className="size-6 fill-main-color text-white"
+                strokeWidth={2}
+              />
+            </HoverCardTrigger>
+            <HoverCardContent className="bg-white text-black">
+              Featured jobs get higher visibility and appear at the top of job
+              listings, helping attract more applicants faster.{" "}
+            </HoverCardContent>
+          </HoverCard>
+        </Label>
+      </div>
 
       <Button
         type="submit"

@@ -154,6 +154,7 @@ export default function JobPostPreview({
                 salaryMax: JobData.jobBasicData.salaryMax,
                 salaryMin: JobData.jobBasicData.salaryMin,
                 workApproach: JobData.jobBasicData.workApproach,
+                isFeatured: JobData.jobBasicData.isFeatured,
               },
               jobDetails: {
                 jobDescription: JobData.jobDetails.jobDescription,

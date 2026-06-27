@@ -54,6 +54,8 @@ export const jobPostBasicInfoSchema = z
         error: "Maximum years of experience is required",
       })
       .min(0, "Maximum years of experience must be >= 0"),
+
+    isFeatured: z.boolean(),
   })
   .refine((data) => data.salaryMax >= data.salaryMin, {
     message: "Max salary must be greater than or equal to min salary",

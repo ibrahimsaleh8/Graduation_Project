@@ -32,6 +32,7 @@ export type CreateJobPostData = {
     salaryMax: number;
     salaryMin: number;
     workApproach: string[];
+    isFeatured: boolean;
   };
   jobDetails: {
     jobDescription: string;

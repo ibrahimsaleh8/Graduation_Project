@@ -62,7 +62,7 @@ export default function IndustrySearch({
         <Command className="bg-white">
           <CommandInput className="bg-white" placeholder="Search country..." />
           <CommandList>
-            <CommandEmpty>No city found.</CommandEmpty>
+            <CommandEmpty>No Category found.</CommandEmpty>
             <CommandGroup className="bg-white">
               {jobCategories.map((country) => (
                 <CommandItem

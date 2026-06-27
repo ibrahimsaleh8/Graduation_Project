@@ -27,6 +27,7 @@ const initialData: JobPostFullInfoType = {
     workApproach: [],
     maxYearsExperience: 0,
     minYearsExperience: 0,
+    isFeatured: false,
   },
   jobDetails: {
     jobDescription: "",
@@ -82,11 +83,12 @@ export const useCreateJob = ({ token }: Props) => {
       CreateJobPostApi({ token, jobData }),
 
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
-      queryClient.refetchQueries({ queryKey: ["company-dashboard"] });
       sileo.success({
         title: "Job Post created successfully",
       });
+      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
+      queryClient.refetchQueries({ queryKey: ["company-dashboard"] });
+      queryClient.refetchQueries({ queryKey: ["can-create-job"] });
       route.push("/dashboard/company/job-posts");
     },
 
