@@ -75,12 +75,14 @@ export default function CurrentPlanDetails({ currentPlanData }: Props) {
               <p className="text-black/70">Billing</p>
               <p className="font-medium">{currentPlanData.billingCycle}</p>
             </div>
-            <div className="p-3 bg-input-bg rounded-md text-sm">
-              <p className="text-black/70">Renewal</p>
-              <p className="font-medium">
-                {formatDate(currentPlanData.renewalDate)}
-              </p>
-            </div>
+            {currentPlanData.renewalDate && (
+              <div className="p-3 bg-input-bg rounded-md text-sm">
+                <p className="text-black/70">Renewal</p>
+                <p className="font-medium">
+                  {formatDate(currentPlanData.renewalDate)}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 

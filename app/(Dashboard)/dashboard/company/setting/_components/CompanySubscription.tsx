@@ -19,7 +19,7 @@ export type CurrentPlan = {
   subscriptionId: string;
   planName: string;
   billingCycle: number;
-  renewalDate: string;
+  renewalDate: string | null;
   status: "Active" | "Cancelled" | "Pending";
   activeJobs: UsageStats;
   featuredPosts: UsageStats;
