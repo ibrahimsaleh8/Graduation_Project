@@ -32,6 +32,7 @@ type Props = {
 export default function JobDetails({ jobDetails, jobId, token }: Props) {
   const [showDescription, setShowDescription] = useState(true);
   const user = useUserStore((data) => data.userData);
+  console.log(user);
   return (
     <div className="md:p-7 p-2 flex flex-col gap-6 pt-7 w-full">
       {/* Header */}
@@ -56,11 +57,13 @@ export default function JobDetails({ jobDetails, jobId, token }: Props) {
                 Applied
               </p>
             ) : (
-              <Button
-                onClick={() => setShowDescription((prev) => !prev)}
-                className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
-                {showDescription ? "Apply Now" : "Show Description"}
-              </Button>
+              user.role == "APPLICANT" && (
+                <Button
+                  onClick={() => setShowDescription((prev) => !prev)}
+                  className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
+                  {showDescription ? "Apply Now" : "Show Description"}
+                </Button>
+              )
             )}
 
             <SaveJobButton
