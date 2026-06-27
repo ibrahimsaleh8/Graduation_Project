@@ -125,11 +125,17 @@ export default function ProfileData({
         {/* Image */}
         <div className="flex flex-col w-full">
           <div className="w-full h-70 overflow-hidden bg-white border border-border-color rounded-2xl flex items-center justify-center relative">
-            <img
-              src={coverPhotoUrl}
-              alt={`${fullName} Cover Image`}
-              className="w-full h-full object-cover object-center"
-            />
+            {coverPhotoUrl ? (
+              <img
+                src={coverPhotoUrl}
+                alt={`${fullName} Cover Image`}
+                className="w-full h-full object-cover object-center"
+              />
+            ) : (
+              <p className="font-medium text-black/70">
+                No Cover Image Uploaded..
+              </p>
+            )}
 
             <AlertModel
               title="Update Cover Picture"

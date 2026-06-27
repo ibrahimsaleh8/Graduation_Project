@@ -58,8 +58,9 @@ export default function CandidateCard({ candidate }: Props) {
         </div>
 
         <Link
+          target="_blank"
           className="w-full text-sm px-4 py-3 bg-main-dark hover:bg-main-dark/90 duration-300 mt-auto text-white rounded-md flex items-center justify-center gap-1.5"
-          href={`/dashboard/company/candidates/${candidate.id}`}>
+          href={`/profile/${candidate.id}`}>
           <HugeiconsIcon
             icon={UserCircleIcon}
             className="size-4.5"

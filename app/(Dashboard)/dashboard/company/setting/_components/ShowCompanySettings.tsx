@@ -76,7 +76,6 @@ export default function ShowCompanySettings({ token }: Props) {
   });
 
   const params = useSearchParams();
-  console.log("params", params.get("tab"));
   if (error) {
     console.log("error", error.response);
     const errorMessage =

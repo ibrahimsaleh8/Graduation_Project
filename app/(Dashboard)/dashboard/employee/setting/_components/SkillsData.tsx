@@ -41,7 +41,7 @@ export default function SkillsData({ skills, token }: Props) {
             />
           ))
         ) : (
-          <div className="p-2 flex flex-col items-center gap-2 justify-center text-black/80 font-medium">
+          <div className="p-2 flex flex-col items-center gap-2 justify-center text-black/80 font-medium w-full">
             <HugeiconsIcon icon={Idea01Icon} className="size-6" />
             <p>No skills found.</p>
           </div>

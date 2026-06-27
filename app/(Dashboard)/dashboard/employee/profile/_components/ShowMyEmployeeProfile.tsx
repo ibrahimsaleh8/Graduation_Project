@@ -41,13 +41,19 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
         <div className="flex items-start gap-5 flex-col xl:flex-row">
           {/* Top */}
           <div className="flex flex-col w-full lg:pl-9">
-            <div className="w-full h-60 rounded-2xl bg-white overflow-hidden">
-              {data.coverPhotoUrl && (
-                <img
-                  src={data.coverPhotoUrl}
-                  alt={`${data.fullName} Cover Image`}
-                  className="w-full h-full object-cover object-center"
-                />
+            <div className="w-full h-60 rounded-2xl bg-white overflow-hidden flex items-center justify-center">
+              {data.coverPhotoUrl ? (
+                data.coverPhotoUrl && (
+                  <img
+                    src={data.coverPhotoUrl}
+                    alt={`${data.fullName} Cover Image`}
+                    className="w-full h-full object-cover object-center"
+                  />
+                )
+              ) : (
+                <p className="font-medium text-black/70">
+                  No Cover Image Uploaded..
+                </p>
               )}
             </div>
             <div className="flex items-start xl:justify-between flex-wrap w-full">
