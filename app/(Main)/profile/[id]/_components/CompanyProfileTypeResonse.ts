@@ -25,6 +25,7 @@ export interface OpenVacancy {
 export interface CompanyProfile {
   companyId: string;
   name: string;
+  isVerified: boolean;
   logoUrl: string | null;
   websiteUrl: string | null;
   coverLogoUrl: string | null;

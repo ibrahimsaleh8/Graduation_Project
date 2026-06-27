@@ -21,7 +21,7 @@ export default function DisplaySubscriptionDetails({ id, token }: Props) {
   if (error) {
     console.log("error", error.response);
     const errorMessage =
-      error.response?.data.errors[0] ?? error.response?.statusText;
+      error.response?.data.message ?? error.response?.statusText;
     return (
       <ErrorDashboardMessage
         statusCode={error.response?.status}

@@ -65,7 +65,7 @@ export default function ShowAllSavedJobs({ token }: Props) {
         />
 
         {jobs.length > 0 ? (
-          <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
+          <div className="grid xl:grid-cols-4  md:grid-cols-2 grid-cols-1 gap-4">
             {jobs.map((job) => (
               <SavedJobCard key={job.jobId} token={token} jobData={job} />
             ))}

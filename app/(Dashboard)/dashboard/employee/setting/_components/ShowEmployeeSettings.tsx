@@ -106,6 +106,7 @@ export default function ShowEmployeeSettings({ token }: Props) {
                 coverPhotoUrl={data.coverPhotoUrl}
                 token={token}
                 resumes={data.resumes}
+                industry={data.industry}
               />
             </TabsContent>
             <TabsContent value="contact">

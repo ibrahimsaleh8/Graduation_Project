@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
+import { employmentTypes } from "@/lib/EmploymentType";
 import { JobStatusDataType } from "../[id]/_components/ShowJobDetailsById";
 
 type Props = {
@@ -100,14 +100,6 @@ export default function JobPostsFilteration({
                   className="hover:bg-input-bg! hover:text-black!"
                   value={emType}>
                   {emType}
-                </SelectItem>
-              ))}
-              {workApproaches.map((workApproach) => (
-                <SelectItem
-                  key={workApproach}
-                  className="hover:bg-input-bg! hover:text-black!"
-                  value={workApproach}>
-                  {workApproach}
                 </SelectItem>
               ))}
             </SelectGroup>

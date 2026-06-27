@@ -66,14 +66,15 @@ export const useEditJobPost = ({
     mutationFn: (data: EditJobPostBodyType) =>
       UpdateJobPost(data, token, jobId),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["job-post-details", jobId] });
-      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
-      if (setOpen) {
-        setOpen(false);
-      }
       sileo.success({
         title: "Job Posted updated successfully!",
       });
+      queryClient.refetchQueries({ queryKey: ["job-post-details", jobId] });
+      queryClient.refetchQueries({ queryKey: ["company-job-posts"] });
+      queryClient.refetchQueries({ queryKey: ["company-dashboard"] });
+      if (setOpen) {
+        setOpen(false);
+      }
     },
     onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
       console.log("error ", error.response);

@@ -23,6 +23,7 @@ export type CompanyJobDetailsType = {
   location: string;
   jobType: string[];
   postedAt: string;
+  isActive: boolean;
   applicationCount: number;
   jobStatus: JobStatusDataType;
 };

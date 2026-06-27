@@ -9,6 +9,7 @@ import {
   Calendar03Icon,
   Briefcase01Icon,
   Rocket01Icon,
+  CheckmarkBadge02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
@@ -31,14 +32,20 @@ function truncateHtml(html: string, maxLength = 120): string {
 }
 
 function VacancyCard({ vacancy }: { vacancy: OpenVacancy }) {
-  const { title, description, minSalary, maxSalary, jobType, workApproach, jobId } =
-    vacancy;
+  const {
+    title,
+    description,
+    minSalary,
+    maxSalary,
+    jobType,
+    workApproach,
+    jobId,
+  } = vacancy;
   return (
     <div className="bg-[#f1f1f1]/50 w-full p-4 rounded-md space-y-2 border">
       <Link
         href={`/jobs/${jobId}`}
-        className="text-xl font-medium hover:underline hover:text-[#2563eb] transition-colors"
-      >
+        className="text-xl font-medium hover:underline hover:text-[#2563eb] transition-colors">
         {title}
       </Link>
       <p className="text-sm text-black/60 leading-snug">
@@ -94,8 +101,7 @@ function SocialLinks({
                 href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
-              >
+                className="hover:underline">
                 Facebook
               </a>
             </li>
@@ -107,8 +113,7 @@ function SocialLinks({
                 href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
-              >
+                className="hover:underline">
                 LinkedIn
               </a>
             </li>
@@ -120,8 +125,7 @@ function SocialLinks({
                 href={socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
-              >
+                className="hover:underline">
                 Instagram
               </a>
             </li>
@@ -133,8 +137,7 @@ function SocialLinks({
                 href={socialLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
-              >
+                className="hover:underline">
                 Twitter (X)
               </a>
             </li>
@@ -163,8 +166,7 @@ function StatisticsPanel({
           <div className="flex gap-3 items-center">
             <div
               style={{ backgroundColor: "rgba(59, 130, 246, 0.1)" }}
-              className="size-10 rounded-full flex items-center justify-center shrink-0"
-            >
+              className="size-10 rounded-full flex items-center justify-center shrink-0">
               <HugeiconsIcon
                 icon={Location01Icon}
                 className="size-5"
@@ -181,8 +183,7 @@ function StatisticsPanel({
           <div className="flex gap-3 items-center">
             <div
               style={{ backgroundColor: "rgba(139, 92, 246, 0.1)" }}
-              className="size-10 rounded-full flex items-center justify-center shrink-0"
-            >
+              className="size-10 rounded-full flex items-center justify-center shrink-0">
               <HugeiconsIcon
                 icon={Calendar03Icon}
                 className="size-5"
@@ -200,8 +201,7 @@ function StatisticsPanel({
             <div className="flex gap-3 items-center">
               <div
                 style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
-                className="size-10 rounded-full flex items-center justify-center shrink-0"
-              >
+                className="size-10 rounded-full flex items-center justify-center shrink-0">
                 <HugeiconsIcon
                   icon={Rocket01Icon}
                   className="size-5"
@@ -216,8 +216,7 @@ function StatisticsPanel({
             <div className="flex gap-3 items-center">
               <div
                 style={{ backgroundColor: "rgba(55, 65, 81, 0.1)" }}
-                className="size-10 rounded-full flex items-center justify-center shrink-0"
-              >
+                className="size-10 rounded-full flex items-center justify-center shrink-0">
                 <HugeiconsIcon
                   icon={Briefcase01Icon}
                   className="size-5"
@@ -237,7 +236,11 @@ function StatisticsPanel({
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function PublicCompanyProfile({ data }: { data: CompanyProfile }) {
+export default function PublicCompanyProfile({
+  data,
+}: {
+  data: CompanyProfile;
+}) {
   return (
     <div className="space-y-6">
       {/* Top Section */}
@@ -268,7 +271,16 @@ export default function PublicCompanyProfile({ data }: { data: CompanyProfile })
                 )}
               </div>
               <div className="space-y-1 pl-7 mt-4">
-                <p className="text-4xl font-medium">{data.name}</p>
+                <p className="lg:text-4xl md:text-2xl text-lg font-medium flex md:items-center items-end justify-center gap-1">
+                  {data.name}
+                  {data.isVerified && (
+                    <HugeiconsIcon
+                      icon={CheckmarkBadge02Icon}
+                      className="size-10 fill-main-color text-input-bg"
+                      strokeWidth={2}
+                    />
+                  )}
+                </p>
                 {data.tagline && (
                   <p className="font-medium text-black/70">{data.tagline}</p>
                 )}
@@ -319,8 +331,7 @@ export default function PublicCompanyProfile({ data }: { data: CompanyProfile })
                 <a
                   className="px-8 py-2 bg-[#2563eb] hover:bg-[#2563eb]/80 text-white rounded-md text-sm flex items-center justify-center gap-3 transition ml-auto md:w-fit w-full"
                   href={data.websiteUrl}
-                  target="_blank"
-                >
+                  target="_blank">
                   <HugeiconsIcon
                     icon={LinkSquare02Icon}
                     className="size-5"

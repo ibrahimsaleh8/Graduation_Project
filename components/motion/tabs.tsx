@@ -1,7 +1,18 @@
 "use client";
 
-import { motion, MotionConfig, useReducedMotion, type Transition } from "motion/react";
-import { createContext, useContext, useId, useState, type ReactNode } from "react";
+import {
+  motion,
+  MotionConfig,
+  useReducedMotion,
+  type Transition,
+} from "motion/react";
+import {
+  createContext,
+  useContext,
+  useId,
+  useState,
+  type ReactNode,
+} from "react";
 import { EASE_OUT } from "@/lib/ease";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +86,13 @@ const listClasses: Record<Variant, string> = {
   segment: "inline-flex items-center gap-0 rounded-lg bg-card p-0.5",
 };
 
-export function TabsList({ children, className }: { children: ReactNode; className?: string }) {
+export function TabsList({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const { variant } = useTabs();
   return (
     <div role="tablist" className={cn(listClasses[variant], className)}>
@@ -107,19 +124,20 @@ export function TabsTrigger({
         onClick={() => setValue(value)}
         className={cn(
           "relative isolate px-3 pb-2.5 pt-1 -mb-px text-sm font-medium transition-colors min-h-[44px] inline-flex items-center",
-          active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+          active
+            ? "text-foreground"
+            : "text-muted-foreground hover:text-foreground",
           className,
-        )}
-      >
+        )}>
         {children}
         {active ? (
-        <motion.span
-          layoutId={layoutId}
-          className={cn(
-            "absolute -bottom-px left-0 right-0 h-px bg-primary",
-            indicatorClassName,
-          )}
-        />
+          <motion.span
+            layoutId={layoutId}
+            className={cn(
+              "absolute -bottom-px left-0 right-0 h-px bg-primary",
+              indicatorClassName,
+            )}
+          />
         ) : null}
       </button>
     );
@@ -149,39 +167,39 @@ export function TabsTrigger({
         onClick={() => setValue(value)}
         className={cn(
           "relative z-10 inline-flex items-center justify-center whitespace-nowrap bg-transparent px-3.5 py-1.5 text-sm font-medium transition-colors outline-none",
-          active ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+          active
+            ? "text-primary-foreground"
+            : "text-muted-foreground hover:text-foreground",
           radius,
           className,
-        )}
-      >
+        )}>
         {children}
       </button>
     </div>
   );
 }
-
-export function TabsContent({ value, children, className }: { value: string; children: ReactNode; className?: string }) {
+export function TabsContent({
+  value,
+  children,
+  className,
+}: {
+  value: string;
+  children: ReactNode;
+  className?: string;
+}) {
   const { value: current } = useTabs();
   const reduce = useReducedMotion();
   const active = current === value;
-  // Inactive panels stay mounted but hidden, so their content (e.g. source
-  // code) is present in the server-rendered HTML for crawlers and assistive
-  // tech, instead of being dropped from the DOM.
-  if (!active) {
-    return (
-      <div hidden className={className}>
-        {children}
-      </div>
-    );
-  }
+
+  if (!active) return null;
+
   return (
     <motion.div
       key={value}
       initial={{ opacity: 0, y: reduce ? 0 : 4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.18, ease: EASE_OUT }}
-      className={cn("mt-4", className)}
-    >
+      className={cn("mt-4", className)}>
       {children}
     </motion.div>
   );

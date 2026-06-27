@@ -120,7 +120,13 @@ export default function ShowAllJobPosts({ jobPosts }: Props) {
                 </TableCell>
                 <TableCell>{formatDate(job.postedAt)} </TableCell>
                 <TableCell>
-                  <JobStatusBadge jobStatus={job.jobStatus} />
+                  {job.isActive ? (
+                    <JobStatusBadge jobStatus={job.jobStatus} />
+                  ) : (
+                    <p className="text-xs px-2 py-1 w-fit rounded-md font-medium border bg-red-500 text-white border-red-500">
+                      Not Active
+                    </p>
+                  )}
                 </TableCell>
 
                 <TableCell>

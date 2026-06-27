@@ -18,14 +18,14 @@ import {
   CheckmarkCircle02Icon,
 } from "@hugeicons/core-free-icons";
 import { Dispatch, SetStateAction } from "react";
-import { countries } from "@/lib/Countries";
-import { jobCategories } from "@/lib/JobCategories";
 import { JobDetailsResponse } from "./ShowJobDetailsById";
 import { employmentTypes, workApproaches } from "@/lib/EmploymentType";
 import TextEditor from "@/app/(Dashboard)/_components/TextEditor";
 import { Spinner } from "@/components/ui/spinner";
 import { ExperienceYears } from "@/lib/ExperienceYears";
 import { useEditJobPost } from "./hooks/useEditJobPost";
+import IndustrySearch from "@/components/forms/IndustrySearch";
+import CountrySelect from "@/components/forms/CountrySelect";
 
 type Props = {
   deafultValues: JobDetailsResponse;
@@ -62,7 +62,6 @@ export default function EditJobPostForm({
     jobId,
     setOpen,
   });
-  console.log(getValues("jobCategory"));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -95,55 +94,29 @@ export default function EditJobPostForm({
       {/* Category + Location */}
       <div className="flex gap-3 flex-col md:flex-row">
         {/* Job Category */}
-        <div className="space-y-1 w-full">
-          <Label htmlFor="job-category">Job Category</Label>
-          <Select
-            defaultValue={getValues("jobCategory")}
-            onValueChange={(e) => setValue("jobCategory", e)}>
-            <SelectTrigger
-              id="job-category"
-              className="w-full bg-input-bg h-11! border border-border-color">
-              <SelectValue placeholder="Job Category" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black border border-border-color">
-              <SelectGroup>
-                {jobCategories.map((cat) => (
-                  <SelectItem
-                    className="hover:bg-input-bg! hover:text-black!"
-                    key={cat}
-                    value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+        <div className="w-full space-y-1">
+          <Label>Job Category</Label>
+          <IndustrySearch
+            isInvalid={errors.jobCategory ? true : false}
+            withIcon={false}
+            UpdateIndustry={(value: string) => {
+              setValue("jobCategory", value);
+            }}
+            deafultIndustry={getValues("jobCategory")}
+            classes="w-full space-y-1 bg-input-bg border border-border-color hover:bg-input-bg/90"
+          />
         </div>
 
-        {/* Location */}
-        <div className="space-y-1 w-full">
-          <Label htmlFor="job-location">Location</Label>
-          <Select
-            defaultValue={getValues("location")}
-            onValueChange={(e) => setValue("location", e)}>
-            <SelectTrigger
-              id="job-location"
-              className="w-full bg-input-bg h-11! border border-border-color">
-              <SelectValue placeholder="Location" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black border border-border-color">
-              <SelectGroup>
-                {countries.map((country) => (
-                  <SelectItem
-                    className="hover:bg-input-bg! hover:text-black!"
-                    key={country}
-                    value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+        <div className="w-full space-y-1">
+          <Label>Location</Label>
+          <CountrySelect
+            UpdateCountry={(value: string) => {
+              setValue("location", value);
+            }}
+            deafultCountry={getValues("location")}
+            isInvalid={errors.location ? true : false}
+            classes="w-full space-y-1 bg-input-bg border border-border-color hover:bg-input-bg/90"
+          />
         </div>
 
         {(errors.jobCategory || errors.location) && (

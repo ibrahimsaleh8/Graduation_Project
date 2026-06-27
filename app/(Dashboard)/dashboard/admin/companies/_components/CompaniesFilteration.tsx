@@ -72,47 +72,6 @@ export default function CompaniesFilteration({
           </SelectContent>
         </Select>
       </div>
-
-      {/* Status */}
-      <div className="w-full space-y-1">
-        <Label htmlFor="subscription">Subscription</Label>
-        <Select defaultValue="all">
-          <SelectTrigger
-            id="subscription"
-            className="w-full bg-white h-11! border border-border-color">
-            <SelectValue placeholder="Subscription" />
-          </SelectTrigger>
-          <SelectContent className="bg-white text-black border border-border-color">
-            <SelectGroup>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="all">
-                All
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="free">
-                Free
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="premium">
-                Premium
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="business">
-                Business
-              </SelectItem>
-              <SelectItem
-                className="hover:bg-input-bg! hover:text-black!"
-                value="enterprise">
-                Enterprise
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
     </div>
   );
 }

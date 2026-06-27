@@ -11,6 +11,7 @@ import {
   LockPasswordIcon,
   Share02Icon,
   CreditCardIcon,
+  CheckmarkBadge02Icon,
 } from "@hugeicons/core-free-icons";
 import CompanyProfileSettings from "./CompanyProfileSettings";
 import ShowCompanySettingsSkeleton from "./ShowCompanySettingsSkeleton";
@@ -21,6 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import ErrorDashboardMessage from "@/app/(Dashboard)/_components/ErrorDashboardMessage";
 import SecuritySettings from "../../../employee/setting/_components/SecuritySettings";
 import { useSearchParams } from "next/navigation";
+import CompanyVerificationRequest from "./verification/CompanyVerificationRequest";
 type Props = {
   token: string;
 };
@@ -122,6 +124,12 @@ export default function ShowCompanySettings({ token }: Props) {
               <HugeiconsIcon icon={CreditCardIcon} className="size-5" />
               Subscription
             </TabsTrigger>
+            <TabsTrigger
+              className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black flex items-center gap-2"
+              value="Verification">
+              <HugeiconsIcon icon={CheckmarkBadge02Icon} className="size-5" />
+              Verification
+            </TabsTrigger>
 
             <TabsTrigger
               className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black flex items-center gap-2"
@@ -143,6 +151,9 @@ export default function ShowCompanySettings({ token }: Props) {
             </TabsContent>
             <TabsContent value="Subscription">
               <CompanySubscription token={token} />
+            </TabsContent>
+            <TabsContent value="Verification">
+              <CompanyVerificationRequest token={token} />
             </TabsContent>
             <TabsContent value="security">
               <SecuritySettings token={token} />

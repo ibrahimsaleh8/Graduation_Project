@@ -92,12 +92,12 @@ export const useCreateJob = ({ token }: Props) => {
       route.push("/dashboard/company/job-posts");
     },
 
-    onError: (error: AxiosError<{ errors: string[]; status: number }>) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       console.log("error ", error.response);
       sileo.error({
         title: "Failed to create job post",
         description:
-          error.response?.data?.errors?.[0] ||
+          error.response?.data?.message ||
           "An error occurred. Please try again.",
       });
     },

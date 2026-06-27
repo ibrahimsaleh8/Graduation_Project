@@ -22,8 +22,10 @@ import { Camera03Icon } from "@hugeicons/core-free-icons";
 import AlertModel from "@/components/main-layout/AlertModel";
 import UpdateProfileImage from "./Update_Components/UpdateProfileImage";
 import { EmployeeResumeDataType } from "@/hooks/useGetEmployeeProfile";
+import IndustrySearch from "@/components/forms/IndustrySearch";
 type Props = {
   fullName: string;
+  industry: string;
   jobTitle?: string;
   location: string;
   aboutMe?: string;
@@ -43,6 +45,7 @@ async function UpdateMainDataProfileData(
       jobTitle: data.jobTitle,
       aboutMe: data.aboutMe,
       fullName: data.fullName,
+      industry: data.industry,
     },
     {
       headers: {
@@ -63,12 +66,14 @@ export default function ProfileData({
   coverPhotoUrl,
   token,
   resumes,
+  industry,
 }: Props) {
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
+    getValues,
   } = useForm<ProfileDataSchemaType>({
     resolver: zodResolver(profileDataSchema),
     mode: "onSubmit",
@@ -77,6 +82,7 @@ export default function ProfileData({
       jobTitle,
       location,
       aboutMe,
+      industry,
     },
   });
   const queryClient = useQueryClient();
@@ -105,7 +111,8 @@ export default function ProfileData({
       fullName === data.fullName &&
       jobTitle === data.jobTitle &&
       location === data.location &&
-      aboutMe === data.aboutMe
+      aboutMe === data.aboutMe &&
+      industry == data.industry
     ) {
       sileo.warning({
         title: "No changes to update!",
@@ -228,12 +235,15 @@ export default function ProfileData({
                 />
               )}
             </div>
+          </div>
 
-            {/* Country */}
+          {/* Country & Industry */}
+          <div className="flex items-start gap-4 w-full flex-col lg:flex-row">
             <div className="space-y-1 w-full">
               <div className="space-y-1 w-full">
                 <Label>Country</Label>
                 <CountrySelect
+                  isInvalid={errors.location ? true : false}
                   classes="h-11 text-low-color border border-border-color hover:bg-white/80! w-full flex justify-start hover:bg-input-bg/80 duration-300 bg-white"
                   deafultCountry={location ?? ""}
                   UpdateCountry={(value: string) => {
@@ -244,6 +254,24 @@ export default function ProfileData({
               {errors.location && (
                 <ErrorValidationMessage
                   message={errors.location.message ?? ""}
+                />
+              )}
+            </div>
+
+            <div className="w-full space-y-1">
+              <Label>Industry</Label>
+              <IndustrySearch
+                isInvalid={errors.industry ? true : false}
+                withIcon={false}
+                UpdateIndustry={(value: string) => {
+                  setValue("industry", value);
+                }}
+                deafultIndustry={getValues("industry")}
+                classes="w-full space-y-1 bg-white border border-border-color hover:bg-white"
+              />
+              {errors.industry && (
+                <ErrorValidationMessage
+                  message={errors.industry.message ?? ""}
                 />
               )}
             </div>

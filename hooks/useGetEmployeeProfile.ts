@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 export type ApplicantProfileResponse = {
   applicantID: string;
   fullName: string;
+  industry: string;
   jobTitle?: string;
   location: string;
   aboutMe?: string;

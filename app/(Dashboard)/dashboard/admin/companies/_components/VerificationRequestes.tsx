@@ -98,113 +98,113 @@ export default function VerificationRequestes({ token }: Props) {
                     currentPage * ITEMS_PER_PAGE,
                   )
                   .map((request) => (
-                  <TableRow
-                    key={request.id}
-                    className="hover:bg-black/5 transition-colors">
-                    {/* Company */}
-                    <TableCell className="pl-5 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="size-11 rounded-xl bg-input-bg overflow-hidden border border-border-color">
-                          {request.logo ? (
-                            <img
-                              src={request.logo}
-                              alt={request.companyName}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <Image
-                              src={companyImage}
-                              alt={request.companyName}
-                              width={100}
-                              height={100}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                        </div>
+                    <TableRow
+                      key={request.id}
+                      className="hover:bg-black/5 transition-colors">
+                      {/* Company */}
+                      <TableCell className="pl-5 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="size-11 rounded-xl bg-input-bg overflow-hidden border border-border-color">
+                            {request.logo ? (
+                              <img
+                                src={request.logo}
+                                alt={request.companyName}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Image
+                                src={companyImage}
+                                alt={request.companyName}
+                                width={100}
+                                height={100}
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                          </div>
 
-                        <div>
-                          <p className="font-medium text-sm">
-                            {request.companyName}
-                          </p>
-
-                          <div className="flex items-center gap-1 mt-1">
-                            <HugeiconsIcon
-                              icon={Location01Icon}
-                              size={13}
-                              className="text-black/60"
-                            />
-
-                            <p className="text-xs text-black/50">
-                              {request.location}
+                          <div>
+                            <p className="font-medium text-sm">
+                              {request.companyName}
                             </p>
+
+                            <div className="flex items-center gap-1 mt-1">
+                              <HugeiconsIcon
+                                icon={Location01Icon}
+                                size={13}
+                                className="text-black/60"
+                              />
+
+                              <p className="text-xs text-black/50">
+                                {request.location}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    {/* Email */}
-                    <TableCell>
-                      <p className="text-sm ">{request.email}</p>
-                    </TableCell>
+                      </TableCell>
+                      {/* Email */}
+                      <TableCell>
+                        <p className="text-sm ">{request.email}</p>
+                      </TableCell>
 
-                    {/* Industry */}
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <HugeiconsIcon
-                          icon={Building03Icon}
-                          size={16}
-                          className="text-main-color"
+                      {/* Industry */}
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <HugeiconsIcon
+                            icon={Building03Icon}
+                            size={16}
+                            className="text-main-color"
+                          />
+
+                          <p className="text-sm text-black/70">
+                            {request.industry}
+                          </p>
+                        </div>
+                      </TableCell>
+
+                      {/* Documents */}
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <HugeiconsIcon
+                            icon={DocumentValidationIcon}
+                            size={16}
+                            className="text-main-color"
+                          />
+
+                          <p className="text-sm font-medium">
+                            {request.documentsLenght} Files
+                          </p>
+                        </div>
+                      </TableCell>
+
+                      {/* Verification Status */}
+                      <TableCell>
+                        <VerificationStatusBadge status={request.status} />
+                      </TableCell>
+
+                      {/* Submitted Date */}
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <HugeiconsIcon
+                            icon={Calendar02Icon}
+                            size={16}
+                            className="text-black/40"
+                          />
+
+                          <p className="text-sm text-black/60">
+                            {formatDate(request.createdAt)}
+                          </p>
+                        </div>
+                      </TableCell>
+
+                      {/* Actions */}
+                      <TableCell>
+                        <VerificationRequestDetails
+                          id={request.id}
+                          token={token}
                         />
-
-                        <p className="text-sm text-black/70">
-                          {request.industry}
-                        </p>
-                      </div>
-                    </TableCell>
-
-                    {/* Documents */}
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <HugeiconsIcon
-                          icon={DocumentValidationIcon}
-                          size={16}
-                          className="text-main-color"
-                        />
-
-                        <p className="text-sm font-medium">
-                          {request.documentsLenght} Files
-                        </p>
-                      </div>
-                    </TableCell>
-
-                    {/* Verification Status */}
-                    <TableCell>
-                      <VerificationStatusBadge status={request.status} />
-                    </TableCell>
-
-                    {/* Submitted Date */}
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <HugeiconsIcon
-                          icon={Calendar02Icon}
-                          size={16}
-                          className="text-black/40"
-                        />
-
-                        <p className="text-sm text-black/60">
-                          {formatDate(request.createdAt)}
-                        </p>
-                      </div>
-                    </TableCell>
-
-                    {/* Actions */}
-                    <TableCell>
-                      <VerificationRequestDetails
-                        id={request.id}
-                        token={token}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
+                      </TableCell>
+                    </TableRow>
+                  ))
               ) : (
                 <TableRow>
                   <TableCell

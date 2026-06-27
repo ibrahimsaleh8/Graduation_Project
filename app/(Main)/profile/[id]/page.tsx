@@ -36,7 +36,7 @@ export default async function ProfilePage({
   }
 
   const profileData: ProfileResponse = await res.json();
-
+  console.log("profileData", profileData);
   return (
     <div className="min-h-screen bg-[#f1f1f1] py-8 px-4 md:px-8 lg:px-12 pt-25">
       {isCompanyProfile(profileData) && (

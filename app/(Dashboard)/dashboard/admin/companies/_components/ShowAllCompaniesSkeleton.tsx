@@ -30,14 +30,6 @@ export default function ShowAllCompaniesSkeleton() {
           </div>
           <Skeleton className="h-11 w-full rounded-md" />
         </div>
-
-        {/* Subscription */}
-        <div className="w-full space-y-1">
-          <div className="text-sm font-medium text-black/70">
-            <Skeleton className="h-4.5 w-20" />
-          </div>
-          <Skeleton className="h-11 w-full rounded-md" />
-        </div>
       </div>
 
       {/* Table Skeleton */}

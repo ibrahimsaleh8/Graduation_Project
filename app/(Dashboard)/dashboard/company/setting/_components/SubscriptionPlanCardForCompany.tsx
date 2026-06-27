@@ -66,26 +66,27 @@ export default function SubscriptionPlanCardForCompany({
           />
         </li>
       </ul>
-
-      <AlertModel
-        title="Create a payment"
-        trigger={
-          <Button className="w-full text-sm rounded-md hover:bg-main-dark/80 bg-main-dark mt-auto">
-            Subscribe
-          </Button>
-        }
-        content={
-          <CreatePaymentLink
-            token={token}
-            billingType={billingType}
-            planId={planDetails.planId}
-            planName={planDetails.name}
-            monthlyPrice={planDetails.monthlyPrice}
-            yearlyPrice={planDetails.yearlyPrice}
-          />
-        }
-        contentClassname="md:min-w-150 pb-3"
-      />
+      {!planDetails.name.toLowerCase().includes("free") && (
+        <AlertModel
+          title="Create a payment"
+          trigger={
+            <Button className="w-full text-sm rounded-md hover:bg-main-dark/80 bg-main-dark mt-auto">
+              Subscribe
+            </Button>
+          }
+          content={
+            <CreatePaymentLink
+              token={token}
+              billingType={billingType}
+              planId={planDetails.planId}
+              planName={planDetails.name}
+              monthlyPrice={planDetails.monthlyPrice}
+              yearlyPrice={planDetails.yearlyPrice}
+            />
+          }
+          contentClassname="md:min-w-150 pb-3"
+        />
+      )}
     </div>
   );
 }

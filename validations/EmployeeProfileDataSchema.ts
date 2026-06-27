@@ -12,6 +12,7 @@ export const profileDataSchema = z.object({
     .optional(),
 
   location: z.string().min(1, "Location is required"),
+  industry: z.string().min(1, "Industry is required"),
 
   aboutMe: z.string().optional(),
 });

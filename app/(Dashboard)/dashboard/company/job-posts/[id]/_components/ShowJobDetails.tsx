@@ -25,7 +25,7 @@ export default function ShowJobDetails({
       <div className="space-y-3 border-b pb-8">
         <p className="text-xl font-medium text-black/60">Responsibilities</p>
         <div
-          className="text-sm  ProseMirror"
+          className="text-sm ProseMirror"
           dangerouslySetInnerHTML={{
             __html: responsibility,
           }}

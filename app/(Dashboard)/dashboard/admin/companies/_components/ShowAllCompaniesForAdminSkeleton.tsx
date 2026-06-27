@@ -28,14 +28,14 @@ export default function ShowAllCompaniesForAdminSkeleton() {
 
       {/* Tabs */}
       <Tabs defaultValue="companies">
-        <TabsList className="md:w-100 w-full flex flex-col md:flex-row gap-4 items-center text-white">
+        <TabsList className="w-fit flex flex-wrap items-center justify-center gap-4 text-white px-3 md:rounded-4xl rounded-md">
           <TabsTrigger
-            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
+            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-white/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
             value="companies">
             Companies
           </TabsTrigger>
           <TabsTrigger
-            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm data-[state=active]:border data-[state=active]:bg-white data-[state=active]:text-black px-4 py-2 rounded-md"
+            className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-white/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
             value="verifi-req">
             Verification Requestes
           </TabsTrigger>

@@ -140,7 +140,7 @@ export default function ShowAllCandidatesForCompany({ token }: Props) {
       {/* Candidates */}
       {isLoading ? (
         <div className="grid gap-5 sm:grid-cols-[repeat(auto-fill,minmax(21rem,1fr))] mt-9">
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 20 }).map((_, i) => (
             <div key={i} className="p-5 bg-white rounded-2xl border space-y-4">
               <div className="flex flex-col items-center gap-2 border-b pb-4">
                 <Skeleton className="size-15 rounded-full" />
