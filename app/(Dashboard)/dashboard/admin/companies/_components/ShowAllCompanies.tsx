@@ -2,6 +2,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Pagination from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -33,6 +34,9 @@ export default function ShowAllCompanies({ companiesData, token }: Props) {
     "all" | CompanyStatusDataType
   >("all");
 
+  const ITEMS_PER_PAGE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
   const companies = useMemo(() => {
     let filteredCompanies = companiesData;
 
@@ -54,10 +58,18 @@ export default function ShowAllCompanies({ companiesData, token }: Props) {
 
   const updateSearchTxt = (value: string) => {
     setSearchTxt(value);
+    setCurrentPage(1);
   };
   const updateStatus = (value: "all" | CompanyStatusDataType) => {
     setVerificationFilter(value);
+    setCurrentPage(1);
   };
+
+  const totalPages = Math.ceil(companies.length / ITEMS_PER_PAGE);
+  const paginatedCompanies = companies.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   return (
     <div className="space-y-4">
@@ -84,8 +96,8 @@ export default function ShowAllCompanies({ companiesData, token }: Props) {
           </TableHeader>
 
           <TableBody>
-            {companies.length > 0 ? (
-              companies.map((company) => (
+            {paginatedCompanies.length > 0 ? (
+              paginatedCompanies.map((company) => (
                 <TableRow
                   key={company.companyId}
                   className="hover:bg-black/5 transition-colors">
@@ -180,6 +192,15 @@ export default function ShowAllCompanies({ companiesData, token }: Props) {
           </TableBody>
         </Table>
       </div>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        totalItems={companies.length}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
     </div>
   );
 }

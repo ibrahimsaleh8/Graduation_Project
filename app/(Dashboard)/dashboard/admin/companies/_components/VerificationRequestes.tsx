@@ -24,6 +24,8 @@ import VerificationStatusBadge from "./VerificationStatusBadge";
 import { formatDate } from "@/lib/FormatDate";
 import { useVerificationRequest } from "./hooks/useVerificationRequest";
 import VerificationRequestesSkeleton from "./VerificationRequestesSkeleton";
+import Pagination from "@/components/ui/pagination";
+import { useState } from "react";
 
 type Props = {
   token: string;
@@ -34,9 +36,21 @@ export default function VerificationRequestes({ token }: Props) {
     error,
     isLoading,
     verificationRequests,
-    updateSearchTxt,
-    updateStatus,
+    updateSearchTxt: _updateSearchTxt,
+    updateStatus: _updateStatus,
   } = useVerificationRequest({ token });
+
+  const ITEMS_PER_PAGE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const updateSearchTxt = (value: string) => {
+    _updateSearchTxt(value);
+    setCurrentPage(1);
+  };
+  const updateStatus = (value: Parameters<typeof _updateStatus>[0]) => {
+    _updateStatus(value);
+    setCurrentPage(1);
+  };
 
   if (error) {
     console.log("error", error.response);
@@ -78,7 +92,12 @@ export default function VerificationRequestes({ token }: Props) {
 
             <TableBody>
               {verificationRequests.length > 0 ? (
-                verificationRequests.map((request) => (
+                verificationRequests
+                  .slice(
+                    (currentPage - 1) * ITEMS_PER_PAGE,
+                    currentPage * ITEMS_PER_PAGE,
+                  )
+                  .map((request) => (
                   <TableRow
                     key={request.id}
                     className="hover:bg-black/5 transition-colors">
@@ -198,6 +217,15 @@ export default function VerificationRequestes({ token }: Props) {
             </TableBody>
           </Table>
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(verificationRequests.length / ITEMS_PER_PAGE)}
+          onPageChange={setCurrentPage}
+          totalItems={verificationRequests.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
       </div>
     )
   );

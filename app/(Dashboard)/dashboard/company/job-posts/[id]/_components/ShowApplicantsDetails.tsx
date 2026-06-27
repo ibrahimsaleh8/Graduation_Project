@@ -64,7 +64,7 @@ export default function ShowApplicantsDetails({
             </p>
             <Link
               target="_blank"
-              href={`/portfolio/${applicationData.applicantId}`}
+              href={`/profile/${applicationData.applicantId}`}
               className="mt-1.5 text-sm flex items-center gap-1 pb-0 w-fit underline font-medium">
               <HugeiconsIcon
                 icon={UserCircleIcon}

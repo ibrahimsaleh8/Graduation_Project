@@ -2,6 +2,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Pagination from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -30,6 +31,9 @@ export default function ShowAllJobsForAdmin({ data }: Props) {
 
   const [typeFilter, setTypeFilter] = useState<string>("All");
 
+  const ITEMS_PER_PAGE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
   const jobs = useMemo(() => {
     let filteredJobs = data;
 
@@ -56,13 +60,22 @@ export default function ShowAllJobsForAdmin({ data }: Props) {
 
   const updateSearchTxt = (txt: string) => {
     setSearchTxt(txt);
+    setCurrentPage(1);
   };
   const updateStatusFilter = (status: "All" | JobStatusDataType) => {
     setStatusFilter(status);
+    setCurrentPage(1);
   };
   const updateTypeFilter = (type: string) => {
     setTypeFilter(type);
+    setCurrentPage(1);
   };
+
+  const totalPages = Math.ceil(jobs.length / ITEMS_PER_PAGE);
+  const paginatedJobs = jobs.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   return (
     <div className="space-y-3">
@@ -87,8 +100,8 @@ export default function ShowAllJobsForAdmin({ data }: Props) {
         </TableHeader>
 
         <TableBody>
-          {jobs.length > 0 ? (
-            jobs.map((job) => (
+          {paginatedJobs.length > 0 ? (
+            paginatedJobs.map((job) => (
               <TableRow key={job.jobId} className="hover:bg-black/10">
                 <TableCell className="pl-4">
                   <div className="flex items-center gap-2">
@@ -155,6 +168,15 @@ export default function ShowAllJobsForAdmin({ data }: Props) {
           )}
         </TableBody>
       </Table>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        totalItems={jobs.length}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import { ApplicantsDataType } from "./DisplayUsersForAdmin";
 import UserStatusBadge from "./UserStatusBadge";
 import { formatDate } from "@/lib/FormatDate";
 import { useMemo, useState } from "react";
+import Pagination from "@/components/ui/pagination";
 
 type Props = {
   users: ApplicantsDataType[];
@@ -28,6 +29,9 @@ export default function ShowAllUsers({ users, token }: Props) {
   const [statusFilter, setStatusFilter] = useState<
     "all" | "blocked" | "active"
   >("all");
+
+  const ITEMS_PER_PAGE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const usersData = useMemo(() => {
     let filteredUsers = users;
@@ -50,10 +54,18 @@ export default function ShowAllUsers({ users, token }: Props) {
 
   const updateSearchTxt = (value: string) => {
     setSearchTxt(value);
+    setCurrentPage(1);
   };
   const updateStatus = (value: "all" | "blocked" | "active") => {
     setStatusFilter(value);
+    setCurrentPage(1);
   };
+
+  const totalPages = Math.ceil(usersData.length / ITEMS_PER_PAGE);
+  const paginatedUsers = usersData.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   return (
     <div className="space-y-3">
@@ -77,8 +89,8 @@ export default function ShowAllUsers({ users, token }: Props) {
         </TableHeader>
 
         <TableBody>
-          {usersData.length > 0 ? (
-            usersData.map((user) => (
+          {paginatedUsers.length > 0 ? (
+            paginatedUsers.map((user) => (
               <TableRow
                 key={user.applicantId}
                 className="hover:bg-black/5 transition-colors">
@@ -158,6 +170,15 @@ export default function ShowAllUsers({ users, token }: Props) {
           )}
         </TableBody>
       </Table>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        totalItems={usersData.length}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
     </div>
   );
 }

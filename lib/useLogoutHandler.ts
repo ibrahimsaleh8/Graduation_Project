@@ -8,7 +8,7 @@ export const useLogoutHandler = () => {
   const logoutFn = async () => {
     await axios.get("/api/logout");
     clearUserData();
-    route.replace("/");
+    route.refresh();
   };
 
   return {

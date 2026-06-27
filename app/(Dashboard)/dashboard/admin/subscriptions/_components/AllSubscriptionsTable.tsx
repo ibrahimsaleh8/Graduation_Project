@@ -20,6 +20,8 @@ import { formatDate } from "@/lib/FormatDate";
 import { useSubscriptions } from "./hooks/useSubscriptions";
 import SubscriptionStatusBadge from "./SubscriptionStatusBadge";
 import AllSubscriptionsTableSkeleton from "./AllSubscriptionsTableSkeleton";
+import Pagination from "@/components/ui/pagination";
+import { useState } from "react";
 
 type Props = {
   token: string;
@@ -31,10 +33,26 @@ export default function AllSubscriptionsTable({ token, plans }: Props) {
     subscriptions,
     error,
     isLoading,
-    UpdateStatusFilter,
-    UpdatePlanFilter,
-    UpdateSerchTxt,
+    UpdateStatusFilter: _UpdateStatusFilter,
+    UpdatePlanFilter: _UpdatePlanFilter,
+    UpdateSerchTxt: _UpdateSerchTxt,
   } = useSubscriptions({ token });
+
+  const ITEMS_PER_PAGE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const UpdateSerchTxt = (value: string) => {
+    _UpdateSerchTxt(value);
+    setCurrentPage(1);
+  };
+  const UpdateStatusFilter = (value: Parameters<typeof _UpdateStatusFilter>[0]) => {
+    _UpdateStatusFilter(value);
+    setCurrentPage(1);
+  };
+  const UpdatePlanFilter = (value: Parameters<typeof _UpdatePlanFilter>[0]) => {
+    _UpdatePlanFilter(value);
+    setCurrentPage(1);
+  };
 
   if (error) {
     console.log("error", error.response);
@@ -74,7 +92,12 @@ export default function AllSubscriptionsTable({ token, plans }: Props) {
 
           <TableBody>
             {subscriptions.length > 0 ? (
-              subscriptions.map((subscription) => (
+              subscriptions
+                .slice(
+                  (currentPage - 1) * ITEMS_PER_PAGE,
+                  currentPage * ITEMS_PER_PAGE,
+                )
+                .map((subscription) => (
                 <TableRow
                   key={subscription.id}
                   className="hover:bg-black/5 transition-colors">
@@ -174,6 +197,15 @@ export default function AllSubscriptionsTable({ token, plans }: Props) {
             )}
           </TableBody>
         </Table>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(subscriptions.length / ITEMS_PER_PAGE)}
+          onPageChange={setCurrentPage}
+          totalItems={subscriptions.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
       </div>
     )
   );
