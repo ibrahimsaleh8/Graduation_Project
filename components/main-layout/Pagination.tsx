@@ -61,7 +61,7 @@ const Pagination = ({
           </span>
         ) : (
           <button
-            key={page}
+            key={index}
             onClick={() => onPageChange(page as number)}
             className={`h-10 w-10 rounded-lg border transition cursor-pointer ${
               currentPage === page

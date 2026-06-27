@@ -9,13 +9,19 @@ import { ArrowUpRight } from "lucide-react";
 import { useApplyJob } from "./hooks/useApplyJob";
 import ApplyForJobSkeleton from "./ApplyForJobSkeleton";
 import { Spinner } from "../ui/spinner";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   token: string;
   jobId: string;
+  setShowDescription: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function ApplicationForm({ token, jobId }: Props) {
+export default function ApplicationForm({
+  token,
+  jobId,
+  setShowDescription,
+}: Props) {
   const {
     handleSubmit,
     errors,
@@ -25,7 +31,7 @@ export default function ApplicationForm({ token, jobId }: Props) {
     isLoading,
     selectedCV,
     isPending,
-  } = useApplyJob({ token, jobId });
+  } = useApplyJob({ token, jobId, setShowDescription });
   if (error) {
     const errorMessage =
       error.response?.data.message ?? error.response?.statusText;

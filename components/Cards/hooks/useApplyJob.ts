@@ -3,12 +3,13 @@ import { useFetchUserDataForApplyingJob } from "@/lib/useFetchUserDataForApplyin
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { sileo } from "sileo";
 
 type Props = {
   token: string;
   jobId: string;
+  setShowDescription: Dispatch<SetStateAction<boolean>>;
 };
 
 async function applyJob(token: string, jobId: string, resumeId: string) {
@@ -27,7 +28,7 @@ async function applyJob(token: string, jobId: string, resumeId: string) {
   return res.data;
 }
 
-export const useApplyJob = ({ jobId, token }: Props) => {
+export const useApplyJob = ({ jobId, token, setShowDescription }: Props) => {
   const { data, error, isLoading } = useFetchUserDataForApplyingJob(token);
   const [selectedCV, setSelectedCV] = useState("");
   const [errors, setErrors] = useState({
@@ -39,6 +40,7 @@ export const useApplyJob = ({ jobId, token }: Props) => {
     mutationFn: (resumeId: string) => applyJob(token, jobId, resumeId),
 
     onSuccess: () => {
+      setShowDescription(true);
       queryClient.setQueryData(
         ["job-details-by-id", jobId],
         (oldData: JobDetailsByIdResponseDataType) => {

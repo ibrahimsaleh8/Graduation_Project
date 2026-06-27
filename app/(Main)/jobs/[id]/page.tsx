@@ -15,7 +15,7 @@ export default async function JobDetailsPage({
   return (
     <div className="py-30 container mx-auto">
       <Link
-        className="xl:mx-15 px-6 py-2 bg-main-dark text-white rounded-md text-xs flex items-center gap-1 w-fit"
+        className="xl:mx-15 mx-4 px-6 py-2 bg-main-dark text-white rounded-md text-xs flex items-center gap-1 w-fit"
         href={"/jobs"}>
         <ChevronLeftIcon className="size-4" /> Show All Jobs
       </Link>

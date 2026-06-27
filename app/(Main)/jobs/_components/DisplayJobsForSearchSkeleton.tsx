@@ -18,7 +18,6 @@ function JobCardSkeleton() {
         </div>
 
         {/* Bookmark icon */}
-        <Skeleton className="size-7 rounded-lg shrink-0" />
       </div>
 
       {/* Job Title */}
@@ -44,7 +43,10 @@ function JobCardSkeleton() {
       </div>
 
       {/* Bottom action button */}
-      <Skeleton className="h-9 w-full rounded-md mt-1" />
+      <div className="flex items-center gap-1">
+        <Skeleton className="h-9 w-full rounded-md mt-1" />
+        <Skeleton className="w-10 h-9 rounded-lg shrink-0" />
+      </div>
     </div>
   );
 }

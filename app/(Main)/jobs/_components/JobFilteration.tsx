@@ -60,7 +60,9 @@ export default function JobFilteration({
       w-full
       h-fit
       bg-white
-      border-r
+      xl:border-r
+      border-b
+      xl:border-b-0
       border-border-color
       p-5
       space-y-5
@@ -74,13 +76,13 @@ export default function JobFilteration({
           <button
             onClick={onReset}
             className="
-              text-xs
+              text-sm bg-red-600 text-white
               font-medium
-              text-main-color
-              hover:text-main-color/70
+              hover:bg-red-700
               transition-colors
               duration-150
               cursor-pointer
+              px-2 py-1 rounded-sm
             ">
             Reset
           </button>
@@ -224,7 +226,7 @@ export default function JobFilteration({
                 onChange={(e) => {
                   setFilters({ ...filters, minExperience: +e.target.value });
                 }}
-                className="h-11 border-border-color bg-white">
+                className="h-11 border-border-color bg-white ring-0!">
                 {ExperienceYears.map((year) => (
                   <NativeSelectOption key={year} value={`${year}`}>
                     {year} Years
@@ -245,7 +247,7 @@ export default function JobFilteration({
                 onChange={(e) => {
                   setFilters({ ...filters, maxExperience: +e.target.value });
                 }}
-                className="h-11 border-border-color bg-white">
+                className="h-11 border-border-color bg-white ring-0!">
                 {ExperienceYears.map((year) => (
                   <NativeSelectOption key={year} value={`${year}`}>
                     {year} Years

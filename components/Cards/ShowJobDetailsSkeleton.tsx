@@ -16,9 +16,6 @@ function SimilarJobCardSkeleton() {
             <Skeleton className="h-4 w-24 rounded" />
           </div>
         </div>
-
-        {/* Bookmark button */}
-        <Skeleton className="size-9 rounded-md ml-auto" />
       </div>
 
       {/* Employment Types */}

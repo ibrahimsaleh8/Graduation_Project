@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { Dot } from "lucide-react";
-import { Button } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  Bookmark01Icon,
   Building03Icon,
   Calendar02Icon,
+  CheckmarkCircle02Icon,
   Location01Icon,
   MoneyBag02Icon,
 } from "@hugeicons/core-free-icons";
@@ -17,7 +16,7 @@ type Props = {
 };
 export default function SimilarJobCard({ jobData }: Props) {
   return (
-    <div className="p-3 w-full border-2 rounded-md space-y-3">
+    <div className="p-3 w-full border-2 rounded-md space-y-3 block group">
       {/* Top */}
       <div className="flex items-start gap-3 justify-between flex-wrap">
         <div className="flex items-start flex-col sm:flex-row gap-2">
@@ -32,7 +31,11 @@ export default function SimilarJobCard({ jobData }: Props) {
 
           {/* Company Data */}
           <div className="">
-            <p className="text-lg font-medium">{jobData.jobTitle}</p>
+            <Link
+              href={`/jobs/${jobData.jobId}`}
+              className="text-lg font-medium group-hover:underline">
+              {jobData.jobTitle}
+            </Link>
 
             <div className="text-sm text-black/80 flex items-center flex-wrap">
               <p className="flex items-center gap-1">
@@ -56,10 +59,6 @@ export default function SimilarJobCard({ jobData }: Props) {
             </div>
           </div>
         </div>
-
-        <Button className="bg-transparent hover:bg-black/5 text-black ml-auto">
-          <HugeiconsIcon icon={Bookmark01Icon} className="size-4.5!" />
-        </Button>
       </div>
 
       {/* Employemnt Types */}
@@ -85,12 +84,22 @@ export default function SimilarJobCard({ jobData }: Props) {
             {jobData.minSalary} - ${jobData.maxSalary}
           </p>
         </div>
-
-        <Link
-          className="ml-auto px-4 py-2 text-sm bg-main-color rounded-sm hover:bg-main-color/80 duration-300 text-white"
-          href={`/jobs/${jobData.jobId}`}>
-          Apply
-        </Link>
+        {jobData.isApplied ? (
+          <p className="text-sm px-4 text-green-700 font-medium flex items-center gap-1">
+            <HugeiconsIcon
+              icon={CheckmarkCircle02Icon}
+              className="size-4.5"
+              strokeWidth={2}
+            />
+            Applied
+          </p>
+        ) : (
+          <Link
+            className="ml-auto px-4 py-2 text-sm bg-main-color rounded-sm hover:bg-main-color/80 duration-300 text-white"
+            href={`/jobs/${jobData.jobId}`}>
+            Apply
+          </Link>
+        )}
       </div>
     </div>
   );

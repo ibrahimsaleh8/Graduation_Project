@@ -28,8 +28,7 @@ export default function ShowJobDetails({ jobId, token }: Props) {
     <ShowJobDetailsSkeleton />
   ) : (
     data && (
-      <div
-        className={`${true ? "flex items-start gap-10 flex-col xl:flex-row xl:px-10" : "container mx-auto"}`}>
+      <div className="flex items-start gap-10 flex-col xl:flex-row xl:px-10 px-3">
         <JobDetails jobId={jobId} token={token} jobDetails={data.job} />
         {data.similarJobs.length > 0 && (
           <SimilarJobs similarJobs={data.similarJobs} />

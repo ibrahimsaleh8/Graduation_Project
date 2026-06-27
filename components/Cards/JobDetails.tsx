@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import {
   Building03Icon,
   Calendar02Icon,
+  CheckmarkCircle02Icon,
   Location01Icon,
   MoneyBag02Icon,
   WorkHistoryIcon,
@@ -45,14 +46,21 @@ export default function JobDetails({ jobDetails, jobId, token }: Props) {
                 href={"/login"}>
                 Login
               </Link>
+            ) : user.role == "APPLICANT" && jobDetails.isApplied ? (
+              <p className="text-sm px-4 text-green-700 font-medium flex items-center gap-1">
+                <HugeiconsIcon
+                  icon={CheckmarkCircle02Icon}
+                  className="size-4.5"
+                  strokeWidth={2}
+                />
+                Applied
+              </p>
             ) : (
-              user.role == "APPLICANT" && (
-                <Button
-                  onClick={() => setShowDescription((prev) => !prev)}
-                  className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
-                  {showDescription ? "Apply Now" : "Show Description"}
-                </Button>
-              )
+              <Button
+                onClick={() => setShowDescription((prev) => !prev)}
+                className="bg-main-color text-white hover:bg-main-color/90 rounded-md text-sm">
+                {showDescription ? "Apply Now" : "Show Description"}
+              </Button>
             )}
 
             <SaveJobButton
@@ -138,7 +146,11 @@ export default function JobDetails({ jobDetails, jobId, token }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}>
-            <ApplicationForm jobId={jobId} token={token} />
+            <ApplicationForm
+              jobId={jobId}
+              token={token}
+              setShowDescription={setShowDescription}
+            />
           </motion.div>
         )}
       </AnimatePresence>

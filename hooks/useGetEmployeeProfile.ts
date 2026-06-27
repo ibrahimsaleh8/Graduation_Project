@@ -21,7 +21,7 @@ export type ApplicantProfileResponse = {
   experiences?: ExperienceType[];
   skills?: SkillType[];
   projects?: ProjectType[];
-  resumes: EmployeeResumeDataType[] | null;
+  resumes: EmployeeResumeDataType[];
 };
 
 export type ExperienceType = {
