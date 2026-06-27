@@ -1,4 +1,4 @@
-import { InitialUserDetailsDataType } from "@/components/main-layout/InitilaizeAuthedUser";
+import { InitialUserDetailsDataType } from "@/hooks/useInitializeUserData";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

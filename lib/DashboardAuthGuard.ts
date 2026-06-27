@@ -1,6 +1,6 @@
 "use server";
 
-import { InitialUserDetailsDataType } from "@/components/main-layout/InitilaizeAuthedUser";
+import { InitialUserDetailsDataType } from "@/hooks/useInitializeUserData";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
