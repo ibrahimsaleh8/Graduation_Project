@@ -96,19 +96,21 @@ export default function ShowMyEmployeeProfile({ token }: Props) {
                 </div>
               </div>
               {/* CV */}
-              <div className="flex items-center justify-center xl:justify-start gap-4 xl:ml-auto ml-0 xl:mx-0 mx-auto mt-4 pr-4 pl-7 w-full lg:w-fit">
-                <a
-                  className="px-8 py-2 bg-black hover:bg-black/80 text-white rounded-md text-sm flex items-center justify-center gap-3 transition md:w-fit w-full"
-                  href={data.resumes[0].url}
-                  target="_blank">
-                  <HugeiconsIcon
-                    icon={File02Icon}
-                    className="size-5"
-                    strokeWidth={2}
-                  />
-                  Show CV
-                </a>
-              </div>
+              {data.resumes && data.resumes.length > 0 && (
+                <div className="flex items-center justify-center xl:justify-start gap-4 xl:ml-auto ml-0 xl:mx-0 mx-auto mt-4 pr-4 pl-7 w-full lg:w-fit">
+                  <a
+                    className="px-8 py-2 bg-black hover:bg-black/80 text-white rounded-md text-sm flex items-center justify-center gap-3 transition md:w-fit w-full"
+                    href={data.resumes[0].url}
+                    target="_blank">
+                    <HugeiconsIcon
+                      icon={File02Icon}
+                      className="size-5"
+                      strokeWidth={2}
+                    />
+                    Show CV
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
