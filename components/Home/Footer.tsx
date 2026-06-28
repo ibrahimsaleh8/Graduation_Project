@@ -2,8 +2,14 @@ import logo from "@images/Logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import FooterSocials from "./FooterSocials";
+import { ProjectSettingsResponse } from "@/app/(Dashboard)/dashboard/admin/setting/_components/ShowAdminSettings";
 
-export default function Footer() {
+export default async function Footer() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Admin/website-settings`,
+  );
+  const socials: ProjectSettingsResponse = await res.json();
+
   return (
     <div className="w-full sm:px-8 px-3 pt-20 bg-main-dark rounded-t-2xl text-white flex items-center gap-10">
       <div className="flex flex-col items-center gap-12 sm:p-6 p-3 w-full h-full">
@@ -54,7 +60,8 @@ export default function Footer() {
             </Link>
           </li>
         </ul>
-        <FooterSocials />
+
+        <FooterSocials socials={socials} />
         <div className="w-full border-t border-white/20 p-4">
           <p className="text-center text-white/90">
             &#169; {new Date().getFullYear()} All right reserved
