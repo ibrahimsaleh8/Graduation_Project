@@ -48,12 +48,16 @@ export default function StartCareerToday() {
       },
       0.4,
     );
-    tl.to(".start-career-links", {
-      scale: 1,
-      duration: 2,
-      ease: "power1.inOut",
-      stagger: 1,
-    });
+    tl.to(
+      ".start-career-links",
+      {
+        scale: 1,
+        duration: 2,
+        ease: "power1.inOut",
+        stagger: 1,
+      },
+      0.6,
+    );
   });
 
   return (

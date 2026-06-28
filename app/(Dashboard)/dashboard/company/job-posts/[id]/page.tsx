@@ -1,6 +1,9 @@
 import { cookies } from "next/headers";
 import ShowJobDetailsById from "./_components/ShowJobDetailsById";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Job Details",
+};
 export default async function JobPostDetails({
   params,
 }: {

@@ -2,7 +2,10 @@ import ShowJobDetails from "@/components/Cards/ShowJobDetails";
 import { ChevronLeftIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Job Details",
+};
 export default async function JobDetailsPage({
   params,
 }: {

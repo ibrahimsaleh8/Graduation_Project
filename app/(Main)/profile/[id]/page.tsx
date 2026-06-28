@@ -2,7 +2,10 @@ import { ApplicantProfile } from "./_components/ApplicantProfileTypeResonse";
 import { CompanyProfile } from "./_components/CompanyProfileTypeResonse";
 import PublicCompanyProfile from "./_components/PublicCompanyProfile";
 import PublicApplicantProfile from "./_components/PublicApplicantProfile";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Profile",
+};
 export type ProfileResponse = CompanyProfile | ApplicantProfile;
 
 const isCompanyProfile = (

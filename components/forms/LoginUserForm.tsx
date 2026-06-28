@@ -9,11 +9,6 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 import { AtSign, Eye, EyeOff } from "lucide-react";
-import {
-  Checkbox,
-  CheckboxIndicator,
-} from "@/components/animate-ui/primitives/radix/checkbox";
-
 import { motion } from "framer-motion";
 import ErrorValidationMessage from "./ErrorValidationMessage";
 import { Spinner } from "../ui/spinner";
@@ -99,19 +94,6 @@ export default function LoginUserForm() {
       {errors.password && (
         <ErrorValidationMessage message={errors.password.message as string} />
       )}
-      <div className="flex items-center flex-wrap justify-between gap-4">
-        <div className="flex items-center gap-1.5">
-          <Checkbox
-            id="remember-me"
-            className="w-4.5 h-4.5 flex items-center justify-center border [&[data-state=checked],&[data-state=indeterminate]]:bg-main-color [&[data-state=checked],&[data-state=indeterminate]]:text-white rounded-[3px]">
-            <CheckboxIndicator className="w-3.5 h-3.5" />
-          </Checkbox>
-          <Label htmlFor="remember-me">Remeber Me</Label>
-        </div>
-        <Link className="text-sm w-fit" href={"/forgot-password"}>
-          Forgot Password ?
-        </Link>
-      </div>
 
       <Button disabled={isPending} className="font-medium">
         {isPending ? (

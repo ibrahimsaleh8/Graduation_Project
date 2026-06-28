@@ -3,7 +3,10 @@ import DisplayJobsForSearch from "./_components/DisplayJobsForSearch";
 import DisplayJobsForSearchSkeleton from "./_components/DisplayJobsForSearchSkeleton";
 import JobsSearchAndFilter from "./_components/JobsSearchAndFilter";
 import { Suspense } from "react";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Jobs",
+};
 export interface JobSearchDataType {
   companyName: string;
   companyLogoUrl: string | null;

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import sectionImage from "@images/landing-page-images/logo.png";
+import sectionImage from "@images/Logo.png";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -45,7 +45,7 @@ export default function WhoWeAre() {
           alt="section Image"
           width={1000}
           height={100}
-          className="md:w-12 w-10"
+          className="md:w-14 w-10"
         />
         <p>Jobify</p>
       </div>

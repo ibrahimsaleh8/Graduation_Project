@@ -39,7 +39,7 @@ export default function DashboardHeader() {
   return (
     <header className="w-full flex items-center justify-between gap-4 bg-main-dark text-white p-4">
       <Link href={"/"}>
-        <Image src={logoImage} alt="Logo" className="md:w-30 w-26" />
+        <Image src={logoImage} alt="Logo" className="xl:w-30 w-26" />
       </Link>
       <nav className="p-1 bg-[#F6F6F6] text-black rounded-md lg:flex hidden">
         <ul className="flex items-center xl:gap-3 gap-1">

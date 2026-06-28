@@ -7,6 +7,11 @@ const suggestedPrompit = [
   "Find candidates that match this role",
   "Show hiring insights and trends",
 ];
+
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Ai Chat",
+};
 export default function AiChatForCompany() {
   return <AIChatBot suggestedPrompit={suggestedPrompit} />;
 }

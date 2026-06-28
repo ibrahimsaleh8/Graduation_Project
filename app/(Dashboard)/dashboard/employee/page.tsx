@@ -1,16 +1,13 @@
-import { DashboardAuthGuard } from "@/lib/DashboardAuthGuard";
-import { redirect } from "next/navigation";
 import DisplayEmployeeMainData from "./_components/DisplayEmployeeMainData";
+import { cookies } from "next/headers";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Overview",
+};
 
 export default async function EmployeeDashboard() {
-  const { role, token } = await DashboardAuthGuard();
-  if (role != "APPLICANT") {
-    if (role == "COMPANY") {
-      redirect(`/dashboard/company`);
-    } else if (role == "ADMIN") {
-      redirect(`/dashboard/admin`);
-    }
-  }
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
 
-  return <DisplayEmployeeMainData token={token} />;
+  return <DisplayEmployeeMainData token={token?.value ?? ""} />;
 }

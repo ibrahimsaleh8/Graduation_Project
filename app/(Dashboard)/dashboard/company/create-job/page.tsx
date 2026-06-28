@@ -1,6 +1,9 @@
 import { cookies } from "next/headers";
 import HandleJobPostCreation from "./_components/HandleJobPostCreation";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Create Job",
+};
 export default async function CreateJobPost() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token");

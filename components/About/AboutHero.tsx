@@ -28,7 +28,7 @@ export default function AboutHero() {
         duration: 0.9,
         ease: "power1.inOut",
       },
-      "<=50%"
+      "<=50%",
     );
 
     tl.to(
@@ -39,7 +39,7 @@ export default function AboutHero() {
         duration: 0.8,
         ease: "power1.inOut",
       },
-      "<=70%"
+      "<=70%",
     );
 
     tl.to(
@@ -49,14 +49,20 @@ export default function AboutHero() {
         duration: 0.8,
         ease: "power2.inOut",
       },
-      "<=60%"
+      "<=60%",
     );
   });
 
   return (
     <div className="w-full relative overflow-hidden bg-[radial-gradient(circle_at_35%_20%,rgba(0,0,255,0.22),transparent_16%),radial-gradient(circle_at_50%_45%,rgba(0,0,255,0.25),transparent_18%),radial-gradient(circle_at_65%_90%,rgba(0,0,255,0.2),transparent_14%),linear-gradient(120deg,transparent_18%,rgba(0,0,255,0.08)_32%,transparent_48%),linear-gradient(120deg,transparent_42%,rgba(0,0,255,0.07)_55%,transparent_70%),linear-gradient(to_bottom,#000,#000)] text-white flex flex-col items-center justify-center min-h-[80vh] px-4 py-32 rounded-b-2xl">
       {/* Beam Background */}
-      <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          inset: 0,
+        }}>
         <Beams
           beamWidth={2}
           beamHeight={20}
@@ -79,7 +85,9 @@ export default function AboutHero() {
 
         {/* Title */}
         <h1 className="about-hero-title xl:text-7xl lg:text-6xl md:text-5xl text-4xl font-medium leading-[1.1] overflow-hidden">
-          <span className="block translate-y-20 opacity-0">Connecting Talent</span>
+          <span className="block translate-y-20 opacity-0">
+            Connecting Talent
+          </span>
           <span className="block translate-y-20 opacity-0 text-main-color">
             With Opportunity
           </span>
@@ -87,7 +95,7 @@ export default function AboutHero() {
 
         {/* Description */}
         <p className="about-hero-desc translate-y-10 opacity-0 text-white/70 max-w-xl text-lg leading-relaxed">
-          We're on a mission to make career growth accessible for everyone.
+          {"We're"} on a mission to make career growth accessible for everyone.
           Discover the story behind Jobify and the passionate team driving it
           forward.
         </p>

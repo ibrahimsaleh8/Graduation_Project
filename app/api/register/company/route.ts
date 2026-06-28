@@ -76,7 +76,9 @@ export async function POST(request: NextRequest) {
       userId: userData?.userId,
       email: userData?.email,
       role: userData?.roles[0],
-      photoUrl: userData?.photoUrl,
+      photoUrl:
+        userData?.photoUrl ??
+        "https://res.cloudinary.com/dch0f4mp4/image/upload/q_auto/f_auto/v1780243272/avatar_transparent_t8osfr.png",
     };
 
     const cookieStore = await cookies();

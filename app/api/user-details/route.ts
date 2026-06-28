@@ -41,7 +41,12 @@ export async function GET(request: NextRequest) {
         message: "User Data fetched Suceess",
         data: {
           isSuccess: true,
-          userData,
+          userData: {
+            ...userData,
+            photoUrl:
+              userData?.photoUrl ??
+              "https://res.cloudinary.com/dch0f4mp4/image/upload/q_auto/f_auto/v1780243272/avatar_transparent_t8osfr.png",
+          },
         },
       });
     }

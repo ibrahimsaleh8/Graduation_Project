@@ -7,6 +7,10 @@ const suggestedPrompit = [
   "Find jobs that match my skills",
   "Show me remote jobs",
 ];
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Ai chat",
+};
 
 export default function AiChatForEmployee() {
   return <AIChatBot suggestedPrompit={suggestedPrompit} />;

@@ -1,4 +1,4 @@
-import logo from "@images/landing-page-images/logo.png";
+import logo from "@images/Logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import FooterSocials from "./FooterSocials";

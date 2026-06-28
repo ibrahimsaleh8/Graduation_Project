@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logoImage from "@images/landing-page-images/logo.png";
+import logoImage from "@images/Logo.png";
 import SmallNavbar from "./SmallNavbar";
 import {
   Home01Icon,
@@ -47,7 +47,12 @@ export default function Header() {
     <header
       className={`md:container md:px-9 px-3 py-4 flex items-center md:rounded-md gap-3 fixed md:left-1/2 md:-translate-x-1/2 left-0 translate-x-0 w-full justify-between md:top-2 bg-white z-1000000 duration-300`}>
       <Link href={"/"} className="text-2xl font-bold flex items-center gap-3">
-        <Image src={logoImage} alt="Logo" className="w-7" />
+        <Image
+          src={logoImage}
+          alt="Logo"
+          className="sm:w-10 w-8"
+          loading="eager"
+        />
         Jobify
       </Link>
       <nav className="md:flex hidden">

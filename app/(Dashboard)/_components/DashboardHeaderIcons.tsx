@@ -27,6 +27,16 @@ export default function DashboardHeaderIcons({
       {activeLinks === "employee" ? (
         <>
           <Link
+            title="Ai Chat bot"
+            href={"/dashboard/employee/ai-chat"}
+            className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/ai-chat" ? "bg-white text-black" : ""}`}>
+            <HugeiconsIcon
+              icon={RoboticIcon}
+              className="size-5.5"
+              strokeWidth={2}
+            />
+          </Link>
+          <Link
             title="Settings"
             href={"/dashboard/employee/setting"}
             className={`size-10 bg-second-black-card flex items-center justify-center hover:bg-white hover:text-black rounded-full duration-300 ${currentPath == "/dashboard/employee/setting" ? "bg-white text-black" : ""}`}>

@@ -1,5 +1,9 @@
 import { cookies } from "next/headers";
 import DisplaySubscriptionDetails from "./_components/DisplaySubscriptionDetails";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Subscription Details",
+};
 
 export default async function SubscriptionDetailsPage({
   params,
