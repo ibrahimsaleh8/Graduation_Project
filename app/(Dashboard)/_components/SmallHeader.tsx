@@ -19,6 +19,12 @@ type Props = {
   }[];
   currentPath: string;
 };
+function isActiveLink(linkHref: string, currentPath: string): boolean {
+  if (currentPath === linkHref) return true;
+  const isRootLink = linkHref.split("/").filter(Boolean).length <= 2;
+  if (isRootLink) return false;
+  return currentPath.startsWith(linkHref + "/");
+}
 export default function SmallHeader({ links, currentPath }: Props) {
   const [open, setOpen] = useState(false);
   return (
@@ -37,7 +43,7 @@ export default function SmallHeader({ links, currentPath }: Props) {
               <Link
                 onClick={() => setOpen(false)}
                 href={link.link}
-                className={`flex items-center text-white gap-2 px-4 rounded-md font-medium py-3 ${currentPath == link.link ? "bg-main-dark text-white" : ""}`}>
+                className={`flex items-center text-white gap-2 px-4 rounded-md font-medium py-3 ${isActiveLink(link.link, currentPath) ? "bg-main-dark text-white" : ""}`}>
                 <HugeiconsIcon
                   icon={link.icon}
                   className="size-5"

@@ -17,6 +17,13 @@ import {
   adminSmallLinks,
 } from "./links/DashboardHeaderLiks";
 
+function isActiveLink(linkHref: string, currentPath: string): boolean {
+  if (currentPath === linkHref) return true;
+  const isRootLink = linkHref.split("/").filter(Boolean).length <= 2;
+  if (isRootLink) return false;
+  return currentPath.startsWith(linkHref + "/");
+}
+
 export default function DashboardHeader() {
   const currentPath = usePathname();
   const { userData } = useUserStore();
@@ -47,7 +54,7 @@ export default function DashboardHeader() {
             <Link
               href={link.link}
               key={link.label}
-              className={`flex items-center gap-1 xl:text-sm text-[0.8rem] xl:px-4 px-3 rounded-md font-medium py-3 hover:bg-black hover:text-white duration-300 ${currentPath == link.link ? "bg-main-dark text-white" : ""}`}>
+              className={`flex items-center gap-1 xl:text-sm text-[0.8rem] xl:px-4 px-3 rounded-md font-medium py-3 hover:bg-black hover:text-white duration-300 ${isActiveLink(link.link, currentPath) ? "bg-main-dark text-white" : ""}`}>
               <HugeiconsIcon
                 icon={link.icon}
                 className="size-4.5"
