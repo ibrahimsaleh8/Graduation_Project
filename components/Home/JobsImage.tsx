@@ -1,5 +1,5 @@
 import Image from "next/image";
-import heroImage from "@images/landing-page-images/hero-image.webp";
+import heroImage from "@images/landing-page-images/jobs.webp";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default function AboutPage() {
   return (
-    <div className="w-full flex items-center flex-col overflow-x-hidden">
+    <div className="w-full flex items-center flex-col overflow-x-hidden mt-3">
       <AboutHero />
       <OurMission />
       <StartCareerToday />

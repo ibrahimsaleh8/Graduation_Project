@@ -9,7 +9,7 @@ import {
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import registerImage from "@images/RegisterImage.png";
+import registerImage from "@images/RegisterImage.webp";
 import Link from "next/link";
 import RegisterUserForm from "@/components/forms/RegisterUserForm";
 import RegisterCompaniesForm from "@/components/forms/RegisterCompaniesForm";

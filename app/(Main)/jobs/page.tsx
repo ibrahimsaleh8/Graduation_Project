@@ -61,7 +61,7 @@ export default async function JobsPage({
   }
   const jobs: JobsResponse = await res.json();
   return (
-    <div className="space-y-6 px-1 pt-20 pb-30">
+    <div className="space-y-6 px-1 pt-23 pb-30">
       <JobsSearchAndFilter params={params} />
 
       <Suspense fallback={<DisplayJobsForSearchSkeleton />}>

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import authImage from "@images/loginImage.jpg";
+import authImage from "@images/loginImage.webp";
 import { motion } from "framer-motion";
 import LoginUserForm from "@/components/forms/LoginUserForm";
 import Link from "next/link";
