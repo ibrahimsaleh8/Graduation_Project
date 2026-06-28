@@ -1,5 +1,4 @@
 import Image from "next/image";
-import MatchCircle from "./MatchCircle";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Calendar02Icon,
@@ -74,10 +73,6 @@ export default function ShowApplicantsDetails({
               Show Portfolio
             </Link>
           </div>
-        </div>
-        {/* Match Bar */}
-        <div className="flex flex-col gap-1 items-center">
-          <MatchCircle percentage={80} size={70} strokeWidth={5} />
         </div>
       </div>
 

@@ -46,9 +46,7 @@ export default function ShowInterviewDetails({ interviewDetails }: Props) {
         </div>
 
         <div className="text-lg space-y-px">
-          <p className="font-medium underline">
-            {interviewDetails.applicantName}
-          </p>
+          <p className="font-medium">{interviewDetails.applicantName}</p>
           <p className="text-sm">{interviewDetails.positionTitle}</p>
 
           <div className="flex items-center justify-center gap-6 flex-wrap mt-2">

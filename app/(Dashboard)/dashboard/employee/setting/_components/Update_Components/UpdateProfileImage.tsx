@@ -22,6 +22,9 @@ import {
 } from "@/components/kibo-ui/image-crop";
 
 import { XIcon } from "lucide-react";
+import { useUserStore } from "@/lib/UserStore";
+import { CompanySettingsResponseDataType } from "@/app/(Dashboard)/dashboard/company/setting/_components/ShowCompanySettings";
+import { ApplicantProfileResponse } from "@/hooks/useGetEmployeeProfile";
 
 type Props = {
   operation: "profile" | "cover";
@@ -107,22 +110,49 @@ export default function UpdateProfileImage({
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-
   const queryClient = useQueryClient();
+  const { userData, setUserData } = useUserStore();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (file: File) =>
       uploadImage(file, token, operation, role, setUploadProgress),
-    onSuccess: () => {
+    onSuccess: async () => {
       sileo.success({ title: "Image updated successfully!" });
 
       if (role == "employee") {
-        queryClient.refetchQueries({ queryKey: ["get-my-profile-employee"] });
-      } else {
-        queryClient.refetchQueries({ queryKey: ["company-profile-settings"] });
-        queryClient.refetchQueries({ queryKey: ["company-profile"] });
-      }
+        await queryClient.refetchQueries({
+          queryKey: ["get-my-profile-employee"],
+        });
 
+        const updatedData: ApplicantProfileResponse | undefined =
+          queryClient.getQueryData(["get-my-profile-employee"]);
+
+        if (updatedData && updatedData.profilePicUrl) {
+          setUserData({
+            photoUrl: updatedData.profilePicUrl ?? null,
+            email: userData?.email ?? "",
+            role: userData?.role ?? "",
+            userId: userData?.userId ?? "",
+          });
+        }
+      } else {
+        await queryClient.refetchQueries({
+          queryKey: ["company-profile-settings"],
+        });
+        queryClient.refetchQueries({ queryKey: ["company-profile"] });
+
+        const updatedData: CompanySettingsResponseDataType | undefined =
+          queryClient.getQueryData(["company-profile-settings"]);
+
+        if (updatedData && updatedData.profile.logoUrl) {
+          setUserData({
+            photoUrl: updatedData.profile.logoUrl ?? null,
+            email: userData?.email ?? "",
+            role: userData?.role ?? "",
+            userId: userData?.userId ?? "",
+          });
+        }
+      }
       setUploadProgress(0);
       removeImage();
       if (setOpen) {

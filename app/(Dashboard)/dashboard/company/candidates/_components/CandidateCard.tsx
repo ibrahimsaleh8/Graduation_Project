@@ -14,7 +14,7 @@ type Props = {
 
 export default function CandidateCard({ candidate }: Props) {
   return (
-    <div className="p-5 bg-white rounded-2xl border flex flex-col">
+    <div className="py-5 px-3 bg-white rounded-2xl border flex flex-col">
       {/* Top */}
       <div className="flex flex-col items-center gap-2 border-b pb-4">
         <div className="rounded-full bg-input-bg size-15 overflow-hidden">
@@ -36,9 +36,9 @@ export default function CandidateCard({ candidate }: Props) {
       {/* Body */}
       <div className="pt-4 flex flex-col items-center gap-6 w-full mt-auto">
         {/* Industry & Location  */}
-        <div className="flex items-center gap-6 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           {candidate.industry && (
-            <p className="flex items-center gap-1 text-sm">
+            <p className="flex items-center gap-1 text-xs font-medium">
               <HugeiconsIcon
                 icon={Briefcase01Icon}
                 className="size-4"
@@ -47,7 +47,7 @@ export default function CandidateCard({ candidate }: Props) {
               {candidate.industry}
             </p>
           )}
-          <p className="flex items-center gap-1 text-sm">
+          <p className="flex items-center gap-1 text-xs font-medium">
             <HugeiconsIcon
               icon={Location01Icon}
               className="size-4"
