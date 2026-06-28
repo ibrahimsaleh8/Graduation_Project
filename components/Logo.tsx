@@ -11,7 +11,7 @@ export default function Logo({ size, classes }: Props) {
       <Image
         src={logo}
         alt="logo"
-        className={`${size == "small" ? "md:w-30 w-26" : "md:w-40 w-30"} ${classes ? classes : ""}`}
+        className={`${size == "small" ? "md:w-15 w-10" : "md:w-40 w-30"} ${classes ? classes : ""}`}
       />
     </Link>
   );

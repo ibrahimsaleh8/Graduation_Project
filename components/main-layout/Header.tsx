@@ -37,6 +37,13 @@ const mainLinks = [
 ];
 export type mainLinksType = typeof mainLinks;
 
+function isActiveLink(linkHref: string, currentPath: string): boolean {
+  if (currentPath === linkHref) return true;
+  const isRootLink = linkHref.split("/").filter(Boolean).length === 0; // only "/"
+  if (isRootLink) return false;
+  return currentPath.startsWith(linkHref + "/");
+}
+
 export default function Header() {
   const pathname = usePathname();
 
@@ -60,7 +67,7 @@ export default function Header() {
           {mainLinks.map((lin) => (
             <li key={lin.title}>
               <Link
-                className={`px-4 py-2 hover:text-black duration-300 ${pathname == lin.link ? "text-black" : "text-black/70"}`}
+                className={`px-4 py-2 hover:text-black duration-300 ${isActiveLink(lin.link, pathname) ? "text-black" : "text-black/70"}`}
                 href={lin.link}>
                 {lin.title}
               </Link>

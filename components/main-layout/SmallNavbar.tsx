@@ -13,6 +13,12 @@ type Props = {
   pathname: string;
   userData: AuthUserDataType | null;
 };
+function isActiveLink(linkHref: string, currentPath: string): boolean {
+  if (currentPath === linkHref) return true;
+  const isRootLink = linkHref.split("/").filter(Boolean).length === 0; // only "/"
+  if (isRootLink) return false;
+  return currentPath.startsWith(linkHref + "/");
+}
 export default function SmallNavbar({ links, pathname, userData }: Props) {
   const tl = useRef<gsap.core.Timeline>(null);
   const [open, setOpen] = useState(false);
@@ -51,7 +57,7 @@ export default function SmallNavbar({ links, pathname, userData }: Props) {
             <li key={lin.title} className="w-full">
               <Link
                 onClick={() => setOpen(false)}
-                className={`px-4 py-3 hover:bg-main-color hover:text-white duration-300 w-full font-medium flex items-center gap-3 rounded-md ${pathname == lin.link ? "bg-main-color text-white" : ""}`}
+                className={`px-4 py-3 hover:bg-main-color hover:text-white duration-300 w-full font-medium flex items-center gap-3 rounded-md ${isActiveLink(lin.link, pathname) ? "bg-main-color text-white" : ""}`}
                 href={lin.link}>
                 <HugeiconsIcon icon={lin.icon} className="size-5" />
                 {lin.title}

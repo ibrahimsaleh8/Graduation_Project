@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import authImage from "@images/loginImage.jpg";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
@@ -33,7 +31,6 @@ export default function ShowConfirmEmailChangesForm() {
   const userId = searchParams.get("userId");
   const newEmail = searchParams.get("newEmail");
   const status = searchParams.get("status");
-
   const handleSubmit = async () => {
     if (!token || !userId || !newEmail) {
       sileo.error({
@@ -84,23 +81,7 @@ export default function ShowConfirmEmailChangesForm() {
 
   if (status === "error") {
     return (
-      <div className="w-full min-h-screen flex">
-        {/* Left image panel */}
-        <div className="lg:w-[43%] h-screen">
-          <div className="lg:w-[43%] h-screen fixed left-0 top-0 lg:flex overflow-hidden items-center justify-center hidden bg-second-dark">
-            <span className="absolute left-0 top-0 w-full h-full bg-black/50" />
-            <div className="w-full h-full object-cover object-center">
-              <Image
-                src={authImage}
-                alt="auth Image"
-                width={1000}
-                height={1000}
-                className="w-full h-full object-cover object-bottom"
-              />
-            </div>
-          </div>
-        </div>
-
+      <div className="w-full min-h-screen flex pt-20">
         {/* Right panel */}
         <div className="flex-1 rounded-md p-5 md:pt-36 py-20 flex flex-col gap-8 relative items-center justify-center">
           {/* Home button */}
@@ -161,25 +142,17 @@ export default function ShowConfirmEmailChangesForm() {
     <div className="w-full min-h-screen flex pt-20">
       <div className="p-5 md:pt-36 py-20 flex flex-col gap-8 relative w-full max-w-2xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          className="flex flex-col gap-5 items-center justify-center w-full">
+        <div className="flex flex-col gap-5 items-center justify-center w-full">
           <Logo size="small" />
           <p className="text-3xl font-medium">Confirm Email Change</p>
           <p className="text-low-color text-center text-sm">
             Review your new email address below and confirm to activate the
             change.
           </p>
-        </motion.div>
+        </div>
 
         {/* Form body */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="md:w-3/4 w-full mx-auto flex flex-col gap-5">
+        <div className="md:w-3/4 w-full mx-auto flex flex-col gap-5">
           {/* New Email field */}
           <div className="flex flex-col gap-2">
             <Label htmlFor="new-email" className="font-medium">
@@ -215,7 +188,7 @@ export default function ShowConfirmEmailChangesForm() {
               "Confirm Email Change"
             )}
           </Button>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

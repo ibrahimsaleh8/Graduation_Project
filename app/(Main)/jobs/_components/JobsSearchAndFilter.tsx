@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import JobLocationSearch from "./JobLocationSearch";
 import SearchBar from "./SearchBar";
 import IndustrySearch from "@/components/forms/IndustrySearch";
-import { useRef } from "react";
+import { useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { jobSearchQueryDataType } from "./DisplayJobsForSearch";
+import { Loader2Icon } from "lucide-react";
 
 type Props = {
   params: jobSearchQueryDataType;
@@ -14,6 +15,7 @@ type Props = {
 
 export default function JobsSearchAndFilter({ params }: Props) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const search = useRef({
     title: params.title ?? "",
     location: params.location ?? "",
@@ -27,7 +29,9 @@ export default function JobsSearchAndFilter({ params }: Props) {
       industry: search.current.industry,
       page: "1",
     });
-    router.push(`?${searchParams.toString()}`);
+    startTransition(() => {
+      router.push(`?${searchParams.toString()}`);
+    });
   };
   return (
     <div className="w-full relative md:p-18 p-8 border-b bg-main-color text-white space-y-5 rounded-md">
@@ -82,8 +86,13 @@ export default function JobsSearchAndFilter({ params }: Props) {
 
           <Button
             onClick={() => HandleSearch()}
+            disabled={isPending}
             className="lg:mt-auto mt-3 lg:w-fit w-full min-w-40 h-11 text-sm bg-main-color text-white hover:bg-main-color/80 duration-500 rounded-md">
-            Search
+            {isPending ? (
+              <Loader2Icon className="size-4 animate-spin" />
+            ) : (
+              "Search"
+            )}
           </Button>
         </div>
       </div>
