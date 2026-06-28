@@ -95,6 +95,9 @@ export default function LoginUserForm() {
         <ErrorValidationMessage message={errors.password.message as string} />
       )}
 
+      <Link className="ml-auto text-sm" href={"/forget-password"}>
+        Forget Password ?
+      </Link>
       <Button disabled={isPending} className="font-medium">
         {isPending ? (
           <>

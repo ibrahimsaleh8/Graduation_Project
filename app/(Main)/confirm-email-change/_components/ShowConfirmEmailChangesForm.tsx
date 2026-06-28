@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -21,16 +20,53 @@ import {
   Cancel01Icon,
 } from "@hugeicons/core-free-icons";
 import { sileo } from "sileo";
+import axios, { AxiosError } from "axios";
+import { useMutation } from "@tanstack/react-query";
+
+async function ChangeEmail(token: string, userId: string, newEmail: string) {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/confirm-email-change?userId=${userId}&newEmail=${newEmail}&token=${token}`,
+  );
+  return res.data;
+}
 
 export default function ShowConfirmEmailChangesForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const token = searchParams.get("token");
   const userId = searchParams.get("userId");
   const newEmail = searchParams.get("newEmail");
   const status = searchParams.get("status");
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: { token: string; userId: string; newEmail: string }) =>
+      ChangeEmail(data.token, data.userId, data.newEmail),
+
+    onSuccess: () => {
+      sileo.success({
+        title: "Email changed successfully!",
+      });
+      router.refresh();
+      router.push("/");
+    },
+    onError: (
+      error: AxiosError<
+        {
+          code: string;
+          description: string;
+        }[]
+      >,
+    ) => {
+      sileo.error({
+        title: "Reset Failed",
+        description:
+          error.response?.data[0].description ||
+          "Something went wrong. Please try again.",
+      });
+    },
+  });
+
   const handleSubmit = async () => {
     if (!token || !userId || !newEmail) {
       sileo.error({
@@ -41,42 +77,7 @@ export default function ShowConfirmEmailChangesForm() {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const url = new URL(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Settings/confirm-email-change`,
-      );
-      url.searchParams.set("userId", userId);
-      url.searchParams.set("newEmail", newEmail);
-      url.searchParams.set("token", token);
-
-      const res = await fetch(url.toString(), { method: "GET" });
-      const data = await res.json();
-
-      if (!res.ok) {
-        sileo.error({
-          title: "Error",
-
-          description:
-            data.errors?.[0] ||
-            data.message ||
-            "Failed to confirm email change",
-        });
-        return;
-      }
-
-      sileo.success({
-        title: "Email changed successfully!",
-      });
-      router.push("/login?prompt=emailChanged");
-    } catch {
-      sileo.error({
-        title: "Error",
-        description: "An unexpected error occurred",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    mutate({ token, newEmail, userId });
   };
 
   if (status === "error") {
@@ -165,7 +166,7 @@ export default function ShowConfirmEmailChangesForm() {
                 readOnly
                 value={newEmail ?? ""}
                 placeholder="No email provided"
-                className="cursor-default bg-input-bg overflow-hidden"
+                className="cursor-default bg-input-bg overflow-hidden rounded-md"
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton aria-label="Email" title="Email" size="sm">
@@ -178,15 +179,9 @@ export default function ShowConfirmEmailChangesForm() {
           {/* Confirm button */}
           <Button
             onClick={handleSubmit}
-            disabled={isLoading || !token || !userId || !newEmail}
+            disabled={isPending || !token || !userId || !newEmail}
             className="font-medium w-full">
-            {isLoading ? (
-              <>
-                Confirming... <Spinner />
-              </>
-            ) : (
-              "Confirm Email Change"
-            )}
+            {isPending ? <Spinner /> : "Confirm Email Change"}
           </Button>
         </div>
       </div>

@@ -9,7 +9,9 @@ export async function proxy(request: NextRequest) {
   if (
     token?.value &&
     (request.nextUrl.pathname.startsWith("/login") ||
-      request.nextUrl.pathname.startsWith("/register"))
+      request.nextUrl.pathname.startsWith("/register") ||
+      request.nextUrl.pathname.startsWith("/forget-password") ||
+      request.nextUrl.pathname.startsWith("/reset-password"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -21,5 +23,11 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login/:path*", "/register/:path*", "/dashboard/:path*"],
+  matcher: [
+    "/login/:path*",
+    "/register/:path*",
+    "/dashboard/:path*",
+    "/forget-password/:path*",
+    "/reset-password/:path*",
+  ],
 };
