@@ -3,13 +3,16 @@ import { AllowedFeaturesDataType } from "./hooks/useSubscriptionDetails";
 
 type Props = {
   allowedFeatures: AllowedFeaturesDataType;
+  planName: string;
 };
 
-export default function AllowedFeatures({ allowedFeatures }: Props) {
+export default function AllowedFeatures({ allowedFeatures, planName }: Props) {
   return (
     <div className="bg-white p-5 w-full lg:max-w-xl rounded-md border space-y-3">
       <p className="font-medium">Allowed Features</p>
-
+      <p className="text-sm font-medium">
+        ( {`${planName} ${planName.includes("plan") ? "" : "Plan"}`})
+      </p>
       {/* Fearures */}
       <ul className="space-y-2">
         <li>
@@ -24,12 +27,7 @@ export default function AllowedFeatures({ allowedFeatures }: Props) {
             label={`${allowedFeatures.featuredJobsLimit} Featured Jobs`}
           />
         </li>
-        <li>
-          <PlanFeatureBadge
-            isActive={allowedFeatures.hasAiToolsAccess}
-            label="AI Tools Access"
-          />
-        </li>
+
         <li>
           <PlanFeatureBadge
             isActive={allowedFeatures.hasPrioritySupport}

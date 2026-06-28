@@ -30,7 +30,7 @@ async function UpdateAndCreatePlan(
     yearlyPrice: data.yearlyPrice,
     maxJobPostsPerMonth: data.maxJobPosts,
     featuredJobPostsPerMonth: data.featuredJobPosts,
-    hasAiToolsAccess: data.aiToolsAccess,
+    hasAiToolsAccess: data.aiToolsAccess ?? false,
     hasCandidateSearch: data.candidateSearch,
     hasPrioritySupport: data.prioritySupport,
     isPublished: true,

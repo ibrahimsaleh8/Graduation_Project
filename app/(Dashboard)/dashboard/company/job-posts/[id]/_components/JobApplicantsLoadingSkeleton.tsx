@@ -19,11 +19,6 @@ export default function JobApplicantsLoadingSkeleton() {
             <Skeleton className="h-4 w-28 mt-2" />
           </div>
         </div>
-
-        {/* Match Circle */}
-        <div className="flex flex-col gap-1 items-center">
-          <Skeleton className="size-17.5 rounded-full" />
-        </div>
       </div>
 
       {/* CV Details */}

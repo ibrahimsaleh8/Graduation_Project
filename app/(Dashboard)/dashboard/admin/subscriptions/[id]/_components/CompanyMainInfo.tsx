@@ -59,6 +59,7 @@ export default function CompanyMainInfo({ companyData }: Props) {
           Joined: {formatDate(companyData.joinedAt)}
         </p>
         <Link
+          target="_blank"
           className="text-main-color font-medium hover:underline"
           href={`/profile/${companyData.companyId}`}>
           View Profile

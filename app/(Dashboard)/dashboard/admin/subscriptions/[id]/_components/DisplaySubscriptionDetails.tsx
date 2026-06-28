@@ -46,7 +46,10 @@ export default function DisplaySubscriptionDetails({ id, token }: Props) {
 
         <div className="w-full flex gap-4 lg:flex-row flex-col">
           <SubscriptionUsage planUsage={data.planUsage} />
-          <AllowedFeatures allowedFeatures={data.allowedFeatures} />
+          <AllowedFeatures
+            allowedFeatures={data.allowedFeatures}
+            planName={data.currentSubscription.planName}
+          />
         </div>
 
         <SubscriptionsHistory subscriptionHistory={data.subscriptionHistory} />

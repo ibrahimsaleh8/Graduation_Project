@@ -71,7 +71,6 @@ export default function JobApplicantsForAdmin({
             <TableHead className="text-white py-4 pl-4">
               Candidate Name
             </TableHead>
-            <TableHead className="text-white py-4">Match</TableHead>
             <TableHead className="text-white py-4">Applied At</TableHead>
             <TableHead className="text-white py-4">Status</TableHead>
             <TableHead className="text-white py-4 w-40">Actions</TableHead>
@@ -99,11 +98,7 @@ export default function JobApplicantsForAdmin({
                     </div>
                   </div>
                 </TableCell>
-                <TableCell>
-                  <p className="px-3 py-1.5 text-xs font-medium bg-[#E8F5E9] w-fit rounded-sm text-[#236426] border border-[#d8eed9] ">
-                    90%
-                  </p>
-                </TableCell>
+
                 <TableCell>
                   <div>
                     <p>{formatDate(candidate.appliedAgo)}</p>

@@ -60,12 +60,6 @@ export default function SubscriptionPlanCardWithOperations({
         </li>
         <li>
           <PlanFeatureBadge
-            isActive={planDetails.hasAiToolsAccess}
-            label="AI Tools Access"
-          />
-        </li>
-        <li>
-          <PlanFeatureBadge
             isActive={planDetails.hasPrioritySupport}
             label="Priority Support"
           />

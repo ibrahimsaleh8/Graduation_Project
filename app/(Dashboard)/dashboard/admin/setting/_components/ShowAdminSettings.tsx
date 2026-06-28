@@ -75,13 +75,13 @@ export default function ShowAdminSettings({ token }: Props) {
           className="flex flex-col md:flex-row w-full items-start">
           <TabsList className="flex md:flex-col gap-3 md:px-4 rounded-lg py-2 items-center text-black min-w-50 flex-wrap w-full md:w-fit bg-transparent">
             <TabsTrigger
-              className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
+              className="cursor-pointer gap-1.5 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="Socials">
               <HugeiconsIcon icon={Share02Icon} className="size-5" /> Socials
             </TabsTrigger>
 
             <TabsTrigger
-              className="cursor-pointer duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
+              className="cursor-pointer gap-1.5 duration-300 hover:bg-white w-full font-medium text-black/70 text-sm aria-selected:border aria-selected:bg-white aria-selected:text-black px-4 py-2 hover:text-black"
               value="security">
               <HugeiconsIcon icon={LockPasswordIcon} className="size-5" />
               Security

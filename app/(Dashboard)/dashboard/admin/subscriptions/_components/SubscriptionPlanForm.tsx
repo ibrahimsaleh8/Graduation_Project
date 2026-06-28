@@ -217,23 +217,6 @@ export default function SubscriptionPlanForm({
         </div>
       )}
 
-      {/* AI Tools Access */}
-      <div className="flex items-center justify-between gap-3 flex-wrap pb-2 border-b">
-        <Label htmlFor="ai-tools" className="flex flex-col gap-1 items-start">
-          <span className="font-medium">AI Tools Access</span>
-          <span className="sm:text-sm text-xs text-black/70">
-            Smart matching and auto-shortlisting
-          </span>
-        </Label>
-
-        <Switch
-          defaultChecked={getValues("aiToolsAccess")}
-          onCheckedChange={(e) => setValue("aiToolsAccess", e)}
-          id="ai-tools"
-          className="bg-border-color! border border-border-color data-[state=checked]:bg-main-color! cursor-pointer"
-        />
-      </div>
-
       {/* Candidate Search */}
       <div className="flex items-center justify-between gap-3 flex-wrap pb-2 border-b">
         <Label
